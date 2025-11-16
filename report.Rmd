@@ -1,0 +1,138 @@
+---
+title: "OpenAlex Subfield Review for 2024 Journal Articles"
+author: "Auto-generated"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+library(httr)
+library(jsonlite)
+source("openalex_utils.R")
+```
+
+```{r datatable-resources, echo=FALSE, results='asis'}
+cat('<link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">\n')
+cat('<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>\n')
+cat('<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>\n')
+cat('<style>\n')
+cat('table.dataTable tbody tr.status-different { background-color: #fddbc7 !important; }\n')
+cat('table.dataTable tbody tr.status-matches { background-color: #d9f0d3 !important; }\n')
+cat('table.dataTable tbody tr.status-unknown { background-color: #f7f7f7 !important; }\n')
+cat('table.dataTable thead th { white-space: nowrap; }\n')
+cat('table.dataTable tbody td { white-space: nowrap; }\n')
+cat('</style>\n')
+```
+
+# Overview
+
+This report retrieves 2024 research articles for a set of psychology journals from OpenAlex and compares their primary subfields with each journal's expected topical focus. It summarizes the distribution of subfields and highlights potential mismatches for further review.
+
+# Journals and expected subfields
+
+```{r journal-config, echo=FALSE, results='asis'}
+journal_focus <- data.frame(
+  journal = c(
+    "Psychological Science",
+    "Journal of Personality and Social Psychology",
+    "Journal of Experimental Psychology: Learning, Memory, and Cognition",
+    "Journal of Occupational and Organizational Psychology"
+  ),
+  source_id = c(
+    "S58854535",
+    "S29984966",
+    "S18666220",
+    "S87328381"
+  ),
+  focus_subfields = I(list(
+    c("Psychology"),
+    c("Social psychology", "Personality psychology"),
+    c("Cognitive psychology", "Experimental psychology"),
+    c("Organizational psychology", "Industrial and organizational psychology")
+  )),
+  stringsAsFactors = FALSE
+)
+
+journal_focus$focus_subfields_lower <- lapply(journal_focus$focus_subfields, function(values) tolower(values))
+journal_focus$focus_summary <- vapply(
+  journal_focus$focus_subfields,
+  function(values) {
+    if (length(values) == 0) {
+      "Not specified"
+    } else {
+      paste(values, collapse = ", ")
+    }
+  },
+  character(1)
+)
+
+focus_summary_table <- data.frame(
+  Journal = journal_focus$journal,
+  `OpenAlex source ID` = journal_focus$source_id,
+  `Expected subfields` = journal_focus$focus_summary,
+  check.names = FALSE,
+  stringsAsFactors = FALSE
+)
+
+cat(create_datatable_html(focus_summary_table, "journal-focus-table"))
+cat(render_datatable_script("journal-focus-table", "{paging: false, searching: false, info: false}"))
+```
+
+# Helper notes
+
+- Set the environment variable `OPENALEX_EMAIL` before knitting to include your contact email in requests, per OpenAlex best practices.
+- Update the `journal_focus` table if you need to reflect different expectations for each journal.
+
+# Retrieve 2024 articles
+
+```{r retrieve}
+article_data <- fetch_all_journals(journal_focus, year = 2024)
+analysis <- prepare_article_tables(article_data, journal_focus)
+articles_enriched <- analysis$articles_enriched
+subfield_counts <- analysis$subfield_counts
+article_table <- analysis$article_table
+n_articles <- nrow(article_data)
+```
+
+```{r article-summary, echo=FALSE}
+cat(sprintf("Total articles retrieved: **%d**", n_articles))
+```
+
+# Subfield counts
+
+```{r subfield-counts, echo=FALSE, results='asis'}
+if (nrow(subfield_counts) == 0) {
+  cat("No subfield data available for the selected journals.")
+} else {
+  subfield_counts_display <- subfield_counts
+  names(subfield_counts_display) <- c("Journal", "Primary subfield", "Article count")
+  cat(create_datatable_html(subfield_counts_display, "subfield-counts-table"))
+  cat(render_datatable_script("subfield-counts-table", "{pageLength: 25, order: [[0, 'asc'], [2, 'desc']]}"))
+}
+```
+
+# Article-level view
+
+```{r article-table, echo=FALSE, results='asis'}
+if (nrow(article_table) == 0) {
+  cat("No articles retrieved for the configured journals.")
+} else {
+  cat(create_datatable_html(article_table, "article-details-table", allow_html = c("Title", "DOI")))
+  cat(render_datatable_script(
+    "article-details-table",
+    "{\n      pageLength: 25,\n      order: [[0, 'asc']],\n      scrollX: true,\n      createdRow: function(row, data) {\n        var status = data[data.length - 1];\n        if (status === 'Different') {\n          $(row).addClass('status-different');\n        } else if (status === 'Matches') {\n          $(row).addClass('status-matches');\n        } else {\n          $(row).addClass('status-unknown');\n        }\n      }\n    }"
+  ))
+}
+```
+
+# Session information
+
+```{r session-info}
+sessionInfo()
+```
