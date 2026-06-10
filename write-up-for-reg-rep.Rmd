@@ -16,13 +16,14 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 ```{r packages}
 library(tidyverse)
 library(stringr)
-```
+library(readr)
 
+```
 
 
 # Overview
 
-This is a file to provide descriptive information for use in the registered report being prepared by the Piloting taskforce fixme. 
+This is a file to provide descriptive information for use in the registered report being prepared by the Piloting taskforce fixme.  The text is a starting point and is edited in the main file. 
 ---
 
 ```{r read-coding-files}
@@ -44,24 +45,98 @@ manual <- manual %>%
       str_trim()
   )
 
-# data for analysis
+# data for manual analysis
 data = 
   manual %>%
   # remove "test" data
   filter(doi != "test") %>%
   # add rough indicator of whether pilot study was conducted
   mutate(includes_pilot = ifelse(str_detect(X1.3..Is.there.a.statement.in.the.article.that.there.was.a.pilot.study.conducted., "Yes"), "yes", "other"))
+
+
+dois = 
+  data %>%
+  distinct(doi) %>%
+  pull(doi)
 ```
 
+```{r extract-data-auto, eval=FALSE}
+# extract automated coding
+# only run if you want to be able to run the automated extraction code below, otherwise you can just load the data from the .csv files (done below)
+source("extract_doi_metadata.R")
 
+auto_databases <- process_dois(dois, return_location_details = TRUE)
+
+# add meta check-inspired coding using TEIs
+# created using extract_tei_coi_funding.R
+# fixme add through csv for now, needs TEIs
+# only done for pilot2
+auto_tei = read.csv("data/tei_coi_funding_extracted.csv")
+
+# combine files 
+comb = 
+  manual %>%
+  full_join(
+    auto_databases, 
+    by = "doi"
+    ) %>%
+  full_join(
+    auto_tei,
+    by = "doi"
+  )
+
+# Drop any AsIs list-columns before saving — they serialize as unquoted R list()
+# notation in CSV, corrupting all downstream columns
+comb |>
+  select(where(~ !inherits(.x, "AsIs") && !is.list(.x))) |>
+  write.csv("data/2026-06-11_auto-and-manual-combined_pilot1-and-pilot2.csv", row.names = FALSE)
+
+```
+
+```{r load-combined-data-auto-extracted}
+# load combined data
+comb = read_csv("data/2026-06-11_auto-and-manual-combined_pilot1-and-pilot2.csv")
+
+
+```
+
+```{r}
+# add information to combined file about extracted info on funding and coi
+comb = 
+  comb %>%
+  # remove "test" data
+  filter(doi != "test") %>%
+  # add rough indicator of whether pilot study was conducted
+  mutate(includes_pilot = ifelse(str_detect(X1.3..Is.there.a.statement.in.the.article.that.there.was.a.pilot.study.conducted., "Yes"), "yes", "other")) %>%
+  # indicator of whether funding info was extracted
+  mutate(
+    funding_auto_extracted = if_any(starts_with("funding"), ~ 
+                              !is.na(.) & str_trim(.) != "" & !str_to_lower(.) %in% c("na", "n/a")
+    ),
+    funding_manual_extracted = !is.na(.data[["X8.1..Does.the.article.include.a.funding.statement."]]) &
+      str_trim(.data[["X8.1..Does.the.article.include.a.funding.statement."]]) != "" &
+      !str_to_lower(.data[["X8.1..Does.the.article.include.a.funding.statement."]]) %in% c("na", "n/a")
+  ) %>%
+  # indicator of whether COI info was extracted
+  mutate(
+    coi_auto_extracted = if_any(starts_with("coi"), ~ 
+                              !is.na(.) & str_trim(.) != "" & !str_to_lower(.) %in% c("na", "n/a")|
+                              if_any(starts_with("rx_coi"), ~ !is.na(.))
+    ),
+    coi_manual_extracted_content_available = !is.na(.data[["X8.2.1..If.there.is.a.conflict.of.interest.statement..what.is.the.statement."]]) &
+      str_trim(.data[["X8.2.1..If.there.is.a.conflict.of.interest.statement..what.is.the.statement."]]) != "" &
+      !str_to_lower(.data[["X8.2.1..If.there.is.a.conflict.of.interest.statement..what.is.the.statement."]]) %in% c("na", "n/a")
+  ) %>%
+  mutate(manual_does_include_coi = 
+           ifelse(coding == "pilot1", 
+                  X8.2..Does.the.article.include.a.statement.indicating.whether.there.were.any.conflicts.of.interest.,
+                  X8.2..Does.the.article.include.a.statement.indicating.whether.there.were.any.conflicts.of.interest..COI..)) 
+
+```
 # Pilot study 1
 
 ## Pilot sample
 
-
-## Pilot data extraction
-
-### Manual
 ```{r pilot1-sample}
 pilot1_sample_papers = 
   data %>%
@@ -81,16 +156,143 @@ pilot1_sample_coders =
 
 `r sum(pilot1_sample_papers$n_papers)` papers were inspected by `r nrow(pilot1_sample_coders)` coders in the first pilot study. Out of these `r sum(pilot1_sample_papers$n_papers)` papers, `r pilot1_sample_papers$n_papers[pilot1_sample_papers$includes_pilot == "yes"]` (`r round(pilot1_sample_papers$n_papers[pilot1_sample_papers$includes_pilot == "yes"] / sum(pilot1_sample_papers$n_papers) * 100, 1)`%) papers included a statement that a pilot study was conducted, while `r pilot1_sample_papers$n_papers[pilot1_sample_papers$includes_pilot != "yes"]` (`r round(pilot1_sample_papers$n_papers[pilot1_sample_papers$includes_pilot != "yes"] / sum(pilot1_sample_papers$n_papers) * 100, 1)`%) papers did not include such a statement.
 
+## Pilot data extraction
+
+### Manual
+
 ### Automatic
-```{r select-dois}
-# select dois with manual coding
-dois = data$doi
-## remove "test" entries
-dois = dois[dois != "test"]
-## keep only unique entries
-dois = unique(dois)
+
+
+```{r}
+auto_pilot1 = 
+  comb %>%
+  filter(coding == "pilot1") %>%
+  select(where(~ !all(is.na(.))))  %>%
+  # remove "test" data
+  filter(doi != "test") %>%
+  filter(includes_pilot == "yes")
 ```
 
+
+
+```{r auto-pilot1-extraction-completeness}
+auto1_n <- nrow(auto_pilot1)
+
+# Basic publication metadata (OpenAlex)
+auto1_n_year    <- sum(!is.na(auto_pilot1$year))
+auto1_n_journal <- sum(!is.na(auto_pilot1$journal))
+auto1_n_issn    <- sum(!is.na(auto_pilot1$issn))
+
+# Author affiliation and location (OpenAlex)
+auto1_n_first_loc <- sum(
+  !is.na(auto_pilot1$first_author_location) &
+    str_trim(auto_pilot1$first_author_location) != ""
+)
+auto1_n_last_loc <- sum(
+  !is.na(auto_pilot1$last_author_location) &
+    str_trim(auto_pilot1$last_author_location) != ""
+)
+auto1_n_first_country <- sum(!is.na(auto_pilot1$first_author_location_detail_country))
+auto1_n_last_country  <- sum(!is.na(auto_pilot1$last_author_location_detail_country))
+
+# Primary topic classification (OpenAlex)
+auto1_n_topic <- sum(
+  !is.na(auto_pilot1$primary_topic_display_name) &
+    str_trim(auto_pilot1$primary_topic_display_name) != ""
+)
+
+# Funding (Crossref)
+auto1_n_funding <- sum(
+  (!is.na(auto_pilot1$funding_funders_crossref)    & str_trim(auto_pilot1$funding_funders_crossref)    != "") |
+  (!is.na(auto_pilot1$funding_funder_ids_crossref) & str_trim(auto_pilot1$funding_funder_ids_crossref) != "") |
+  (!is.na(auto_pilot1$funding_award_ids_crossref)  & str_trim(auto_pilot1$funding_award_ids_crossref)  != ""),
+  na.rm = TRUE
+)
+
+# Conflict of interest statements (Crossref)
+auto1_n_coi <- sum(
+  !is.na(auto_pilot1$coi_crossref) &
+    str_trim(auto_pilot1$coi_crossref) != "" &
+    !str_to_lower(auto_pilot1$coi_crossref) %in% c("na", "n/a"),
+  na.rm = TRUE
+)
+
+# Abstracts (Crossref)
+auto1_n_abstract <- sum(
+  !is.na(auto_pilot1$cr_abstract) &
+    str_trim(auto_pilot1$cr_abstract) != ""
+)
+
+# Helper: format as "n (x%)"
+auto1_pct <- function(n) round(n / auto1_n * 100, 1)
+```
+
+We automatically extracted information for the  `r auto1_n` DOIs for which manual coders indicated that a pilot was reported in the manuscript. 
+
+This first round of automatic data extraction was conducted using API-based queries to OpenAlex and Crossref. OpenAlex was used to extract basic publication metadata — year, journal name, and ISSN were available for all papers. 
+<!--`r auto1_n_year` papers (`r auto1_pct(auto1_n_year)`%), `r auto1_n_journal` papers (`r auto1_pct(auto1_n_journal)`%), and `r auto1_n_issn` papers (`r auto1_pct(auto1_n_issn)`%), respectively. -->
+Author affiliation and location information for the first and last authors was extracted from both article-level authorship records and author profile lookups (including institution name, country, city, and geographic coordinates). Both first and last author location information were available for all papers. 
+<!-- first author location was available for `r auto1_n_first_loc` papers (`r auto1_pct(auto1_n_first_loc)`%) and last author location for `r auto1_n_last_loc` papers (`r auto1_pct(auto1_n_last_loc)`%). Country-level information specifically was available for `r auto1_n_first_country` (`r auto1_pct(auto1_n_first_country)`%) and `r auto1_n_last_country` (`r auto1_pct(auto1_n_last_country)`%) papers for first and last authors, respectively.--> 
+Primary topic classification was furthermore available for `r auto1_n_topic` papers (`r auto1_pct(auto1_n_topic)`%). 
+
+Crossref was used to extract funding information (funder names, funder IDs, and award IDs; available for `r auto1_n_funding` papers, `r auto1_pct(auto1_n_funding)`%), conflict of interest (COI) statements (available for `r auto1_n_coi` papers, `r auto1_pct(auto1_n_coi)`%), and abstracts (available for `r auto1_n_abstract` papers, `r auto1_pct(auto1_n_abstract)`%).
+
+```{r auto-pilot1-funding-coi-overlap}
+# Funding: overlap between auto and manual extraction
+fund_tbl <- auto_pilot1 |>
+  count(funding_auto_extracted, funding_manual_extracted)
+
+auto1_fund_auto_and_manual <- fund_tbl |> filter(funding_auto_extracted,  funding_manual_extracted) |> pull(n)
+auto1_fund_auto_only       <- fund_tbl |> filter(funding_auto_extracted, !funding_manual_extracted) |> pull(n)
+auto1_fund_manual_only     <- fund_tbl |> filter(!funding_auto_extracted, funding_manual_extracted) |> pull(n)
+auto1_fund_neither         <- fund_tbl |> filter(!funding_auto_extracted,!funding_manual_extracted) |> pull(n)
+
+auto1_fund_auto_total      <- auto1_fund_auto_and_manual + auto1_fund_auto_only
+auto1_fund_not_auto_total  <- auto1_fund_manual_only + auto1_fund_neither
+auto1_fund_pct_also_manual <- round(auto1_fund_auto_and_manual / auto1_fund_auto_total * 100, 1)
+auto1_fund_pct_substitute  <- round(auto1_fund_manual_only / auto1_fund_not_auto_total * 100, 1)
+
+# COI: overlap between auto and manual extraction
+# any "Yes" manual answer = manual COI statement available
+coi_tbl <- auto_pilot1 |>
+  mutate(coi_manual_has_stmt = str_starts(manual_does_include_coi, "Yes")) |>
+  count(coi_auto_extracted, coi_manual_has_stmt)
+
+auto1_coi_auto_and_manual <- coi_tbl |> filter(coi_auto_extracted,  coi_manual_has_stmt) |> pull(n) |> sum()
+auto1_coi_auto_only       <- coi_tbl |> filter(coi_auto_extracted, !coi_manual_has_stmt) |> pull(n) |> sum()
+auto1_coi_manual_only     <- coi_tbl |> filter(!coi_auto_extracted, coi_manual_has_stmt) |> pull(n) |> sum()
+auto1_coi_neither         <- coi_tbl |> filter(!coi_auto_extracted,!coi_manual_has_stmt) |> pull(n) |> sum()
+
+auto1_coi_auto_total      <- auto1_coi_auto_and_manual + auto1_coi_auto_only
+auto1_coi_not_auto_total  <- auto1_coi_manual_only + auto1_coi_neither
+auto1_coi_pct_also_manual <- round(auto1_coi_auto_and_manual / auto1_coi_auto_total * 100, 1)
+auto1_coi_pct_substitute  <- round(auto1_coi_manual_only / auto1_coi_not_auto_total * 100, 1)
+
+# Manual-perspective totals (for prose starting from "manually extracted for X papers")
+auto1_fund_manual_total       <- auto1_fund_auto_and_manual + auto1_fund_manual_only
+auto1_fund_pct_auto_of_manual <- round(auto1_fund_auto_and_manual / auto1_fund_manual_total * 100, 1)
+auto1_fund_no_manual_total    <- auto1_fund_auto_only + auto1_fund_neither
+auto1_fund_pct_sub_no_manual  <- round(auto1_fund_auto_only / auto1_fund_no_manual_total * 100, 1)
+
+auto1_coi_manual_total        <- auto1_coi_auto_and_manual + auto1_coi_manual_only
+auto1_coi_pct_auto_of_manual  <- round(auto1_coi_auto_and_manual / auto1_coi_manual_total * 100, 1)
+auto1_coi_no_manual_total     <- auto1_coi_auto_only + auto1_coi_neither
+auto1_coi_pct_sub_no_manual   <- round(auto1_coi_auto_only / auto1_coi_no_manual_total * 100, 1)
+```
+
+We compared the quantity of automated and manually extracted funding and COI statements to get an idea of the possibility of replacing the manual coding with the automated approach.
+Funding information was manually extracted for `r auto1_fund_manual_total` papers, of which `r auto1_fund_auto_and_manual` papers also had this information automatically extracted (`r auto1_fund_pct_auto_of_manual`%). For the `r auto1_fund_no_manual_total` papers for which manual funding information was absent, `r auto1_fund_auto_only` papers could be supplemented with automated extraction (`r auto1_fund_pct_sub_no_manual`%). For COI statements, manual coders recorded a COI statement for `r auto1_coi_manual_total` papers, of which `r auto1_coi_auto_and_manual` papers also had a COI statement automatically extracted (`r auto1_coi_pct_auto_of_manual`%). For the `r auto1_coi_no_manual_total` papers without a manually coded COI statement, `r auto1_coi_auto_only` papers had a COI statement available from automated extraction (`r auto1_coi_pct_sub_no_manual`%).
+
+<!-- For the funding information, of the `r auto1_fund_auto_total` papers where it was automatically extracted, it was also manually coded for `r auto1_fund_auto_and_manual` papers (`r auto1_fund_pct_also_manual`%). For the `r auto1_fund_not_auto_total` papers where funding information was absent from the automated extraction, manual coding could supplement this for `r auto1_fund_manual_only` papers (`r auto1_fund_pct_substitute`%). For COI statements, all `r auto1_coi_auto_and_manual` papers where a COI statement was automatically extracted also had a COI statement recorded by manual coders (`r auto1_coi_pct_also_manual`%). Of the `r auto1_coi_not_auto_total` papers where automated extraction did not yield a COI statement, manual coders recorded a COI statement for `r auto1_coi_manual_only` papers (`r auto1_coi_pct_substitute`%). -->
+
+Qualitative inspection of the automated extraction showed that the metadata extracted from OpenAlex for the primary topic classification did not match the topics sufficiently.
+
+
+
+See section fixme below for details. 
+
+## Results
+Based on the first pilot study, we adjusted the coding form to include FIXME. 
 
 --- 
 
@@ -99,8 +301,23 @@ dois = unique(dois)
 ## Pilot sample
 
 ```{r pilot2-sample}
-# 
+pilot2_sample_papers = 
+  data %>%
+  filter(coding == "pilot2") %>%
+  distinct(doi, .keep_all = TRUE) %>%
+  group_by(includes_pilot) %>%
+  summarise(n_papers = n())
+
+pilot2_sample_coders = 
+  data %>%
+  filter(coding == "pilot2") %>%
+  distinct(doi, X1.1..Coder.Initials) %>%
+  group_by(X1.1..Coder.Initials) %>%
+  summarise(n_papers = n()) 
+
 ```
+
+`r sum(pilot2_sample_papers$n_papers)` papers were inspected by `r nrow(pilot2_sample_coders)` coders in the second pilot study. Out of these `r sum(pilot2_sample_papers$n_papers)` papers, `r pilot2_sample_papers$n_papers[pilot2_sample_papers$includes_pilot == "yes"]` (`r round(pilot2_sample_papers$n_papers[pilot2_sample_papers$includes_pilot == "yes"] / sum(pilot2_sample_papers$n_papers) * 100, 1)`%) papers included a statement that a pilot study was conducted, while `r pilot2_sample_papers$n_papers[pilot2_sample_papers$includes_pilot != "yes"]` (`r round(pilot2_sample_papers$n_papers[pilot2_sample_papers$includes_pilot != "yes"] / sum(pilot2_sample_papers$n_papers) * 100, 1)`%) papers did not include such a statement.
 
 ## Pilot data extraction
 
@@ -108,10 +325,206 @@ dois = unique(dois)
 
 ### Automatic
 
+```{r}
+auto_pilot2 = 
+  comb %>%
+  filter(coding == "pilot2") %>%
+  select(where(~ !all(is.na(.))))  %>%
+  # remove "test" data
+  filter(doi != "test") %>%
+  filter(includes_pilot == "yes")
+```
+
+
+```{r auto-pilot2-extraction-completeness}
+auto2_n <- nrow(auto_pilot2)
+
+# Basic publication metadata (OpenAlex)
+auto2_n_year    <- sum(!is.na(auto_pilot2$year))
+auto2_n_journal <- sum(!is.na(auto_pilot2$journal))
+auto2_n_issn    <- sum(!is.na(auto_pilot2$issn))
+
+# Author affiliation and location (OpenAlex)
+auto2_n_first_loc <- sum(
+  !is.na(auto_pilot2$first_author_location) &
+    str_trim(auto_pilot2$first_author_location) != ""
+)
+auto2_n_last_loc <- sum(
+  !is.na(auto_pilot2$last_author_location) &
+    str_trim(auto_pilot2$last_author_location) != ""
+)
+auto2_n_first_country <- sum(!is.na(auto_pilot2$first_author_location_detail_country))
+auto2_n_last_country  <- sum(!is.na(auto_pilot2$last_author_location_detail_country))
+
+# Primary topic classification (OpenAlex)
+auto2_n_topic <- sum(
+  !is.na(auto_pilot2$primary_topic_display_name) &
+    str_trim(auto_pilot2$primary_topic_display_name) != ""
+)
+
+# Funding (Crossref)
+auto2_n_funding <- sum(
+  (!is.na(auto_pilot2$funding_funders_crossref)    & str_trim(auto_pilot2$funding_funders_crossref)    != "") |
+  (!is.na(auto_pilot2$funding_funder_ids_crossref) & str_trim(auto_pilot2$funding_funder_ids_crossref) != "") |
+  (!is.na(auto_pilot2$funding_award_ids_crossref)  & str_trim(auto_pilot2$funding_award_ids_crossref)  != ""),
+  na.rm = TRUE
+)
+
+# Conflict of interest statements (Crossref)
+auto2_n_coi <- sum(
+  !is.na(auto_pilot2$coi_crossref) &
+    str_trim(auto_pilot2$coi_crossref) != "" &
+    !str_to_lower(auto_pilot2$coi_crossref) %in% c("na", "n/a"),
+  na.rm = TRUE
+)
+
+# Abstracts (Crossref)
+auto2_n_abstract <- sum(
+  !is.na(auto_pilot2$cr_abstract) &
+    str_trim(auto_pilot2$cr_abstract) != ""
+)
+
+# Helper: format as "n (x%)"
+auto2_pct <- function(n) round(n / auto2_n * 100, 1)
+```
+
+We automatically extracted information for the  `r auto2_n` DOIs for which manual coders indicated that a pilot was reported in the manuscript. 
+
+We again employed OpenAlex and Crossref to extract metadata. Year, journal name, and ISSN were available for all papers through OpenAlex. 
+<!--`r auto2_n_year` papers (`r auto2_pct(auto2_n_year)`%), `r auto2_n_journal` papers (`r auto2_pct(auto2_n_journal)`%), and `r auto2_n_issn` papers (`r auto2_pct(auto2_n_issn)`%), respectively. -->
+First author country location was available for `r auto2_n_first_loc` papers (`r auto2_pct(auto2_n_first_loc)`%) and last author location for all `r auto2_n_last_loc` papers (`r auto2_pct(auto2_n_last_loc)`%). <!-- Country-level information specifically was available for `r auto2_n_first_country` (`r auto2_pct(auto2_n_first_country)`%) and `r auto2_n_last_country` (`r auto2_pct(auto2_n_last_country)`%) papers for first and last authors, respectively.-->
+<!-- Primary topic classification was again available for `r auto2_n_topic` papers (`r auto2_pct(auto2_n_topic)`%). -->
+
+Crossref was used to extract funding information (funder names, funder IDs, and award IDs; available for `r auto2_n_funding` papers, `r auto2_pct(auto2_n_funding)`%), conflict of interest (COI) statements (available for `r auto2_n_coi` papers, `r auto2_pct(auto2_n_coi)`%), and abstracts (available for `r auto2_n_abstract` papers, `r auto2_pct(auto2_n_abstract)`%).
+
+```{r auto-pilot2-tei-completeness}
+auto2_n_tei         <- sum(!is.na(auto_pilot2$rx_funding_found) | !is.na(auto_pilot2$rx_coi_found))
+auto2_n_tei_funding <- sum(auto_pilot2$rx_funding_found, na.rm = TRUE)
+auto2_n_tei_coi     <- sum(auto_pilot2$rx_coi_found, na.rm = TRUE)
+```
+
+To supplement the API-based extraction described above, we additionally processed the article PDFs to extract funding and COI statements directly from the full text. Article PDFs were converted to structured TEI XML using GROBID, an open-source machine learning library for parsing scientific documents. TEI files were available for `r auto2_n_tei` of the `r auto2_n` papers. 
+
+We applied two complementary extraction approaches to these files. First, we used the `metacheck` R package (FIXME cite), which is designed to parse GROBID-generated TEI files and run structured compliance checks, including binary detection of funding acknowledgements and COI disclosures. Second, we developed a custom XPath- and regex-based extraction pipeline that directly queries the structured back-matter and body sections of the TEI XML, using heading-pattern matching (e.g., matching section headings containing phrases such as "conflict of interest", "funding", "acknowledgements").
+
+```{r}
+# fixme add code? now info taken from README_tei_extraction.md
+tei_pilot2_funding_accuracy = 0.963
+tei_pilot2_coi_accuracy = 0.926
+
+tei_pilot2_funding_precision = 0.957
+tei_pilot2_coi_precision = 0.984
+
+tei_pilot2_funding_recall = 1.000
+tei_pilot2_coi_recall = 0.924
+
+tei_pilot2_funding_f1 = 0.978
+tei_pilot2_coi_f1 = 0.953
+
+# Helper: reconstruct approximate confusion-matrix counts from rounded metrics
+metrics_to_counts <- function(n, accuracy, precision, recall) {
+  possible <- expand.grid(
+    tp = 0:n,
+    fp = 0:n,
+    fn = 0:n,
+    tn = 0:n
+  ) |>
+    dplyr::filter(tp + fp + fn + tn == n) |>
+    dplyr::mutate(
+      accuracy_calc  = (tp + tn) / n,
+      precision_calc = dplyr::if_else(tp + fp == 0, NA_real_, tp / (tp + fp)),
+      recall_calc    = dplyr::if_else(tp + fn == 0, NA_real_, tp / (tp + fn)),
+      error = abs(accuracy_calc - accuracy) +
+        abs(precision_calc - precision) +
+        abs(recall_calc - recall)
+    ) |>
+    dplyr::arrange(error)
+
+  possible[1, c("tp", "fp", "fn", "tn")]
+}
+
+auto2_funding_counts <- metrics_to_counts(
+  n = auto2_n_tei,
+  accuracy = tei_pilot2_funding_accuracy,
+  precision = tei_pilot2_funding_precision,
+  recall = tei_pilot2_funding_recall
+)
+
+auto2_coi_counts <- metrics_to_counts(
+  n = auto2_n_tei,
+  accuracy = tei_pilot2_coi_accuracy,
+  precision = tei_pilot2_coi_precision,
+  recall = tei_pilot2_coi_recall
+)
+
+# Funding
+auto2_funding_auto_and_manual <- auto2_funding_counts$tp
+auto2_funding_auto_only       <- auto2_funding_counts$fp
+auto2_funding_manual_only     <- auto2_funding_counts$fn
+auto2_funding_neither         <- auto2_funding_counts$tn
+
+auto2_funding_auto_total      <- auto2_funding_auto_and_manual + auto2_funding_auto_only
+auto2_funding_not_auto_total  <- auto2_funding_manual_only + auto2_funding_neither
+
+auto2_funding_pct_also_manual <- round(
+  auto2_funding_auto_and_manual / auto2_funding_auto_total * 100, 1
+)
+
+auto2_funding_pct_substitute <- round(
+  auto2_funding_manual_only / auto2_funding_not_auto_total * 100, 1
+)
+
+# COI
+auto2_coi_auto_and_manual <- auto2_coi_counts$tp
+auto2_coi_auto_only       <- auto2_coi_counts$fp
+auto2_coi_manual_only     <- auto2_coi_counts$fn
+auto2_coi_neither         <- auto2_coi_counts$tn
+
+auto2_coi_auto_total      <- auto2_coi_auto_and_manual + auto2_coi_auto_only
+auto2_coi_not_auto_total  <- auto2_coi_manual_only + auto2_coi_neither
+
+auto2_coi_pct_also_manual <- round(
+  auto2_coi_auto_and_manual / auto2_coi_auto_total * 100, 1
+)
+
+auto2_coi_pct_substitute <- round(
+  auto2_coi_manual_only / auto2_coi_not_auto_total * 100, 1
+)
+
+# Manual-perspective totals
+auto2_funding_manual_total       <- auto2_funding_auto_and_manual + auto2_funding_manual_only
+auto2_funding_pct_auto_of_manual <- round(auto2_funding_auto_and_manual / auto2_funding_manual_total * 100, 1)
+auto2_funding_no_manual_total    <- auto2_funding_auto_only + auto2_funding_neither
+auto2_funding_pct_sub_no_manual  <- round(auto2_funding_auto_only / auto2_funding_no_manual_total * 100, 1)
+
+auto2_coi_manual_total           <- auto2_coi_auto_and_manual + auto2_coi_manual_only
+auto2_coi_pct_auto_of_manual     <- round(auto2_coi_auto_and_manual / auto2_coi_manual_total * 100, 1)
+auto2_coi_no_manual_total        <- auto2_coi_auto_only + auto2_coi_neither
+auto2_coi_pct_sub_no_manual      <- round(auto2_coi_auto_only / auto2_coi_no_manual_total * 100, 1)
+
+```
+
+Based on the custom approach, which outperformed metacheck (version fixme), we were able to match the manual coding for funding and COI statements with high accuracy.
+
+Funding information was manually extracted for `r auto2_funding_manual_total` papers, of which `r auto2_funding_auto_and_manual` papers also had this information automatically extracted (`r auto2_funding_pct_auto_of_manual`%). For the `r auto2_funding_no_manual_total` papers for which manual funding information was absent, `r auto2_funding_auto_only` papers could be supplemented with automated extraction (`r auto2_funding_pct_sub_no_manual`%). For COI statements, manual coders recorded a COI statement for `r auto2_coi_manual_total` papers, of which `r auto2_coi_auto_and_manual` papers also had a COI statement automatically extracted (`r auto2_coi_pct_auto_of_manual`%). For the `r auto2_coi_no_manual_total` papers without a manually coded COI statement, `r auto2_coi_auto_only` papers had a COI statement available from automated extraction (`r auto2_coi_pct_sub_no_manual`%).
+
+
+Qualitative inspection FIXMe. 
+
+See section fixme below for details. 
+
 # Main study
 
 ## Data extraction
 
 ### Automated data extraction
+```{r select-dois}
+# select dois with manual coding
+dois = data$doi
+## remove "test" entries
+dois = dois[dois != "test"]
+## keep only unique entries
+dois = unique(dois)
+```
 
 ### Manual data extraction
