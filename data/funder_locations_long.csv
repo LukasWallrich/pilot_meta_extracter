@@ -1,0 +1,718 @@
+doi,coding,funder_name,crossref_funder_id,country_code,country,source,country_source,confidence,junk
+10.1016/j.brat.2022.104152,pilot1,Association for Contextual Behavioral Science,10.13039/100032166,US,United States,tei_name,tei_registry,high,FALSE
+10.3758/s13428-021-01776-2,pilot1,Universität Konstanz,10.13039/501100010583,DE,Germany,both,crossref_id,high,FALSE
+10.1037/pag0000644,pilot1,National Institutes of Health,10.13039/100000002,US,United States,both,crossref_id,high,FALSE
+10.1037/pag0000644,pilot1,Veterans Health Administration Office of Academic Affiliations Advanced Fellowship in Clinical and Health Services Research,NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/pag0000644,pilot1,"Minneapolis Center of Innovation, Center for Care Delivery and Outcomes Research",NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/pag0000644,pilot1,Robert L. Kane Endowed Chair in Long-Term Care and Aging,NA,NA,NA,tei_name,NA,low,FALSE
+10.1016/j.brat.2021.103997,pilot1,National Institute for Health and Care Research,10.13039/501100000272,GB,United Kingdom,both,crossref_id,high,FALSE
+10.1016/j.brat.2021.103997,pilot1,University of Reading,10.13039/501100000839,GB,United Kingdom,crossref_id,crossref_id,high,FALSE
+10.1016/j.brat.2021.103997,pilot1,NIHR Applied Research Collaboration Oxford and Thames Valley at Oxford Health NHS Trust,NA,NA,NA,tei_name,NA,low,FALSE
+10.1002/eat.23864,pilot1,National Institute of Mental Health,10.13039/100000025,US,United States,both,crossref_id,high,FALSE
+10.1002/eat.23864,pilot1,National Institute of Diabetes and Digestive and Kidney Diseases,10.13039/100000062,US,United States,tei_name,tei_registry,high,FALSE
+10.1177/13623613221117020,pilot1,Autism Research and Treatment Center,NA,NA,NA,tei_name,NA,low,FALSE
+10.1177/13623613221105091,pilot1,Economic and Social Research Council,10.13039/501100000269,GB,United Kingdom,both,crossref_id,high,FALSE
+10.1016/j.dcn.2022.101163,pilot1,National Science Foundation,10.13039/100000001,US,United States,crossref_id,crossref_id,high,FALSE
+10.1016/j.dcn.2022.101163,pilot1,National Institute of Mental Health,10.13039/100000025,US,United States,crossref_id,crossref_id,high,FALSE
+10.1016/j.dcn.2022.101163,pilot1,American Psychological Foundation,10.13039/100001945,US,United States,crossref_id,crossref_id,high,FALSE
+10.1016/j.dcn.2022.101163,pilot1,Eunice Kennedy Shriver National Institute of Child Health and Human Development,10.13039/100009633,US,United States,crossref_id,crossref_id,high,FALSE
+10.1016/j.dcn.2022.101163,pilot1,Jefferson Trust,10.13039/100011839,US,United States,crossref_id,crossref_id,high,FALSE
+10.1016/j.dcn.2022.101163,pilot1,"Brain Institute, University of Virginia",10.13039/100017460,US,United States,crossref_id,crossref_id,high,FALSE
+10.1037/pag0000675,pilot1,National Institute on Aging of the National Institutes of Health,10.13039/100000002,US,United States,both,crossref_id,high,FALSE
+10.1037/pag0000675,pilot1,"Directorate-General for Employment, Social Affairs and Inclusion",10.13039/501100000893,NA,NA,tei_name,NA,low,FALSE
+10.1037/pag0000675,pilot1,European Commission,10.13039/501100000780,EU,European Union,tei_name,tei_contained,medium,FALSE
+10.1037/pag0000675,pilot1,German Ministry of Education and Research,NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/pag0000675,pilot1,Office for National Statistics. Health and Retirement Study (HRS),NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/pag0000675,pilot1,Max-Planck-Gesellschaft,10.13039/501100004189,DE,Germany,tei_name,tei_registry,medium,FALSE
+10.1037/pag0000675,pilot1,Horizon 2020,10.13039/501100007601,EU,European Union,tei_name,tei_contained,medium,FALSE
+10.1037/pag0000675,pilot1,University of Michigan. National Health and Aging Trends Study (NHATS),10.13039/100016351,US,United States,tei_name,tei_registry,high,FALSE
+10.1037/pag0000675,pilot1,Johns Hopkins Bloomberg School of Public Health,10.13039/100008309,US,United States,tei_name,tei_registry,medium,FALSE
+10.1037/pag0000675,pilot1,Fifth Framework Programme,10.13039/100011104,NA,NA,tei_name,NA,low,FALSE
+10.1037/pspa0000305,pilot1,National Institutes of Health,10.13039/100000002,US,United States,both,crossref_id,high,FALSE
+10.1037/pspa0000305,pilot1,National Science Foundation,10.13039/100000001,US,United States,tei_name,tei_registry,high,FALSE
+10.1016/j.cognition.2022.105345,pilot1,Aix-Marseille Université,10.13039/100007586,FR,France,crossref_id,crossref_id,high,FALSE
+10.1016/j.cognition.2022.105345,pilot1,H2020 European Research Council,10.13039/100010663,EU,European Union,crossref_id,crossref_id,high,FALSE
+10.1016/j.cognition.2022.105345,pilot1,Agence Nationale de la Recherche ANR,10.13039/501100001665,FR,France,both,crossref_id,high,FALSE
+10.1016/j.cognition.2022.105345,pilot1,French government,NA,NA,NA,tei_name,NA,low,FALSE
+10.1016/j.cognition.2022.105345,pilot1,Programme «Investissements d'Avenir»,NA,NA,NA,tei_name,NA,low,FALSE
+10.1016/j.bandl.2022.105218,pilot1,Fundação para a Ciência e a Tecnologia,10.13039/501100001871,PT,Portugal,tei_name,tei_registry,high,FALSE
+10.1177/09567976211043428,pilot1,Wellcome Trust,10.13039/100010269,GB,United Kingdom,tei_name,tei_registry,high,FALSE
+10.1177/09567976211043428,pilot1,Leverhulme Trust,10.13039/501100000275,GB,United Kingdom,tei_name,tei_registry,high,FALSE
+10.1177/09567976211043428,pilot1,Israel Science Foundation,10.13039/501100003977,IL,Israel,tei_name,tei_registry,high,FALSE
+10.1177/09567976211043428,pilot1,Max-Planck-Gesellschaft,10.13039/501100004189,DE,Germany,tei_name,tei_registry,medium,FALSE
+10.1177/09567976211043428,pilot1,University College London,10.13039/501100000765,GB,United Kingdom,tei_name,tei_registry,high,FALSE
+10.1177/09567976211043428,pilot1,Wellcome/Royal,NA,NA,NA,tei_name,NA,low,FALSE
+10.1002/ejsp.2803,pilot1,The Scientific and Technological Research Council of Turkey (TÜB İTAK),NA,TR,Turkey,tei_name,tei_contained,medium,FALSE
+10.1002/ejsp.2803,pilot1,Deutsche Forschungsgemeinschaft (DFG; German Science Foundation,NA,NA,NA,tei_name,NA,low,FALSE
+10.1002/ejsp.2803,pilot1,Center for Social and Economic Behaviour of the University of Cologne,NA,NA,NA,tei_name,NA,low,FALSE
+10.1177/13623613211070865,pilot1,University of Maryland's School of Social Work,NA,NA,NA,tei_name,NA,low,FALSE
+10.1177/13623613211070865,pilot1,Competitive Innovative Research Award,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/08870446.2022.2112581,pilot1,University of Colorado Denver,10.13039/100010346,US,United States,tei_name,tei_registry,high,FALSE
+10.1111/cdev.13793,pilot1,Directorate for Education and Human Resources,10.13039/100000081,US,United States,crossref_id,crossref_id,high,FALSE
+10.1111/cdev.13793,pilot1,National Science Foundation of Sri Lanka,10.13039/501100008982,LK,Sri Lanka,both,crossref_id,high,FALSE
+10.1111/psyp.14042,pilot1,Crafoordska Stiftelsen,10.13039/501100003173,SE,Sweden,both,crossref_id,high,FALSE
+10.1111/psyp.14042,pilot1,Lundbeckfonden,10.13039/501100003554,DK,Denmark,both,crossref_id,high,FALSE
+10.1111/psyp.14042,pilot1,Knut och Alice Wallenbergs Stiftelse,10.13039/501100004063,SE,Sweden,both,crossref_id,high,FALSE
+10.1111/psyp.14042,pilot1,Vetenskapsrådet,10.13039/501100004359,SE,Sweden,crossref_id,crossref_id,high,FALSE
+10.1111/psyp.14042,pilot1,National Research University Higher School of Economics,10.13039/501100007251,RU,Russia,crossref_id,crossref_id,high,FALSE
+10.1111/psyp.14042,pilot1,Swedish Research Council,NA,NA,NA,tei_name,NA,low,FALSE
+10.1111/psyp.14042,pilot1,Marcus och Amalia Wallenbergs minnesfond,10.13039/501100011898,SE,Sweden,tei_name,tei_registry,medium,FALSE
+10.1111/psyp.14042,pilot1,Danish Council for Independent Research,NA,NA,NA,tei_name,NA,low,FALSE
+10.1111/psyp.14042,pilot1,Basic Research Program of Jiangsu Province,10.13039/501100005145,CN,China,tei_name,tei_registry,medium,FALSE
+10.1177/09567976211055373,pilot1,National Science Foundation,10.13039/100000001,US,United States,both,crossref_id,high,FALSE
+10.1177/09567976211055373,pilot1,National Institutes of Health,10.13039/100000002,US,United States,tei_name,tei_registry,high,FALSE
+10.1111/psyp.14058,pilot1,Deutsche Forschungsgemeinschaft,10.13039/501100001659,DE,Germany,crossref_id,crossref_id,high,FALSE
+10.1111/psyp.14058,pilot1,German Research Foundation (DFG),NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/10503307.2022.2095237,pilot1,"Ministerstvo Školství, Mládeže a Tělovýchovy",10.13039/501100001823,CZ,Czechia,crossref_id,crossref_id,high,FALSE
+10.1080/10503307.2022.2095237,pilot1,Grantová Agentura České Republiky,10.13039/501100001824,CZ,Czechia,crossref_id,crossref_id,high,FALSE
+10.1080/10503307.2022.2095237,pilot1,Czech Science Foundation,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/10503307.2022.2095237,pilot1,"Czech Ministry of Education, Youth",NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/emo0000898,pilot1,Washington University in St. Louis Psychological and Brain Sciences Department,10.13039/100007268,US,United States,both,crossref_id,high,FALSE
+10.1037/emo0000898,pilot1,Australian Research Council,10.13039/501100000923,AU,Australia,both,crossref_id,high,FALSE
+10.1037/emo0000898,pilot1,Australian Catholic University,10.13039/501100000990,AU,Australia,both,crossref_id,high,FALSE
+10.1037/ccp0000739,pilot1,"National Institutes of Health, Pakistan",10.13039/100000002,US,United States,both,crossref_id,high,FALSE
+10.1037/ccp0000739,pilot1,U.S. Department of Defense,10.13039/100000005,US,United States,both,crossref_id,high,FALSE
+10.1037/ccp0000739,pilot1,U.S. Department of Veterans Affairs,10.13039/100000738,US,United States,crossref_id,crossref_id,high,FALSE
+10.1037/ccp0000739,pilot1,Cancer Prevention and Research Institute of Texas,10.13039/100004917,US,United States,both,crossref_id,high,FALSE
+10.1037/ccp0000739,pilot1,Patient-Centered Outcomes Research Institute,10.13039/100006093,US,United States,both,crossref_id,high,FALSE
+10.1037/ccp0000739,pilot1,Federal Emergency Management Agency,10.13039/100008464,US,United States,both,crossref_id,high,FALSE
+10.1037/ccp0000739,pilot1,Department of Veteran Affairs (VA),NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/ccp0000739,pilot1,U.S. Army Medical Research and Materiel Command,NA,US,United States,tei_name,tei_contained,medium,FALSE
+10.1037/ccp0000739,pilot1,Bob Woodruff Foundations,NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/ccp0000739,pilot1,Congressionally Directed Medical Research Programs,10.13039/100000090,US,United States,tei_name,tei_registry,high,FALSE
+10.1037/ccp0000739,pilot1,Department of Defense (DoD),NA,NA,NA,tei_name,NA,low,FALSE
+10.1002/eat.23792,pilot1,National Institute of Mental Health,10.13039/100000025,US,United States,both,crossref_id,high,FALSE
+10.1002/eat.23792,pilot1,Universite de Geneve,NA,NA,NA,tei_name,NA,low,FALSE
+10.1002/eat.23792,pilot1,European Union,10.13039/501100000780,EU,European Union,tei_name,tei_contained,medium,FALSE
+10.1002/eat.23792,pilot1,Horizon 2020 research and innovation program,10.13039/100010661,EU,European Union,tei_name,tei_contained,medium,FALSE
+10.1080/08870446.2021.2024190,pilot1,University of Liverpool,10.13039/501100000836,GB,United Kingdom,crossref_id,crossref_id,high,FALSE
+10.1177/09567976221094782,pilot1,National Institute of Mental Health,10.13039/100000025,US,United States,both,crossref_id,high,FALSE
+10.1177/09567976221094782,pilot1,Social Sciences and Humanities Research Council of Canada (SSHRC),10.13039/501100000155,CA,Canada,both,crossref_id,high,FALSE
+10.1177/09567976221094782,pilot1,Canada Research Chairs,10.13039/501100001804,CA,Canada,both,crossref_id,high,FALSE
+10.1177/09567976221102868,pilot1,National Science Foundation,10.13039/100000001,US,United States,crossref_id,crossref_id,high,FALSE
+10.1017/s0140525x2200067x,pilot1,National Institute of Child Health and Human Development,10.13039/100000071,US,United States,tei_name,tei_registry,high,FALSE
+10.1017/s0140525x2200067x,pilot1,Spanish Ministry of Science and Innovation,NA,NA,NA,tei_name,NA,low,FALSE
+10.1017/s0140525x2200067x,pilot1,National Science Foundation,10.13039/100000001,US,United States,tei_name,tei_registry,high,FALSE
+10.1017/s0140525x22002023,pilot1,German Science Foundation through Germany's Excellence Strategy,NA,DE,Germany,tei_name,tei_contained,medium,FALSE
+10.1017/s0140525x22002023,pilot1,European Research Council (ERC),NA,EU,European Union,tei_name,tei_contained,medium,FALSE
+10.1017/s0140525x22002023,pilot1,Behavioral Sciences Program,NA,NA,NA,tei_name,NA,low,FALSE
+10.1017/s0140525x22002023,pilot1,Horizon 2020 research and innovation program,10.13039/100010661,EU,European Union,tei_name,tei_contained,medium,FALSE
+10.1017/s0140525x22002023,pilot1,Junior Researcher Programme,NA,NA,NA,tei_name,NA,low,FALSE
+10.1177/09567976211032887,pilot1,Office of Naval Research,10.13039/100000006,US,United States,both,crossref_id,high,FALSE
+10.1177/09567976211032887,pilot1,National Institute of Mental Health,10.13039/100000025,US,United States,both,crossref_id,high,FALSE
+10.1007/s10802-022-00901-9,pilot1,National Institute of Mental Health,10.13039/100000025,US,United States,crossref_id,crossref_id,high,FALSE
+10.1007/s10802-022-00901-9,pilot1,Pennsylvania Department of Health using Tobacco CURE Funds,10.13039/100004897,US,United States,both,crossref_id,high,FALSE
+10.1007/s10802-022-00901-9,pilot1,Children's Miracle Network Hospitals,10.13039/100018268,US,United States,both,crossref_id,high,FALSE
+10.1002/eat.23836,pilot1,National Institute on Aging,10.13039/100000049,US,United States,crossref_id,crossref_id,high,FALSE
+10.1002/eat.23836,pilot1,National Institute for Health Research (NIHR) Biomedical Research Centre at South London and Maudsley NHS Foundation Trust (SLaM),10.13039/501100000724,GB,United Kingdom,both,crossref_id,high,FALSE
+10.1002/eat.23836,pilot1,King's College London,10.13039/501100000764,GB,United Kingdom,tei_name,tei_registry,high,FALSE
+10.1002/eat.23836,pilot1,Academic Health Science Network (AHSN),NA,NA,NA,tei_name,NA,low,FALSE
+10.1002/eat.23836,pilot1,National Institute for Health and Care Research,10.13039/501100000272,GB,United Kingdom,tei_name,tei_registry,high,FALSE
+10.1177/13623613221086329,pilot1,National Institute for Mental Health,10.13039/100000025,US,United States,both,crossref_id,high,FALSE
+10.1177/13623613221132109,pilot1,Centre for Health and Wellbeing at Birmingham City University,NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/dev0001480,pilot1,Eunice Kennedy Shriver National Institute of Child Health and Human Development,10.13039/100009633,US,United States,both,crossref_id,high,FALSE
+10.1037/dev0001480,pilot1,National Science Foundation,10.13039/100000001,US,United States,tei_name,tei_registry,high,FALSE
+10.3758/s13428-022-01993-3,pilot1,Università degli Studi di Genova,10.13039/501100004702,IT,Italy,both,crossref_id,high,FALSE
+10.1177/00139165221093881,pilot1,National Natural Science Foundation of China,10.13039/501100001809,CN,China,tei_name,tei_registry,high,FALSE
+10.1080/15374416.2022.2111684,pilot1,Institute of Education Sciences,10.13039/100005246,US,United States,crossref_id,crossref_id,high,FALSE
+10.1037/xge0001195,pilot1,National Science Foundation,10.13039/100000001,US,United States,tei_name,tei_registry,high,FALSE
+10.1037/xge0001195,pilot1,REESE program,NA,NA,NA,tei_name,NA,low,FALSE
+10.1111/desc.13223,pilot1,European Commission,10.13039/501100000780,EU,European Union,both,crossref_id,high,FALSE
+10.1111/desc.13223,pilot1,Agence Nationale de la Recherche ANR,NA,NA,NA,tei_name,NA,low,FALSE
+10.1111/desc.13223,pilot1,European Research Council ERC,NA,EU,European Union,tei_name,tei_contained,medium,FALSE
+10.1111/desc.13223,pilot1,« Agence Nationale pour la Recherche » (FoundTrust,NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/xhp0001017,pilot1,Leverhulme Trust,10.13039/501100000275,GB,United Kingdom,both,crossref_id,high,FALSE
+10.1037/xhp0001017,pilot1,American Psychological Association,10.13039/100006324,US,United States,tei_name,tei_registry,high,FALSE
+10.1037/xhp0001017,pilot1,Open Science Framework,NA,NA,NA,tei_name,NA,low,FALSE
+10.1002/eat.23690,pilot1,Argosy Foundation,10.13039/100000976,US,United States,both,crossref_id,high,FALSE
+10.1037/xhp0001013,pilot1,Leverhulme Trust,10.13039/501100000275,GB,United Kingdom,both,crossref_id,high,FALSE
+10.1002/eat.23790,pilot1,King Salman Center for Disability Research,10.13039/501100019345,SA,Saudi Arabia,crossref_id,crossref_id,high,FALSE
+10.1002/eat.23790,pilot1,Ministry of Health – Kingdom of Saudi Arabia,10.13039/100019223,SA,Saudi Arabia,tei_name,tei_registry,medium,FALSE
+10.1002/eat.23790,pilot1,King Abdulaziz City for Science and Technology (KACST),NA,NA,NA,tei_name,NA,low,FALSE
+10.1002/eat.23790,pilot1,"King Saud University, King Faisal Specialist Hospital and Research Centre and Research Center",NA,NA,NA,tei_name,NA,low,FALSE
+10.1002/eat.23790,pilot1,World Health Organization World Mental Health (WMH) Survey Initiative,NA,NA,NA,tei_name,NA,low,FALSE
+10.1017/s0140525x22002801,pilot1,Max-Planck-Gesellschaft,10.13039/501100004189,DE,Germany,tei_name,tei_registry,medium,FALSE
+10.1017/s0140525x22002801,pilot1,University of Warwick Chancellor's International Scholarship,NA,NA,NA,tei_name,NA,low,FALSE
+10.1017/s0140525x22002801,pilot1,UK Research and Innovation,10.13039/100014013,GB,United Kingdom,tei_name,tei_registry,high,FALSE
+10.1017/s0140525x22002801,pilot1,Agence Nationale de la Recherche ANR,NA,NA,NA,tei_name,NA,low,FALSE
+10.1017/s0140525x22002801,pilot1,La Sapienza University International Scholarship,NA,NA,NA,tei_name,NA,low,FALSE
+10.1017/s0140525x22002801,pilot1,Erasmus Universiteit Rotterdam,10.13039/501100001828,NL,Netherlands,tei_name,tei_registry,high,FALSE
+10.1017/s0140525x22002801,pilot1,InterAct for Change,10.13039/100026820,US,United States,tei_name,tei_registry,medium,FALSE
+10.1016/j.brat.2022.104202,pilot1,Fonds National de la Recherche Luxembourg,10.13039/501100001866,LU,Luxembourg,crossref_id,crossref_id,high,FALSE
+10.1016/j.brat.2022.104243,pilot1,Netherlands Organization for Health Research and Development (ID ZonMw,10.13039/501100001826,NL,Netherlands,both,crossref_id,high,FALSE
+10.1016/j.brat.2022.104243,pilot1,Stichting MS Research,10.13039/501100003000,NL,Netherlands,both,crossref_id,high,FALSE
+10.1016/j.brat.2022.104243,pilot1,Diabetes Fonds,10.13039/501100003092,NL,Netherlands,crossref_id,crossref_id,high,FALSE
+10.1016/j.brat.2022.104243,pilot1,Fonds NutsOhra,10.13039/501100003142,NL,Netherlands,both,crossref_id,high,FALSE
+10.1016/j.brat.2022.104243,pilot1,Dutch Diabetes Research Foundation,NA,NA,NA,tei_name,NA,low,FALSE
+10.1101/lm.053571.122,pilot1,U.S. Department of Veterans Affairs,10.13039/100000738,US,United States,crossref_id,crossref_id,high,FALSE
+10.1101/lm.053571.122,pilot1,Merit Medical Systems,10.13039/100019484,US,United States,tei_name,tei_registry,medium,FALSE
+10.1101/lm.053571.122,pilot1,US Department of Veterans Affairs Clinical Sciences Research and Development Service,NA,US,United States,tei_name,tei_contained,medium,FALSE
+10.1111/desc.13237,pilot1,Louisiana Board of Regents,10.13039/100006952,US,United States,both,crossref_id,high,FALSE
+10.1111/desc.13237,pilot1,Psi Chi,10.13039/100005290,US,United States,tei_name,tei_registry,high,FALSE
+10.1111/peps.12504,pilot1,"Academy of Management in Boston, MA",NA,NA,NA,tei_name,NA,low,FALSE
+10.3758/s13415-022-01033-9,pilot1,National Institutes of Health (NIH) Science of Behavior Change Common Fund Program,10.13039/100000002,US,United States,both,crossref_id,high,FALSE
+10.3758/s13415-022-01033-9,pilot1,National Center for Complementary and Integrative Health,10.13039/100008460,US,United States,both,crossref_id,high,FALSE
+10.1111/psyp.14115,pilot1,Brain and Behavior Research Foundation,10.13039/100000874,US,United States,both,crossref_id,high,FALSE
+10.1111/psyp.14115,pilot1,Health Research Board,10.13039/501100001590,IE,Ireland,both,crossref_id,high,FALSE
+10.1111/psyp.14115,pilot1,Science Foundation Ireland,10.13039/501100001602,IE,Ireland,both,crossref_id,high,FALSE
+10.1111/psyp.14115,pilot1,Irish Research Council,10.13039/501100002081,IE,Ireland,both,crossref_id,high,FALSE
+10.1111/psyp.14115,pilot1,ERAB: The European Foundation for Alcohol Research,10.13039/501100006135,BE,Belgium,both,crossref_id,high,FALSE
+10.1016/j.cognition.2022.105113,pilot1,Mind & Consciousness Program,NA,NA,NA,tei_name,NA,low,FALSE
+10.1016/j.cognition.2022.105212,pilot1,National Science Foundation,10.13039/100000001,US,United States,crossref_id,crossref_id,high,FALSE
+10.1016/j.cognition.2022.105212,pilot1,"Simons Center for the Social Brain, Massachusetts Institute of Technology",10.13039/100018792,US,United States,crossref_id,crossref_id,high,FALSE
+10.1016/j.cognition.2022.105212,pilot1,Companhia Brasileira de Metalurgia e Mineração,10.13039/501100007677,BR,Brazil,crossref_id,crossref_id,high,FALSE
+10.1016/j.cognition.2021.104987,pilot1,Schweizerischer Nationalfonds zur Förderung der Wissenschaftlichen Forschung,10.13039/501100001711,CH,Switzerland,crossref_id,crossref_id,high,FALSE
+10.3758/s13428-022-01850-3,pilot1,Nouvelle Aquitaine Regional Council,NA,NA,NA,tei_name,NA,low,FALSE
+10.3758/s13428-022-01850-3,pilot1,Agence Nationale de la Recherche ANR,NA,NA,NA,tei_name,NA,low,FALSE
+10.3758/s13428-022-01850-3,pilot1,European Union,10.13039/501100000780,EU,European Union,tei_name,tei_contained,medium,FALSE
+10.3758/s13428-022-01850-3,pilot1,French Government's Investments for the Future research program,NA,NA,NA,tei_name,NA,low,FALSE
+10.1007/s10802-022-01000-5,pilot1,NIH Office of the Director,10.13039/100000052,US,United States,crossref_id,crossref_id,high,FALSE
+10.1177/13623613221100787,pilot1,National Institute of Mental Health,10.13039/100000025,US,United States,both,crossref_id,high,FALSE
+10.1177/13623613221100787,pilot1,Health Resources and Services Administration,10.13039/100000102,US,United States,both,crossref_id,high,FALSE
+10.1177/13623613221100787,pilot1,Simons Foundation,10.13039/100000893,US,United States,both,crossref_id,high,FALSE
+10.1177/13623613221100787,pilot1,Eunice Kennedy Shriver National Institute of Child Health and Human Development,10.13039/100009633,US,United States,both,crossref_id,high,FALSE
+10.1177/13623613221100787,pilot1,Brian Wright Memorial Autism Fund,NA,NA,NA,tei_name,NA,low,FALSE
+10.1177/13623613221100787,pilot1,Pershing Charitable Trust,NA,NA,NA,tei_name,NA,low,FALSE
+10.1177/13623613221100787,pilot1,Adelphi University Center for Health Innovation,NA,NA,NA,tei_name,NA,low,FALSE
+10.1002/eat.23867,pilot1,National Institute of Mental Health,10.13039/100000025,US,United States,both,crossref_id,high,FALSE
+10.1002/ejsp.2915,pilot1,Spencer Foundation-Northwestern University,NA,NA,NA,tei_name,NA,low,FALSE
+10.1002/ejsp.2915,pilot1,Social Sciences and Humanities Research Council of Canada,10.13039/501100000155,CA,Canada,tei_name,tei_registry,high,FALSE
+10.1002/ejsp.2915,pilot1,Character Lab Research Network,NA,NA,NA,tei_name,NA,low,FALSE
+10.1002/ejsp.2915,pilot1,William T. Grant Foundation,10.13039/100001143,US,United States,tei_name,tei_registry,high,FALSE
+10.1002/ejsp.2915,pilot1,Chicago Public Schools program,NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/met0000330,pilot1,American Psychological Foundation,10.13039/100001945,US,United States,both,crossref_id,high,FALSE
+10.1037/met0000330,pilot1,Alexander von Humboldt-Stiftung,10.13039/100005156,DE,Germany,both,crossref_id,high,FALSE
+10.1037/met0000330,pilot1,Leverhulme Trust,10.13039/501100000275,GB,United Kingdom,both,crossref_id,high,FALSE
+10.1037/met0000330,pilot1,Japan Society for the Promotion of Science,10.13039/501100001691,JP,Japan,crossref_id,crossref_id,high,FALSE
+10.1037/met0000330,pilot1,Jacobs Foundation Advanced Research Fellowship,10.13039/501100003986,CH,Switzerland,both,crossref_id,high,FALSE
+10.1037/met0000330,pilot1,German Federal Ministry of Education and Research,NA,NA,NA,tei_name,NA,low,FALSE
+10.1177/13623613221085339,pilot1,Health Resources and Services Administration,10.13039/100000102,US,United States,crossref_id,crossref_id,high,FALSE
+10.1177/13623613221085339,pilot1,John and Marcia Goldman Foundation,10.13039/100014161,US,United States,both,crossref_id,high,FALSE
+10.1037/pspa0000297,pilot1,"Booth School of Business, University of Chicago",10.13039/100007234,US,United States,both,crossref_id,high,FALSE
+10.1177/09567976221097615,pilot1,"Booth School of Business, University of Chicago",10.13039/100007618,US,United States,both,crossref_id,high,FALSE
+10.1177/09567976221097615,pilot1,Neubauer Family Foundation,10.13039/100019099,US,United States,crossref_id,crossref_id,high,FALSE
+10.1177/09567976221097615,pilot1,Neubauer Family Faculty Fellowship,NA,NA,NA,tei_name,NA,low,FALSE
+10.1016/j.cognition.2022.105173,pilot1,Agence Nationale de la Recherche (Frontiers in Cognition,NA,NA,NA,tei_name,NA,low,FALSE
+10.1016/j.cognition.2022.105173,pilot1,Fyssen Foundation Postdoctoral,NA,NA,NA,tei_name,NA,low,FALSE
+10.1016/j.cognition.2022.105173,pilot1,Université de Paris,10.13039/501100021716,FR,France,tei_name,tei_registry,high,FALSE
+10.1016/j.cognition.2022.105173,pilot1,PSL (program,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/15374416.2022.2073235,pilot1,National Institute of Mental Health,10.13039/100000025,US,United States,both,crossref_id,high,FALSE
+10.1177/00139165221114894,pilot1,"Department of Building and Real Estate, Hong Kong Polytechnic University",10.13039/501100022174,HK,Hong Kong SAR China,tei_name,tei_registry,medium,FALSE
+10.1037/adb0000847,pilot1,Institute of Health and Biomedical Innovation,NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/ccp0000757,pilot1,Social Sciences and Humanities Research Council Doctoral Fellowship,10.13039/501100000155,CA,Canada,both,crossref_id,high,FALSE
+10.1017/s0140525x21000017,pilot1,National Science Foundation,10.13039/100000001,US,United States,tei_name,tei_registry,high,FALSE
+10.1017/s0140525x21000017,pilot1,Cornell Center for Social Sciences,NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/pspi0000383,pilot1,New York University (NYU) Stern,NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/pspi0000383,pilot1,NYU Stern Center for Global Economy and Business,NA,NA,NA,tei_name,NA,low,FALSE
+10.1002/ejsp.2856,pilot1,Special Research Fund of Ghent University,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/15374416.2022.2151713,pilot1,Institute of Education Sciences,10.13039/100005246,US,United States,crossref_id,crossref_id,high,FALSE
+10.1177/09567976221121348,pilot1,National Science Foundation Graduate Research Fellowship Program,10.13039/100000001,US,United States,both,crossref_id,high,FALSE
+10.1093/jpepsy/jsac039,pilot1,Centers for Disease Control and Prevention,10.13039/100000030,US,United States,both,crossref_id,high,FALSE
+10.1177/13623613221081189,pilot1,"Institute for Advanced Studies in the Humanities, University of Edinburgh",10.13039/501100000635,GB,United Kingdom,crossref_id,crossref_id,high,FALSE
+10.1177/13623613221081189,pilot1,"University of Edinburgh College of Medicine and Veterinary Medicine Public Engagement with Research Seed Fund Round One, Institutional Strategic Support Fund",NA,NA,NA,tei_name,NA,low,FALSE
+10.1007/s10802-022-00959-5,pilot1,"U.S. National Institutes of Health, Fogarty International Center",10.13039/100000061,US,United States,both,crossref_id,high,FALSE
+10.1007/s10802-022-00959-5,pilot1,U.S. National Center for Advancing Translational Sciences,10.13039/100006108,US,United States,both,crossref_id,high,FALSE
+10.1007/s10802-022-00959-5,pilot1,Vietnam National Foundation for Science and Technology Development (NAFOSTED),10.13039/100007224,VN,Vietnam,both,crossref_id,high,FALSE
+10.1037/emo0001036,pilot1,Deutsche Forschungsgemeinschaft,10.13039/501100001659,DE,Germany,crossref_id,crossref_id,high,FALSE
+10.1037/emo0001036,pilot1,German-Israeli Foundation for Scientific Research and Development,10.13039/501100001736,IL,Israel,tei_name,tei_registry,medium,FALSE
+10.1111/desc.13354,pilot1,National Institutes of Health,10.13039/100000002,US,United States,both,crossref_id,high,FALSE
+10.1111/desc.13354,pilot1,David and Lucile Packard Foundation,10.13039/100000008,US,United States,both,crossref_id,high,FALSE
+10.1111/desc.13354,pilot1,W.K. Kellogg Foundation,10.13039/100007746,US,United States,both,crossref_id,high,FALSE
+10.1111/desc.13354,pilot1,Schusterman Foundation,NA,NA,NA,tei_name,NA,low,FALSE
+10.1111/desc.13354,pilot1,European Union,10.13039/501100000780,EU,European Union,tei_name,tei_contained,medium,FALSE
+10.1111/desc.13354,pilot1,Bezos Family Foundation,10.13039/100031942,US,United States,tei_name,tei_registry,high,FALSE
+10.1111/desc.13354,pilot1,Stanford School of Medicine and Child Health Research Institute,NA,NA,NA,tei_name,NA,low,FALSE
+10.1111/desc.13354,pilot1,Horizon 2020 research and innovation programme,10.13039/100010661,EU,European Union,tei_name,tei_contained,medium,FALSE
+10.1016/j.dcn.2022.101134,pilot1,National Institute of Mental Health,10.13039/100000025,US,United States,both,crossref_id,high,FALSE
+10.1177/09567976221093575,pilot1,"National Science Foundation Directorate for Social, Behavioral and Economic Sciences (SBE)",10.13039/100000001,US,United States,both,crossref_id,high,FALSE
+10.1016/j.cognition.2022.105224,pilot1,Wellcome Trust,10.13039/100010269,GB,United Kingdom,both,crossref_id,high,FALSE
+10.1016/j.cognition.2022.105224,pilot1,Fonds Wetenschappelijk Onderzoek,10.13039/501100003130,BE,Belgium,crossref_id,crossref_id,high,FALSE
+10.1016/j.cognition.2022.105224,pilot1,Bijzonder Onderzoeksfonds UGent,10.13039/501100007229,BE,Belgium,crossref_id,crossref_id,high,FALSE
+10.1016/j.cognition.2022.105224,pilot1,BOF postdoctoral fellowship,NA,NA,NA,tei_name,NA,low,FALSE
+10.1016/j.jenvp.2022.101795,pilot1,"Research Grants Council, University Grants Committee of The Hong Kong Special Administrative Region",NA,HK,Hong Kong SAR China,tei_name,tei_contained,medium,FALSE
+10.1037/emo0001102,pilot1,American Psychoanalytic Association Grant,10.13039/100005388,US,United States,both,crossref_id,high,FALSE
+10.1037/emo0001102,pilot1,Pomona College,10.13039/100016789,US,United States,both,crossref_id,high,FALSE
+10.1037/emo0001102,pilot1,National Science Foundation Graduate Research Fellowship Program,10.13039/100023581,US,United States,tei_name,tei_registry,high,FALSE
+10.1037/pas0001107,pilot1,Ford Foundation,10.13039/100000010,US,United States,both,crossref_id,high,FALSE
+10.1037/pas0001107,pilot1,National Institute of Mental Health,10.13039/100000025,US,United States,both,crossref_id,high,FALSE
+10.1037/pas0001107,pilot1,National Science Foundation Graduate Research Fellowship Program,10.13039/100000001,US,United States,tei_name,tei_registry,high,FALSE
+10.1037/pas0001107,pilot1,"National Academies of Sciences, Engineering, and Medicine",10.13039/100009643,US,United States,tei_name,tei_registry,medium,FALSE
+10.1111/psyp.14043,pilot1,Magyar Tudományos Akadémia,10.13039/501100003825,HU,Hungary,both,crossref_id,high,FALSE
+10.1111/psyp.14043,pilot1,Higher Education Institutional Excellence Program of the Ministry of Human Capacities in Hungary,NA,HU,Hungary,tei_name,tei_contained,medium,FALSE
+10.1111/psyp.14043,pilot1,Library and Information Centre of the Hungarian Academy of Sciences,NA,NA,NA,tei_name,NA,low,FALSE
+10.1111/psyp.14043,pilot1,Eötvös Loránd Research Network,NA,NA,NA,tei_name,NA,low,FALSE
+10.1111/psyp.14043,pilot1,New National Excellence Program 2021/2022,NA,NA,NA,tei_name,NA,low,FALSE
+10.1111/psyp.14043,pilot1,Neurology thematic program,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/10503307.2022.2073289,pilot1,National Institute of Mental Health,10.13039/100000025,US,United States,both,crossref_id,high,FALSE
+10.1080/10503307.2022.2073289,pilot1,Agency for Healthcare Research and Quality,10.13039/100000133,US,United States,both,crossref_id,high,FALSE
+10.1080/10503307.2022.2073289,pilot1,Once Upon A Time Foundation,10.13039/100008909,US,United States,tei_name,tei_registry,high,FALSE
+10.1093/jpepsy/jsac046,pilot1,National Institutes of Health,10.13039/100000002,US,United States,crossref_id,crossref_id,high,FALSE
+10.1093/jpepsy/jsac046,pilot1,National Science Foundation,10.13039/100000001,US,United States,tei_name,tei_registry,high,FALSE
+10.1093/jpepsy/jsac046,pilot1,Seattle Children's Research Institute's Center for Clinical and Translational Research Clinical Research Scholars Program,NA,NA,NA,tei_name,NA,low,FALSE
+10.1093/jpepsy/jsac046,pilot1,Institute of Translational Health Science (ITHS),NA,NA,NA,tei_name,NA,low,FALSE
+10.1007/s10802-022-00946-w,pilot1,Eunice Kennedy Shriver National Institute of Child Health and Human Development,10.13039/100009633,US,United States,crossref_id,crossref_id,high,FALSE
+10.1007/s10802-022-00946-w,pilot1,National Institutes of Health,10.13039/100000002,US,United States,tei_name,tei_registry,high,FALSE
+10.1111/cdev.13853,pilot1,Eunice Kennedy Shriver National Institute of Child Health and Human Development,10.13039/100009633,US,United States,crossref_id,crossref_id,high,FALSE
+10.1002/eat.23726,pilot1,National Institute of Mental Health,10.13039/100000025,US,United States,both,crossref_id,high,FALSE
+10.1002/eat.23726,pilot1,Brain and Behavior Research Foundation,10.13039/100000874,US,United States,both,crossref_id,high,FALSE
+10.1002/eat.23726,pilot1,"National Eating Disorders Association. (Bulik and Tregarthen, PIs)",10.13039/100003979,US,United States,both,crossref_id,high,FALSE
+10.1002/eat.23726,pilot1,University of North Carolina at Chapel Hill,10.13039/100007890,US,United States,crossref_id,crossref_id,high,FALSE
+10.1002/eat.23726,pilot1,National Science Foundation of Sri Lanka,10.13039/501100008982,LK,Sri Lanka,both,crossref_id,high,FALSE
+10.1111/jopy.12785,pilot1,Danmarks Frie Forskningsfond,10.13039/501100004836,DK,Denmark,crossref_id,crossref_id,high,FALSE
+10.1111/jopy.12785,pilot1,Independent Research Fund Denmark,NA,DK,Denmark,tei_name,tei_contained,medium,FALSE
+10.1101/lm.053521.121,pilot1,National Institute of Mental Health,10.13039/100000025,US,United States,both,crossref_id,high,FALSE
+10.1016/j.dcn.2022.101172,pilot1,National Science Foundation Graduate Research Fellowship Program,10.13039/100000001,US,United States,both,crossref_id,high,FALSE
+10.1016/j.dcn.2022.101172,pilot1,National Institute of Mental Health of the National Institutes of Health,10.13039/100000002,US,United States,both,crossref_id,high,FALSE
+10.1016/j.dcn.2022.101172,pilot1,"University of California, Los Angeles",10.13039/100007185,US,United States,crossref_id,crossref_id,high,FALSE
+10.1016/j.dcn.2022.101172,pilot1,Norges Forskningsråd,10.13039/501100005416,NO,Norway,crossref_id,crossref_id,high,FALSE
+10.1016/j.dcn.2022.101172,pilot1,UCLA Graduate Summer Research Mentorship Program (NMSH),NA,NA,NA,tei_name,NA,low,FALSE
+10.1016/j.dcn.2022.101172,pilot1,Edwin W. Pauley Fellowship (NMSH),NA,NA,NA,tei_name,NA,low,FALSE
+10.1016/j.dcn.2022.101172,pilot1,Research Council of Norway (RCN),NA,NO,Norway,tei_name,tei_contained,medium,FALSE
+10.1037/adb0000695,pilot1,University of Warwick,10.13039/501100000741,GB,United Kingdom,both,crossref_id,high,FALSE
+10.1037/adb0000695,pilot1,Victorian Responsible Gambling Foundation,10.13039/501100024500,AU,Australia,tei_name,tei_registry,high,FALSE
+10.1037/adb0000695,pilot1,Research Development Fund,NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/adb0000695,pilot1,NSW Responsible Gambling Fund,NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/adb0000695,pilot1,Gambling Research Exchange Ontario,10.13039/501100007553,CA,Canada,tei_name,tei_registry,high,FALSE
+10.1037/adb0000695,pilot1,"Alberta Gambling Research Institute, University of Calgary",10.13039/501100000144,CA,Canada,tei_name,tei_registry,high,FALSE
+10.1037/adb0000695,pilot1,"GambleAware, Gambling Research Australia",NA,AU,Australia,tei_name,tei_contained,medium,FALSE
+10.1080/10503307.2022.2140616,pilot1,Economic and Social Research Council,10.13039/501100000269,GB,United Kingdom,both,crossref_id,high,FALSE
+10.1080/10503307.2022.2140616,pilot1,University of York Department of Health Sciences Research Governance Committee,NA,NA,NA,tei_name,NA,low,FALSE
+10.1111/desc.13244,pilot1,Dutch Research Council (Nederlandse Organisatie voor Wetenschappelijk Onderzoek),NA,NA,NA,tei_name,NA,low,FALSE
+10.1101/lm.053522.121,pilot1,H2020 Research and Innovation program,NA,EU,European Union,tei_name,tei_contained,medium,FALSE
+10.3758/s13428-022-01804-9,pilot1,Universität Siegen,10.13039/100018222,DE,Germany,crossref_id,crossref_id,high,FALSE
+10.1016/j.bandl.2022.105197,pilot1,H2020 European Research Council,10.13039/100010663,EU,European Union,both,crossref_id,high,FALSE
+10.1016/j.bandl.2022.105197,pilot1,Nederlandse Organisatie voor Wetenschappelijk Onderzoek,10.13039/501100003246,NL,Netherlands,crossref_id,crossref_id,high,FALSE
+10.1016/j.bandl.2022.105197,pilot1,Radboud's Centre for Language Studies,NA,NA,NA,tei_name,NA,low,FALSE
+10.1016/j.bandl.2022.105197,pilot1,Netherlands Organization for Scientific Research,NA,NL,Netherlands,tei_name,tei_contained,medium,FALSE
+10.1016/j.cognition.2022.105076,pilot1,Office of Naval Research,10.13039/100000006,US,United States,both,crossref_id,high,FALSE
+10.1016/j.cognition.2022.105076,pilot1,Baxter International,10.13039/100004702,US,United States,tei_name,tei_registry,medium,FALSE
+10.1002/eat.23700,pilot1,National Institute of Diabetes and Digestive and Kidney Diseases,10.13039/100000062,US,United States,crossref_id,crossref_id,high,FALSE
+10.3758/s13415-022-01044-6,pilot1,"Executive Agency for Higher Education, Research, Development and Innovation",NA,NA,NA,tei_name,NA,low,FALSE
+10.1177/09567976221105208,pilot1,Economic and Social Research Council,10.13039/501100000269,GB,United Kingdom,both,crossref_id,high,FALSE
+10.1037/xge0001255,pilot1,Alexander von Humboldt-Stiftung,10.13039/100005156,DE,Germany,both,crossref_id,high,FALSE
+10.1037/xge0001255,pilot1,Jacobs Foundation Advanced Research Fellowship,10.13039/501100003986,CH,Switzerland,both,crossref_id,high,FALSE
+10.1037/xge0001255,pilot1,German Federal Ministry of Education and Research),NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/xhp0001023,pilot1,Eunice Kennedy Shriver National Institute of Child Health and Human Development,10.13039/100009633,US,United States,both,crossref_id,high,FALSE
+10.1037/xhp0001023,pilot1,American Psychological Association,10.13039/100006324,US,United States,tei_name,tei_registry,high,FALSE
+10.1017/s0954579422000311,pilot1,Tedworth Charitable Trust,NA,NA,NA,tei_name,NA,low,FALSE
+10.1017/s0954579422000311,pilot1,Glass-House Trust,NA,NA,NA,tei_name,NA,low,FALSE
+10.1017/s0954579422001067,pilot1,Australian Institute of Family Studies,10.13039/100010580,AU,Australia,tei_name,tei_registry,high,FALSE
+10.1017/s0954579422001067,pilot1,"Commonwealth Department of Families, Housing, Community Services",NA,NA,NA,tei_name,NA,low,FALSE
+10.1016/j.dcn.2022.101058,pilot1,Natural Sciences and Engineering Research Council of Canada,10.13039/501100000038,CA,Canada,both,crossref_id,high,FALSE
+10.1016/j.dcn.2022.101058,pilot1,Schweizerischer Nationalfonds zur Förderung der Wissenschaftlichen Forschung,10.13039/501100001711,CH,Switzerland,crossref_id,crossref_id,high,FALSE
+10.1016/j.dcn.2022.101058,pilot1,Jacobs Foundation,10.13039/501100003986,CH,Switzerland,both,crossref_id,high,FALSE
+10.1016/j.dcn.2022.101058,pilot1,"Children Health Research Institute in London, Ontario",NA,NA,NA,tei_name,NA,low,FALSE
+10.1016/j.dcn.2022.101058,pilot1,Swiss National Science Foundation Scientific Exchanges,NA,CH,Switzerland,tei_name,tei_contained,medium,FALSE
+10.1037/xge0001147,pilot1,Deutsche Forschungsgemeinschaft,10.13039/501100001659,DE,Germany,crossref_id,crossref_id,high,FALSE
+10.1037/xge0001147,pilot1,German Research Foundation (DFG),NA,NA,NA,tei_name,NA,low,FALSE
+10.1007/s10802-022-00914-4,pilot1,National Institute of Mental Health,10.13039/100000025,US,United States,both,crossref_id,high,FALSE
+10.1007/s10802-022-00914-4,pilot1,University of Utah Consortium for Families and Health Research and Interdisciplinary Research Pilot Program,NA,NA,NA,tei_name,NA,low,FALSE
+10.1007/s10802-022-00914-4,pilot1,Clinical Translational Research Scholars program,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/10503307.2022.2050829,pilot1,University College London,10.13039/501100000765,GB,United Kingdom,tei_name,tei_registry,high,FALSE
+10.1177/13623613221097487,pilot1,"Ministry of Education, Culture, Sports, Science, and Technology, Japan",10.13039/501100001700,JP,Japan,both,crossref_id,high,FALSE
+10.1177/13623613211065535,pilot1,Autism Speaks,10.13039/100000073,US,United States,both,crossref_id,high,FALSE
+10.1177/13623613211065535,pilot1,US Department of Education,NA,US,United States,tei_name,tei_contained,medium,FALSE
+10.1111/jcpp.13672,pilot1,Fogarty International Center,10.13039/100000061,US,United States,crossref_id,crossref_id,high,FALSE
+10.1111/jcpp.13672,pilot1,Wellcome Trust,10.13039/100010269,GB,United Kingdom,crossref_id,crossref_id,high,FALSE
+10.1037/hea0001181,pilot1,National Health and Medical Research Council (NHMRC),10.13039/501100000925,AU,Australia,both,crossref_id,high,FALSE
+10.1037/hea0001181,pilot1,Cancer Institute of NSW,10.13039/501100001171,AU,Australia,both,crossref_id,high,FALSE
+10.1016/j.brat.2022.104104,pilot1,National Institutes of Health,10.13039/100000002,US,United States,crossref_id,crossref_id,high,FALSE
+10.1016/j.brat.2022.104104,pilot1,National Cancer Institute,10.13039/100000054,US,United States,crossref_id,crossref_id,high,FALSE
+10.1016/j.brat.2022.104104,pilot1,Breast Cancer Research Foundation,10.13039/100001006,US,United States,crossref_id,crossref_id,high,FALSE
+10.1016/j.brat.2022.104104,pilot1,National Academy of Sciences,10.13039/100000209,US,United States,tei_name,tei_registry,high,FALSE
+10.1016/j.brat.2021.104011,pilot1,Deutsche Forschungsgemeinschaft,10.13039/501100001659,DE,Germany,crossref_id,crossref_id,high,FALSE
+10.1016/j.brat.2021.104011,pilot1,Nederlandse Organisatie voor Wetenschappelijk Onderzoek,10.13039/501100003246,NL,Netherlands,crossref_id,crossref_id,high,FALSE
+10.1016/j.brat.2021.104011,pilot1,German-Israeli Foundation for Scientific Research and Development,10.13039/501100001736,IL,Israel,tei_name,tei_registry,medium,FALSE
+10.1111/psyp.14065,pilot1,Society for the Psychological Study of Social Issues,10.13039/100006076,US,United States,tei_name,tei_registry,high,FALSE
+10.1111/psyp.14065,pilot1,"National Heart, Lung, and Blood Institute",10.13039/100000050,US,United States,tei_name,tei_registry,high,FALSE
+10.1111/psyp.14065,pilot1,Ford Foundation Predoctoral Fellowship,NA,NA,NA,tei_name,NA,low,FALSE
+10.1111/psyp.14065,pilot1,National Institute on Aging,10.13039/100000049,US,United States,tei_name,tei_registry,high,FALSE
+10.1111/psyp.14065,pilot1,American Psychology-Law Society,10.13039/100006406,US,United States,tei_name,tei_registry,high,FALSE
+10.1111/psyp.14065,pilot1,National Science Foundation Graduate Research Fellowships Program,NA,NA,NA,tei_name,NA,low,FALSE
+10.1016/j.dcn.2022.101176,pilot1,Harvard University,10.13039/100007229,US,United States,crossref_id,crossref_id,high,FALSE
+10.1111/psyp.14035,pilot1,German Research Foundation (Deutsche Forschungsgemeinshchaft,NA,NA,NA,tei_name,NA,low,FALSE
+10.1111/psyp.14035,pilot1,National Institute of Mental Health and Neurosciences,10.13039/100019274,IN,India,tei_name,tei_registry,high,FALSE
+10.1111/psyp.14035,pilot1,"Department of Veterans Affairs Medical Research Service, National Institute of Mental Health",NA,NA,NA,tei_name,NA,low,FALSE
+10.1002/eat.23707,pilot1,Nederlandse Organisatie voor Wetenschappelijk Onderzoek,10.13039/501100003246,NL,Netherlands,both,crossref_id,high,FALSE
+10.1002/eat.23707,pilot1,Gratama Stichting,10.13039/501100007442,NL,Netherlands,both,crossref_id,high,FALSE
+10.3758/s13428-022-01798-4,pilot1,Natural Sciences and Engineering Research Council of Canada (NSERC),NA,CA,Canada,tei_name,tei_contained,medium,FALSE
+10.3758/s13428-022-01810-x,pilot1,Economic and Social Research Council (ESRC),NA,NA,NA,tei_name,NA,low,FALSE
+10.3758/s13428-022-01810-x,pilot1,Social Sciences and Humanities Research Council (SSHRC) of Canada Insight,NA,CA,Canada,tei_name,tei_contained,medium,FALSE
+10.3758/s13428-022-01810-x,pilot1,UK Research and Innovation (UKRI),NA,GB,United Kingdom,tei_name,tei_contained,medium,FALSE
+10.3758/s13428-022-01810-x,pilot1,Mitacs,10.13039/501100004489,CA,Canada,tei_name,tei_registry,high,FALSE
+10.3758/s13428-022-01810-x,pilot1,British Psychological Society,10.13039/501100000707,GB,United Kingdom,tei_name,tei_registry,high,FALSE
+10.3758/s13428-022-01810-x,pilot1,UK-Canada Globalink Doctoral Exchange Scheme,NA,CA,Canada,tei_name,tei_contained,medium,FALSE
+10.1080/03069885.2023.2214307,pilot2,Student Mental Health Research Network (SMARTEN),NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/03069885.2023.2214307,pilot2,UK Research and Innovation,10.13039/100014013,GB,United Kingdom,tei_name,tei_registry,high,FALSE
+10.1177/00302228231185172,pilot2,Finnish Government Research Funding (Satakunta Hospital District),NA,NA,NA,tei_name,NA,low,FALSE
+10.1111/sjop.12920,pilot2,LEGO Foundation,10.13039/100018325,DK,Denmark,both,crossref_id,high,FALSE
+10.32872/cpe.9341,pilot2,Ministry of National Education in Turkey,NA,TR,Turkey,tei_name,tei_contained,medium,FALSE
+10.32872/cpe.9341,pilot2,Universität Ulm,10.13039/501100008977,DE,Germany,tei_name,tei_registry,high,FALSE
+10.1016/j.jecp.2023.105761,pilot2,H2020 Marie Skłodowska-Curie Actions,10.13039/100010665,EU,European Union,crossref_id,crossref_id,high,FALSE
+10.1002/jclp.23591,pilot2,National Institute on Drug Abuse,10.13039/100000026,US,United States,tei_name,tei_registry,high,FALSE
+10.1002/jclp.23591,pilot2,National Institute of Mental Health,10.13039/100000025,US,United States,tei_name,tei_registry,high,FALSE
+10.1002/jclp.23591,pilot2,Office of Research on Women's Health,10.13039/100000124,US,United States,tei_name,tei_registry,high,FALSE
+10.1002/jclp.23591,pilot2,National Institute on Alcohol Abuse and Alcoholism,10.13039/100000027,US,United States,tei_name,tei_registry,high,FALSE
+10.1037/fam0001134,pilot2,National Institutes of Health,10.13039/100000002,US,United States,both,crossref_id,high,FALSE
+10.1177/17446295231189018,pilot2,Magyar Tudományos Akadémia,10.13039/501100003825,HU,Hungary,crossref_id,crossref_id,high,FALSE
+10.1177/17446295231189018,pilot2,Eötvös Loránd Tudományegyetem,10.13039/501100009934,HU,Hungary,crossref_id,crossref_id,high,FALSE
+10.1177/17446295231189018,pilot2,Hungarian Academy of Sciences,NA,NA,NA,tei_name,NA,low,FALSE
+10.1177/17446295231189018,pilot2,"Faculty of Education and Psychology of Eötvös Loránd University, Hungary",NA,HU,Hungary,tei_name,tei_contained,medium,FALSE
+10.1037/emo0001325,pilot2,Canada Foundation for Innovation,10.13039/501100000196,CA,Canada,both,crossref_id,high,FALSE
+10.5964/jspp.9275,pilot2,European Social Fund,10.13039/501100004895,NA,NA,tei_name,NA,low,FALSE
+10.5964/jspp.9275,pilot2,Secretary of Universities and Research of the Catalan Government [Generalitat de Catalunya],NA,NA,NA,tei_name,NA,low,FALSE
+10.1177/00187208231159727,pilot2,U.S. Naval Research Laboratory,10.13039/100009917,US,United States,both,crossref_id,high,FALSE
+10.1177/13591053221141131,pilot2,American Occupational Therapy Foundation,10.13039/100003587,US,United States,both,crossref_id,high,FALSE
+10.1080/10447318.2023.2261731,pilot2,College of Communication Arts and Sciences at Michigan State University,NA,NA,NA,tei_name,NA,low,FALSE
+10.1093/scan/nsad070,pilot2,Deutsche Forschungsgemeinschaft,10.13039/501100001659,DE,Germany,crossref_id,crossref_id,high,FALSE
+10.1002/icd.2419,pilot2,Research Grants Council of Hong Kong,NA,HK,Hong Kong SAR China,tei_name,tei_contained,medium,FALSE
+10.1002/icd.2419,pilot2,Electrochemical Society,10.13039/100009707,US,United States,tei_name,tei_registry,high,FALSE
+10.1002/icd.2419,pilot2,Education University of Hong Kong,10.13039/501100010410,HK,Hong Kong SAR China,tei_name,tei_registry,high,FALSE
+10.1080/00140139.2023.2176551,pilot2,Australian Government,10.13039/100015539,AU,Australia,both,crossref_id,high,FALSE
+10.1080/00140139.2023.2176551,pilot2,Motor Accident Insurance Commission (MAIC),10.13039/501100015795,AU,Australia,both,crossref_id,high,FALSE
+10.1080/00140139.2023.2176551,pilot2,"Road Safety Research Collaboration, University of the Sunshine Coast",NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/00140139.2023.2176551,pilot2,Queensland University of Technology,10.13039/501100001793,AU,Australia,tei_name,tei_registry,high,FALSE
+10.1080/00140139.2023.2176551,pilot2,Research Training Programme Scholarship,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/23279095.2022.2162900,pilot2,Fredrik and Ingrid Thuring's Foundation,NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/fam0001090,pilot2,Wellcome Trust,10.13039/100010269,GB,United Kingdom,crossref_id,crossref_id,high,FALSE
+10.1037/fam0001090,pilot2,University of Bristol,10.13039/501100000883,GB,United Kingdom,both,crossref_id,high,FALSE
+10.1037/fam0001090,pilot2,UK Research and Innovation,10.13039/100014013,GB,United Kingdom,tei_name,tei_registry,high,FALSE
+10.1037/fam0001090,pilot2,Innovation Funding Service,NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/fam0001090,pilot2,U.K. Medical Research Council and Wellcome,NA,GB,United Kingdom,tei_name,tei_contained,medium,FALSE
+10.1037/fam0001090,pilot2,Horizon Europe,10.13039/100019188,EU,European Union,tei_name,tei_contained,medium,FALSE
+10.1037/mot0000311,pilot2,Australian Research Council,10.13039/501100000923,AU,Australia,both,crossref_id,high,FALSE
+10.1080/20445911.2023.2227400,pilot2,Natural Sciences and Engineering Research Council of Canada (NSERC),10.13039/501100000038,CA,Canada,both,crossref_id,high,FALSE
+10.1080/20445911.2023.2227400,pilot2,Fonds de recherche du Québec -Nature et technologies (FRQNT),10.13039/501100003151,CA,Canada,tei_name,tei_registry,high,FALSE
+10.1111/jar.13173,pilot2,ZonMw,10.13039/501100001826,NL,Netherlands,crossref_id,crossref_id,high,FALSE
+10.1080/13854046.2023.2219024,pilot2,"Research Foundation Flanders (Fonds Wetenschappelijk Onderzoek, FWO)",10.13039/501100003130,BE,Belgium,both,crossref_id,high,FALSE
+10.1080/13854046.2023.2219024,pilot2,Research Foundation Flanders FWO,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/10447318.2023.2171350,pilot2,National Natural Science Foundation of China,10.13039/501100001809,CN,China,both,crossref_id,high,FALSE
+10.1080/10447318.2023.2171350,pilot2,Xi’an Jiaotong-Liverpool University,10.13039/501100006683,CN,China,both,crossref_id,high,FALSE
+10.1080/10447318.2023.2171350,pilot2,Natural Science Research of Jiangsu Higher Education Institutions of China,10.13039/501100010023,CN,China,crossref_id,crossref_id,high,FALSE
+10.1080/10447318.2023.2171350,pilot2,Natural Science Foundation of the Jiangsu Higher Education Institutions of China,NA,CN,China,tei_name,tei_contained,medium,FALSE
+10.1177/00220426231155664,pilot2,National Institute on Drug Abuse of the National Institutes of Health,10.13039/100000026,US,United States,both,crossref_id,high,FALSE
+10.3758/s13414-023-02743-z,pilot2,National Institute on Deafness and Other Communication Disorders,10.13039/100000055,US,United States,crossref_id,crossref_id,high,FALSE
+10.3758/s13414-023-02743-z,pilot2,University of California Institute for Mexico and the United States,10.13039/100005909,US,United States,crossref_id,crossref_id,high,FALSE
+10.3758/s13414-023-02743-z,pilot2,Consejo Nacional de Ciencia y Tecnología,10.13039/501100003141,MX,Mexico,crossref_id,crossref_id,high,FALSE
+10.1177/08862605231176799,pilot2,John Templeton Foundation,10.13039/100000925,US,United States,both,crossref_id,high,FALSE
+10.1007/s12671-023-02202-8,pilot2,University of Auckland,10.13039/501100001537,NZ,New Zealand,crossref_id,crossref_id,high,FALSE
+10.1007/s12671-023-02202-8,pilot2,Member Institutions,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/10447318.2023.2276529,pilot2,National Science and Technology Council,10.13039/501100020950,TW,Taiwan,both,tei_override_crossref,high,FALSE
+10.1080/0092623x.2023.2226130,pilot2,Fundação para a Ciência e a Tecnologia,10.13039/501100001871,PT,Portugal,crossref_id,crossref_id,high,FALSE
+10.1017/gmh.2023.71,pilot2,Beijing Medical and Health Foundation,10.13039/501100011930,CN,China,both,crossref_id,high,FALSE
+10.1017/gmh.2023.71,pilot2,National Clinical Key Specialty Project Foundation (CN),NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/xge0001439,pilot2,NSF Science Technology Center,NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/xge0001439,pilot2,National Science Foundation,10.13039/100000001,US,United States,tei_name,tei_registry,high,FALSE
+10.1037/xge0001439,pilot2,Jacobs Foundation Fellowship,NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/xge0001439,pilot2,Adversarial Collaborative Research on Intuitive Physical Reasoning,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/08995605.2023.2188046,pilot2,"University Professorship in Health Sciences, College of Health Sciences, University of Kentucky",NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/08995605.2023.2188046,pilot2,Lilly Endowment,10.13039/100006976,US,United States,tei_name,tei_registry,medium,FALSE
+10.1186/s41235-022-00459-6,pilot2,Research Fund of KU Leuven,NA,NA,NA,tei_name,NA,low,FALSE
+10.1186/s41235-022-00459-6,pilot2,Research Foundation-Flanders (FWO),NA,NA,NA,tei_name,NA,low,FALSE
+10.1186/s41235-022-00459-6,pilot2,Research Program,NA,NA,NA,tei_name,NA,low,FALSE
+10.1177/13623613221149542,pilot2,Israel Innovation Authority,10.13039/501100024250,IL,Israel,both,crossref_id,high,FALSE
+10.1177/10538151231217483,pilot2,National Foundation for Autism Research (NFAR),NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/xge0001472,pilot2,European Research Council (ERC),NA,EU,European Union,tei_name,tei_contained,medium,FALSE
+10.1037/xge0001472,pilot2,European Union,10.13039/501100000780,EU,European Union,tei_name,tei_contained,medium,FALSE
+10.1037/xge0001472,pilot2,Horizon 2020 research and innovation programme,10.13039/100010661,EU,European Union,tei_name,tei_contained,medium,FALSE
+10.1037/pspi0000433,pilot2,American Psychological Association,10.13039/100006324,US,United States,tei_name,tei_registry,high,FALSE
+10.1111/fare.12986,pilot2,National Institute of General Medical Sciences,10.13039/100000057,US,United States,both,crossref_id,high,FALSE
+10.1111/fare.12986,pilot2,National Institutes of Health,10.13039/100000002,US,United States,tei_name,tei_registry,high,FALSE
+10.1111/fare.12986,pilot2,NIGMS Native American Research Centers for Health,NA,US,United States,tei_name,tei_contained,medium,FALSE
+10.1002/capr.12682,pilot2,University of Roehampton,10.13039/100010054,GB,United Kingdom,crossref_id,crossref_id,high,FALSE
+10.1037/dev0001609,pilot2,National Health and Medical Research Council,10.13039/501100000925,AU,Australia,both,crossref_id,high,FALSE
+10.1037/dev0001609,pilot2,National Heart Foundation of Australia,10.13039/501100001030,AU,Australia,both,crossref_id,high,FALSE
+10.1037/dev0001609,pilot2,Hunter Children's Research Foundation,10.13039/501100022579,AU,Australia,both,crossref_id,high,FALSE
+10.1037/dev0001609,pilot2,Hunter Medical Research Institute,10.13039/501100001081,AU,Australia,tei_name,tei_registry,high,FALSE
+10.1111/cdev.14006,pilot2,National Institutes of Health,10.13039/100000002,US,United States,crossref_id,crossref_id,high,FALSE
+10.1080/23273798.2022.2159992,pilot2,Economic and Social Research Council; Medical Research Council (MRC),10.13039/501100000269,GB,United Kingdom,both,crossref_id,high,FALSE
+10.1111/desc.13432,pilot2,Leverhulme Trust,10.13039/501100000275,GB,United Kingdom,both,crossref_id,high,FALSE
+10.1111/jopy.12855,pilot2,Aresty Research Center,NA,NA,NA,tei_name,NA,low,FALSE
+10.1186/s40359-023-01249-5,pilot2,Deutsche Forschungsgemeinschaft,10.13039/501100001659,DE,Germany,both,crossref_id,high,FALSE
+10.1186/s40359-023-01249-5,pilot2,German Federal Ministry for Education and Research (BMBF),NA,NA,NA,tei_name,NA,low,FALSE
+10.1186/s40359-023-01249-5,pilot2,Network for University Medicine,NA,NA,NA,tei_name,NA,low,FALSE
+10.1186/s40359-023-01249-5,pilot2,Leibniz Institute for Resilience Research),NA,NA,NA,tei_name,NA,low,FALSE
+10.1186/s40359-023-01249-5,pilot2,European Union,10.13039/501100000780,EU,European Union,tei_name,tei_contained,medium,FALSE
+10.1186/s40359-023-01249-5,pilot2,DYNAmore,10.13039/100023009,DE,Germany,tei_name,tei_registry,high,FALSE
+10.1186/s40359-023-01249-5,pilot2,Horizon 2020 research and innovation program,10.13039/100010661,EU,European Union,tei_name,tei_contained,medium,FALSE
+10.1186/s40359-023-01249-5,pilot2,MARP program,NA,NA,NA,tei_name,NA,low,FALSE
+10.1186/s40359-023-01249-5,pilot2,DRZ program,NA,NA,NA,tei_name,NA,low,FALSE
+10.1111/cdev.13959,pilot2,National Science Foundation,10.13039/100000001,US,United States,both,crossref_id,high,FALSE
+10.1111/cdev.13959,pilot2,Eunice Kennedy Shriver National Institute of Child Health and Human Development,10.13039/100009633,US,United States,both,crossref_id,high,FALSE
+10.1186/s40359-023-01173-8,pilot2,Natural Sciences and Engineering Research Council of Canada,10.13039/501100000038,CA,Canada,both,crossref_id,high,FALSE
+10.1186/s40359-023-01173-8,pilot2,Canada Foundation for Innovation,10.13039/501100000196,CA,Canada,tei_name,tei_registry,high,FALSE
+10.1080/10400419.2023.2227477,pilot2,Alzheimer's Association,10.13039/100000957,US,United States,tei_name,tei_registry,high,FALSE
+10.1080/10400419.2023.2227477,pilot2,"Geoffrey Beene Gives Back Alzheimer's Initiative, GHR Foundation",NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/10400419.2023.2227477,pilot2,Banner Alzheimer's Foundation,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/10400419.2023.2227477,pilot2,National Institutes of Aging,10.13039/100000049,US,United States,tei_name,tei_registry,high,FALSE
+10.1080/10400419.2023.2227477,pilot2,Flinn Foundation,10.13039/100001109,US,United States,tei_name,tei_registry,high,FALSE
+10.1111/cch.13106,pilot2,University of Missouri Women's & Children's Hospital,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/13506285.2023.2192993,pilot2,National Science Foundation,10.13039/100000001,US,United States,tei_name,tei_registry,high,FALSE
+10.1192/bjo.2023.550,pilot2,Knowledge for Democracy Myanmar (K4DM) Initiative,NA,MM,Myanmar (Burma),tei_name,tei_contained,medium,FALSE
+10.1192/bjo.2023.550,pilot2,SecDev Foundation,NA,NA,NA,tei_name,NA,low,FALSE
+10.1192/bjo.2023.550,pilot2,"International Development Research Centre (IDRC), Ottawa, Canada",NA,CD,Congo - Kinshasa,tei_name,tei_contained,medium,FALSE
+10.1037/apl0001112,pilot2,Nanyang Technological University,10.13039/501100001475,SG,Singapore,crossref_id,crossref_id,high,FALSE
+10.1037/apl0001112,pilot2,National Natural Science Foundation of China,10.13039/501100001809,CN,China,crossref_id,crossref_id,high,FALSE
+10.1037/apl0001112,pilot2,London Business School,10.13039/501100004145,GB,United Kingdom,crossref_id,crossref_id,high,FALSE
+10.1080/07481187.2023.2246018,pilot2,"Center for Research and Intervention on Suicide, Ethical Issues and Endof-life Practices at the Universit e du Qu ebec a Montr eal",NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/07481187.2023.2246018,pilot2,Fonds de Recherche du Qu ebec -Soci et e et Culture (FRQ-SC),NA,NA,NA,tei_name,NA,low,FALSE
+10.1007/s10865-023-00455-1,pilot2,NIHR Leicester Biomedical Research Centre,10.13039/501100020013,GB,United Kingdom,both,crossref_id,high,FALSE
+10.1007/s10865-023-00455-1,pilot2,National Institute for Health and Care Research,10.13039/501100000272,GB,United Kingdom,tei_name,tei_registry,high,FALSE
+10.1016/j.cogpsych.2023.101591,pilot2,Deutsche Forschungsgemeinschaft,10.13039/501100001659,DE,Germany,crossref_id,crossref_id,high,FALSE
+10.1016/j.cogpsych.2023.101591,pilot2,German Research Council (DFG),NA,NA,NA,tei_name,NA,low,FALSE
+10.1002/capr.12721,pilot2,North Wales Society of the Blind (NWSB) and Health and Care Economics Cymru (HCEC),NA,NA,NA,tei_name,NA,low,FALSE
+10.1002/capr.12721,pilot2,Welsh government through Health and Care Research Wales,NA,NA,NA,tei_name,NA,low,FALSE
+10.1002/capr.12721,pilot2,Bangor University Medical and Health Sciences Academic Ethics Committee,NA,NA,NA,tei_name,NA,low,FALSE
+10.1111/bjhp.12677,pilot2,Research Foundation,NA,NA,NA,tei_name,NA,low,FALSE
+10.1111/bjhp.12677,pilot2,Medibank Better Health Foundation,10.13039/501100020646,AU,Australia,tei_name,tei_registry,high,FALSE
+10.1111/bjhp.12677,pilot2,Australian and New Zealand College of Anaesthetists (ANZCA),NA,NA,NA,tei_name,NA,low,FALSE
+10.1177/1086296x231163117,pilot2,National Science Foundation,10.13039/100000001,US,United States,crossref_id,crossref_id,high,FALSE
+10.1177/1086296x231163117,pilot2,International Literacy Association,10.13039/100009692,US,United States,both,crossref_id,high,FALSE
+10.1177/10790632231205784,pilot2,"National Society for the Prevention of Cruelty to Children, UK",10.13039/100031455,GB,United Kingdom,both,crossref_id,high,FALSE
+10.1177/21677026231164958,pilot2,Mind and Life Institute PEACE,10.13039/100011569,US,United States,both,crossref_id,high,FALSE
+10.1177/21677026231164958,pilot2,Israeli Science Foundation,10.13039/501100003977,IL,Israel,both,crossref_id,high,FALSE
+10.1177/21677026231164958,pilot2,Max-Planck-Gesellschaft,10.13039/501100004189,DE,Germany,both,crossref_id,high,FALSE
+10.1177/21677026231164958,pilot2,Charney Foundation,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/09658211.2023.2284401,pilot2,National Institute on Aging,10.13039/100000049,US,United States,both,crossref_id,high,FALSE
+10.1080/09658211.2023.2284401,pilot2,National Science Foundation of Sri Lanka,10.13039/501100008982,LK,Sri Lanka,both,crossref_id,high,FALSE
+10.1080/09658211.2023.2284401,pilot2,Program for Research in Science and Engineering,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/09658211.2023.2284401,pilot2,Harvard College Research Program,NA,NA,NA,tei_name,NA,low,FALSE
+10.1162/opmi_a_00088,pilot2,Bates College Program in Neuroscience,NA,NA,NA,tei_name,NA,low,FALSE
+10.1002/jclp.23569,pilot2,National Health and Medical Research Council,10.13039/501100000925,AU,Australia,crossref_id,crossref_id,high,FALSE
+10.1007/s12671-023-02079-7,pilot2,Bergische Universität Wuppertal,10.13039/100012325,DE,Germany,crossref_id,crossref_id,high,FALSE
+10.1007/s12671-023-02079-7,pilot2,Evangelisches Studienwerk Villigst,10.13039/501100003088,DE,Germany,crossref_id,crossref_id,high,FALSE
+10.1007/s12671-023-02079-7,pilot2,University of Wuppertal,NA,NA,NA,tei_name,NA,low,FALSE
+10.3390/bs13020166,pilot2,Scientific Foundations of Education Research Program of the Hungarian Academy of Sciences,NA,NA,NA,tei_name,NA,low,FALSE
+10.3390/bs13020166,pilot2,"Institutional Review Board of Doctoral School of Education, University of Szeged",NA,NA,NA,tei_name,NA,low,FALSE
+10.3390/bs13020166,pilot2,"ICT and Societal Challenges Competence Centre of the Humanities and Social Sciences Cluster of the Centre of Excellence for Interdisciplinary Re-search, Development and Innovation of the University of Szeged",NA,NA,NA,tei_name,NA,low,FALSE
+10.1177/00220426231151372,pilot2,European Treatment Centers For Drug Addiction (euro-TC),NA,NA,NA,tei_name,NA,low,FALSE
+10.1177/00220426231151372,pilot2,European Commission and Rebirth Charity Society,NA,EU,European Union,tei_name,tei_contained,medium,FALSE
+10.1177/00220426231151372,pilot2,Society for Recovery Support,NA,NA,NA,tei_name,NA,low,FALSE
+10.1002/bdm.2341,pilot2,Kent State University Research Council,NA,NA,NA,tei_name,NA,low,FALSE
+10.1002/bdm.2341,pilot2,Honors College,NA,NA,NA,tei_name,NA,low,FALSE
+10.1002/bdm.2341,pilot2,U.S. Department of Education Institute of Education Sciences,NA,US,United States,tei_name,tei_contained,medium,FALSE
+10.1080/02667363.2023.2176827,pilot2,Oak Foundation,10.13039/100001275,US,United States,both,crossref_id,high,FALSE
+10.3390/bs13080651,pilot2,National Health and Medical Research Council (NHMRC) Australia,NA,AU,Australia,tei_name,tei_contained,medium,FALSE
+10.1192/bjo.2023.12,pilot2,National Institute for Health and Care Research,10.13039/501100000272,GB,United Kingdom,both,crossref_id,high,FALSE
+10.1192/bjo.2023.12,pilot2,UK Government,NA,GB,United Kingdom,tei_name,tei_contained,medium,FALSE
+10.1080/10447318.2023.2169530,pilot2,Ministry of Higher Education and Scientific Research,10.13039/100009122,AE,United Arab Emirates,both,crossref_id,high,FALSE
+10.1080/10447318.2023.2169530,pilot2,Technology Development Program of MSS,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/10447318.2023.2169530,pilot2,National Research Foundation of Korea (NRF),NA,KR,South Korea,tei_name,tei_contained,medium,FALSE
+10.1080/10447318.2023.2169530,pilot2,Basic Science Research Program,NA,NA,NA,tei_name,NA,low,FALSE
+10.1002/acp.4095,pilot2,Velux Fonden,10.13039/100008397,DK,Denmark,both,crossref_id,high,FALSE
+10.1002/acp.4095,pilot2,Danmarks Grundforskningsfond,10.13039/501100001732,DK,Denmark,both,crossref_id,high,FALSE
+10.1002/acp.4095,pilot2,Danish National Research Foundation,NA,NA,NA,tei_name,NA,low,FALSE
+10.1002/acp.4095,pilot2,Velux Stiftung,10.13039/100007214,CH,Switzerland,tei_name,tei_registry,medium,FALSE
+10.1037/xge0001388,pilot2,University of Pennsylvania,10.13039/100006920,US,United States,crossref_id,crossref_id,high,FALSE
+10.1037/xge0001388,pilot2,University of California Berkeley,10.13039/100006978,US,United States,crossref_id,crossref_id,high,FALSE
+10.1037/xge0001388,pilot2,University of Chicago,10.13039/100007234,US,United States,crossref_id,crossref_id,high,FALSE
+10.1038/s41562-023-01731-5,pilot2,Center for Advanced Hindsight at Duke University,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/10447318.2023.2276520,pilot2,National Research Foundation of Korea (NRF),NA,KR,South Korea,tei_name,tei_contained,medium,FALSE
+10.1080/10447318.2023.2276520,pilot2,Korea government (MSIT),NA,KR,South Korea,tei_name,tei_contained,medium,FALSE
+10.1177/00302228231209654,pilot2,IINFACTS -Institute of Research and Advanced Training in Health Sciences and Technologies,NA,NA,NA,tei_name,NA,low,FALSE
+10.1186/s40359-023-01244-w,pilot2,Austin Medical Research Foundation,10.13039/100012128,AU,Australia,both,crossref_id,high,FALSE
+10.1186/s40359-023-01244-w,pilot2,Australian National Health and Medical Research Council,NA,AU,Australia,tei_name,tei_contained,medium,FALSE
+10.1080/10409289.2023.2297655,pilot2,National Natural Science Foundation of China,10.13039/501100001809,CN,China,both,crossref_id,high,FALSE
+10.1080/10409289.2023.2297655,pilot2,Southwest University of Science and Technology,10.13039/501100006250,CN,China,both,crossref_id,high,FALSE
+10.1080/10409289.2023.2297655,pilot2,Natural Science Foundation of Shaanxi Province,10.13039/501100007128,CN,China,both,crossref_id,high,FALSE
+10.1080/10409289.2023.2297655,pilot2,Fundamental Research Funds for the Central Universities,10.13039/501100012226,CN,China,tei_name,tei_registry,high,FALSE
+10.1080/10409289.2023.2297655,pilot2,Decision Making Laboratory for Western China Education and Human Development,NA,CN,China,tei_name,tei_contained,medium,FALSE
+10.1080/10409289.2023.2297655,pilot2,Social Science Foundation of Jiangsu Province,10.13039/501100018562,CN,China,tei_name,tei_registry,medium,FALSE
+10.1080/10409289.2023.2297655,pilot2,National Social Science and Humanity Foundation,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/10409289.2023.2297655,pilot2,Chongqing Social Science and Humanity Foundation,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/10409289.2023.2297655,pilot2,Innovation Research 2035 Pilot Plan,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/10409289.2023.2297655,pilot2,111 program,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/10409289.2023.2297655,pilot2,Chongqing doctoral innovation research,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/13691058.2023.2201356,pilot2,Otago School of Medical Sciences,10.13039/501100006208,NZ,New Zealand,crossref_id,crossref_id,high,FALSE
+10.1080/13691058.2023.2201356,pilot2,Pacific Peoples' Summer Research Scholarship (University of Otago),NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/13691058.2023.2201356,pilot2,Ministry for Pacific Peoples,NA,NA,NA,tei_name,NA,low,FALSE
+10.1111/jar.13073,pilot2,Health Research Board,10.13039/100010414,IE,Ireland,both,crossref_id,high,FALSE
+10.1080/02699931.2023.2206999,pilot2,National Social Science Fund of China,10.13039/501100012456,CN,China,tei_name,tei_registry,high,FALSE
+10.3390/psych5040080,pilot2,Institutional Review Board of An Najah National University,NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/xge0001381,pilot2,National Science Foundation,10.13039/100000001,US,United States,tei_name,tei_registry,high,FALSE
+10.1177/20438087231151502,pilot2,Deutsche Forschungsgemeinschaft,10.13039/501100001659,DE,Germany,crossref_id,crossref_id,high,FALSE
+10.1111/bjop.12681,pilot2,Engineering and Physical Sciences Research Council (EPSRC),10.13039/501100000266,GB,United Kingdom,both,crossref_id,high,FALSE
+10.1111/bjop.12681,pilot2,Economic and Social Research Council (ESRC),10.13039/501100000269,GB,United Kingdom,both,crossref_id,high,FALSE
+10.1111/bjop.12681,pilot2,Scottish Graduate School of Social Science (SGSSS),NA,NA,NA,tei_name,NA,low,FALSE
+10.1111/bjop.12681,pilot2,Max-Planck-Gesellschaft,10.13039/501100004189,DE,Germany,tei_name,tei_registry,medium,FALSE
+10.1002/eat.23931,pilot2,National Institute of Mental Health,10.13039/100000025,US,United States,both,crossref_id,high,FALSE
+10.1002/eat.23931,pilot2,Eunice Kennedy Shriver National Institute of Child Health and Human Development,10.13039/100009633,US,United States,both,crossref_id,high,FALSE
+10.1080/10409289.2023.2193856,pilot2,National Natural Science Foundation of China,10.13039/501100001809,CN,China,both,crossref_id,high,FALSE
+10.1037/xge0001449,pilot2,Office of Naval Research,10.13039/100000006,US,United States,both,crossref_id,high,FALSE
+10.1037/xge0001449,pilot2,National Institute of Mental Health,10.13039/100000025,US,United States,both,crossref_id,high,FALSE
+10.1037/xge0001449,pilot2,Multidisciplinary University Research Initiative (MURI),NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/emo0001282,pilot2,European Commission,10.13039/501100000780,EU,European Union,both,crossref_id,high,FALSE
+10.1080/23273798.2023.2232903,pilot2,National Institute on Deafness and Other Communication Disorders (NIDCD),10.13039/100000055,US,United States,both,crossref_id,high,FALSE
+10.1080/21515581.2023.2190900,pilot2,Universidade de Brasília,10.13039/100008994,BR,Brazil,crossref_id,crossref_id,high,FALSE
+10.1080/21515581.2023.2190900,pilot2,Coordenação de Aperfeiçoamento de Pessoal de Nível Superior,10.13039/501100002322,BR,Brazil,crossref_id,crossref_id,high,FALSE
+10.1080/21515581.2023.2190900,pilot2,Conselho Nacional de Desenvolvimento Científico e Tecnológico,10.13039/501100003593,BR,Brazil,crossref_id,crossref_id,high,FALSE
+10.1080/21515581.2023.2190900,pilot2,Universitat Jaume I,10.13039/501100004834,ES,Spain,crossref_id,crossref_id,high,FALSE
+10.1037/xap0000495,pilot2,Universiteit Utrecht,10.13039/501100001829,NL,Netherlands,crossref_id,crossref_id,high,FALSE
+10.1037/xap0000495,pilot2,American Psychological Association,10.13039/100006324,US,United States,tei_name,tei_registry,high,FALSE
+10.1037/xap0000495,pilot2,Dynamics of Youth (Utrecht University) Invigoration,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/03069885.2023.2200235,pilot2,Association for Assessment and Research in Counseling,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/08995605.2023.2243364,pilot2,Defense Research and Development Canada,NA,CA,Canada,tei_name,tei_contained,medium,FALSE
+10.1080/08995605.2023.2243364,pilot2,Social Sciences and Humanities Research Council of Canada,10.13039/501100000155,CA,Canada,tei_name,tei_registry,high,FALSE
+10.1111/desc.13402,pilot2,European Research Council,10.13039/501100000781,EU,European Union,both,crossref_id,high,FALSE
+10.1080/20008066.2023.2260293,pilot2,Bundesministerium für Bildung und Forschung,10.13039/501100002347,DE,Germany,crossref_id,crossref_id,high,FALSE
+10.1080/20008066.2023.2260293,pilot2,German Federal Ministry of Education and Research,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/10447318.2023.2271240,pilot2,National Natural Science Foundation Collaboration,NA,NA,NA,tei_name,NA,low,FALSE
+10.1080/10447318.2023.2271240,pilot2,Central Guidance for Local Science and Technology Development Funds,NA,NA,NA,tei_name,NA,low,FALSE
+10.1016/j.cognition.2023.105606,pilot2,H2020 European Research Council,10.13039/100010663,EU,European Union,crossref_id,crossref_id,high,FALSE
+10.1016/j.cognition.2023.105606,pilot2,Horizon 2020 research and innovation programme,10.13039/501100007601,EU,European Union,both,crossref_id,high,FALSE
+10.1016/j.cognition.2023.105606,pilot2,European Research Council (ERC),NA,EU,European Union,tei_name,tei_contained,medium,FALSE
+10.1016/j.cognition.2023.105606,pilot2,European Union,10.13039/501100000780,EU,European Union,tei_name,tei_contained,medium,FALSE
+10.1016/j.cognition.2023.105606,pilot2,Running Strong for American Indian Youth,10.13039/100026709,US,United States,tei_name,tei_registry,medium,FALSE
+10.1093/abm/kaac079,pilot2,University of Colorado Denver,10.13039/100010346,US,United States,crossref_id,crossref_id,high,FALSE
+10.1177/17470218231191442,pilot2,Leverhulme Trust,10.13039/501100000275,GB,United Kingdom,tei_name,tei_registry,high,FALSE
+10.1177/17470218231191442,pilot2,PhD training programme,NA,NA,NA,tei_name,NA,low,FALSE
+10.1111/cdev.13933,pilot2,Leverhulme Trust,10.13039/501100000275,GB,United Kingdom,crossref_id,crossref_id,high,FALSE
+10.1111/cdev.13933,pilot2,Royal Society,10.13039/501100000288,GB,United Kingdom,tei_name,tei_registry,high,FALSE
+10.1111/fare.12905,pilot2,"Humanities and Social Sciences Youth Foundation, Ministry of Education of the People's Republic of China",10.13039/501100017630,CN,China,tei_name,tei_registry,high,FALSE
+10.1080/00224545.2023.2224546,pilot2,Hofstra University IRB,NA,NA,NA,tei_name,NA,low,FALSE
+10.1037/emo0001199,pilot2,National Institute of Nursing Research,10.13039/100000056,US,United States,crossref_id,crossref_id,high,FALSE
+10.1037/emo0001199,pilot2,National Institute of General Medical Sciences,10.13039/100000057,US,United States,both,crossref_id,high,FALSE
+10.1111/psyp.14316,pilot2,Narodowe Centrum Nauki,10.13039/501100004281,PL,Poland,crossref_id,crossref_id,high,FALSE
+10.1111/psyp.14316,pilot2,National Centre for Atmospheric Science,10.13039/501100000662,GB,United Kingdom,tei_name,tei_registry,medium,FALSE
+10.1111/psyp.14316,pilot2,National Science Centre in Poland,NA,PL,Poland,tei_name,tei_contained,medium,FALSE
+10.1016/j.brat.2021.103997,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1016/j.dcn.2022.101163,pilot1,N.S.F.,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1037/pag0000675,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1037/pag0000675,pilot1,SHARE-PREP: GA,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1037/pag0000675,pilot1,FP7,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1037/pag0000675,pilot1,SHARE-LEAP: GA,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1016/j.cognition.2022.105345,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1016/j.cognition.2022.105345,pilot1,ILCB,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1016/j.cognition.2022.105345,pilot1,BLRI,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1111/psyp.14042,pilot1,NRU Higher School of Economics,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1177/09567976211055373,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1111/psyp.14058,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1037/ccp0000739,pilot1,DoD,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1037/ccp0000739,pilot1,"NIH, DoD",NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1037/ccp0000739,pilot1,Texas Veterans & Family Alliance. Stacey Young-McCaughan,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1002/eat.23792,pilot1,European Union Horizon 2020,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1080/08870446.2021.2024190,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1017/s0140525x2200067x,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1017/s0140525x2200067x,pilot1,ERDF A way of making Europe,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1017/s0140525x22002023,pilot1,Cass Sunstein,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1017/s0140525x22002023,pilot1,Economy (GATE),NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1017/s0140525x22002023,pilot1,Columbia Business School,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1017/s0140525x22002023,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1007/s10802-022-00901-9,pilot1,NIH/NIMH,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1002/eat.23836,pilot1,NHS Innovation Accelerator NIA,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1002/eat.23836,pilot1,NHS Innovation Accelerator (NIA),NA,NA,NA,tei_name,misparse,junk,TRUE
+10.3758/s13428-022-01993-3,pilot1,CRUI-CARE Agreement,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1037/xhp0001017,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1002/eat.23790,pilot1,Saudi Basic Industries Corporation (SABIC),NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1017/s0140525x22002801,pilot1,"NRW Profillinie """,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1017/s0140525x22002801,pilot1,"Frontiers in Cognition"" EUR",NA,NA,NA,tei_name,journal,junk,TRUE
+10.1016/j.brat.2022.104243,pilot1,TREFAMS-CBT,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1111/psyp.14115,pilot1,IReL,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1016/j.cognition.2022.105113,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1016/j.cognition.2021.104987,pilot1,SNSF doc,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1093/jpepsy/jsac081,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.3758/s13428-022-01850-3,pilot1,Robotex Equipment of Excellence,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.3758/s13428-022-01850-3,pilot1,FEDER/ ERDF,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1002/eat.23867,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1037/met0000330,pilot1,JSPS KAKENHI,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1016/j.cognition.2022.105173,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1016/j.cognition.2022.105173,pilot1,ANR JCJ,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1016/j.cognition.2022.105173,pilot1,Investissements d'Avenir,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1002/da.23270,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1080/15374416.2022.2073235,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1037/pspi0000383,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1037/pspi0000383,pilot1,TOMOVA SHAKUR AND PHILLIPS All,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1037/emo0001036,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1111/desc.13354,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1016/j.cognition.2022.105224,pilot1,FWO postdoctoral,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1093/jpepsy/jsac046,pilot1,NIH CTSA,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1101/lm.053521.121,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1016/j.dcn.2022.101172,pilot1,ABCD Study®,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1037/adb0000695,pilot1,Spanish Federation of Rehabilitated Gamblers,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1101/lm.053522.121,pilot1,ERC H2020,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1101/lm.053522.121,pilot1,Innovation action EU,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1101/lm.053522.121,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1101/lm.053522.121,pilot1,Fighting Online Illegal Trafficking [ANITA,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1037/xge0001255,pilot1,JSPS KAKENHI,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1017/s0954579422000311,pilot1,"Families, Children",NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1017/s0954579422000311,pilot1,Child Care (FCCC),NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1037/xge0001147,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1037/xge0001147,pilot1,Tagung experimentell arbeitender Psychologen,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1007/s10802-022-00914-4,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1080/10503307.2022.2050829,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1037/hea0001181,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1037/hea0001181,pilot1,PiGeOn Project,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1016/j.brat.2022.104104,pilot1,Robles,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1016/j.brat.2022.104104,pilot1,Neuroscience & Biobehavioral Reviews,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1016/j.brat.2022.104104,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1016/j.brat.2022.104104,pilot1,Myeloid differentiation architecture of leukocyte transcriptome dynamics in perceived social isolation,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1016/j.brat.2021.104011,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1016/j.brat.2021.104011,pilot1,Psychological networks and time series models: Improving the analyses of complex clinical data,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1111/psyp.14065,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1016/j.dcn.2022.101176,pilot1,"Ngogo chimpanzees in Kibale National Park, Uganda possible",NA,NA,NA,tei_name,bare_country,junk,TRUE
+10.3758/s13428-022-01798-4,pilot1,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1177/00302228231185172,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.32872/cpe.9341,pilot2,BMC Medical Education,NA,NA,NA,tei_name,journal,junk,TRUE
+10.32872/cpe.9341,pilot2,Switzerland,NA,NA,NA,tei_name,bare_country,junk,TRUE
+10.32872/cpe.9341,pilot2,Challenges in social adaptation and interactions amongst international medical,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1037/fam0001134,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1177/13591053221141131,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1080/00140139.2023.2176551,pilot2,CARRS-Q,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1037/fam0001090,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1037/fam0001090,pilot2,ALSPAC,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1002/cpp.2863,pilot2,Projekt DEAL,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1002/cpp.2863,pilot2,MEDICE Arzneimittel Pütter GmbH & Co KG,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1080/10447318.2023.2171350,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1177/08862605231176799,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1007/s12671-023-02202-8,pilot2,CAUL,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1080/10447318.2023.2276529,pilot2,Taiwan,NA,NA,NA,tei_name,bare_country,junk,TRUE
+10.1080/0092623x.2023.2226130,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1037/xge0001439,pilot2,DARPA Machine Common Sense MCS,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1037/xge0001439,pilot2,DARPA Machine Common Sense (MCS),NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1111/jopy.12890,pilot2,Projekt DEAL,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1037/xge0001472,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1037/xge0001472,pilot2,ERC-CoG IDENTITIES,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1002/cpp.2905,pilot2,Projekt DEAL,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1037/dev0001609,pilot2,Port Waratah Coal Services,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1037/dev0001609,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1080/23273798.2022.2159992,pilot2,ESRC-MRC Multidisciplinary,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1111/desc.13432,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1186/s40359-023-01249-5,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1186/s40359-023-01249-5,pilot2,"State of Rhineland-Palatinate, Germany",NA,NA,NA,tei_name,bare_country,junk,TRUE
+10.1186/s40359-023-01249-5,pilot2,CEOsys and EViPan projects),NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1186/s40359-023-01249-5,pilot2,RESPOND,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1080/10400419.2023.2227477,pilot2,State of Arizona (Arizona Alzheimer's Consortium),NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1080/10400419.2023.2227477,pilot2,Arizona Alzheimer's Consortium,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1111/cch.13106,pilot2,Switched!,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1111/cch.13106,pilot2,Pascale's Pals,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1177/21677026231164958,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1177/21677026231164958,pilot2,European Mind and Life Varela Award,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1007/s12671-023-02079-7,pilot2,Evangelisches Studienwerk e,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1007/s12671-023-02079-7,pilot2,Projekt DEAL,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1177/00220426231151372,pilot2,Therapiesalon im Wald,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1177/00220426231151372,pilot2,World Federation Against Drugs WFAD,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1177/00220426231151372,pilot2,World Federation Against Drugs (WFAD),NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1192/bjo.2023.12,pilot2,UK,NA,NA,NA,tei_name,bare_country,junk,TRUE
+10.1037/xge0001388,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1080/10409289.2023.2297655,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1080/20008066.2023.2282904,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1080/20008066.2023.2282904,pilot2,Help for Heroes,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1080/20008066.2023.2282904,pilot2,Help for Heroes. Help for Heroes,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1080/13691058.2023.2201356,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1111/jar.13073,pilot2,IReL,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1111/jar.13073,pilot2,IDS-TILDA,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1177/09567976231194537,pilot2,Stephen M. Ross School of Business,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1037/emo0001282,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1037/emo0001282,pilot2,-EnTimeMent,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1089/aut.2022.0117,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1002/jcop.23082,pilot2,Projekt DEAL,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1016/j.cognition.2023.105606,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1016/j.cognition.2023.105606,pilot2,SENSORIMOTOR AND LINGUISTIC,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1016/j.cognition.2023.105606,pilot2,PICTURE,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1016/j.cognition.2023.105606,pilot2,PREPRINT VERSION,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1016/j.cognition.2023.105606,pilot2,HAS NOT,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1016/j.cognition.2023.105606,pilot2,BEEN PEER REVIEWED,NA,NA,NA,tei_name,misparse,junk,TRUE
+10.1177/17470218231191442,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1111/cdev.13933,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1037/emo0001199,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1111/apps.12466,pilot2,Projekt DEAL,NA,NA,NA,tei_name,misparse,junk,TRUE

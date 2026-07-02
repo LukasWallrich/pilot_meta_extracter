@@ -1,0 +1,530 @@
+query_name,matched_name,crossref_funder_id,reg_country_code,reg_country,relevance,similarity,reg_confidence,source
+Association for Contextual Behavioral Science,Association for Contextual Behavioral Science,10.13039/100032166,US,United States,56.92176,1,high,tei_name
+University of Konstanz,Universität Konstanz,10.13039/501100010583,DE,Germany,6240.09,0.9305847953216374,high,tei_name
+Veterans Health Administration Office of Academic Affiliations Advanced Fellowship in Clinical and Health Services Research,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Institutes of Health,National Institutes of Health,10.13039/100000002,US,United States,856079.3,1,high,tei_name
+National Institute on Aging NIA,National Institute on Aging,10.13039/100000049,US,United States,45002.457,0.9741935483870967,high,tei_name
+"Minneapolis Center of Innovation, Center for Care Delivery and Outcomes Research",NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Institute on Aging (NIA),National Institute on Aging,10.13039/100000049,US,United States,45062.965,0.9741935483870967,high,tei_name
+Robert L. Kane Endowed Chair in Long-Term Care and Aging,NA,NA,NA,NA,NA,0,unresolved,tei_name
+NIHR,National Institute for Health and Care Research,10.13039/501100000272,GB,United Kingdom,22316.307,0.648076923076923,high,tei_name
+unknown,NA,NA,NA,NA,NA,0,skipped,tei_name
+NIHR Applied Research Collaboration Oxford and Thames Valley at Oxford Health NHS Trust,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Institute of Mental Health,National Institute of Mental Health,10.13039/100000025,US,United States,376986.12,1,high,tei_name
+"National Institute of Diabetes, Digestive",National Institute of Diabetes and Digestive and Kidney Diseases,10.13039/100000062,US,United States,225508.67,0.939622641509434,high,tei_name
+Autism Research and Treatment Center,NA,NA,NA,NA,482.29263,0.6697680995475113,unresolved,tei_name
+Economic and Social Research Council,Economic and Social Research Council,10.13039/501100000269,GB,United Kingdom,190527.61,1,high,tei_name
+N.S.F.,NA,NA,NA,NA,NA,0,unresolved,tei_name
+"Directorate-General for Employment, Social Affairs and Inclusion","Directorate-General for Employment, Social Affairs and Inclusion",10.13039/501100000893,NA,NA,16398.646,1,high,tei_name
+European Commission,European Commission,10.13039/501100000780,NA,NA,302519.6,1,high,tei_name
+German Ministry of Education and Research,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Office for National Statistics. Health and Retirement Study HRS,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Max Planck Society for the Advancement of Science,Max-Planck-Gesellschaft,10.13039/501100004189,DE,Germany,38287.625,0.8179252479023646,medium,tei_name
+U.S. National Institute on Aging,National Institute on Aging,10.13039/100000049,US,United States,81488.03,0.8211867781760255,medium,tei_name
+National Institute on Aging of the National Institutes of Health,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Horizon 2020,Horizon 2020,10.13039/501100007601,NA,NA,120728.26,1,high,tei_name
+National Institute on Aging,National Institute on Aging,10.13039/100000049,US,United States,483157.66,1,high,tei_name
+University of Michigan. National Health and Aging Trends Study NHATS,NA,NA,NA,NA,NA,0,unresolved,tei_name
+NHATS,National Health and Aging Trends Study,10.13039/100016351,US,United States,397.5659,0.5627941176470588,high,tei_name
+Johns Hopkins University Bloomberg School of Public Health,Johns Hopkins Bloomberg School of Public Health,10.13039/100008309,US,United States,9562.369,0.8963636363636364,medium,tei_name
+Office for National Statistics. Health and Retirement Study (HRS),NA,NA,NA,NA,NA,0,unresolved,tei_name
+University of Michigan. National Health and Aging Trends Study (NHATS),NA,NA,NA,NA,NA,0,unresolved,tei_name
+FP5,Fifth Framework Programme,10.13039/100011104,NA,NA,2716.643,0.512,high,tei_name
+FP6,Sixth Framework Programme,10.13039/501100004965,NA,NA,1400.602,0.45777777777777773,high,tei_name
+SHARE-PREP: GA,NA,NA,NA,NA,NA,0,unresolved,tei_name
+FP7,NA,NA,NA,NA,25666.713,0.79,unresolved,tei_name
+SHARE-LEAP: GA,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Institutes of Health NIH,National Institutes of Health,10.13039/100000002,US,United States,65296.855,0.9733333333333333,high,tei_name
+National Science Foundation NSF,National Science Foundation,10.13039/100000001,US,United States,50603.098,0.9741935483870967,high,tei_name
+NSF,National Science Foundation,10.13039/100000001,US,United States,62633.574,0.6222222222222222,high,tei_name
+NIH,National Institutes of Health,10.13039/100000002,US,United States,54374.863,0.6230769230769231,high,tei_name
+Agence Nationale de la Recherche ANR,NA,NA,NA,NA,NA,0,unresolved,tei_name
+French government,NA,NA,NA,NA,135.93602,0.6718954248366013,unresolved,tei_name
+ILCB,NA,NA,NA,NA,NA,0,unresolved,tei_name
+BLRI,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Programme «Investissements d'Avenir»,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Fundação para a Ciência e Tecnologia,Fundação para a Ciência e a Tecnologia,10.13039/501100001871,PT,Portugal,99667.055,1,high,tei_name
+Wellcome Trust,Wellcome Trust,10.13039/100010269,GB,United Kingdom,397869.3,1,high,tei_name
+Leverhulme Trust,Leverhulme Trust,10.13039/501100000275,GB,United Kingdom,115655.84,1,high,tei_name
+Israel Science Foundation,Israel Science Foundation,10.13039/501100003977,IL,Israel,108004.11,1,high,tei_name
+Max Planck Society,Max-Planck-Gesellschaft,10.13039/501100004189,DE,Germany,27882.6,0.8771014492753623,medium,tei_name
+University College London,University College London,10.13039/501100000765,GB,United Kingdom,75548.484,1,high,tei_name
+Wellcome/Royal,NA,NA,NA,NA,NA,0,unresolved,tei_name
+The Scientific and Technological Research Council of Turkey (TÜB İTAK),NA,NA,NA,NA,NA,0,unresolved,tei_name
+Deutsche Forschungsgemeinschaft (DFG; German Science Foundation,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Center for Social and Economic Behaviour of the University of Cologne,NA,NA,NA,NA,NA,0,unresolved,tei_name
+University of Maryland's School of Social Work,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Competitive Innovative Research Award,NA,NA,NA,NA,NA,0,unresolved,tei_name
+University of Colorado Denver,University of Colorado Denver,10.13039/100010346,US,United States,30025.328,1,high,tei_name
+National Science Foundation,National Science Foundation,10.13039/100000001,US,United States,448750.56,1,high,tei_name
+Lundbeck Foundation,Lundbeckfonden,10.13039/501100003554,DK,Denmark,15548.663,0.9225563909774436,high,tei_name
+Knut and Alice Wallenberg Foundation,Knut och Alice Wallenbergs Stiftelse,10.13039/501100004063,SE,Sweden,36553.367,0.8191388888888889,medium,tei_name
+NRU Higher School of Economics,NA,NA,NA,NA,2480.0293,0.7224358974358973,unresolved,tei_name
+Swedish Research Council,NA,NA,NA,NA,14031.418,0.5886538461538462,unresolved,tei_name
+Marcus and Amalia Wallenberg Foundation,Marcus och Amalia Wallenbergs minnesfond,10.13039/501100011898,SE,Sweden,7740.0327,0.8741071428571429,medium,tei_name
+Crafoord Foundation,Crafoordska Stiftelsen,10.13039/501100003173,SE,Sweden,4948.215,0.831784005468216,medium,tei_name
+Danish Council for Independent Research,NA,NA,NA,NA,13965.493,0.6858333333333333,unresolved,tei_name
+Basic Research Program,Basic Research Program of Jiangsu Province,10.13039/501100005145,CN,China,12580.298,0.9128205128205128,medium,tei_name
+German Research Foundation (DFG),NA,NA,NA,NA,38481.19,0.5879928315412186,unresolved,tei_name
+Czech Science Foundation,NA,NA,NA,NA,13257.059,0.5382395382395382,unresolved,tei_name
+"Czech Ministry of Education, Youth",NA,NA,NA,NA,NA,0,unresolved,tei_name
+Washington University in St. Louis Psychological and Brain Sciences Department,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Australian Catholic University,Australian Catholic University,10.13039/501100000990,AU,Australia,23505.076,1,high,tei_name
+Australian Research Council,Australian Research Council,10.13039/501100000923,AU,Australia,210298.28,1,high,tei_name
+Patient-Centered Outcomes Research Institute PCORI,Patient-Centered Outcomes Research Institute,10.13039/100006093,US,United States,8091.4106,0.976,high,tei_name
+Department of Veteran Affairs VA,NA,NA,NA,NA,NA,0,unresolved,tei_name
+U.S. Army Medical Research and Materiel Command,NA,NA,NA,NA,14241.031,0.777056277056277,unresolved,tei_name
+DoD,NA,NA,NA,NA,14558.439,0.786111111111111,unresolved,tei_name
+Bob Woodruff Foundations,NA,NA,NA,NA,NA,0,unresolved,tei_name
+U.S. Department of Defense,U.S. Department of Defense,10.13039/100000005,US,United States,186280.73,1,high,tei_name
+National Institute of Health NIH,"National Institutes of Health, Pakistan",10.13039/100020940,PK,Pakistan,384.55817,0.9459605911330049,high,tei_name
+Congressionally Directed Medical Research Programs,Congressionally Directed Medical Research Programs,10.13039/100000090,US,United States,86909.94,1,high,tei_name
+"NIH, DoD",NA,NA,NA,NA,NA,0,unresolved,tei_name
+Department of Defense,U.S. Department of Defense,10.13039/100000005,US,United States,145310.2,0.8375420875420876,medium,tei_name
+Texas Veterans & Family Alliance. Stacey Young-McCaughan,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Department of Defense (DoD),NA,NA,NA,NA,14278.559,0.7424242424242424,unresolved,tei_name
+PCORI,Patient-Centered Outcomes Research Institute,10.13039/100006093,US,United States,4095.7922,0.644090909090909,high,tei_name
+Federal Emergency Management Agency,Federal Emergency Management Agency,10.13039/100008464,US,United States,42631.535,1,high,tei_name
+Cancer Prevention Research Institute of Texas,Cancer Prevention and Research Institute of Texas,10.13039/100004917,US,United States,39520.285,1,high,tei_name
+National Institute of Health (NIH),"National Institutes of Health, Pakistan",10.13039/100020940,PK,Pakistan,384.55817,0.9459605911330049,high,tei_name
+Patient-Centered Outcomes Research Institute (PCORI),Patient-Centered Outcomes Research Institute,10.13039/100006093,US,United States,7906.5044,0.976,high,tei_name
+Department of Veteran Affairs (VA),NA,NA,NA,NA,NA,0,unresolved,tei_name
+European Union Horizon 2020,NA,NA,NA,NA,6392.7524,0.5,unresolved,tei_name
+Universite de Geneve,NA,NA,NA,NA,NA,0,unresolved,tei_name
+European Union,European Commission,10.13039/501100000780,NA,NA,26128.418,0.8810776942355889,medium,tei_name
+Horizon 2020 research and innovation program,Horizon 2020 Framework Programme,10.13039/100010661,NA,NA,15170.108,0.8741203703703704,medium,tei_name
+Social Sciences and Humanities Research Council of Canada SSHRC,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Canada Research Chair,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Social Sciences and Humanities Research Council of Canada (SSHRC),NA,NA,NA,NA,NA,0,unresolved,tei_name
+Social Sciences and Humanities Research Council of Canada,Social Sciences and Humanities Research Council of Canada,10.13039/501100000155,CA,Canada,119183.88,1,high,tei_name
+National Institute of Child Health and Human Development,National Institute of Child Health and Human Development,10.13039/100000071,US,United States,151698,1,high,tei_name
+Spanish Ministry of Science and Innovation,NA,NA,NA,NA,29431.37,0.7758604995164134,unresolved,tei_name
+ERDF A way of making Europe,NA,NA,NA,NA,NA,0,unresolved,tei_name
+German Science Foundation through Germany's Excellence Strategy,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Cass Sunstein,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Economy (GATE),NA,NA,NA,NA,NA,0,unresolved,tei_name
+European Research Council ERC,NA,NA,NA,NA,1273.8353,0.7526728699142492,unresolved,tei_name
+Columbia Business School,NA,NA,NA,NA,28.79428,0.7091880341880341,unresolved,tei_name
+European Research Council (ERC),NA,NA,NA,NA,1273.8353,0.7526728699142492,unresolved,tei_name
+Behavioral Sciences Program,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Junior Researcher Programme,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Office of Naval Research,Office of Naval Research,10.13039/100000006,US,United States,231416.8,1,high,tei_name
+Pennsylvania Department of Health using Tobacco CURE Funds,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Children's Miracle Network,Children's Miracle Network Hospitals,10.13039/100018268,US,United States,16421.719,0.9444444444444444,high,tei_name
+NIH/NIMH,NA,NA,NA,NA,NA,0,unresolved,tei_name
+King's College London,King's College London,10.13039/501100000764,GB,United Kingdom,107613.27,1,high,tei_name
+Health Foundation,Health Foundation,10.13039/501100000724,GB,United Kingdom,7191.9043,1,high,tei_name
+Academic Health Science Network AHSN,NA,NA,NA,NA,567.40533,0.7488730506822612,unresolved,tei_name
+National Institute for Health Research NIHR,National Institute for Health and Care Research,10.13039/501100000272,GB,United Kingdom,27149.742,0.947008547008547,high,tei_name
+NHS Innovation Accelerator NIA,NA,NA,NA,NA,NA,0,unresolved,tei_name
+NHS Innovation Accelerator (NIA),NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Institute for Health Research (NIHR) Biomedical Research Centre at South London and Maudsley NHS Foundation Trust (SLaM),NA,NA,NA,NA,NA,0,unresolved,tei_name
+Academic Health Science Network (AHSN),NA,NA,NA,NA,567.08954,0.7488730506822612,unresolved,tei_name
+National Institute for Mental Health,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Centre for Health and Wellbeing at Birmingham City University,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Eunice Kennedy Shriver National Institute of Child Health and Human Development,Eunice Kennedy Shriver National Institute of Child Health and Human Development,10.13039/100009633,US,United States,851201.1,1,high,tei_name
+Università degli Studi di Genova,Università degli Studi di Genova,10.13039/501100004702,IT,Italy,49185.496,1,high,tei_name
+CRUI-CARE Agreement,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Natural Science Foundation of China,National Natural Science Foundation of China,10.13039/501100001809,CN,China,941640.8,1,high,tei_name
+REESE program,NA,NA,NA,NA,NA,0,unresolved,tei_name
+« Agence Nationale pour la Recherche » (FoundTrust,NA,NA,NA,NA,NA,0,unresolved,tei_name
+American Psychological Association,American Psychological Association,10.13039/100006324,US,United States,42984.33,1,high,tei_name
+Open Science Framework,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Argosy Foundation,Argosy Foundation,10.13039/100000976,US,United States,3405.2935,1,high,tei_name
+Ministry of Health (Saudi Arabia),Ministry of Health – Kingdom of Saudi Arabia,10.13039/100019223,SA,Saudi Arabia,5215.344,0.9162698412698412,medium,tei_name
+King Abdulaziz City for Science and Technology KACST,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Saudi Basic Industries Corporation (SABIC),NA,NA,NA,NA,NA,0,unresolved,tei_name
+"King Saud University, King Faisal Specialist Hospital and Research Centre and Research Center",NA,NA,NA,NA,NA,0,unresolved,tei_name
+King Abdulaziz City for Science and Technology (KACST),NA,NA,NA,NA,NA,0,unresolved,tei_name
+World Health Organization World Mental Health (WMH) Survey Initiative,NA,NA,NA,NA,NA,0,unresolved,tei_name
+"NRW Profillinie """,NA,NA,NA,NA,NA,0,unresolved,tei_name
+University of Warwick Chancellor's International Scholarship,NA,NA,NA,NA,NA,0,unresolved,tei_name
+UKRI,UK Research and Innovation,10.13039/100014013,GB,United Kingdom,11895.23,0.7818181818181817,high,tei_name
+La Sapienza University International Scholarship,NA,NA,NA,NA,NA,0,unresolved,tei_name
+EUR,Erasmus Universiteit Rotterdam,10.13039/501100001828,NL,Netherlands,4382.2583,0.6299999999999999,high,tei_name
+"Frontiers in Cognition"" EUR",NA,NA,NA,NA,NA,0,unresolved,tei_name
+"Interact!""",InterAct for Change,10.13039/100026820,US,United States,27.208723,0.9066666666666666,medium,tei_name
+Fonds NutsOhra,Fonds NutsOhra,10.13039/501100003142,NL,Netherlands,19349.21,1,high,tei_name
+MS Research,NA,NA,NA,NA,8664.988,0.6666666666666666,unresolved,tei_name
+Netherlands Organization for Health Research and Development (ID ZonMw,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Dutch Diabetes Research Foundation,NA,NA,NA,NA,5104.1846,0.6842436974789915,unresolved,tei_name
+TREFAMS-CBT,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Merit,Merit Medical Systems,10.13039/100019484,US,United States,6569.67,0.8476190476190476,medium,tei_name
+US Department of Veterans Affairs Clinical Sciences Research and Development Service,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Louisiana Board of Regents,Louisiana Board of Regents,10.13039/100006952,US,United States,54802.88,1,high,tei_name
+Psi Chi,Psi Chi,10.13039/100005290,US,United States,10560.235,1,high,tei_name
+"Academy of Management in Boston, MA",NA,NA,NA,NA,NA,0,unresolved,tei_name
+NIMH,National Institute of Mental Health,10.13039/100000025,US,United States,53981.355,0.56875,high,tei_name
+National Center for Complementary and Integrative Health,National Center for Complementary and Integrative Health,10.13039/100008460,US,United States,166501.61,1,high,tei_name
+National Institutes of Health (NIH) Science of Behavior Change Common Fund Program,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Brain & Behavior Research Foundation,Brain and Behavior Research Foundation,10.13039/100000874,US,United States,22931.791,1,high,tei_name
+Behavior Research Foundation,Brain and Behavior Research Foundation,10.13039/100000874,US,United States,34691.555,0.8131302521008403,medium,tei_name
+IReL,NA,NA,NA,NA,1958.9525,0.7014492753623188,unresolved,tei_name
+"Health Research Board, Ireland",Health Research Board,10.13039/100010414,IE,Ireland,12278.3955,0.9448275862068966,high,tei_name
+European Foundation for Alcohol Research (ERAB),ERAB: The European Foundation for Alcohol Research,10.13039/501100006135,BE,Belgium,6002.9775,1,high,tei_name
+Science Foundation Ireland,Science Foundation Ireland,10.13039/501100001602,IE,Ireland,81368.04,1,high,tei_name
+Irish Research Council,Irish Research Council,10.13039/501100002081,IE,Ireland,48303.348,1,high,tei_name
+Health Research Board,Health Research Board,10.13039/100010414,IE,Ireland,46726.32,1,high,tei_name
+Mind & Consciousness Program,NA,NA,NA,NA,NA,0,unresolved,tei_name
+SNSF doc,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Nouvelle Aquitaine Regional Council,NA,NA,NA,NA,2008.4547,0.7237637362637362,unresolved,tei_name
+Robotex Equipment of Excellence,NA,NA,NA,NA,NA,0,unresolved,tei_name
+FEDER/ ERDF,NA,NA,NA,NA,3890.9375,0.5400560224089636,unresolved,tei_name
+French Government's Investments for the Future research program,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Brian Wright Memorial Autism Fund,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Simons Foundation,Simons Foundation,10.13039/100000893,US,United States,70831.33,1,high,tei_name
+Pershing Charitable Trust,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Health Resources and Services Administration,Health Resources and Services Administration,10.13039/100000102,US,United States,60290.91,1,high,tei_name
+Adelphi University Center for Health Innovation,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Spencer Foundation-Northwestern University,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Character Lab Research Network,NA,NA,NA,NA,NA,0,unresolved,tei_name
+William T Grant Foundation,William T. Grant Foundation,10.13039/100001143,US,United States,48488.504,1,high,tei_name
+Chicago Public Schools program,NA,NA,NA,NA,NA,0,unresolved,tei_name
+German Federal Ministry of Education and Research,NA,NA,NA,NA,NA,0,unresolved,tei_name
+JSPS KAKENHI,NA,NA,NA,NA,13831.1,0.5649193548387097,unresolved,tei_name
+Alexander von Humboldt Foundation,Alexander von Humboldt-Stiftung,10.13039/100005156,DE,Germany,39142.57,0.9224616858237548,high,tei_name
+American Psychological Foundation,American Psychological Foundation,10.13039/100001945,US,United States,15722.737,1,high,tei_name
+Jacobs Foundation Advanced Research Fellowship,NA,NA,NA,NA,NA,0,unresolved,tei_name
+John & Marcia Goldman Foundation,John and Marcia Goldman Foundation,10.13039/100014161,US,United States,1599.498,1,high,tei_name
+"University of Chicago, Booth School of Business","Booth School of Business, University of Chicago",10.13039/100007618,US,United States,16788.07,1,high,tei_name
+Neubauer Family Faculty Fellowship,NA,NA,NA,NA,NA,0,unresolved,tei_name
+University of Chicago Booth School of Business,"Booth School of Business, University of Chicago",10.13039/100007618,US,United States,16676.834,1,high,tei_name
+Fyssen Foundation Postdoctoral,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Université de Paris,Université de Paris,10.13039/501100021716,FR,France,26577.26,1,high,tei_name
+Agence Nationale de la Recherche (Frontiers in Cognition,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Agence Nationale de la Recherche,NA,NA,NA,NA,NA,0,unresolved,tei_name
+ANR JCJ,NA,NA,NA,NA,NA,0,unresolved,tei_name
+PSL (program,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Investissements d'Avenir,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Department of Building and Real Estate,"Department of Building and Real Estate, Hong Kong Polytechnic University",10.13039/501100022174,HK,Hong Kong SAR China,8197.603,0.896875,medium,tei_name
+Institute of Health and Biomedical Innovation,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Social Sciences and Humanities Research Council Doctoral Fellowship,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Cornell Center for Social Sciences,NA,NA,NA,NA,NA,0,unresolved,tei_name
+New York University NYU,NA,NA,NA,NA,2144.8206,0.6789510006901311,unresolved,tei_name
+NYU Stern Center for Global Economy and Business,NA,NA,NA,NA,NA,0,unresolved,tei_name
+New York University (NYU) Stern,NA,NA,NA,NA,NA,0,unresolved,tei_name
+TOMOVA SHAKUR AND PHILLIPS All,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Special Research Fund of Ghent University,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Science Foundation Graduate Research Fellowship Program,National Science Foundation Graduate Research Fellowship Program,10.13039/100023581,US,United States,31036.676,1,high,tei_name
+Centers for Disease Control and Prevention (CDC,Centers for Disease Control and Prevention,10.13039/100000030,US,United States,27103.248,0.9789473684210527,high,tei_name
+"University of Edinburgh College of Medicine and Veterinary Medicine Public Engagement with Research Seed Fund Round One, Institutional Strategic Support Fund",NA,NA,NA,NA,NA,0,unresolved,tei_name
+Vietnam National Foundation for Science and Technology Development (NAFOSTED),NA,NA,NA,NA,4573.875,0.7587562189054726,unresolved,tei_name
+"U.S. National Institutes of Health, Fogarty International Center",NA,NA,NA,NA,15043.883,0.5849124469242376,unresolved,tei_name
+U.S. National Center for Advancing Translational Sciences,NA,NA,NA,NA,NA,0,unresolved,tei_name
+German Research Foundation,German-Israeli Foundation for Scientific Research and Development,10.13039/501100001736,IL,Israel,5194.656,0.8080269905533063,medium,tei_name
+W.K. Kellogg Foundation,W.K. Kellogg Foundation,10.13039/100007746,US,United States,26157.17,1,high,tei_name
+Schusterman Foundation,NA,NA,NA,NA,576.7907,0.6746031746031745,unresolved,tei_name
+Bezos Family Foundation,Bezos Family Foundation,10.13039/100031942,US,United States,5731.9062,1,high,tei_name
+Stanford School of Medicine and Child Health Research Institute,NA,NA,NA,NA,NA,0,unresolved,tei_name
+David and Lucile Packard Foundation,David and Lucile Packard Foundation,10.13039/100000008,US,United States,126771.77,1,high,tei_name
+Horizon 2020 research and innovation programme,Horizon 2020 Framework Programme,10.13039/100010661,NA,NA,16625.46,0.8797619047619047,medium,tei_name
+"National Science Foundation Directorate for Social, Behavioral and Economic Sciences SBE",NA,NA,NA,NA,NA,0,unresolved,tei_name
+"National Science Foundation Directorate for Social, Behavioral and Economic Sciences (SBE)",NA,NA,NA,NA,NA,0,unresolved,tei_name
+FWO postdoctoral,NA,NA,NA,NA,NA,0,unresolved,tei_name
+BOF postdoctoral fellowship,NA,NA,NA,NA,NA,0,unresolved,tei_name
+"Research Grants Council, University Grants Committee of The Hong Kong Special Administrative Region",NA,NA,NA,NA,NA,0,unresolved,tei_name
+Pomona College,Pomona College,10.13039/100016789,US,United States,8997.968,1,high,tei_name
+American Psychoanalytic Association Grant,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Academies of Sciences,"National Academies of Sciences, Engineering, and Medicine",10.13039/100009643,US,United States,14099.538,0.9125,medium,tei_name
+Ford Foundation,Ford Foundation,10.13039/100000010,US,United States,35244.754,1,high,tei_name
+MTA,Magyar Tudományos Akadémia,10.13039/501100003825,HU,Hungary,6772.8394,0.6346153846153846,high,tei_name
+Higher Education Institutional Excellence Program of the Ministry of Human Capacities in Hungary,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Library and Information Centre of the Hungarian Academy of Sciences,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Eötvös Loránd Research Network,NA,NA,NA,NA,1201.6428,0.6952991452991453,unresolved,tei_name
+New National Excellence Program 2021/2022,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Neurology thematic program,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Agency for Healthcare Research and Quality,Agency for Healthcare Research and Quality,10.13039/100000133,US,United States,152406.92,1,high,tei_name
+Once Upon a Time Foundation,Once Upon A Time Foundation,10.13039/100008909,US,United States,10249.975,1,high,tei_name
+NIH CTSA,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Seattle Children's Research Institute's Center for Clinical and Translational Research Clinical Research Scholars Program,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Institute of Translational Health Science ITHS,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Institute of Translational Health Science (ITHS),NA,NA,NA,NA,NA,0,unresolved,tei_name
+"National Eating Disorders Association. (Bulik and Tregarthen, PIs)",NA,NA,NA,NA,NA,0,unresolved,tei_name
+Brain and Behavior Research Foundation,Brain and Behavior Research Foundation,10.13039/100000874,US,United States,53148.72,1,high,tei_name
+National. Science Foundation,National Science Foundation,10.13039/100000001,US,United States,448750.56,1,high,tei_name
+Independent Research Fund Denmark,NA,NA,NA,NA,12767.228,0.5603726339020456,unresolved,tei_name
+National Institute of Mental Health of the National Institutes of Health,NA,NA,NA,NA,NA,0,unresolved,tei_name
+UCLA Graduate Summer Research Mentorship Program (NMSH),NA,NA,NA,NA,NA,0,unresolved,tei_name
+Edwin W. Pauley Fellowship (NMSH),NA,NA,NA,NA,NA,0,unresolved,tei_name
+Research Council of Norway RCN,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Research Council of Norway (RCN),NA,NA,NA,NA,NA,0,unresolved,tei_name
+ABCD Study®,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Victorian Responsible Gambling Foundation,Victorian Responsible Gambling Foundation,10.13039/501100024500,AU,Australia,8065.064,1,high,tei_name
+Research Development Fund,NA,NA,NA,NA,1730.2064,0.7269444444444445,unresolved,tei_name
+University of Warwick,University of Warwick,10.13039/501100000741,GB,United Kingdom,65539.24,1,high,tei_name
+NSW Responsible Gambling Fund,NA,NA,NA,NA,987.0569,0.7940229885057472,unresolved,tei_name
+Gambling Research Exchange Ontario,Gambling Research Exchange Ontario,10.13039/501100007553,CA,Canada,6465.4595,1,high,tei_name
+Spanish Federation of Rehabilitated Gamblers,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Alberta Gambling Research Institute,"Alberta Gambling Research Institute, University of Calgary",10.13039/501100000144,CA,Canada,6823.8174,0.9296296296296296,high,tei_name
+"GambleAware, Gambling Research Australia",NA,NA,NA,NA,NA,0,unresolved,tei_name
+University of York Department of Health Sciences Research Governance Committee,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Dutch Research Council (Nederlandse Organisatie voor Wetenschappelijk Onderzoek),NA,NA,NA,NA,NA,0,unresolved,tei_name
+ERC H2020,NA,NA,NA,NA,5308.345,0.548984468339307,unresolved,tei_name
+Innovation action EU,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Fighting Online Illegal Trafficking [ANITA,NA,NA,NA,NA,NA,0,unresolved,tei_name
+H2020 Research and Innovation program,NA,NA,NA,NA,7104.55,0.733411561264822,unresolved,tei_name
+European Research Council,European Research Council,10.13039/501100000781,NA,NA,124635.85,1,high,tei_name
+Radboud's Centre for Language Studies,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Netherlands Organization for Scientific Research,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Baxter,Baxter International,10.13039/100004702,US,United States,17598.742,0.8599999999999999,medium,tei_name
+"Executive Agency for Higher Education, Research, Development and Innovation",NA,NA,NA,NA,6280.9497,0.648495526565702,unresolved,tei_name
+German Federal Ministry of Education and Research),NA,NA,NA,NA,NA,0,unresolved,tei_name
+Tedworth Charitable Trust,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Glass-House Trust,NA,NA,NA,NA,NA,0,unresolved,tei_name
+"Families, Children",NA,NA,NA,NA,872.9939,0.7030812324929971,unresolved,tei_name
+Child Care (FCCC),NA,NA,NA,NA,NA,0,unresolved,tei_name
+Australian Institute of Family Studies,Australian Institute of Family Studies,10.13039/100010580,AU,Australia,2623.5227,1,high,tei_name
+"Commonwealth Department of Families, Housing, Community Services",NA,NA,NA,NA,NA,0,unresolved,tei_name
+Natural Sciences and Engineering Research Council Discovery,NA,NA,NA,NA,NA,0,unresolved,tei_name
+"Children Health Research Institute in London, Ontario",NA,NA,NA,NA,NA,0,unresolved,tei_name
+Jacobs Foundation,Jacobs Foundation,10.13039/501100003986,CH,Switzerland,22451.771,1,high,tei_name
+Swiss National Science Foundation Scientific Exchanges,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Tagung experimentell arbeitender Psychologen,NA,NA,NA,NA,NA,0,unresolved,tei_name
+University of Utah Consortium for Families and Health Research and Interdisciplinary Research Pilot Program,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Clinical Translational Research Scholars program,NA,NA,NA,NA,NA,0,unresolved,tei_name
+"Ministry of Education, Culture, Sports, Science, and Technology, Japan",NA,NA,NA,NA,NA,0,unresolved,tei_name
+US Department of Education,NA,NA,NA,NA,212.60797,0.6954106280193236,unresolved,tei_name
+Autism Speaks,Autism Speaks,10.13039/100000073,US,United States,71890.08,1,high,tei_name
+Cancer Institute of NSW,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Health and Medical Research Council NHMRC,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Cancer Institute,Cancer Institute NSW,10.13039/501100001171,AU,Australia,19362.008,0.96,high,tei_name
+National Health and Medical Research Council (NHMRC),NA,NA,NA,NA,NA,0,unresolved,tei_name
+PiGeOn Project,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Academy of Sciences,National Academy of Sciences,10.13039/100000209,US,United States,25297.105,1,high,tei_name
+Robles,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Neuroscience & Biobehavioral Reviews,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Myeloid differentiation architecture of leukocyte transcriptome dynamics in perceived social isolation,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Psychological networks and time series models: Improving the analyses of complex clinical data,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Society for the Psychological Study of Social Issues,Society for the Psychological Study of Social Issues,10.13039/100006076,US,United States,25187.174,1,high,tei_name
+"National Heart, Lung, and Blood Institute","National Heart, Lung, and Blood Institute",10.13039/100000050,US,United States,837854.94,1,high,tei_name
+Ford Foundation Predoctoral Fellowship,NA,NA,NA,NA,NA,0,unresolved,tei_name
+American Psychology-Law Society,American Psychology-Law Society,10.13039/100006406,US,United States,7018.22,1,high,tei_name
+National Science Foundation Graduate Research Fellowships Program,NA,NA,NA,NA,NA,0,unresolved,tei_name
+"Ngogo chimpanzees in Kibale National Park, Uganda possible",NA,NA,NA,NA,NA,0,skipped,tei_name
+German Research Foundation (Deutsche Forschungsgemeinshchaft,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Institute of Mental Health and Neurosciences,National Institute of Mental Health and Neurosciences,10.13039/100019274,IN,India,20383.596,1,high,tei_name
+"Department of Veterans Affairs Medical Research Service, National Institute of Mental Health",NA,NA,NA,NA,NA,0,unresolved,tei_name
+Research Foundation (Deutsche Forschungsgemeinshchaft),NA,NA,NA,NA,NA,0,unresolved,tei_name
+Gratama foundation,Gratama Stichting,10.13039/501100007442,NL,Netherlands,1416.4597,0.8243612596553773,medium,tei_name
+NWO,Nederlandse Organisatie voor Wetenschappelijk Onderzoek,10.13039/501100003246,NL,Netherlands,14606.208,0.6109090909090908,high,tei_name
+Natural Sciences and Engineering Research Council of Canada NSERC,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Natural Sciences and Engineering Research Council of Canada (NSERC),NA,NA,NA,NA,NA,0,unresolved,tei_name
+Economic and Social Research Council ESRC,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Social Sciences and Humanities Research Council SSHRC,NA,NA,NA,NA,NA,0,unresolved,tei_name
+UK Research and Innovation (UKRI),NA,NA,NA,NA,NA,0,unresolved,tei_name
+Mitacs,Mitacs,10.13039/501100004489,CA,Canada,44295.195,1,high,tei_name
+British Psychological Society,British Psychological Society,10.13039/501100000707,GB,United Kingdom,15582.313,1,high,tei_name
+Economic and Social Research Council (ESRC),NA,NA,NA,NA,NA,0,unresolved,tei_name
+Social Sciences and Humanities Research Council (SSHRC) of Canada Insight,NA,NA,NA,NA,NA,0,unresolved,tei_name
+UK-Canada Globalink Doctoral Exchange Scheme,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Student Mental Health Research Network (SMARTEN),NA,NA,NA,NA,NA,0,unresolved,tei_name
+Finnish Government Research Funding (Satakunta Hospital District),NA,NA,NA,NA,NA,0,unresolved,tei_name
+LEGO Foundation,LEGO Foundation,10.13039/100018325,DK,Denmark,5646.84,1,high,tei_name
+Ministry of National Education in Turkey,NA,NA,NA,NA,NA,0,unresolved,tei_name
+BMC Medical Education,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Switzerland,NA,NA,NA,NA,NA,0,skipped,tei_name
+University of Ulm,Universität Ulm,10.13039/501100008977,DE,Germany,6699.3076,0.959047619047619,high,tei_name
+Challenges in social adaptation and interactions amongst international medical,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Institute on Drug Abuse,National Institute on Drug Abuse,10.13039/100000026,US,United States,405481.8,1,high,tei_name
+Office of Research on Women's Health,Office of Research on Women's Health,10.13039/100000124,US,United States,36787.55,1,high,tei_name
+National Institute on Alcohol Abuse and Alcoholism,National Institute on Alcohol Abuse and Alcoholism,10.13039/100000027,US,United States,367003.4,1,high,tei_name
+Hungarian Academy of Sciences,NA,NA,NA,NA,13383.518,0.5977564102564102,unresolved,tei_name
+"Faculty of Education and Psychology of Eötvös Loránd University, Hungary",NA,NA,NA,NA,NA,0,unresolved,tei_name
+Canada Foundation for Innovation,Canada Foundation for Innovation,10.13039/501100000196,CA,Canada,48064.39,1,high,tei_name
+European Social Fund,European Social Fund,10.13039/501100004895,NA,NA,123585.055,1,high,tei_name
+Secretary of Universities and Research of the Catalan Government [Generalitat de Catalunya],NA,NA,NA,NA,NA,0,unresolved,tei_name
+Naval Research Laboratory,Naval Research Laboratory,10.13039/100025807,US,United States,1042.1578,1,high,tei_name
+American Occupational Therapy Foundation,American Occupational Therapy Foundation,10.13039/100003587,US,United States,12742.199,1,high,tei_name
+College of Communication Arts and Sciences at Michigan State University,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Council of Hong Kong,NA,NA,NA,NA,89.60974,0.6763578994816317,unresolved,tei_name
+ECS,Electrochemical Society,10.13039/100009707,US,United States,716.36127,0.6260869565217391,high,tei_name
+Education University of Hong Kong,Education University of Hong Kong,10.13039/501100010410,HK,Hong Kong SAR China,15670.816,1,high,tei_name
+Research Grants Council of Hong Kong,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Motor Accident Insurance Commission MAIC,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Australian Government,Australian Government,10.13039/100015539,AU,Australia,98839.97,1,high,tei_name
+"Road Safety Research Collaboration, University of the Sunshine Coast",NA,NA,NA,NA,NA,0,unresolved,tei_name
+QUT,Queensland University of Technology,10.13039/501100001793,AU,Australia,6242.1016,0.661111111111111,high,tei_name
+Motor Accident Insurance Commission (MAIC),NA,NA,NA,NA,NA,0,unresolved,tei_name
+CARRS-Q,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Research Training Programme Scholarship,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Fredrik and Ingrid Thuring's Foundation,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Innovation Funding Service,NA,NA,NA,NA,NA,0,unresolved,tei_name
+ALSPAC,NA,NA,NA,NA,NA,0,unresolved,tei_name
+U.K. Medical Research Council and Wellcome,NA,NA,NA,NA,NA,0,unresolved,tei_name
+University of Bristol,University of Bristol,10.13039/501100000883,GB,United Kingdom,60113.812,1,high,tei_name
+Horizon Europe,HORIZON EUROPE Excellent Science,10.13039/100019188,NA,NA,14245.886,0.8875,medium,tei_name
+FRQNT,Fonds de recherche du Québec – Nature et technologies,10.13039/501100003151,CA,Canada,6912.278,0.6433333333333333,high,tei_name
+Fonds de recherche du Québec -Nature et technologies (FRQNT),NA,NA,NA,NA,NA,0,unresolved,tei_name
+NSERC,Natural Sciences and Engineering Research Council of Canada,10.13039/501100000038,CA,Canada,26384.47,0.6088461538461538,high,tei_name
+Fonds de recherche du Québec -Nature et technologies,Fonds de recherche du Québec – Nature et technologies,10.13039/501100003151,CA,Canada,87225.266,1,high,tei_name
+Natural Sciences and Engineering Research Council of Canada,Natural Sciences and Engineering Research Council of Canada,10.13039/501100000038,CA,Canada,376064.9,1,high,tei_name
+Research Foundation Flanders FWO,NA,NA,NA,NA,14211.144,0.6477272727272727,unresolved,tei_name
+"Research Foundation Flanders (Fonds Wetenschappelijk Onderzoek, FWO)",NA,NA,NA,NA,NA,0,unresolved,tei_name
+Projekt DEAL,NA,NA,NA,NA,NA,0,unresolved,tei_name
+MEDICE Arzneimittel Pütter GmbH & Co KG,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Xi'an Jiaotong-Liverpool University,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Natural Science Foundation of the Jiangsu Higher Education Institutions of China,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Institute on Drug Abuse of the National Institutes of Health,NA,NA,NA,NA,NA,0,unresolved,tei_name
+John Templeton Foundation,John Templeton Foundation,10.13039/100000925,US,United States,77797.1,1,high,tei_name
+CAUL,NA,NA,NA,NA,135.92783,0.6275,unresolved,tei_name
+Member Institutions,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Science and Technology Council,National Science and Technology Council,10.13039/501100020950,ZM,Zambia,38029.168,1,high,tei_name
+Taiwan,NA,NA,NA,NA,NA,0,skipped,tei_name
+Beijing Medical and Health Foundation,Beijing Medical and Health Foundation,10.13039/501100011930,CN,China,5339.439,1,high,tei_name
+National Clinical Key Specialty Project Foundation (CN),NA,NA,NA,NA,NA,0,unresolved,tei_name
+DARPA Machine Common Sense MCS,NA,NA,NA,NA,NA,0,unresolved,tei_name
+NSF Science Technology Center,NA,NA,NA,NA,287.90225,0.799121483029529,unresolved,tei_name
+Jacobs Foundation Fellowship,NA,NA,NA,NA,NA,0,unresolved,tei_name
+DARPA Machine Common Sense (MCS),NA,NA,NA,NA,NA,0,unresolved,tei_name
+Adversarial Collaborative Research on Intuitive Physical Reasoning,NA,NA,NA,NA,NA,0,unresolved,tei_name
+"University Professorship in Health Sciences, College of Health Sciences, University of Kentucky",NA,NA,NA,NA,NA,0,unresolved,tei_name
+Endowment,Lilly Endowment,10.13039/100006976,US,United States,13367.358,0.8666666666666667,medium,tei_name
+Research Fund of KU Leuven,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Research Foundation-Flanders (FWO),NA,NA,NA,NA,14211.144,0.6477272727272727,unresolved,tei_name
+Research Program,NA,NA,NA,NA,13797.842,0.5706908831908831,unresolved,tei_name
+Israel Innovation Authority,Israel Innovation Authority,10.13039/501100024250,IL,Israel,6347.5737,1,high,tei_name
+National Foundation for Autism Research NFAR,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Foundation for Autism Research (NFAR),NA,NA,NA,NA,NA,0,unresolved,tei_name
+ERC-CoG IDENTITIES,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Institute of General Medical Sciences NIGMS,National Institute of General Medical Sciences,10.13039/100000057,US,United States,69152.74,0.9755102040816326,high,tei_name
+NIGMS Native American Research Centers for Health,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Institute of General Medical Sciences (NIGMS),National Institute of General Medical Sciences,10.13039/100000057,US,United States,69264.516,0.9755102040816326,high,tei_name
+National Institutes of Health (NIH),National Institutes of Health,10.13039/100000002,US,United States,65296.855,0.9733333333333333,high,tei_name
+Port Waratah Coal Services,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Health and,National Health and Medical Research Council,10.13039/501100000925,AU,Australia,92961.18,0.875,medium,tei_name
+Hunter Children's Research Foundation,Hunter Children's Research Foundation,10.13039/501100022579,AU,Australia,1656.4899,1,high,tei_name
+Hunter Medical Research Institute,Hunter Medical Research Institute,10.13039/501100001081,AU,Australia,22646.992,1,high,tei_name
+National Heart Foundation of Australia,National Heart Foundation of Australia,10.13039/501100001030,AU,Australia,48048.324,1,high,tei_name
+Economic and Social Research Council; Medical Research Council MRC,NA,NA,NA,NA,NA,0,unresolved,tei_name
+ESRC-MRC Multidisciplinary,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Economic and Social Research Council; Medical Research Council (MRC),NA,NA,NA,NA,NA,0,unresolved,tei_name
+Aresty Research Center,NA,NA,NA,NA,NA,0,unresolved,tei_name
+German Federal Ministry for Education and Research (BMBF),NA,NA,NA,NA,NA,0,unresolved,tei_name
+DFG,Deutsche Forschungsgemeinschaft,10.13039/501100001659,DE,Germany,44653.965,0.6193548387096774,high,tei_name
+Deutsche Forschungsgemeinschaft,Deutsche Forschungsgemeinschaft,10.13039/501100001659,DE,Germany,494404.62,1,high,tei_name
+Network for University Medicine,NA,NA,NA,NA,NA,0,unresolved,tei_name
+"State of Rhineland-Palatinate, Germany",NA,NA,NA,NA,NA,0,skipped,tei_name
+Leibniz Institute for Resilience Research),NA,NA,NA,NA,NA,0,unresolved,tei_name
+CEOsys and EViPan projects),NA,NA,NA,NA,NA,0,unresolved,tei_name
+DynaMORE,DYNAmore,10.13039/100023009,DE,Germany,359.87906,1,high,tei_name
+RESPOND,NA,NA,NA,NA,37.287823,0.3963293650793651,unresolved,tei_name
+MARP program,NA,NA,NA,NA,NA,0,unresolved,tei_name
+DRZ program,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Alzheimer's Association,Alzheimer's Association,10.13039/100000957,US,United States,61555.535,1,high,tei_name
+"Geoffrey Beene Gives Back Alzheimer's Initiative, GHR Foundation",NA,NA,NA,NA,NA,0,unresolved,tei_name
+Banner Alzheimer's Foundation,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Institutes of Aging,NA,NA,NA,NA,NA,0,unresolved,tei_name
+State of Arizona (Arizona Alzheimer's Consortium),NA,NA,NA,NA,NA,0,unresolved,tei_name
+Arizona Alzheimer's Consortium,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Flinn Foundation,Flinn Foundation,10.13039/100001109,US,United States,4419.1865,1,high,tei_name
+University of Missouri Women's & Children's Hospital,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Switched!,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Pascale's Pals,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Knowledge for Democracy Myanmar (K4DM) Initiative,NA,NA,NA,NA,NA,0,skipped,tei_name
+SecDev Foundation,NA,NA,NA,NA,NA,0,unresolved,tei_name
+International Development Research Centre IDRC,NA,NA,NA,NA,NA,0,unresolved,tei_name
+"International Development Research Centre (IDRC), Ottawa, Canada",NA,NA,NA,NA,NA,0,unresolved,tei_name
+"Center for Research and Intervention on Suicide, Ethical Issues and Endof-life Practices at the Universit e du Qu ebec a Montr eal",NA,NA,NA,NA,NA,0,unresolved,tei_name
+Fonds de Recherche du Qu ebec -Soci et e et Culture SC,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Fonds de Recherche du Qu ebec -Soci et e et Culture (FRQ-SC),NA,NA,NA,NA,NA,0,unresolved,tei_name
+NIHR Leicester Biomedical Research Centre,NIHR Leicester Biomedical Research Centre,10.13039/501100020013,GB,United Kingdom,29726.186,1,high,tei_name
+National Institute for Health Research (NIHR),National Institute for Health and Care Research,10.13039/501100000272,GB,United Kingdom,27181.49,0.947008547008547,high,tei_name
+German Research Council (DFG),NA,NA,NA,NA,NA,0,unresolved,tei_name
+North Wales Society of the Blind (NWSB) and Health and Care Economics Cymru HCEC,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Welsh government through Health and Care Research Wales,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Bangor University Medical and Health Sciences Academic Ethics Committee,NA,NA,NA,NA,NA,0,unresolved,tei_name
+North Wales Society of the Blind (NWSB) and Health and Care Economics Cymru (HCEC),NA,NA,NA,NA,NA,0,unresolved,tei_name
+Research Foundation,NA,NA,NA,NA,59824.023,0.7261904761904763,unresolved,tei_name
+Medibank Better Health Foundation,Medibank Better Health Foundation,10.13039/501100020646,AU,Australia,4919.769,1,high,tei_name
+Australian and New Zealand College of Anaesthetists ANZCA,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Australian and New Zealand College of Anaesthetists (ANZCA),NA,NA,NA,NA,NA,0,unresolved,tei_name
+International Literacy,International Literacy Association,10.13039/100009692,US,United States,1694.7512,0.9294117647058823,high,tei_name
+"National Society for the Prevention of Cruelty to Children, UK",NA,NA,NA,NA,NA,0,unresolved,tei_name
+European Mind and Life Varela Award,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Israeli Science Foundation,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Mind and Life Institute PEACE,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Charney Foundation,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Max-Planck-Gesellschaft,Max-Planck-Gesellschaft,10.13039/501100004189,DE,Germany,209402.89,1,high,tei_name
+Program for Research in Science and Engineering,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Harvard College Research Program,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Bates College Program in Neuroscience,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Evangelisches Studienwerk e,NA,NA,NA,NA,NA,0,unresolved,tei_name
+University of Wuppertal,NA,NA,NA,NA,2445.4165,0.7139501980758347,unresolved,tei_name
+Scientific Foundations of Education Research Program of the Hungarian Academy of Sciences,NA,NA,NA,NA,NA,0,unresolved,tei_name
+"Institutional Review Board of Doctoral School of Education, University of Szeged",NA,NA,NA,NA,NA,0,unresolved,tei_name
+"ICT and Societal Challenges Competence Centre of the Humanities and Social Sciences Cluster of the Centre of Excellence for Interdisciplinary Re-search, Development and Innovation of the University of Szeged",NA,NA,NA,NA,NA,0,unresolved,tei_name
+European Treatment Centers For Drug Addiction TC,NA,NA,NA,NA,NA,0,unresolved,tei_name
+European Commission and Rebirth Charity Society,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Society for Recovery Support,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Therapiesalon im Wald,NA,NA,NA,NA,NA,0,unresolved,tei_name
+World Federation Against Drugs WFAD,NA,NA,NA,NA,NA,0,unresolved,tei_name
+World Federation Against Drugs (WFAD),NA,NA,NA,NA,NA,0,unresolved,tei_name
+European Treatment Centers For Drug Addiction (euro-TC),NA,NA,NA,NA,NA,0,unresolved,tei_name
+Kent State University Research Council,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Honors College,NA,NA,NA,NA,674.4526,0.6111955420466059,unresolved,tei_name
+U.S. Department of Education Institute of Education Sciences,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Oak Foundation,Oak Foundation,10.13039/100001275,US,United States,22776.543,1,high,tei_name
+National Health and Medical Research Council (NHMRC) Australia,NA,NA,NA,NA,NA,0,unresolved,tei_name
+UK Government,NA,NA,NA,NA,6026.1543,0.6343589743589744,unresolved,tei_name
+UK,NA,NA,NA,NA,NA,0,skipped,tei_name
+Ministry of Education,Ministry of Education,10.13039/501100002701,KR,South Korea,66715.055,1,high,tei_name
+Technology Development Program of MSS,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Research Foundation of Korea NRF,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Research Foundation of Korea (NRF),NA,NA,NA,NA,NA,0,unresolved,tei_name
+Basic Science Research Program,NA,NA,NA,NA,9544.266,0.6929292929292928,unresolved,tei_name
+Danish National Research Foundation,NA,NA,NA,NA,16163.051,0.7385087719298246,unresolved,tei_name
+Velux Foundation,Velux Stiftung,10.13039/100007214,CH,Switzerland,4728.413,0.8491883116883117,medium,tei_name
+Velux Fonden,Velux Fonden,10.13039/100008397,DK,Denmark,20298.547,1,high,tei_name
+Danmarks Grundforskningsfond,Danmarks Grundforskningsfond,10.13039/501100001732,DK,Denmark,127675.58,1,high,tei_name
+Center for Advanced Hindsight at Duke University,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Korea government (MSIT),NA,NA,NA,NA,NA,0,unresolved,tei_name
+IINFACTS -Institute of Research and Advanced Training in Health Sciences and Technologies,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Austin Medical Research Foundation,Austin Medical Research Foundation,10.13039/100012128,AU,Australia,6804.973,1,high,tei_name
+Australian National Health and Medical Research Council,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Fundamental Research Funds for the Central Universities,Fundamental Research Funds for the Central Universities,10.13039/501100012226,CN,China,523909.84,1,high,tei_name
+Decision Making Laboratory for Western China Education and Human Development,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Social Science Foundation of China,National Social Science Fund of China,10.13039/501100012456,CN,China,8766.0625,0.9523529411764705,high,tei_name
+of Southwest University,Southwest University of Science and Technology,10.13039/501100004335,CN,China,3675.8755,0.9025641025641026,medium,tei_name
+Natural Science Foundation of Shaanxi Province,Natural Science Foundation of Shaanxi Province,10.13039/501100007128,CN,China,71934.04,1,high,tei_name
+Social Science Foundation,Social Science Foundation of Jiangsu Province,10.13039/501100018562,CN,China,7491.0654,0.919047619047619,medium,tei_name
+National Social Science and Humanity Foundation,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Chongqing Social Science and Humanity Foundation,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Innovation Research 2035 Pilot Plan,NA,NA,NA,NA,NA,0,unresolved,tei_name
+111 program,NA,NA,NA,NA,1676.4904,0.40909090909090906,unresolved,tei_name
+Chongqing doctoral innovation research,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Help for Heroes,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Help for Heroes. Help for Heroes,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Pacific Peoples' Summer Research Scholarship (University of Otago),NA,NA,NA,NA,NA,0,unresolved,tei_name
+Ministry for Pacific Peoples,NA,NA,NA,NA,NA,0,unresolved,tei_name
+IDS-TILDA,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Social Science Fund of China,National Social Science Fund of China,10.13039/501100012456,CN,China,63050.688,1,high,tei_name
+Institutional Review Board of An Najah National University,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Engineering and Physical Sciences Research Council EPSRC,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Scottish Graduate School of Social Science SGSSS,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Scottish Graduate School of Social Science (SGSSS),NA,NA,NA,NA,NA,0,unresolved,tei_name
+Engineering and Physical Sciences Research Council (EPSRC),NA,NA,NA,NA,NA,0,unresolved,tei_name
+Stephen M. Ross School of Business,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Multidisciplinary University Research Initiative MURI,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Multidisciplinary University Research Initiative (MURI),NA,NA,NA,NA,NA,0,unresolved,tei_name
+European,European Commission,10.13039/501100000780,NA,NA,164862.02,0.8842105263157894,medium,tei_name
+-EnTimeMent,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Institute on Deafness and Other Communication Disorders NIDCD,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Institute on Deafness and Other Communication Disorders (NIDCD),NA,NA,NA,NA,NA,0,unresolved,tei_name
+Dynamics of Youth (Utrecht University) Invigoration,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Association for Assessment and Research in Counseling,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Defense Research and Development Canada,NA,NA,NA,NA,NA,0,unresolved,tei_name
+National Natural Science Foundation Collaboration,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Central Guidance for Local Science and Technology Development Funds,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Running,Running Strong for American Indian Youth,10.13039/100026709,US,United States,20.805079,0.8388888888888889,medium,tei_name
+SENSORIMOTOR AND LINGUISTIC,NA,NA,NA,NA,NA,0,unresolved,tei_name
+PICTURE,NA,NA,NA,NA,23.614649,0.6018826135105205,unresolved,tei_name
+PREPRINT VERSION,NA,NA,NA,NA,NA,0,unresolved,tei_name
+HAS NOT,NA,NA,NA,NA,NA,0,unresolved,tei_name
+BEEN PEER REVIEWED,NA,NA,NA,NA,NA,0,unresolved,tei_name
+PhD training programme,NA,NA,NA,NA,NA,0,unresolved,tei_name
+Royal Society,Royal Society,10.13039/501100000288,GB,United Kingdom,129808.625,1,high,tei_name
+Humanities and Social Sciences Youth Foundation of Ministry of Education of China,"Humanities and Social Sciences Youth Foundation, Ministry of Education of the People's Republic of China",10.13039/501100017630,CN,China,16452.816,0.9537277701778386,high,tei_name
+Hofstra University IRB,NA,NA,NA,NA,NA,0,unresolved,tei_name
+NIGMS,National Institute of General Medical Sciences,10.13039/100000057,US,United States,59601.4,0.592906976744186,high,tei_name
+National Science Centre,National Centre for Atmospheric Science,10.13039/501100000662,GB,United Kingdom,2361.0059,0.8705590062111801,medium,tei_name
+National Science Centre in Poland,NA,NA,NA,NA,NA,0,unresolved,tei_name
