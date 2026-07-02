@@ -1,0 +1,362 @@
+﻿CodeSystem,Code,Description
+ASJC,10,Multidisciplinary
+ASJC,11,Agricultural and Biological Sciences
+ASJC,12,Arts and Humanities
+ASJC,13,Biochemistry
+ASJC,14,Business
+ASJC,15,Chemical Engineering
+ASJC,16,Chemistry
+ASJC,17,Computer Science
+ASJC,18,Decision Sciences
+ASJC,19,Earth and Planetary Sciences
+ASJC,20,Economics
+ASJC,21,Energy
+ASJC,22,Engineering
+ASJC,23,Environmental Science
+ASJC,24,Immunology and Microbiology
+ASJC,25,Materials Science
+ASJC,26,Mathematics
+ASJC,27,Medicine
+ASJC,28,Neuroscience
+ASJC,29,Nursing
+ASJC,30,Pharmacology
+ASJC,31,Physics and Astronomy
+ASJC,32,Psychology
+ASJC,33,Social Sciences
+ASJC,34,Veterinary
+ASJC,35,Dentistry
+ASJC,36,Health Professions
+ASJC,1000,Multidisciplinary
+ASJC,1100,General Agricultural and Biological Sciences
+ASJC,1101,Agricultural and Biological Sciences (miscellaneous)
+ASJC,1102,Agronomy and Crop Science
+ASJC,1103,Animal Science and Zoology
+ASJC,1104,Aquatic Science
+ASJC,1105,Ecology
+ASJC,1106,Food Science
+ASJC,1107,Forestry
+ASJC,1108,Horticulture
+ASJC,1109,Insect Science
+ASJC,1110,Plant Science
+ASJC,1111,Soil Science
+ASJC,1200,General Arts and Humanities
+ASJC,1201,Arts and Humanities (miscellaneous)
+ASJC,1202,History
+ASJC,1203,Language and Linguistics
+ASJC,1204,Archeology (arts and humanities)
+ASJC,1205,Classics
+ASJC,1206,Conservation
+ASJC,1207,History and Philosophy of Science
+ASJC,1208,Literature and Literary Theory
+ASJC,1209,Museology
+ASJC,1210,Music
+ASJC,1211,Philosophy
+ASJC,1212,Religious Studies
+ASJC,1213,Visual Arts and Performing Arts
+ASJC,1300,General Biochemistry
+ASJC,1301,Biochemistry
+ASJC,1302,Aging
+ASJC,1303,Biochemistry
+ASJC,1304,Biophysics
+ASJC,1305,Biotechnology
+ASJC,1306,Cancer Research
+ASJC,1307,Cell Biology
+ASJC,1308,Clinical Biochemistry
+ASJC,1309,Developmental Biology
+ASJC,1310,Endocrinology
+ASJC,1311,Genetics
+ASJC,1312,Molecular Biology
+ASJC,1313,Molecular Medicine
+ASJC,1314,Physiology
+ASJC,1315,Structural Biology
+ASJC,1400,General Business
+ASJC,1401,Business
+ASJC,1402,Accounting
+ASJC,1403,Business and International Management
+ASJC,1404,Management Information Systems
+ASJC,1405,Management of Technology and Innovation
+ASJC,1406,Marketing
+ASJC,1407,Organizational Behavior and Human Resource Management
+ASJC,1408,Strategy and Management
+ASJC,1409,Tourism
+ASJC,1410,Industrial Relations
+ASJC,1500,General Chemical Engineering
+ASJC,1501,Chemical Engineering (miscellaneous)
+ASJC,1502,Bioengineering
+ASJC,1503,Catalysis
+ASJC,1504,Chemical Health and Safety
+ASJC,1505,Colloid and Surface Chemistry
+ASJC,1506,Filtration and Separation
+ASJC,1507,Fluid Flow and Transfer Processes
+ASJC,1508,Process Chemistry and Technology
+ASJC,1600,General Chemistry
+ASJC,1601,Chemistry (miscellaneous)
+ASJC,1602,Analytical Chemistry
+ASJC,1603,Electrochemistry
+ASJC,1604,Inorganic Chemistry
+ASJC,1605,Organic Chemistry
+ASJC,1606,Physical and Theoretical Chemistry
+ASJC,1607,Spectroscopy
+ASJC,1700,General Computer Science
+ASJC,1701,Computer Science (miscellaneous)
+ASJC,1702,Artificial Intelligence
+ASJC,1703,Computational Theory and Mathematics
+ASJC,1704,Computer Graphics and Computer-Aided Design
+ASJC,1705,Computer Networks and Communications
+ASJC,1706,Computer Science Applications
+ASJC,1707,Computer Vision and Pattern Recognition
+ASJC,1708,Hardware and Architecture
+ASJC,1709,Human-Computer Interaction
+ASJC,1710,Information Systems
+ASJC,1711,Signal Processing
+ASJC,1712,Software
+ASJC,1800,General Decision Sciences
+ASJC,1801,Decision Sciences (miscellaneous)
+ASJC,1802,Information Systems and Management
+ASJC,1803,Management Science and Operations Research
+ASJC,1804,Statistics
+ASJC,1900,General Earth and Planetary Sciences
+ASJC,1901,Earth and Planetary Sciences (miscellaneous)
+ASJC,1902,Atmospheric Science
+ASJC,1903,Computers in Earth Sciences
+ASJC,1904,Earth-Surface Processes
+ASJC,1905,Economic Geology
+ASJC,1906,Geochemistry and Petrology
+ASJC,1907,Geology
+ASJC,1908,Geophysics
+ASJC,1909,Geotechnical Engineering and Engineering Geology
+ASJC,1910,Oceanography
+ASJC,1911,Paleontology
+ASJC,1912,Space and Planetary Science
+ASJC,1913,Stratigraphy
+ASJC,2000,General Economics
+ASJC,2001,Economics
+ASJC,2002,Economics and Econometrics
+ASJC,2003,Finance
+ASJC,2100,General Energy
+ASJC,2101,Energy (miscellaneous)
+ASJC,2102,Energy Engineering and Power Technology
+ASJC,2103,Fuel Technology
+ASJC,2104,Nuclear Energy and Engineering
+ASJC,2105,Renewable Energy
+ASJC,2200,General Engineering
+ASJC,2201,Engineering (miscellaneous)
+ASJC,2202,Aerospace Engineering
+ASJC,2203,Automotive Engineering
+ASJC,2204,Biomedical Engineering
+ASJC,2205,Civil and Structural Engineering
+ASJC,2206,Computational Mechanics
+ASJC,2207,Control and Systems Engineering
+ASJC,2208,Electrical and Electronic Engineering
+ASJC,2209,Industrial and Manufacturing Engineering
+ASJC,2210,Mechanical Engineering
+ASJC,2211,Mechanics of Materials
+ASJC,2212,Ocean Engineering
+ASJC,2213,Safety
+ASJC,2214,Media Technology
+ASJC,2215,Building and Construction
+ASJC,2216,Architecture
+ASJC,2300,General Environmental Science
+ASJC,2301,Environmental Science (miscellaneous)
+ASJC,2302,Ecological Modeling
+ASJC,2303,Ecology
+ASJC,2304,Environmental Chemistry
+ASJC,2305,Environmental Engineering
+ASJC,2306,Global and Planetary Change
+ASJC,2307,Health
+ASJC,2308,Management
+ASJC,2309,Nature and Landscape Conservation
+ASJC,2310,Pollution
+ASJC,2311,Waste Management and Disposal
+ASJC,2312,Water Science and Technology
+ASJC,2400,General Immunology and Microbiology
+ASJC,2401,Immunology and Microbiology (miscellaneous)
+ASJC,2402,Applied Microbiology and Biotechnology
+ASJC,2403,Immunology
+ASJC,2404,Microbiology
+ASJC,2405,Parasitology
+ASJC,2406,Virology
+ASJC,2500,General Materials Science
+ASJC,2501,Materials Science (miscellaneous)
+ASJC,2502,Biomaterials
+ASJC,2503,Ceramics and Composites
+ASJC,2504,Electronic
+ASJC,2505,Materials Chemistry
+ASJC,2506,Metals and Alloys
+ASJC,2507,Polymers and Plastics
+ASJC,2508,Surfaces
+ASJC,2600,General Mathematics
+ASJC,2601,Mathematics (miscellaneous)
+ASJC,2602,Algebra and Number Theory
+ASJC,2603,Analysis
+ASJC,2604,Applied Mathematics
+ASJC,2605,Computational Mathematics
+ASJC,2606,Control and Optimization
+ASJC,2607,Discrete Mathematics and Combinatorics
+ASJC,2608,Geometry and Topology
+ASJC,2609,Logic
+ASJC,2610,Mathematical Physics
+ASJC,2611,Modeling and Simulation
+ASJC,2612,Numerical Analysis
+ASJC,2613,Statistics and Probability
+ASJC,2614,Theoretical Computer Science
+ASJC,2700,General Medicine
+ASJC,2701,Medicine (miscellaneous)
+ASJC,2702,Anatomy
+ASJC,2703,Anesthesiology and Pain Medicine
+ASJC,2704,Biochemistry (medical)
+ASJC,2705,Cardiology and Cardiovascular Medicine
+ASJC,2706,Critical Care and Intensive Care Medicine
+ASJC,2707,Complementary and Alternative Medicine
+ASJC,2708,Dermatology
+ASJC,2709,Drug Guides
+ASJC,2710,Embryology
+ASJC,2711,Emergency Medicine
+ASJC,2712,Endocrinology
+ASJC,2713,Epidemiology
+ASJC,2714,Family Practice
+ASJC,2715,Gastroenterology
+ASJC,2716,Genetics (clinical)
+ASJC,2717,Geriatrics and Gerontology
+ASJC,2718,Health Informatics
+ASJC,2719,Health Policy
+ASJC,2720,Hematology
+ASJC,2721,Hepatology
+ASJC,2722,Histology
+ASJC,2723,Immunology and Allergy
+ASJC,2724,Internal Medicine
+ASJC,2725,Infectious Diseases
+ASJC,2726,Microbiology (medical)
+ASJC,2727,Nephrology
+ASJC,2728,Neurology (clinical)
+ASJC,2729,Obstetrics and Gynecology
+ASJC,2730,Oncology
+ASJC,2731,Ophthalmology
+ASJC,2732,Orthopedics and Sports Medicine
+ASJC,2733,Otorhinolaryngology
+ASJC,2734,Pathology and Forensic Medicine
+ASJC,2735,Pediatrics
+ASJC,2736,Pharmacology (medical)
+ASJC,2737,Physiology (medical)
+ASJC,2738,Psychiatry and Mental Health
+ASJC,2739,Public Health
+ASJC,2740,Pulmonary and Respiratory Medicine
+ASJC,2741,Radiology
+ASJC,2742,Rehabilitation
+ASJC,2743,Reproductive Medicine
+ASJC,2744,Reviews and References (medical)
+ASJC,2745,Rheumatology
+ASJC,2746,Surgery
+ASJC,2747,Transplantation
+ASJC,2748,Urology
+ASJC,2800,General Neuroscience
+ASJC,2801,Neuroscience (miscellaneous)
+ASJC,2802,Behavioral Neuroscience
+ASJC,2803,Biological Psychiatry
+ASJC,2804,Cellular and Molecular Neuroscience
+ASJC,2805,Cognitive Neuroscience
+ASJC,2806,Developmental Neuroscience
+ASJC,2807,Endocrine and Autonomic Systems
+ASJC,2808,Neurology
+ASJC,2809,Sensory Systems
+ASJC,2900,General Nursing
+ASJC,2901,Nursing (miscellaneous)
+ASJC,2902,Advanced and Specialized Nursing
+ASJC,2903,Assessment and Diagnosis
+ASJC,2904,Care Planning
+ASJC,2905,Community and Home Care
+ASJC,2906,Critical Care Nursing
+ASJC,2907,Emergency Nursing
+ASJC,2908,Fundamentals and Skills
+ASJC,2909,Gerontology
+ASJC,2910,Issues
+ASJC,2911,Leadership and Management
+ASJC,2912,LPN and LVN
+ASJC,2913,Maternity and Midwifery
+ASJC,2914,Medical and Surgical Nursing
+ASJC,2915,Nurse Assisting
+ASJC,2916,Nutrition and Dietetics
+ASJC,2917,Oncology (nursing)
+ASJC,2918,Pathophysiology
+ASJC,2919,Pediatrics
+ASJC,2920,Pharmacology (nursing)
+ASJC,2921,Psychiatric Mental Health
+ASJC,2922,Research and Theory
+ASJC,2923,Review and Exam Preparation
+ASJC,3000,General Pharmacology
+ASJC,3001,Pharmacology
+ASJC,3002,Drug Discovery
+ASJC,3003,Pharmaceutical Science
+ASJC,3004,Pharmacology
+ASJC,3005,Toxicology
+ASJC,3100,General Physics and Astronomy
+ASJC,3101,Physics and Astronomy (miscellaneous)
+ASJC,3102,Acoustics and Ultrasonics
+ASJC,3103,Astronomy and Astrophysics
+ASJC,3104,Condensed Matter Physics
+ASJC,3105,Instrumentation
+ASJC,3106,Nuclear and High Energy Physics
+ASJC,3107,Atomic and Molecular Physics
+ASJC,3108,Radiation
+ASJC,3109,Statistical and Nonlinear Physics
+ASJC,3110,Surfaces and Interfaces
+ASJC,3200,General Psychology
+ASJC,3201,Psychology (miscellaneous)
+ASJC,3202,Applied Psychology
+ASJC,3203,Clinical Psychology
+ASJC,3204,Developmental and Educational Psychology
+ASJC,3205,Experimental and Cognitive Psychology
+ASJC,3206,Neuropsychology and Physiological Psychology
+ASJC,3207,Social Psychology
+ASJC,3300,General Social Sciences
+ASJC,3301,Social Sciences (miscellaneous)
+ASJC,3302,Archeology
+ASJC,3303,Development
+ASJC,3304,Education
+ASJC,3305,Geography
+ASJC,3306,Health (social science)
+ASJC,3307,Human Factors and Ergonomics
+ASJC,3308,Law
+ASJC,3309,Library and Information Sciences
+ASJC,3310,Linguistics and Language
+ASJC,3311,Safety Research
+ASJC,3312,Sociology and Political Science
+ASJC,3313,Transportation
+ASJC,3314,Anthropology
+ASJC,3315,Communication
+ASJC,3316,Cultural Studies
+ASJC,3317,Demography
+ASJC,3318,Gender Studies
+ASJC,3319,Life-span and Life-course Studies
+ASJC,3320,Political Science and International Relations
+ASJC,3321,Public Administration
+ASJC,3322,Urban Studies
+ASJC,3400,General Veterinary
+ASJC,3401,Veterinary (miscellaneous)
+ASJC,3402,Equine
+ASJC,3403,Food Animals
+ASJC,3404,Small Animals
+ASJC,3500,General Dentistry
+ASJC,3501,Dentistry (miscellaneous)
+ASJC,3502,Dental Assisting
+ASJC,3503,Dental Hygiene
+ASJC,3504,Oral Surgery
+ASJC,3505,Orthodontics
+ASJC,3506,Periodontics
+ASJC,3600,General Health Professions
+ASJC,3601,Health Professions (miscellaneous)
+ASJC,3602,Chiropractics
+ASJC,3603,Complementary and Manual Therapy
+ASJC,3604,Emergency Medical Services
+ASJC,3605,Health Information Management
+ASJC,3606,Medical Assisting and Transcription
+ASJC,3607,Medical Laboratory Technology
+ASJC,3608,Medical Terminology
+ASJC,3609,Occupational Therapy
+ASJC,3610,Optometry
+ASJC,3611,Pharmacy
+ASJC,3612,Physical Therapy
+ASJC,3613,Podiatry
+ASJC,3614,Radiological and Ultrasound Technology
+ASJC,3615,Respiratory Care
+ASJC,3616,Speech and Hearing

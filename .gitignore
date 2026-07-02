@@ -24,3 +24,7 @@ my_doi_results.csv
 *.swp
 *.swo
 .Rproj.user/
+
+# Local tooling / large source data
+.claude/
+full_sample.csv

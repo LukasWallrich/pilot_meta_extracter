@@ -1,101 +1,93 @@
-# DOI Metadata Extractor
+# Pilot Meta-Extractor
 
-Minimal R scripts for extracting publication metadata from DOIs using OpenAlex for article details, institution locations, and author affiliations, supplemented by Crossref for funding information, conflict of interest statements, and abstracts.
-
-## What you get
-
-For each DOI, `process_dois()` returns:
-- Publication year and journal title (from OpenAlex host venue metadata)
-- ISSN (primary plus optional vector of alternates)
-- Scimago Journal Rank (matched on ISSN/year via `sjrdata`)
-- TOP Factor (if `top_factor_data.RData` has been downloaded)
-- The OpenAlex `primary_topic` field (full object, plus display name and id helpers)
-- Three country columns:
-  - `article_location` – country of the first author's article-level affiliation
-  - `first_author_location` – country of the first author's profile (most recent institution)
-  - `last_author_location` – country of the last author's profile (most recent institution)
-- Optional detailed columns for each location (`return_location_details = TRUE`), including institution name, type, city, region, latitude, longitude, and data source
-- Funding information from both OpenAlex and Crossref:
-  - `funding_funders_openalex` / `funding_funders_crossref` – funder names (separated by ` || `)
-  - `funding_funder_ids_openalex` / `funding_funder_ids_crossref` – funder identifiers (OpenAlex IDs and DOIs)
-  - `funding_award_ids_openalex` / `funding_award_ids_crossref` – grant/award numbers
-- Conflict of interest (COI) statement extracted from Crossref metadata (`coi_crossref`)
-- Abstract text from Crossref metadata (`cr_abstract`)
+Automated extraction of study-level metadata for a meta-analysis / registered report on the reporting of **pilot studies** in psychology. Given a set of article DOIs and their GROBID **TEI** files, the pipeline returns one clean row per article covering bibliographic metadata, first-author location, funding, conflict-of-interest, and preregistration — validated against manual coding across two pilot rounds.
 
 ## Quick start
 
 ```r
-if (!require("pacman")) install.packages("pacman")
-pacman::p_load(httr, countrycode, dplyr, sjrdata)
+# 1. (optional, one-time) download the TOP Factor reference data
+Rscript download_top_factor.R
 
-source("download_top_factor.R")   # one-time setup (optional but recommended)
-source("extract_doi_metadata.R")
-
-my_dois <- c(
-  "10.1037/amp0001385",
-  "10.1037/met0000351",
-  "10.1146/annurev-psych-020821-114157"
-)
-
-results <- process_dois(my_dois, return_location_details = FALSE)
-write.csv(results, "results.csv", row.names = FALSE)
+# 2. run the pipeline on the two pilot samples
+PIPELINE_RUN=1 Rscript run_pipeline.R
+# -> writes data/final_extraction_pilot1-and-pilot2.csv
 ```
 
-## Suggested manual test
-
-After sourcing `extract_doi_metadata.R`, run:
+To run on your own DOIs, source the pipeline and call `run_pipeline()` with a data frame of `doi` + `tei_file` (path):
 
 ```r
-test_dois <- c(
-  "10.1037/amp0001385",
-  "10.1037/met0000351",
-  "10.3389/fpsyg.2022.896741"
-)
-
-process_dois(test_dois, return_location_details = TRUE)
+source("run_pipeline.R")
+result <- run_pipeline(data.frame(doi = my_dois, tei_file = my_tei_paths))
 ```
 
-Expected output:
-- `article_location` contains the country of the first author's article-level affiliation
-- `first_author_location` and `last_author_location` contain countries from the authors' profile data when available
-- `first_author_location_detail_source` and `last_author_location_detail_source` indicate the data source (`author-profile` or `NA`)
-- Location labels provide full institution details when `return_location_details = TRUE`
+## Repository structure
 
-## How it works
+**Root — the pipeline (numbered in run order) + docs**
 
-1. **OpenAlex Works API** supplies publication metadata, host venue, location-rich authorship information and the primary topic.
-2. **Article location** – extracted from the first author's article-level institution affiliations; generic department names are skipped.
-3. **First author location** – the first author's profile is queried for the most recent institution via OpenAlex Authors API (`last_known_institution` → `last_known_institutions` → `affiliations`).
-4. **Last author location** – the last author's profile is queried independently using the same priority order.
-5. **Metrics** – SJR values are pulled from `sjrdata`, while TOP Factor scores are matched against the optional download file.
-6. **Country extraction** – all locations extract the `country_code` field from OpenAlex institutions and convert it to the full country name using ISO-2 to country name mapping.
-7. **Funding information** – extracted from both OpenAlex (grants field) and Crossref (funder/funding fields). Includes funder names, funder identifiers (ROR IDs or DOIs), and award/grant numbers. Multiple values are concatenated with ` || ` separator.
-8. **Conflict of interest (COI)** – extracted from Crossref metadata using heuristic keyword matching for common COI-related phrases (e.g., "conflict of interest", "competing interests", "disclosure").
-9. **Abstract** – retrieved from Crossref metadata when available.
+| File | Role |
+|---|---|
+| `run_pipeline.R` | **Main entry point.** Sources the four modules, runs them per DOI, writes `data/final_extraction_*.csv`. Single source of truth for the extraction logic. |
+| `1_extract_doi_metadata.R` | Module: OpenAlex + Crossref metadata — journal, ISSN, SJR, TOP Factor, author location, structured funders, COI, abstract. |
+| `2_extract_tei_coi_funding.R` | Module: funding + COI extraction from GROBID TEI (regex/XPath over document structure). |
+| `3_extract_prereg.R` | Module: preregistration detection — binary + platform (OSF template–gated, AsPredicted, trial registries). |
+| `4_link_funders_locations.R` | Module: funder → country resolution (Crossref Funder Registry → OpenAlex/ROR, with a TEI-name fallback). |
+| `openalex_utils.R`, `download_top_factor.R`, `top_factor_manual_setup.R` | Shared helpers / one-time setup. |
+| `write-up-for-reg-rep.Rmd` | Descriptive write-up for the registered report. |
+| `README_pipeline.md` | Full column spec + codebook validation for `run_pipeline.R`. |
+| `README_tei_extraction.md`, `README_prereg_extraction.md`, `README_funders.md` | Per-module method + validation docs. |
 
-## Repository layout
+The numbered `N_*.R` files are **function libraries** (sourcing them only defines functions). `run_pipeline.R` derives everything fresh from the API for any input, so it has **no dependency on the pilot data**.
 
-- `extract_doi_metadata.R` – core extraction and helper routines.
-- `download_top_factor.R` – helper for retrieving the TOP Factor dataset (creates `top_factor_data.RData`).
-- `top_factor_manual_setup.R` – fallback instructions if automated download fails.
+**Folders**
 
-## Requirements
+| Folder | Contents |
+|---|---|
+| `data/` | Coding forms, pipeline outputs (see below), and API caches (reruns make no network calls). |
+| `validation/` | Reproduction + validation: rx-vs-metacheck comparison, manual↔auto comparison, the pilot-1 DOI→TEI matcher, and the pilot **driver** scripts (`pilot_*.R`) that regenerate the per-stage outputs and score them against the manual coding. |
+| `exploration/` | Side experiments not part of the pipeline: OpenAlex topic classification, OpenAlex-field probes, and an open-ended-registration labelling experiment (`oer/`). |
+| `archive/` | Superseded combined datasets and older outputs, kept for provenance. |
 
-```r
-httr        # OpenAlex and Crossref API queries
-countrycode # ISO-to-name conversion
-dplyr       # light data manipulation
-sjrdata     # Scimago Journal Rank reference data
-```
+## Resulting data
 
-## Citation
+`run_pipeline.R` writes **`data/final_extraction_pilot1-and-pilot2.csv`** — one row per DOI, 20 columns:
 
-Please cite all data sources you rely on:
-- **OpenAlex**: https://openalex.org/
-- **Crossref**: https://www.crossref.org/
-- **Scimago Journal Rank**: https://www.scimagojr.com/
-- **Center for Open Science (TOP Factor)**: https://www.cos.io/initiatives/top-guidelines
+| Column | Meaning |
+|---|---|
+| `doi` | Article DOI (join key). |
+| `journal`, `issn` | Venue name and primary ISSN (OpenAlex). |
+| `top_factor`, `sjr` | Journal transparency (TOP Factor) and Scimago (SJR) scores. |
+| `first_author_country` | First author's country, preferring the **article-level affiliation** (where they were at research time), falling back to their OpenAlex profile. |
+| `first_author_location_full` | `"Institution, City, Region, Country"` for the same. |
+| `first_author_location_source` | `article` or `author-profile` (which supplied the location). |
+| `funding_category` | `funded` / `no funding` / `no statement`. |
+| `funding_statement` | Extracted funding statement text (audit). |
+| `funders` | Named funders, `\|\|`-separated (audit); the literal `no funding` where stated. |
+| `funding_country` | All distinct funder countries, `\|\|`-separated. |
+| `coi_statement` | Extracted conflict-of-interest statement text. |
+| `coi_category` | `conflict declared` / `no conflict declared` / `no statement`. |
+| `prereg_present` | Whether the article reports a study preregistration. |
+| `prereg_platform` | e.g. `OSF registration`, `AsPredicted`, `ClinicalTrials.gov`. |
+| `prereg_url` | Registration link(s). |
+| `is_registered_report` | Registered Report. |
+| `is_trial_registry` | Trial/health-registry entry. |
+| `registration_any` | `prereg_present` OR Registered Report OR trial registry. |
 
-## License
+Column-by-column derivation rules and the codebook-validation numbers are in **`README_pipeline.md`**.
 
-MIT License – free for academic and commercial use.
+Other data products:
+
+- `data/manual-and-auto-combined_*.csv` — the manual coding (both pilots) joined to the pipeline output (via `validation/combine_with_manual.R`).
+- Per-stage outputs — `data/tei_coi_funding_extracted_*.csv`, `data/prereg_extracted_*.csv`, `data/funders_with_locations_*.csv`, `data/funder_locations_long.csv` — regenerated by the `validation/pilot_*.R` drivers.
+- `data/rx_vs_metacheck_metrics.csv` — validation of the custom extractor against the `metacheck` package.
+
+## Validation summary
+
+Against the manual coding (papers with a usable code):
+
+- **Funding / COI extraction** beats `metacheck` on both pilots (funding F1 0.95 vs 0.90; COI 0.91 vs 0.88 pooled) — see `README_tei_extraction.md`.
+- **Preregistration** detection: F1 0.91 (`prereg_found`), 0.93 (`registration_any`) — see `README_prereg_extraction.md`.
+- **Funder → country**: 100% country resolution for structured Crossref funder IDs — see `README_funders.md`.
+
+## Data sources
+
+OpenAlex · Crossref · Scimago Journal Rank (`sjrdata`) · TOP Factor (COS) · OSF & AsPredicted APIs · GROBID (TEI). Please cite the sources you rely on.

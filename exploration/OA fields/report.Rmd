@@ -1,0 +1,327 @@
+---
+title: "OpenAlex Subfield Review for 2024 Journal Articles"
+author: "Auto-generated"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+library(httr)
+library(jsonlite)
+library(dplyr)
+source("openalex_utils.R")
+```
+
+```{r datatable-resources, echo=FALSE, results='asis'}
+cat('<link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">\n')
+cat('<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>\n')
+cat('<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>\n')
+cat('<style>\n')
+cat('table.dataTable tbody tr.status-different { background-color: #fddbc7 !important; }\n')
+cat('table.dataTable tbody tr.status-matches { background-color: #d9f0d3 !important; }\n')
+cat('table.dataTable tbody tr.status-unknown { background-color: #f7f7f7 !important; }\n')
+cat('table.dataTable thead th { white-space: nowrap; }\n')
+cat('table.dataTable tbody td { white-space: nowrap; }\n')
+cat('.nav-tabs > li > a { cursor: pointer; }\n')
+cat('.tab-pane { display: none; }\n')
+cat('.tab-pane.active { display: block; }\n')
+cat('</style>\n')
+```
+
+# Overview
+
+This report retrieves 2024 research articles for a set of psychology journals from OpenAlex and compares their primary subfields with each journal's expected topical focus. It summarizes the distribution of subfields and highlights potential mismatches for further review.
+
+# Journals and expected subfields
+
+```{r journal-config, echo=FALSE, results='asis'}
+journal_focus <- data.frame(
+  journal = c(
+    "Psychological Science",
+    "Journal of Personality and Social Psychology",
+    "Journal of Experimental Psychology: Learning, Memory, and Cognition",
+    "Journal of Occupational and Organizational Psychology",
+    "Proceedings of the National Academy of Sciences"
+  ),
+  source_id = c(
+    "S58854535",
+    "S29984966",
+    "S18666220",
+    "S87328381",
+    "S125754415"
+  ),
+  focus_subfields = I(list(
+    c("Cognitive Neuroscience", "Experimental and Cognitive Psychology", "Social Psychology", "Developmental and Educational Psychology"),
+    c("Social Psychology", "Clinical Psychology", "Experimental and Cognitive Psychology"),
+    c("Cognitive Neuroscience", "Experimental and Cognitive Psychology", "Developmental and Educational Psychology"),
+    c("Organizational Behavior and Human Resource Management", "Social Psychology", "Applied Psychology"),
+    c()  # PNAS is interdisciplinary - no specific focus subfields
+  )),
+  stringsAsFactors = FALSE
+)
+
+journal_focus$focus_subfields_lower <- lapply(journal_focus$focus_subfields, function(values) tolower(values))
+journal_focus$focus_summary <- vapply(
+  journal_focus$focus_subfields,
+  function(values) {
+    if (length(values) == 0) {
+      "Not specified"
+    } else {
+      paste(values, collapse = ", ")
+    }
+  },
+  character(1)
+)
+
+focus_summary_table <- data.frame(
+  Journal = journal_focus$journal,
+  `OpenAlex source ID` = journal_focus$source_id,
+  `Expected subfields` = journal_focus$focus_summary,
+  check.names = FALSE,
+  stringsAsFactors = FALSE
+)
+
+cat(create_datatable_html(focus_summary_table, "journal-focus-table"))
+cat(render_datatable_script("journal-focus-table", "{paging: false, searching: false, info: false}"))
+```
+
+# Helper notes
+
+- Set the environment variable `OPENALEX_EMAIL` before knitting to include your contact email in requests, per OpenAlex best practices.
+- Update the `journal_focus` table if you need to reflect different expectations for each journal.
+
+# Retrieve 2024 articles
+
+```{r retrieve}
+article_data <- fetch_all_journals(journal_focus, year = 2024)
+analysis <- prepare_article_tables(article_data, journal_focus)
+articles_enriched <- analysis$articles_enriched
+subfield_counts <- analysis$subfield_counts
+article_table <- analysis$article_table
+n_articles <- nrow(article_data)
+```
+
+```{r article-summary, echo=FALSE}
+cat(sprintf("Total articles retrieved: **%d**", n_articles))
+```
+
+# Subfield counts by journal {.tabset}
+
+```{r subfield-counts, echo=FALSE, results='asis'}
+if (nrow(subfield_counts) == 0) {
+  cat("No subfield data available for the selected journals.")
+} else {
+  for (journal in unique(articles_enriched$journal)) {
+    # Count total articles for this journal
+    journal_total <- nrow(articles_enriched[articles_enriched$journal == journal, ])
+
+    cat("## ", journal, " (n=", journal_total, ")", "\n\n")
+
+    # Get subfields for this journal
+    journal_subfields <- subfield_counts[subfield_counts$journal == journal, ]
+    journal_subfields_display <- journal_subfields[, c("primary_subfield", "article_count"), drop = FALSE]
+    names(journal_subfields_display) <- c("Primary subfield", "Article count")
+
+    table_id <- paste0("subfield-table-", gsub("[^a-zA-Z0-9]", "-", tolower(journal)))
+    cat(create_datatable_html(journal_subfields_display, table_id))
+    cat(render_datatable_script(table_id, "{pageLength: 25, order: [[1, 'desc']], paging: true, searching: true, info: true}"))
+    cat("\n\n")
+  }
+}
+```
+
+# Topic coverage summary
+
+```{r topic-coverage, echo=FALSE, results='asis'}
+# Define psychology-related keywords
+psychology_keywords <- c(
+  "psychology", "psycholog", "cognitive", "behavioral", "social",
+  "clinical", "developmental", "educational", "organizational",
+  "occupational", "applied psychology", "experimental psychology",
+  "neuroscience", "psychiatry", "psychometric"
+)
+
+coverage_data <- data.frame()
+
+for (journal in unique(articles_enriched$journal)) {
+  journal_articles <- articles_enriched[articles_enriched$journal == journal, ]
+  total <- nrow(journal_articles)
+
+  # Count articles matching core focus
+  core_match <- sum(journal_articles$focus_match == TRUE, na.rm = TRUE)
+
+  # Count articles with psychology-related subfields (those that don't match core but mention psychology)
+  psychology_related <- 0
+  for (i in seq_len(nrow(journal_articles))) {
+    subfield <- tolower(journal_articles$primary_subfield[i])
+    if (is.na(subfield) || subfield == "") next
+
+    is_core <- journal_articles$focus_match[i] == TRUE
+    is_psych <- any(sapply(psychology_keywords, function(kw) grepl(kw, subfield, fixed = TRUE)))
+
+    if ((is.na(is_core) || !is_core) && is_psych) {
+      psychology_related <- psychology_related + 1
+    }
+  }
+
+  # Count unrelated articles
+  unrelated <- total - core_match - psychology_related
+
+  coverage_data <- rbind(coverage_data, data.frame(
+    Journal = journal,
+    `Core Topics (%)` = sprintf("%.1f%%", 100 * core_match / total),
+    `Core Topics (n)` = core_match,
+    `Psychology-Related (%)` = sprintf("%.1f%%", 100 * psychology_related / total),
+    `Psychology-Related (n)` = psychology_related,
+    `Unrelated (%)` = sprintf("%.1f%%", 100 * unrelated / total),
+    `Unrelated (n)` = unrelated,
+    `Total` = total,
+    check.names = FALSE,
+    stringsAsFactors = FALSE
+  ))
+}
+
+# Display coverage summary
+cat(create_datatable_html(coverage_data, "coverage-summary-table"))
+cat(render_datatable_script("coverage-summary-table", "{paging: false, searching: false, info: false}"))
+```
+
+# Article-level view {.tabset}
+
+```{r article-table, echo=FALSE, results='asis'}
+if (nrow(article_table) == 0) {
+  cat("No articles retrieved for the configured journals.")
+} else {
+  for (journal in unique(article_table$Journal)) {
+    # Count articles for this journal
+    journal_article_count <- nrow(article_table[article_table$Journal == journal, ])
+
+    cat("## ", journal, " (n=", journal_article_count, ")", "\n\n")
+
+    # Get articles for this journal
+    journal_articles <- article_table[article_table$Journal == journal, , drop = FALSE]
+
+    table_id <- paste0("article-table-", gsub("[^a-zA-Z0-9]", "-", tolower(journal)))
+    cat(create_datatable_html(journal_articles, table_id, allow_html = c("Title", "DOI")))
+    cat(render_datatable_script(
+      table_id,
+      "{\n      pageLength: 25,\n      order: [[0, 'asc']],\n      scrollX: true,\n      createdRow: function(row, data) {\n        var status = data[data.length - 1];\n        if (status === 'Different') {\n          $(row).addClass('status-different');\n        } else if (status === 'Matches') {\n          $(row).addClass('status-matches');\n        } else {\n          $(row).addClass('status-unknown');\n        }\n      }\n    }"
+    ))
+    cat("\n\n")
+  }
+}
+```
+
+# LLM-based article classification
+
+```{r llm-classification-setup, include=FALSE}
+# Load ASJC (All Science Journal Classification) fields from CSV
+asjc_data <- read.csv("ASJC_fields.csv", stringsAsFactors = FALSE)
+# Format as "Code. Description" for the LLM prompt
+asjc_fields <- paste(asjc_data$Code, ".", asjc_data$Description)
+```
+
+```{r llm-classification, echo=FALSE, results='asis'}
+cat("## Overview\n\n")
+cat("This section uses LLM-based classification to categorize articles into ASJC fields based on their abstracts.\n\n")
+
+# Only process a sample of articles due to API rate limits and cost
+# Process up to 100 articles per journal
+sample_articles <- article_data %>%
+  group_by(journal) %>%
+  slice_head(n = 100) %>%
+  ungroup()
+
+cat("**Note:** Processing a sample of", nrow(sample_articles), "articles (up to 100 per journal) for demonstration.\n\n")
+
+if (!requireNamespace("ellmer", quietly = TRUE)) {
+  cat("**Note:** The 'ellmer' package is required for LLM classification. Install it with: `install.packages('ellmer')`\n\n")
+} else {
+  # Check for OpenAI API key
+  api_key <- Sys.getenv("OPENAI_API_KEY")
+
+  if (!nzchar(api_key)) {
+    cat("**Note:** OpenAI API key (OPENAI_API_KEY) not found. Set the environment variable to enable classification.\n\n")
+  } else {
+    # Fetch abstracts for sample articles (with caching)
+    cat("Fetching abstracts from Crossref (with session cache)...")
+    sample_articles$abstract <- fetch_abstracts_with_rate_limit(sample_articles, pause_interval = 5)
+
+    abstracts_found <- sum(!is.na(sample_articles$abstract))
+    cat(" Found abstracts for", abstracts_found, "articles.\n\n")
+
+    if (abstracts_found > 0) {
+      # Classify articles with abstracts using batch processing
+      cat("Classifying articles with gpt-5-mini...\n")
+
+      # Filter to only articles with abstracts
+      articles_to_classify <- sample_articles[!is.na(sample_articles$abstract), ]
+
+      if (nrow(articles_to_classify) > 0) {
+        classifications <- classify_articles_batch(articles_to_classify, asjc_fields)
+        sample_articles$llm_classification <- NA_character_
+        sample_articles$llm_classification[!is.na(sample_articles$abstract)] <- classifications
+      }
+      cat("Done.\n\n")
+
+      # Create display table with comparison
+      classification_display <- sample_articles %>%
+        filter(!is.na(abstract) & !is.na(llm_classification)) %>%
+        mutate(
+          agreement = tolower(primary_subfield) == tolower(llm_classification),
+          agreement_label = ifelse(agreement, "✓ Agrees", "✗ Disagrees")
+        ) %>%
+        select(journal, title, primary_subfield, llm_classification, agreement_label) %>%
+        rename(
+          Journal = journal,
+          Title = title,
+          `OpenAlex Field` = primary_subfield,
+          `LLM Classification` = llm_classification,
+          Agreement = agreement_label
+        )
+
+      if (nrow(classification_display) > 0) {
+        cat("## Article-level classifications\n\n")
+        cat(create_datatable_html(classification_display, "llm-classification-table", allow_html = c("Title")))
+        cat(render_datatable_script("llm-classification-table", "{pageLength: 10, order: [[0, 'asc']], scrollX: true}"))
+
+        # Create agreement summary by journal
+        cat("\n## Classification agreement by journal\n\n")
+
+        agreement_summary <- sample_articles %>%
+          filter(!is.na(abstract) & !is.na(llm_classification)) %>%
+          mutate(
+            agreement = tolower(primary_subfield) == tolower(llm_classification)
+          ) %>%
+          group_by(journal) %>%
+          summarise(
+            `Total Classified` = n(),
+            `Agreement Count` = sum(agreement, na.rm = TRUE),
+            `Agreement Rate (%)` = sprintf("%.1f%%", 100 * sum(agreement, na.rm = TRUE) / n()),
+            .groups = 'drop'
+          ) %>%
+          rename(Journal = journal)
+
+        cat(create_datatable_html(agreement_summary, "llm-agreement-table"))
+        cat(render_datatable_script("llm-agreement-table", "{paging: false, searching: false, info: false}"))
+      } else {
+        cat("No articles with abstracts were successfully classified.\n")
+      }
+    } else {
+      cat("No abstracts were found. Classification skipped.\n")
+    }
+  }
+}
+```
+
+# Session information
+
+```{r session-info}
+sessionInfo()
+```
