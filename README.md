@@ -36,7 +36,7 @@ result <- run_pipeline(data.frame(doi = my_dois, tei_file = my_tei_paths))
 | `README_pipeline.md` | Full column spec + codebook validation for `run_pipeline.R`. |
 | `README_tei_extraction.md`, `README_prereg_extraction.md`, `README_funders.md` | Per-module method + validation docs. |
 
-The numbered `N_*.R` files are **function libraries** (sourcing them only defines functions). `run_pipeline.R` derives everything fresh from the API for any input, so it has **no dependency on the pilot data**.
+The numbered `N_*.R` files are **function libraries** (sourcing them only defines functions). `run_pipeline.R` works on any DOIs + TEIs, querying OpenAlex / Crossref / OSF only for inputs not already in the on-disk caches under `data/` (and storing new results there), so repeat runs make no network calls.
 
 **Folders**
 
