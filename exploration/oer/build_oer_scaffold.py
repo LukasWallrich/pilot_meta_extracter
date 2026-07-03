@@ -22,10 +22,11 @@ import csv, os, re, json, time
 import urllib.request, urllib.error
 import xml.etree.ElementTree as ET
 
-TEI_DIR = "../pilot_pilot_teis/tei"
-IN_CSV  = "data/oer_candidates.csv"
-SUMMARY_CACHE = "data/osf_oer_summaries.csv"
-OUT_CSV = "data/oer_labeling_scaffold.csv"
+_HERE = os.path.dirname(os.path.abspath(__file__))
+TEI_DIR = "/Users/lukaswallrich/Documents/Coding/pilot_pilot_teis/tei"
+IN_CSV  = os.path.join(_HERE, "oer_candidates.csv")
+SUMMARY_CACHE = os.path.join(_HERE, "osf_oer_summaries.csv")
+OUT_CSV = os.path.join(_HERE, "oer_labeling_scaffold.csv")
 UA = "metacheck-oer-validation (research; lukas.wallrich@gmail.com)"
 DELAY = 0.34
 
@@ -56,6 +57,11 @@ def tei_body_and_doi(path):
                 parent.remove(child)
     body = " ".join(root.itertext())
     body = re.sub(r"\s+", " ", body)
+    # GROBID often inserts spaces inside URLs ("osf. io/", "https: //"); de-space
+    # them so sentence-splitting does not break a link (and its description) apart
+    body = re.sub(r"https?\s*:\s*/\s*/\s*", "https://", body, flags=re.I)
+    body = re.sub(r"osf\s*\.\s*io\s*/\s*", "osf.io/", body, flags=re.I)
+    body = re.sub(r"aspredicted\s*\.\s*org\s*/\s*", "aspredicted.org/", body, flags=re.I)
     if not doi:
         m = re.search(r"10\.\d{4,}/[^\s\"<]+", body)
         doi = m.group(0) if m else ""
