@@ -4,17 +4,17 @@
 # PILOT-1 + PILOT-2 batch reproduction of the TEI funder/funding/COI extraction.
 # Rebuilds the pilot DOI->TEI index exactly as the original stage script, runs
 # the library extractor over every paper, and writes the stage CSVs:
-#   data/tei_coi_funding_extracted_pilot1-and-pilot2.csv
-#   data/tei_coi_funding_extracted.csv                     (pilot2-only)
+#   data/stages/tei_coi_funding_extracted_pilot1-and-pilot2.csv
+# (both pilots in one file; the `coding` column marks the round)
 # Set use_metacheck <- TRUE before sourcing to also run metacheck for comparison.
 # Run from the project root:  Rscript validation/pilot_extract_tei.R
 # =============================================================================
 source("R/2_extract_tei_coi_funding.R")   # heading_matches, clean_extracted_text, extract_regex, extract_metacheck
 
 # ---- Settings ----
-pilot1_map_csv <- "data/pilot1_doi_tei_map.csv"
+pilot1_map_csv <- "data/inputs/pilot1_doi_tei_map.csv"
 pilot2_tei_dir <- "../pilot2_pdf_conversion/tei"
-pilot2_csv     <- "data/2026-04-03_Codingform_PilotingAssessment_pilot2.csv"
+pilot2_csv     <- "data/inputs/2026-04-03_Codingform_PilotingAssessment_pilot2.csv"
 # The oracle stage CSV includes metacheck columns, so reproduce with metacheck on
 # by default (set use_metacheck <- FALSE before sourcing to skip the comparison).
 if (!exists("use_metacheck")) use_metacheck <- TRUE
@@ -130,13 +130,12 @@ tei_extracted <- tei_extracted |>
          rx_funding_found, rx_coi_found,
          mc_funding_found, mc_funding_text, mc_coi_found, mc_coi_text)
 
-combined_file <- "data/tei_coi_funding_extracted_pilot1-and-pilot2.csv"
+combined_file <- "data/stages/tei_coi_funding_extracted_pilot1-and-pilot2.csv"
 write.csv(tei_extracted, combined_file, row.names = FALSE)
 message("\nCombined results saved to ", combined_file)
 
-# Also keep the pilot2-only file for backward comparison
-p2_only <- tei_extracted |> filter(coding == "pilot2")
-write.csv(p2_only, "data/tei_coi_funding_extracted.csv", row.names = FALSE)
+# The pilot2-only file is no longer written: it was an exact subset of the
+# combined file above. Filter on `coding == "pilot2"` instead.
 
 # ---- 6. Quick summary ----
 message("\n--- Summary ---")

@@ -9,7 +9,7 @@
 # OpenAlex record is wrong / a collision), then match against the canonical
 # filename<->tei_file list in pilot_keyword_screening_filenames.csv.
 #
-# Outputs: data/pilot1_doi_tei_map.csv  and prints a full match-rate report.
+# Outputs: data/inputs/pilot1_doi_tei_map.csv  and prints a full match-rate report.
 #
 # Run with the OpenAlex polite-pool key available:
 #   set -a; source ~/.claude/api_keys.env; set +a; Rscript match_pilot1_tei.R
@@ -23,12 +23,12 @@ suppressMessages({
 # ---------------------------------------------------------------------------
 # Config / paths
 # ---------------------------------------------------------------------------
-coding_csv <- "data/2025-12-09_Codingform_PilotingAssessment_pilot.csv"
+coding_csv <- "data/inputs/2025-12-09_Codingform_PilotingAssessment_pilot.csv"
 helper_csv <- "../pilot_pilot_teis/pilot_keyword_screening_filenames.csv"
 tei_dir    <- "../pilot_pilot_teis/tei"
-oa_cache   <- "data/pilot1_oa_metadata.csv"
-cr_cache   <- "data/pilot1_crossref_metadata.csv"
-out_csv    <- "data/pilot1_doi_tei_map.csv"
+oa_cache   <- "data/cache/pilot1_oa_metadata.csv"
+cr_cache   <- "data/cache/pilot1_crossref_metadata.csv"
+out_csv    <- "data/inputs/pilot1_doi_tei_map.csv"
 MAILTO     <- "lukas.wallrich@gmail.com"
 SCORE_MIN  <- 0.85   # minimum title-prefix similarity to accept a match
 

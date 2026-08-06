@@ -23,8 +23,8 @@ suppressMessages({
 `%||%` <- function(a, b) if (is.null(a) || length(a) == 0 || is.na(a[1])) b else a
 
 # OSF cache paths (defaults for resolve_osf_caches()).
-OSF_GUID_CACHE <- "data/osf_guid_types.csv"
-OSF_REG_CACHE  <- "data/osf_reg_templates.csv"
+OSF_GUID_CACHE <- "data/cache/osf_guid_types.csv"
+OSF_REG_CACHE  <- "data/cache/osf_reg_templates.csv"
 
 URL_RE <- regex(
   "(https?://[^\\s)\\]\"'>,]+|www\\.[^\\s)\\]\"'>,]+|10\\.\\d{4,}/[^\\s)\\]\"'>,]+|osf\\.io/[^\\s)\\]\"'>,]+|aspredicted\\.org/[^\\s)\\]\"'>,]+)",

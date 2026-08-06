@@ -3,9 +3,9 @@ library(tidyverse)
 library(stringr)
 
 ## read manual coding file
-manual1 = read.csv("data/2025-12-09_Codingform_PilotingAssessment_pilot.csv")
+manual1 = read.csv("data/inputs/2025-12-09_Codingform_PilotingAssessment_pilot.csv")
 manual1$coding = "pilot1"
-manual2 = read.csv("data/2026-04-03_Codingform_PilotingAssessment_pilot2.csv")
+manual2 = read.csv("data/inputs/2026-04-03_Codingform_PilotingAssessment_pilot2.csv")
 manual2$coding = "pilot2"
 # combine both pilots
 manual = bind_rows(manual1, manual2)

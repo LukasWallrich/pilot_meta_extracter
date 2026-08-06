@@ -6,11 +6,11 @@
 # Does rx still outperform metacheck? Previously only tested on pilot 2.
 #
 # Predictions come from:
-#   data/tei_coi_funding_extracted_pilot1-and-pilot2.csv
+#   data/stages/tei_coi_funding_extracted_pilot1-and-pilot2.csv
 #   (rx_funding_found, rx_coi_found, mc_funding_found, mc_coi_found)
 # Manual ground truth:
-#   pilot 1: data/2025-12-09_Codingform_PilotingAssessment_pilot.csv
-#   pilot 2: data/2026-04-03_Codingform_PilotingAssessment_pilot2.csv
+#   pilot 1: data/inputs/2025-12-09_Codingform_PilotingAssessment_pilot.csv
+#   pilot 2: data/inputs/2026-04-03_Codingform_PilotingAssessment_pilot2.csv
 #
 # Output:
 #   data/rx_vs_metacheck_metrics.csv  (tidy metrics)
@@ -27,9 +27,9 @@ suppressPackageStartupMessages({
 })
 
 # ---- Settings -------------------------------------------------------
-pred_csv   <- "data/tei_coi_funding_extracted_pilot1-and-pilot2.csv"
-pilot1_csv <- "data/2025-12-09_Codingform_PilotingAssessment_pilot.csv"
-pilot2_csv <- "data/2026-04-03_Codingform_PilotingAssessment_pilot2.csv"
+pred_csv   <- "data/stages/tei_coi_funding_extracted_pilot1-and-pilot2.csv"
+pilot1_csv <- "data/inputs/2025-12-09_Codingform_PilotingAssessment_pilot.csv"
+pilot2_csv <- "data/inputs/2026-04-03_Codingform_PilotingAssessment_pilot2.csv"
 
 # ---- Helpers --------------------------------------------------------
 clean_doi <- function(x) {

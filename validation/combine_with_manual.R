@@ -11,9 +11,9 @@ clean_doi <- function(x) {
     str_trim()
 }
 
-p1 <- read.csv("data/2025-12-09_Codingform_PilotingAssessment_pilot.csv",
+p1 <- read.csv("data/inputs/2025-12-09_Codingform_PilotingAssessment_pilot.csv",
                stringsAsFactors = FALSE, check.names = TRUE) |> mutate(coding = "pilot1")
-p2 <- read.csv("data/2026-04-03_Codingform_PilotingAssessment_pilot2.csv",
+p2 <- read.csv("data/inputs/2026-04-03_Codingform_PilotingAssessment_pilot2.csv",
                stringsAsFactors = FALSE, check.names = TRUE) |> mutate(coding = "pilot2")
 
 manual <- bind_rows(p1, p2) |>

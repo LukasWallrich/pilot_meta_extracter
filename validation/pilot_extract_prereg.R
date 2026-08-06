@@ -5,17 +5,17 @@
 # manual-coding validation. Uses the CANONICAL classify_paper() (which adds
 # is_registered_report and folds it into registration_any) and the shared
 # resolve_osf_caches() from the library. Writes:
-#   data/prereg_extracted_pilot1-and-pilot2.csv
+#   data/stages/prereg_extracted_pilot1-and-pilot2.csv
 # Run from the project root:  Rscript validation/pilot_extract_prereg.R
 # =============================================================================
 source("R/3_extract_prereg.R")   # parse_tei, classify_paper, resolve_osf_caches, keyword_scan, ...
 
 # ---- Settings ----------------------------------------------------------------
-pilot1_map_csv <- "data/pilot1_doi_tei_map.csv"
-pilot1_manual_csv <- "data/2025-12-09_Codingform_PilotingAssessment_pilot.csv"
-pilot2_manual_csv <- "data/2026-04-03_Codingform_PilotingAssessment_pilot2.csv"
+pilot1_map_csv <- "data/inputs/pilot1_doi_tei_map.csv"
+pilot1_manual_csv <- "data/inputs/2025-12-09_Codingform_PilotingAssessment_pilot.csv"
+pilot2_manual_csv <- "data/inputs/2026-04-03_Codingform_PilotingAssessment_pilot2.csv"
 tei_dir2 <- "../pilot2_pdf_conversion/tei"
-output_csv <- "data/prereg_extracted_pilot1-and-pilot2.csv"
+output_csv <- "data/stages/prereg_extracted_pilot1-and-pilot2.csv"
 PILOT1_DROP <- "10.1016/j.cognition.2022.105212"  # NA TEI row
 
 norm_doi <- function(x) {

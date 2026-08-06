@@ -2,7 +2,7 @@
 
 Extracts conflict of interest (COI) and funding statements from GROBID TEI XML files. By default uses direct XML/regex parsing, which outperforms metacheck on all metrics (see below). Optionally also runs [scienceverse/metacheck](https://github.com/scienceverse/metacheck) for comparison.
 
-> **Module vs. driver.** `R/2_extract_tei_coi_funding.R` is now a **function library** (sourcing it only defines `heading_matches`, `clean_extracted_text`, `extract_regex`, `extract_metacheck` and the regex constants — no side effects). It is the single source of truth used by `run_pipeline.R`. The pilot-1 + pilot-2 batch run that writes `data/tei_coi_funding_extracted_pilot1-and-pilot2.csv` (and the pilot2-only `data/tei_coi_funding_extracted.csv`) plus the metacheck comparison lives in `validation/pilot_extract_tei.R` (run from the repo root; `use_metacheck` defaults to `TRUE` there so the stage CSV keeps its `mc_*` columns).
+> **Module vs. driver.** `R/2_extract_tei_coi_funding.R` is now a **function library** (sourcing it only defines `heading_matches`, `clean_extracted_text`, `extract_regex`, `extract_metacheck` and the regex constants — no side effects). It is the single source of truth used by `run_pipeline.R`. The pilot-1 + pilot-2 batch run that writes `data/stages/tei_coi_funding_extracted_pilot1-and-pilot2.csv` (and the pilot2-only `data/tei_coi_funding_extracted.csv`) plus the metacheck comparison lives in `validation/pilot_extract_tei.R` (run from the repo root; `use_metacheck` defaults to `TRUE` there so the stage CSV keeps its `mc_*` columns).
 
 ## Approach
 
@@ -32,7 +32,7 @@ Directly parses the TEI XML with targeted XPath queries and regex heading/body m
 
 ## Validation
 
-Validated against manual coding from `data/2026-04-03_Codingform_PilotingAssessment_pilot2.csv` (181 DOIs matched to TEI files out of 185). Of the 185 coded articles, only 84 had manual funding/COI ground truth — the remaining 101 were determined by coders to not contain a relevant pilot study, so the funding/COI questions were skipped.
+Validated against manual coding from `data/inputs/2026-04-03_Codingform_PilotingAssessment_pilot2.csv` (181 DOIs matched to TEI files out of 185). Of the 185 coded articles, only 84 had manual funding/COI ground truth — the remaining 101 were determined by coders to not contain a relevant pilot study, so the funding/COI questions were skipped.
 
 ### Detection performance (against 81 articles with manual ground truth)
 

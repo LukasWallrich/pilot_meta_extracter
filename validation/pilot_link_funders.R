@@ -5,8 +5,8 @@
 # This is the ONLY file allowed to read the 2026-06-11 auto-and-manual-combined
 # CSV, from which it pulls the Crossref funder columns and passes them as
 # ARGUMENTS to the shared library resolvers. Writes:
-#   data/funders_with_locations_pilot1-and-pilot2.csv  (one row per paper)
-#   data/funder_locations_long.csv                     (one row per paper x funder)
+#   data/stages/funders_with_locations_pilot1-and-pilot2.csv  (one row per paper)
+#   data/stages/funder_locations_long.csv                     (one row per paper x funder)
 # Run from the project root:  Rscript validation/pilot_link_funders.R
 # =============================================================================
 source("R/4_link_funders_locations.R")   # resolve_funder_ids/_names, cluster_funders, name_sim, ...
@@ -20,9 +20,9 @@ splitpp <- function(x) {                       # split a '||'-joined string
 }
 
 # ---------------------------------------------------------------- load data --
-comb <- read_csv(file.path(DATA, "2026-06-11_auto-and-manual-combined_pilot1-and-pilot2.csv"),
+comb <- read_csv(file.path(DATA, "inputs", "2026-06-11_auto-and-manual-combined_pilot1-and-pilot2.csv"),
                  show_col_types = FALSE)
-tei  <- read_csv(file.path(DATA, "tei_coi_funding_extracted_pilot1-and-pilot2.csv"),
+tei  <- read_csv(file.path(DATA, "stages", "tei_coi_funding_extracted_pilot1-and-pilot2.csv"),
                  show_col_types = FALSE)
 
 comb$doi_n <- norm_doi(comb$doi)
@@ -241,8 +241,8 @@ paper_df <- bind_rows(paper_rows)
 ovr_df   <- if (length(override_log)) bind_rows(override_log) else
   tibble(doi=character(), funder=character(), from=character(), to=character())
 
-write_csv(long_df,  file.path(DATA, "funder_locations_long.csv"))
-write_csv(paper_df, file.path(DATA, "funders_with_locations_pilot1-and-pilot2.csv"))
+write_csv(long_df,  file.path(DATA, "stages", "funder_locations_long.csv"))
+write_csv(paper_df, file.path(DATA, "stages", "funders_with_locations_pilot1-and-pilot2.csv"))
 
 # ================================================================== REPORT ===
 cat("\n========== SUMMARY ==========\n")
@@ -278,5 +278,5 @@ ex <- unique(c("10.32872/cpe.9341","10.1080/10447318.2023.2276529","10.1192/bjo.
                head(paper_df$doi[paper_df$n_funders >= 3],1)))
 for (d in head(ex,12)) show_paper(d)
 
-cat("\nDONE. Wrote:\n  data/funders_with_locations_pilot1-and-pilot2.csv\n",
-    " data/funder_locations_long.csv\n  data/funder_id_country.csv\n  data/funder_name_country.csv\n")
+cat("\nDONE. Wrote:\n  data/stages/funders_with_locations_pilot1-and-pilot2.csv\n",
+    " data/stages/funder_locations_long.csv\n  data/cache/funder_id_country.csv\n  data/cache/funder_name_country.csv\n")

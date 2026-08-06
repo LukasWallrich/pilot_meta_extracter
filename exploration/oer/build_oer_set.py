@@ -7,8 +7,8 @@ For each TEI: strip the reference list, extract OSF guids from the body
 (text + <ptr>/<ref target>), resolve each guid to an OSF object type and (for
 registrations) a template via the OSF API. Output the OER-linked papers.
 
-Reuses + extends the pilot caches (data/osf_guid_types.csv,
-data/osf_reg_templates.csv) so it is resumable and makes no redundant calls.
+Reuses + extends the pilot caches (data/cache/osf_guid_types.csv,
+data/cache/osf_reg_templates.csv) so it is resumable and makes no redundant calls.
 
 Outputs:
   data/oer_candidates.csv  one row per (tei_file, guid, type, template)
@@ -20,8 +20,8 @@ import urllib.request, urllib.error
 import xml.etree.ElementTree as ET
 
 TEI_DIR   = "../pilot_pilot_teis/tei"
-TYPE_CACHE = "data/osf_guid_types.csv"
-TMPL_CACHE = "data/osf_reg_templates.csv"
+TYPE_CACHE = "data/cache/osf_guid_types.csv"
+TMPL_CACHE = "data/cache/osf_reg_templates.csv"
 OUT_CSV    = "data/oer_candidates.csv"
 LINKS_CSV  = "data/paper_osf_links.csv"   # full paper<->guid map (audit trail)
 UA = "metacheck-oer-validation (research; lukas.wallrich@gmail.com)"

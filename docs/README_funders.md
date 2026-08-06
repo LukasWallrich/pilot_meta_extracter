@@ -10,10 +10,10 @@ complementary sources of funder identity.
 > constants — no side effects, and it never reads the combined CSV). The
 > Crossref funder columns are passed in as **arguments**. It is the single source
 > of truth used by `run_pipeline.R`. The pilot-1 + pilot-2 batch run that writes
-> `data/funders_with_locations_pilot1-and-pilot2.csv` and
-> `data/funder_locations_long.csv` lives in `validation/pilot_link_funders.R`
+> `data/stages/funders_with_locations_pilot1-and-pilot2.csv` and
+> `data/stages/funder_locations_long.csv` lives in `validation/pilot_link_funders.R`
 > (run from the repo root) — the **only** file allowed to read
-> `data/2026-06-11_auto-and-manual-combined_pilot1-and-pilot2.csv` for the
+> `data/inputs/2026-06-11_auto-and-manual-combined_pilot1-and-pilot2.csv` for the
 > Crossref funder columns.
 
 ## Sources and division of labour
@@ -105,7 +105,7 @@ found from either source, `funding_status = "no funding"` and `best_funders =
 
 ## Output schema
 
-### `data/funders_with_locations_pilot1-and-pilot2.csv` — one row per paper
+### `data/stages/funders_with_locations_pilot1-and-pilot2.csv` — one row per paper
 | Column | Meaning |
 |---|---|
 | `doi`, `coding` | Article DOI (normalised) and pilot wave |
@@ -116,7 +116,7 @@ found from either source, `funding_status = "no funding"` and `best_funders =
 | `n_funders`, `n_funders_crossref`, `n_funders_tei` | Counts (merged / from each source) |
 | `funders_crossref`, `funders_tei` | Per-source display strings with countries (audit trail) |
 
-### `data/funder_locations_long.csv` — audit trail, one row per (paper × funder)
+### `data/stages/funder_locations_long.csv` — audit trail, one row per (paper × funder)
 | Column | Meaning |
 |---|---|
 | `doi`, `coding` | Article + wave |
@@ -132,8 +132,8 @@ The kept rows (`junk == FALSE`) are the union behind `best_funders`; the junk
 rows document what was dropped and why.
 
 ### Caches (so reruns make **zero** network calls)
-* `data/funder_id_country.csv` — Crossref Funder ID → name / country.
-* `data/funder_name_country.csv` — TEI name → registry match (`reg_*` columns).
+* `data/cache/funder_id_country.csv` — Crossref Funder ID → name / country.
+* `data/cache/funder_name_country.csv` — TEI name → registry match (`reg_*` columns).
   Only the **expensive registry lookup** is cached; the cheap local signals
   (funder token, contained country, bare-country, journal screen) are recomputed
   every run, so changing a cleaning rule takes effect without re-querying.

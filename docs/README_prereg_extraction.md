@@ -2,13 +2,13 @@
 
 Detects, for each pilot 1 and pilot 2 article, whether the paper reports a **preregistration** and on which **platform**, directly from the GROBID TEI full text plus targeted OSF API lookups.
 
-> **Module vs. driver.** `R/3_extract_prereg.R` is now a **function library** (sourcing it only defines `parse_tei`, `classify_paper`, `resolve_osf_caches`, `keyword_scan`, … and constants — no side effects). It is the single source of truth used by `run_pipeline.R`; `classify_paper()` takes the OSF type/template maps as arguments and emits an `is_registered_report` column, and `registration_any` = `prereg_found` OR trial registry OR registered report (keyword **or** an OSF "Registered Report Protocol" template). The pilot-1 + pilot-2 batch run that writes `data/prereg_extracted_pilot1-and-pilot2.csv` and the manual-coding validation live in `validation/pilot_extract_prereg.R` (run from the repo root). That output adds the `is_registered_report` column relative to the pre-refactor stage file; every other column is unchanged.
+> **Module vs. driver.** `R/3_extract_prereg.R` is now a **function library** (sourcing it only defines `parse_tei`, `classify_paper`, `resolve_osf_caches`, `keyword_scan`, … and constants — no side effects). It is the single source of truth used by `run_pipeline.R`; `classify_paper()` takes the OSF type/template maps as arguments and emits an `is_registered_report` column, and `registration_any` = `prereg_found` OR trial registry OR registered report (keyword **or** an OSF "Registered Report Protocol" template). The pilot-1 + pilot-2 batch run that writes `data/stages/prereg_extracted_pilot1-and-pilot2.csv` and the manual-coding validation live in `validation/pilot_extract_prereg.R` (run from the repo root). That output adds the `is_registered_report` column relative to the pre-refactor stage file; every other column is unchanged.
 
 The logic is inspired by [scienceverse/metacheck](https://github.com/scienceverse/metacheck) (`open_practices` and `prereg_check`) but is recreated so it returns just the binary + platform we need, and so it corrects a false-positive failure mode in those modules (see [Divergence from metacheck](#divergence-from-metacheck)).
 
 ## What is produced
 
-Per paper (`data/prereg_extracted_pilot1-and-pilot2.csv`):
+Per paper (`data/stages/prereg_extracted_pilot1-and-pilot2.csv`):
 
 | Column | Description |
 |---|---|
@@ -35,7 +35,7 @@ Per paper (`data/prereg_extracted_pilot1-and-pilot2.csv`):
    - For a `registrations` object, additionally fetch `https://api.osf.io/v2/registrations/<code>/` and read its **template** (`registration_supplement`):
      - **Dedicated prereg template** → counts as a preregistration with no manuscript-text needed. Dedicated = OSF Preregistration, Preregistration Template from AsPredicted.org, Prereg Challenge, Pre-Registration in Social Psychology (van 't Veer & Giner-Sorolla), Replication Recipe (Brandt et al.), OSF-Standard Pre-Data Collection Registration, Registered Report Protocol Preregistration.
      - **"Open-Ended Registration"** (OSF's default free-text template, frequently used to *archive data/materials*) → **ambiguous**. Counts as a preregistration only if the manuscript contains an explicit, **non-negated** "preregist…" statement; if the only mention is negated ("not preregistered") or absent, it is not counted.
-   - All OSF API results are cached (`data/osf_guid_types.csv`, `data/osf_reg_templates.csv`) so reruns make no network calls.
+   - All OSF API results are cached (`data/cache/osf_guid_types.csv`, `data/cache/osf_reg_templates.csv`) so reruns make no network calls.
 5. **`prereg_found`** = AsPredicted OR OSF registration (per the template rule above) OR an explicit non-negated preregistration statement. Preprints and trial registries are excluded. **`registration_any`** additionally counts trial registries and Registered Reports.
 
 The fragile manuscript-text check is therefore confined to exactly the Open-Ended-Registration cases; everywhere else the decision rests on structured signals (URL form, OSF object type, OSF template).
@@ -95,9 +95,9 @@ Adjudicating disagreements against the source PDFs turned up two manual-coding e
 | File | Description |
 |---|---|
 | `R/3_extract_prereg.R` | Detection script (TEI + OSF API), validation, output. |
-| `data/prereg_extracted_pilot1-and-pilot2.csv` | Per-paper results + manual ground truth. |
-| `data/osf_guid_types.csv` | Cache: OSF GUID → object type. |
-| `data/osf_reg_templates.csv` | Cache: OSF registration → template / category. |
+| `data/stages/prereg_extracted_pilot1-and-pilot2.csv` | Per-paper results + manual ground truth. |
+| `data/cache/osf_guid_types.csv` | Cache: OSF GUID → object type. |
+| `data/cache/osf_reg_templates.csv` | Cache: OSF registration → template / category. |
 
 ## Requirements
 

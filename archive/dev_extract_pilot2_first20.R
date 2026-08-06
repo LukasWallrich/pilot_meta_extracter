@@ -10,7 +10,7 @@ library(metacheck)
 
 # ---- Settings ----
 tei_dir <- "../pilot2_pdf_conversion/tei"
-pilot2_csv <- "data/2026-04-03_Codingform_PilotingAssessment_pilot2.csv"
+pilot2_csv <- "data/inputs/2026-04-03_Codingform_PilotingAssessment_pilot2.csv"
 
 # ---- Load pilot2 DOIs + manual coding ----
 manual <- read.csv(pilot2_csv)

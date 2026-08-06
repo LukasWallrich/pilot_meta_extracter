@@ -15,18 +15,18 @@
 # The pilot-1 + pilot-2 batch reproductions and manual-coding validation for
 # stages 2-4 live in validation/pilot_*.R. On-disk caches are reused so a rerun
 # makes no new API calls:
-#   data/pipeline_metadata_cache.csv  (process_dois output; created here)
-#   data/osf_guid_types.csv           (OSF GUID -> type)
-#   data/osf_reg_templates.csv        (OSF registration -> template)
-#   data/funder_id_country.csv        (Crossref funder id -> country)
-#   data/funder_name_country.csv      (TEI funder name -> registry resolution)
+#   data/cache/pipeline_metadata_cache.csv  (process_dois output; created here)
+#   data/cache/osf_guid_types.csv           (OSF GUID -> type)
+#   data/cache/osf_reg_templates.csv        (OSF registration -> template)
+#   data/cache/funder_id_country.csv        (Crossref funder id -> country)
+#   data/cache/funder_name_country.csv      (TEI funder name -> registry resolution)
 #
 # Public interface:
 #   run_pipeline(doi_tei_df, ...)   doi_tei_df: columns `doi`, `tei_file`
 #
 # API volume for the pilot run: process_dois queries OpenAlex + Crossref
 # (+ first/last author profiles) ~4 calls/DOI over ~340 DOIs = ~1,400 calls,
-# all free. Results are cached to data/pipeline_metadata_cache.csv so reruns
+# all free. Results are cached to data/cache/pipeline_metadata_cache.csv so reruns
 # skip OpenAlex/Crossref entirely. The OSF and funder caches already exist.
 # =============================================================================
 
@@ -66,11 +66,11 @@ DATA     <- "data"
 have_stringi <- requireNamespace("stringi", quietly = TRUE)
 
 # Default cache paths ---------------------------------------------------------
-META_CACHE_DEFAULT     <- file.path(DATA, "pipeline_metadata_cache.csv")
-OSF_GUID_CACHE         <- file.path(DATA, "osf_guid_types.csv")
-OSF_REG_CACHE          <- file.path(DATA, "osf_reg_templates.csv")
-FUNDER_ID_CACHE        <- file.path(DATA, "funder_id_country.csv")
-FUNDER_NAME_CACHE      <- file.path(DATA, "funder_name_country.csv")
+META_CACHE_DEFAULT     <- file.path(DATA, "cache", "pipeline_metadata_cache.csv")
+OSF_GUID_CACHE         <- file.path(DATA, "cache", "osf_guid_types.csv")
+OSF_REG_CACHE          <- file.path(DATA, "cache", "osf_reg_templates.csv")
+FUNDER_ID_CACHE        <- file.path(DATA, "cache", "funder_id_country.csv")
+FUNDER_NAME_CACHE      <- file.path(DATA, "cache", "funder_name_country.csv")
 
 # Metadata columns kept from process_dois (scalar; used downstream) -----------
 META_COLS <- c("doi", "journal", "issn", "sjr", "top_factor",
@@ -298,8 +298,8 @@ run_pipeline <- function(doi_tei_df, use_api = TRUE,
 # 7. DRIVER: build the pilot-1 + pilot-2 index, run pipeline, write output
 # =============================================================================
 build_pilot_index <- function(
-    pilot1_map_csv = "data/pilot1_doi_tei_map.csv",
-    pilot2_csv     = "data/2026-04-03_Codingform_PilotingAssessment_pilot2.csv",
+    pilot1_map_csv = "data/inputs/pilot1_doi_tei_map.csv",
+    pilot2_csv     = "data/inputs/2026-04-03_Codingform_PilotingAssessment_pilot2.csv",
     pilot2_tei_dir = "../pilot2_pdf_conversion/tei") {
 
   # pilot 1: explicit DOI -> TEI map
@@ -383,8 +383,8 @@ if (sys.nframe() == 0 || identical(environment(), globalenv())) {
     result_pilot <- result |> left_join(idx |> select(doi, pilot), by = "doi")
 
     # ---- codebook validation ----
-    m1 <- read.csv("data/2025-12-09_Codingform_PilotingAssessment_pilot.csv", check.names = TRUE, stringsAsFactors = FALSE)
-    m2 <- read.csv("data/2026-04-03_Codingform_PilotingAssessment_pilot2.csv", check.names = TRUE, stringsAsFactors = FALSE)
+    m1 <- read.csv("data/inputs/2025-12-09_Codingform_PilotingAssessment_pilot.csv", check.names = TRUE, stringsAsFactors = FALSE)
+    m2 <- read.csv("data/inputs/2026-04-03_Codingform_PilotingAssessment_pilot2.csv", check.names = TRUE, stringsAsFactors = FALSE)
     man1 <- tibble(doi = norm_doi(m1[["X1.2..Article.DOI"]]),
                    pilot = "pilot1",
                    mfund = m1[["X8.1..Does.the.article.include.a.funding.statement."]],

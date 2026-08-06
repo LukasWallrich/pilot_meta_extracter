@@ -28,9 +28,9 @@ This is a file to provide descriptive information for use in the registered repo
 
 ```{r read-coding-files}
 # read manual coding files
-manual1 = read.csv("data/2025-12-09_Codingform_PilotingAssessment_pilot.csv")
+manual1 = read.csv("data/inputs/2025-12-09_Codingform_PilotingAssessment_pilot.csv")
 manual1$coding = "pilot1"
-manual2 = read.csv("data/2026-04-03_Codingform_PilotingAssessment_pilot2.csv")
+manual2 = read.csv("data/inputs/2026-04-03_Codingform_PilotingAssessment_pilot2.csv")
 manual2$coding = "pilot2"
 # combine both pilots
 manual = bind_rows(manual1, manual2)
@@ -71,7 +71,8 @@ auto_databases <- process_dois(dois, return_location_details = TRUE)
 # created using R/2_extract_tei_coi_funding.R
 # fixme add through csv for now, needs TEIs
 # only done for pilot2
-auto_tei = read.csv("data/tei_coi_funding_extracted.csv")
+auto_tei = read.csv("data/stages/tei_coi_funding_extracted_pilot1-and-pilot2.csv") |>
+  dplyr::filter(coding == "pilot2")
 
 # combine files 
 comb = 
@@ -89,13 +90,13 @@ comb =
 # notation in CSV, corrupting all downstream columns
 comb |>
   select(where(~ !inherits(.x, "AsIs") && !is.list(.x))) |>
-  write.csv("data/2026-06-11_auto-and-manual-combined_pilot1-and-pilot2.csv", row.names = FALSE)
+  write.csv("data/inputs/2026-06-11_auto-and-manual-combined_pilot1-and-pilot2.csv", row.names = FALSE)
 
 ```
 
 ```{r load-combined-data-auto-extracted}
 # load combined data
-comb = read_csv("data/2026-06-11_auto-and-manual-combined_pilot1-and-pilot2.csv")
+comb = read_csv("data/inputs/2026-06-11_auto-and-manual-combined_pilot1-and-pilot2.csv")
 
 
 ```

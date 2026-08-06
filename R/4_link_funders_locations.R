@@ -26,8 +26,8 @@ have_stringi <- requireNamespace("stringi", quietly = TRUE)
 `%||%` <- function(a, b) if (is.null(a) || length(a) == 0 || is.na(a[1])) b else a
 
 # Registry-resolution cache paths (defaults for the resolve_* functions).
-FUNDER_ID_CACHE   <- file.path(DATA, "funder_id_country.csv")
-FUNDER_NAME_CACHE <- file.path(DATA, "funder_name_country.csv")
+FUNDER_ID_CACHE   <- file.path(DATA, "cache", "funder_id_country.csv")
+FUNDER_NAME_CACHE <- file.path(DATA, "cache", "funder_name_country.csv")
 
 strip_ascii <- function(x) {
   if (have_stringi) stringi::stri_trans_general(x, "Latin-ASCII")

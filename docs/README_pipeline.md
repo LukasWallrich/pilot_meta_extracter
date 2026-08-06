@@ -35,7 +35,7 @@ source("run_pipeline.R")
 #   doi       chr   the article DOI (any case; normalised internally)
 #   tei_file  chr   path to the GROBID TEI XML (may be NA if no TEI available)
 result <- run_pipeline(doi_tei_df, use_api = TRUE,
-                       metadata_cache = "data/pipeline_metadata_cache.csv")
+                       metadata_cache = "data/cache/pipeline_metadata_cache.csv")
 ```
 
 Returns a tibble with **exactly** the 20 columns below, in this order, one row per
@@ -53,7 +53,7 @@ Running `Rscript run_pipeline.R` with the environment variable
 writes `data/final_extraction_pilot1-and-pilot2.csv`, then prints the codebook
 validation, the three funder edge cases, 12 example rows and the column check.
 
-- **pilot 1** index: `data/pilot1_doi_tei_map.csv` (explicit DOI → TEI map).
+- **pilot 1** index: `data/inputs/pilot1_doi_tei_map.csv` (explicit DOI → TEI map).
 - **pilot 2** index: DOI-encoded TEI filenames in `../pilot2_pdf_conversion/tei`
   matched to the pilot-2 manual DOIs — the exact filename→DOI derivation from
   `R/2_extract_tei_coi_funding.R` (`extract_doi_from_filename`).
@@ -123,11 +123,11 @@ template, which the dedicated-preregistration template regex does not catch).
 
 | cache | contents | written by |
 |-------|----------|-----------|
-| `data/pipeline_metadata_cache.csv` | `process_dois` scalar output per DOI | this pipeline (incremental, per-batch, resumable) |
-| `data/osf_guid_types.csv` | OSF GUID → object type | prereg logic |
-| `data/osf_reg_templates.csv` | OSF registration → template | prereg logic |
-| `data/funder_id_country.csv` | Crossref funder ID → country | funder logic |
-| `data/funder_name_country.csv` | TEI funder name → registry resolution | funder logic |
+| `data/cache/pipeline_metadata_cache.csv` | `process_dois` scalar output per DOI | this pipeline (incremental, per-batch, resumable) |
+| `data/cache/osf_guid_types.csv` | OSF GUID → object type | prereg logic |
+| `data/cache/osf_reg_templates.csv` | OSF registration → template | prereg logic |
+| `data/cache/funder_id_country.csv` | Crossref funder ID → country | funder logic |
+| `data/cache/funder_name_country.csv` | TEI funder name → registry resolution | funder logic |
 
 The metadata step is the only slow/networked one: `process_dois` queries OpenAlex
 + Crossref (+ first/last author profiles), ~4 calls/DOI. Over the ~342 pilot DOIs
