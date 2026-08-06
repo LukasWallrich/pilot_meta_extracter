@@ -21,6 +21,23 @@ if (file.exists("top_factor_data.RData")) {
 
 # Constants -------------------------------------------------------------------
 OA_USER_AGENT <- "mailto:lukas.wallrich@gmail.com"
+OA_MAILTO     <- "lukas.wallrich@gmail.com"
+# The free polite pool (mailto only) is the default and is what this pipeline
+# needs: it has no dollar budget and comfortably carries a full-sample run.
+# A paid API key is opt-in via OPENALEX_USE_KEY=1 -- keys carry a ~$1/day
+# budget, and an exhausted key answers every request with 429 plus a
+# Retry-After of ~13 hours, which is worse than no key at all.
+OA_API_KEY    <- if (identical(Sys.getenv("OPENALEX_USE_KEY"), "1"))
+  Sys.getenv("OPENALEX_API_KEY", "") else ""
+
+# Add the OpenAlex polite-pool address and, if enabled, the API key.
+oa_query <- function(url) {
+  q <- list(mailto = OA_MAILTO)
+  if (nzchar(OA_API_KEY)) q$api_key <- OA_API_KEY
+  paste0(url, if (grepl("\\?", url)) "&" else "?",
+         paste(names(q), vapply(q, utils::URLencode, character(1), reserved = TRUE),
+               sep = "=", collapse = "&"))
+}
 data("sjr_journals", package = "sjrdata")
 
 # Utility helpers -------------------------------------------------------------
@@ -80,7 +97,7 @@ location_country <- function(location) {
 
 # OpenAlex requests -----------------------------------------------------------
 fetch_openalex_work <- function(doi) {
-  url <- paste0("https://api.openalex.org/works/doi:", doi)
+  url <- oa_query(paste0("https://api.openalex.org/works/doi:", doi))
   response <- tryCatch(
     httr::GET(url, httr::add_headers(`User-Agent` = OA_USER_AGENT)),
     error = function(e) NULL
@@ -104,7 +121,7 @@ normalize_author_id <- function(author_id) {
 fetch_author_profile <- function(author_id) {
   author_id <- normalize_author_id(author_id)
   if (is.na(author_id)) return(NULL)
-  url <- paste0("https://api.openalex.org/authors/", author_id)
+  url <- oa_query(paste0("https://api.openalex.org/authors/", author_id))
   response <- tryCatch(
     httr::GET(url, httr::add_headers(`User-Agent` = OA_USER_AGENT)),
     error = function(e) NULL

@@ -19,7 +19,7 @@ suppressMessages({
 })
 
 MAILTO   <- "lukas.wallrich@gmail.com"
-OA_KEY   <- Sys.getenv("OPENALEX_API_KEY", "")
+# OpenAlex keys are read from OPENALEX_API_KEYS below (see OA_KEY_POOL).
 DATA     <- "data"
 have_stringi <- requireNamespace("stringi", quietly = TRUE)
 
@@ -52,17 +52,79 @@ name_sim <- function(a, b) {
   jac <- length(intersect(ta, tb)) / length(union(ta, tb))
   max(jw, jac)
 }
+# --- OpenAlex key rotation ---------------------------------------------------
+# Every OpenAlex request carries a daily credit budget (a name search costs 10
+# credits; a key allows 10,000/day, the keyless polite pool only 1,000). A
+# full-sample funder-name pass needs ~40,000 credits, i.e. several keys, so we
+# hold the whole key list and step to the next key when one reports 429.
+OA_KEY_POOL <- local({
+  keys <- Sys.getenv("OPENALEX_API_KEYS", "")
+  keys <- trimws(unlist(strsplit(keys, ",")))
+  keys <- keys[nzchar(keys)]
+  if (!length(keys)) {
+    k1 <- Sys.getenv("OPENALEX_API_KEY", "")
+    if (nzchar(k1)) keys <- k1
+  }
+  keys
+})
+oa_key_state <- new.env(parent = emptyenv())
+oa_key_state$i <- 1L        # index of the key currently in use
+
+current_oa_key <- function() {
+  if (!length(OA_KEY_POOL) || oa_key_state$i > length(OA_KEY_POOL)) return("")
+  OA_KEY_POOL[oa_key_state$i]
+}
+# Retire the exhausted key and report what is left.
+rotate_oa_key <- function() {
+  oa_key_state$i <- oa_key_state$i + 1L
+  if (oa_key_state$i > length(OA_KEY_POOL))
+    message("  OpenAlex: all ", length(OA_KEY_POOL), " keys exhausted")
+  else
+    message("  OpenAlex: key ", oa_key_state$i - 1L, " out of quota, switching to key ",
+            oa_key_state$i, " of ", length(OA_KEY_POOL))
+  invisible(current_oa_key())
+}
+
 get_json <- function(url) {
-  req <- request(url) |>
-    req_url_query(mailto = MAILTO) |>
-    req_user_agent(paste0("pilot_meta_extracter (", MAILTO, ")")) |>
-    req_retry(max_tries = 4, backoff = ~ 2) |>
-    req_timeout(40) |>
-    req_error(is_error = function(resp) FALSE)
-  if (nzchar(OA_KEY) && grepl("openalex", url)) req <- req_url_query(req, api_key = OA_KEY)
-  resp <- tryCatch(req_perform(req), error = function(e) NULL)
-  if (is.null(resp) || resp_status(resp) >= 400) return(NULL)
-  tryCatch(fromJSON(resp_body_string(resp), simplifyVector = FALSE), error = function(e) NULL)
+  perform_once <- function(key) {
+    req <- request(url) |>
+      req_url_query(mailto = MAILTO) |>
+      req_user_agent(paste0("pilot_meta_extracter (", MAILTO, ")")) |>
+      # Cap the wait between tries. Without `after`, httr2 obeys a server
+      # Retry-After header verbatim, and an out-of-quota OpenAlex key returns
+      # one of ~13 hours, which stalls a large run indefinitely.
+      req_retry(max_tries = 3, backoff = ~ 2, after = ~ 5,
+                is_transient = function(resp) resp_status(resp) %in% c(500, 502, 503, 504)) |>
+      req_throttle(capacity = 8, fill_time_s = 1) |>
+      req_timeout(40) |>
+      req_error(is_error = function(resp) FALSE)
+    if (nzchar(key) && grepl("openalex", url)) req <- req_url_query(req, api_key = key)
+    tryCatch(req_perform(req), error = function(e) NULL)
+  }
+
+  is_openalex <- grepl("openalex", url)
+  repeat {
+    key  <- if (is_openalex) current_oa_key() else ""
+    resp <- perform_once(key)
+    # 429 on a keyed OpenAlex request means that key's daily budget is spent:
+    # rotate and retry immediately rather than waiting out its Retry-After.
+    if (is_openalex && !is.null(resp) && resp_status(resp) == 429 && nzchar(key)) {
+      rotate_oa_key()
+      next
+    }
+    # Out of budget on every key. Abort rather than return NULL: a NULL here is
+    # indistinguishable from "the registry has no match", so it would be cached
+    # as a permanent `unresolved` and never retried. Completed chunks are
+    # already on disk, so rerunning after the daily reset resumes cleanly.
+    if (is_openalex && !is.null(resp) && resp_status(resp) == 429 && !nzchar(key))
+      stop("OpenAlex daily quota exhausted on all ", length(OA_KEY_POOL),
+           " keys and on the keyless pool. Cached progress is kept -- ",
+           "rerun after the quota resets (see the Retry-After header, ~13 h).",
+           call. = FALSE)
+    if (is.null(resp) || resp_status(resp) >= 400) return(NULL)
+    return(tryCatch(fromJSON(resp_body_string(resp), simplifyVector = FALSE),
+                    error = function(e) NULL))
+  }
 }
 cc_to_country <- function(cc) suppressWarnings(countrycode(cc, "iso2c", "country.name", warn = FALSE))
 
@@ -284,9 +346,17 @@ resolve_funder_names <- function(uniq_names, use_api = TRUE, cache_path = FUNDER
     if (!use_api) stop("Funder-name cache incomplete but use_api = FALSE (",
                        length(need_names), " names missing)")
     message("Resolving ", length(need_names), " new TEI funder names via API...")
-    new_name   <- map_dfr(need_names, resolve_name_registry)
-    name_cache <- bind_rows(name_cache, new_name) |> distinct(query_name, .keep_all = TRUE)
-    readr::write_csv(name_cache, cache_path)
+    # Resolve in chunks and write the cache after each one, so an interrupted
+    # run keeps the names it already resolved (a full-sample run resolves
+    # thousands of names and takes hours).
+    chunks <- split(need_names, ceiling(seq_along(need_names) / 100))
+    for (ci in seq_along(chunks)) {
+      message(sprintf("  funder-name chunk %d/%d (%d names)...",
+                      ci, length(chunks), length(chunks[[ci]])))
+      new_name   <- map_dfr(chunks[[ci]], resolve_name_registry)
+      name_cache <- bind_rows(name_cache, new_name) |> distinct(query_name, .keep_all = TRUE)
+      readr::write_csv(name_cache, cache_path)
+    }
   }
   # annotate cheap local signals (recomputed, not baked into cache)
   name_cache |>

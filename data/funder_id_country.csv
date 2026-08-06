@@ -163,3 +163,860 @@ crossref_funder_id,funder_name,country_code,country,source
 10.13039/501100020950,National Science and Technology Council,ZM,Zambia,openalex
 10.13039/501100022579,Hunter Children's Research Foundation,AU,Australia,openalex
 10.13039/501100024250,Israel Innovation Authority,IL,Israel,openalex
+10.13039/100000027,National Institute on Alcohol Abuse and Alcoholism,US,United States,openalex
+10.13039/100008205,"Auckland University of Technology, New Zealand",NZ,New Zealand,openalex
+10.13039/100000009,Foundation for the National Institutes of Health,US,United States,openalex
+10.13039/100000050,"National Heart, Lung, and Blood Institute",US,United States,openalex
+10.13039/100000066,National Institute of Environmental Health Sciences,US,United States,openalex
+10.13039/100000071,National Institute of Child Health and Human Development,US,United States,openalex
+10.13039/100001455,American Foundation for Suicide Prevention,US,United States,openalex
+10.13039/100006211,Klingenstein Third Generation Foundation,US,United States,openalex
+10.13039/100006324,American Psychological Association,US,United States,openalex
+10.13039/100006545,National Institute on Minority Health and Health Disparities,US,United States,openalex
+10.13039/100007184,Yale School of Medicine,US,United States,openalex
+10.13039/100007902,Max Bell Foundation,CA,Canada,openalex
+10.13039/100008914,Ontario Brain Institute,CA,Canada,openalex
+10.13039/100009332,Society of Clinical Child and Adolescent Psychology,US,United States,openalex
+10.13039/100009750,"Medical Center, University of Rochester",US,United States,openalex
+10.13039/100010661,Horizon 2020 Framework Programme,NA,NA,openalex
+10.13039/100010825,Society for Research in Child Development,US,United States,openalex
+10.13039/100012856,Alberta Children's Hospital Research Institute,CA,Canada,openalex
+10.13039/100012921,Royal College of Surgeons in Ireland,IE,Ireland,openalex
+10.13039/100013376,"Institute of Psychiatry, Psychology and Neuroscience, King’s College London",GB,United Kingdom,openalex
+10.13039/100016414,Stiftelsen Lindhaga,SE,Sweden,openalex
+10.13039/100017476,Urban Child Institute,US,United States,openalex
+10.13039/501100000024,Canadian Institutes of Health Research,CA,Canada,openalex
+10.13039/501100000145,Alberta Innovates - Health Solutions,CA,Canada,openalex
+10.13039/501100000245,Michael Smith Health Research BC,CA,Canada,openalex
+10.13039/501100000265,Medical Research Council,GB,United Kingdom,openalex
+10.13039/501100000848,University of Edinburgh,GB,United Kingdom,openalex
+10.13039/501100001230,Macquarie University,AU,Australia,openalex
+10.13039/501100001262,Baily Thomas Charitable Fund,GB,United Kingdom,openalex
+10.13039/501100001596,"Irish Research Council for Science, Engineering and Technology",IE,Ireland,openalex
+10.13039/501100001833,Vrije Universiteit Amsterdam,NL,Netherlands,openalex
+10.13039/501100003206,Alberta Children's Hospital Foundation,CA,Canada,openalex
+10.13039/501100003252,Lunds Universitet,SE,Sweden,openalex
+10.13039/501100003329,Ministerio de Economía y Competitividad,ES,Spain,openalex
+10.13039/501100004073,Killam Trusts,CA,Canada,openalex
+10.13039/501100005247,University of British Columbia,CA,Canada,openalex
+10.13039/501100005366,Universitetet i Oslo,NO,Norway,openalex
+10.13039/501100007373,Stiftelsen Sven Jerrings Fond,SE,Sweden,openalex
+10.13039/501100008530,European Regional Development Fund,EU,European Union,openalex+eu_override
+10.13039/501100009780,Region Skåne,SE,Sweden,openalex
+10.13039/501100013398,Sykehuset Innlandet HF,NO,Norway,openalex
+10.13039/501100017488,Utdannings- og forskningsdepartementet,NO,Norway,openalex
+10.13039/501100019916,Schweizerische Anorexia Nervosa Stiftung,CH,Switzerland,openalex
+10.13039/501100020884,Agencia Nacional de Investigación y Desarrollo,CL,Chile,openalex
+10.13039/501100023436,"Institute of Mental Health, University of British Columbia",CA,Canada,openalex
+10.13039/100000003,Boeing,US,United States,openalex
+10.13039/100000016,U.S. Department of Health and Human Services,US,United States,openalex
+10.13039/100000041,American Diabetes Association,US,United States,openalex
+10.13039/100000048,American Cancer Society,US,United States,openalex
+10.13039/100000051,National Human Genome Research Institute,US,United States,openalex
+10.13039/100000053,National Eye Institute,US,United States,openalex
+10.13039/100000058,Substance Abuse and Mental Health Services Administration,US,United States,openalex
+10.13039/100000060,National Institute of Allergy and Infectious Diseases,US,United States,openalex
+10.13039/100000064,National Center for Complementary and Alternative Medicine,US,United States,openalex
+10.13039/100000065,National Institute of Neurological Disorders and Stroke,US,United States,openalex
+10.13039/100000069,National Institute of Arthritis and Musculoskeletal and Skin Diseases,US,United States,openalex
+10.13039/100000070,National Institute of Biomedical Imaging and Bioengineering,US,United States,openalex
+10.13039/100000077,Division of Social and Economic Sciences,US,United States,openalex
+10.13039/100000082,Division of Graduate Education,US,United States,openalex
+10.13039/100000088,"Directorate for Social, Behavioral and Economic Sciences",US,United States,openalex
+10.13039/100000090,Congressionally Directed Medical Research Programs,US,United States,openalex
+10.13039/100000092,U.S. National Library of Medicine,US,United States,openalex
+10.13039/100000097,National Center for Research Resources,US,United States,openalex
+10.13039/100000098,NIH Clinical Center,US,United States,openalex
+10.13039/100000104,National Aeronautics and Space Administration,US,United States,openalex
+10.13039/100000118,Office of Behavioral and Social Sciences Research,US,United States,openalex
+10.13039/100000125,National Institute for Occupational Safety and Health,US,United States,openalex
+10.13039/100000138,U.S. Department of Education,US,United States,openalex
+10.13039/100000145,Division of Information and Intelligent Systems,US,United States,openalex
+10.13039/100000169,Division of Behavioral and Cognitive Sciences,US,United States,openalex
+10.13039/100000173,Division of Research on Learning in Formal and Informal Settings,US,United States,openalex
+10.13039/100000181,Air Force Office of Scientific Research,US,United States,openalex
+10.13039/100000183,Army Research Office,US,United States,openalex
+10.13039/100000185,Defense Advanced Research Projects Agency,US,United States,openalex
+10.13039/100000308,Carnegie Corporation of New York,US,United States,openalex
+10.13039/100000345,McCormick Foundation,US,United States,openalex
+10.13039/100000865,Bill and Melinda Gates Foundation,US,United States,openalex
+10.13039/100000867,Robert Wood Johnson Foundation,US,United States,openalex
+10.13039/100000870,John D. and Catherine T. MacArthur Foundation,US,United States,openalex
+10.13039/100000871,Mayo Clinic,US,United States,openalex
+10.13039/100000879,Alfred P. Sloan Foundation,US,United States,openalex
+10.13039/100000882,Brain Research Foundation,US,United States,openalex
+10.13039/100000913,James S. McDonnell Foundation,US,United States,openalex
+10.13039/100000919,Open Society Foundations,US,United States,openalex
+10.13039/100000920,William Penn Foundation,US,United States,openalex
+10.13039/100000935,Russell Sage Foundation,US,United States,openalex
+10.13039/100000957,Alzheimer's Association,US,United States,openalex
+10.13039/100000965,American Federation for Aging Research,US,United States,openalex
+10.13039/100000968,American Heart Association,US,United States,openalex
+10.13039/100001068,Dana Foundation,US,United States,openalex
+10.13039/100001107,John E. Fetzer Memorial Trust,US,United States,openalex
+10.13039/100001143,William T. Grant Foundation,US,United States,openalex
+10.13039/100001207,Esther A. and Joseph Klingenstein Fund,US,United States,openalex
+10.13039/100001314,Smith Richardson Foundation,US,United States,openalex
+10.13039/100001331,Charles and Lynn Schusterman Family Foundation,US,United States,openalex
+10.13039/100001348,Spencer Foundation,US,United States,openalex
+10.13039/100001380,William K. Warren Foundation,US,United States,openalex
+10.13039/100001395,Wisconsin Alumni Research Foundation,US,United States,openalex
+10.13039/100001547,China Medical Board,US,United States,openalex
+10.13039/100001624,Foundation for Child Development,US,United States,openalex
+10.13039/100001652,GRAMMY Foundation,US,United States,openalex
+10.13039/100002086,Fanconi Anemia Research Fund,US,United States,openalex
+10.13039/100002565,Alzheimer's Drug Discovery Foundation,US,United States,openalex
+10.13039/100002590,American Lung Association,US,United States,openalex
+10.13039/100003187,National Sleep Foundation,US,United States,openalex
+10.13039/100004319,Pfizer,US,United States,openalex
+10.13039/100004320,Philips,NL,Netherlands,openalex
+10.13039/100004325,AstraZeneca,GB,United Kingdom,openalex
+10.13039/100004330,GlaxoSmithKline,GB,United Kingdom,openalex
+10.13039/100004358,Samsung,KR,South Korea,openalex
+10.13039/100004411,Heart and Stroke Foundation of Canada,CA,Canada,openalex
+10.13039/100004421,World Bank Group,US,United States,openalex
+10.13039/100004428,Charles Stewart Mott Foundation,US,United States,openalex
+10.13039/100004439,William and Flora Hewlett Foundation,US,United States,openalex
+10.13039/100004440,Wellcome,GB,United Kingdom,crossref_registry
+10.13039/100004820,Connecticut Department of Energy and Environmental Protection,US,United States,openalex
+10.13039/100005098,Organization for Autism Research,US,United States,openalex
+10.13039/100005165,American Educational Research Association,US,United States,openalex
+10.13039/100005186,Corporation for National and Community Service,US,United States,openalex
+10.13039/100005188,Tobacco-Related Disease Research Program,US,United States,openalex
+10.13039/100005197,Hilda and Preston Davis Foundation,US,United States,openalex
+10.13039/100005217,National Center for Injury Prevention and Control,US,United States,openalex
+10.13039/100005268,Center for Mental Health Services,US,United States,openalex
+10.13039/100005280,American Association of University Women,US,United States,openalex
+10.13039/100005289,National Institute of Justice,US,United States,openalex
+10.13039/100005290,Psi Chi,US,United States,openalex
+10.13039/100005302,University of Illinois at Urbana-Champaign,US,United States,openalex
+10.13039/100005303,Boston College,US,United States,openalex
+10.13039/100005310,Klarman Family Foundation,US,United States,openalex
+10.13039/100005337,American Academy of Child and Adolescent Psychiatry,US,United States,openalex
+10.13039/100005366,American Foundation for Aging Research,US,United States,openalex
+10.13039/100005389,American Psychological Association of Graduate Students,US,United States,openalex
+10.13039/100005471,"Beckman Institute for Advanced Science and Technology, University of Illinois, Urbana-Champaign",US,United States,openalex
+10.13039/100005595,University of California,US,United States,openalex
+10.13039/100005710,Energy Foundation,US,United States,openalex
+10.13039/100005717,SBE Office of Multidisciplinary Activities,US,United States,openalex
+10.13039/100005801,Facebook,US,United States,openalex
+10.13039/100005825,National Institute of Food and Agriculture,US,United States,openalex
+10.13039/100005969,Hogg Foundation for Mental Health,US,United States,openalex
+10.13039/100006025,"University Center for Human Values, Princeton University",US,United States,openalex
+10.13039/100006063,Paul and Daisy Soros Fellowships for New Americans,US,United States,openalex
+10.13039/100006076,Society for the Psychological Study of Social Issues,US,United States,openalex
+10.13039/100006081,Society for the Advancement of Behavior Analysis,US,United States,openalex
+10.13039/100006112,Microsoft Research,US,United States,openalex
+10.13039/100006221,United States - Israel Binational Science Foundation,IL,Israel,openalex
+10.13039/100006259,Teva Pharmaceutical Industries,IL,Israel,openalex
+10.13039/100006301,"Center for International Business Education and Research, University of Illinois at Urbana-Champaign",US,United States,openalex
+10.13039/100006307,Administration for Community Living,US,United States,openalex
+10.13039/100006312,BrightFocus Foundation,US,United States,openalex
+10.13039/100006346,Hope for Depression Research Foundation,US,United States,openalex
+10.13039/100006363,National Geographic Society,US,United States,openalex
+10.13039/100006367,Tommy Fuss Fund,US,United States,openalex
+10.13039/100006404,American Institute of Bisexuality,US,United States,openalex
+10.13039/100006406,American Psychology-Law Society,US,United States,openalex
+10.13039/100006457,Child Neurology Foundation,US,United States,openalex
+10.13039/100006474,Columbia University,US,United States,openalex
+10.13039/100006510,Duke University,US,United States,openalex
+10.13039/100006511,"Duke Global Health Institute, Duke University",US,United States,openalex
+10.13039/100006537,Vanderbilt University,US,United States,openalex
+10.13039/100006691,Harvard Medical School,US,United States,openalex
+10.13039/100006698,"Child Study Center, Yale School of Medicine",US,United States,openalex
+10.13039/100006710,Wayne State University,US,United States,openalex
+10.13039/100006732,New York University,US,United States,openalex
+10.13039/100006733,Indiana University,US,United States,openalex
+10.13039/100006734,Princeton University,US,United States,openalex
+10.13039/100006742,"School of Social Sciences, University of California, Irvine",US,United States,openalex
+10.13039/100006756,Brigham Young University,US,United States,openalex
+10.13039/100006785,Google,US,United States,openalex
+10.13039/100006792,Hartwell Foundation,US,United States,openalex
+10.13039/100006834,"Asian American Studies Center, University of California Los Angeles",US,United States,openalex
+10.13039/100006919,Massachusetts Institute of Technology,US,United States,openalex
+10.13039/100006934,Bernard and Esther Besner Infant Research Fund,CA,Canada,openalex
+10.13039/100006937,National Center for Medical Rehabilitation Research,US,United States,openalex
+10.13039/100006939,Emory University,US,United States,openalex
+10.13039/100006951,Children's Trust,US,United States,openalex
+10.13039/100007015,University of Wisconsin-Madison,US,United States,openalex
+10.13039/100007028,Leona M. and Harry B. Helmsley Charitable Trust,US,United States,openalex
+10.13039/100007039,Brady Education Foundation,US,United States,openalex
+10.13039/100007108,George Washington University,US,United States,openalex
+10.13039/100007126,Syracuse University,US,United States,openalex
+10.13039/100007161,Boston University,US,United States,openalex
+10.13039/100007165,University of Missouri,US,United States,openalex
+10.13039/100007183,"University of California, Santa Barbara",US,United States,openalex
+10.13039/100007186,Jonsson Comprehensive Cancer Center,US,United States,openalex
+10.13039/100007194,Universidad de Santiago de Chile,CL,Chile,openalex
+10.13039/100007195,Università degli Studi di Napoli Federico II,IT,Italy,openalex
+10.13039/100007197,U.S. Public Health Service,US,United States,openalex
+10.13039/100007200,"Research Foundation, Utah State University",US,United States,openalex
+10.13039/100007214,Velux Stiftung,CH,Switzerland,openalex
+10.13039/100007217,Health Services Research and Development,US,United States,openalex
+10.13039/100007219,Natural Science Foundation of Shanghai,CN,China,openalex
+10.13039/100007231,Cornell University,US,United States,openalex
+10.13039/100007248,Mind Science Foundation,US,United States,openalex
+10.13039/100007249,University of Minnesota,US,United States,openalex
+10.13039/100007259,Stony Brook University,US,United States,openalex
+10.13039/100007264,Office of Juvenile Justice and Delinquency Prevention,US,United States,openalex
+10.13039/100007305,Maternal and Child Health Bureau,US,United States,openalex
+10.13039/100007348,Anita Borg Institute,US,United States,openalex
+10.13039/100007403,Dagmar Marshalls Fond,DK,Denmark,openalex
+10.13039/100007428,Naito Foundation,JP,Japan,openalex
+10.13039/100007429,Nancy Lurie Marks Family Foundation,US,United States,openalex
+10.13039/100007436,Familjen Erling-Perssons Stiftelse,SE,Sweden,openalex
+10.13039/100007449,Takeda Science Foundation,JP,Japan,openalex
+10.13039/100007479,Fondazione Cassa di Risparmio di Padova e Rovigo,IT,Italy,openalex
+10.13039/100007482,Arizona State University,US,United States,openalex
+10.13039/100007496,"Biomedical Laboratory Research and Development, VA Office of Research and Development",US,United States,openalex
+10.13039/100007567,City University of Hong Kong,HK,Hong Kong SAR China,openalex
+10.13039/100007579,Auburn University,US,United States,openalex
+10.13039/100007631,Canadian Institute for Advanced Research,CA,Canada,openalex
+10.13039/100007637,"Departamento Administrativo de Ciencia, Tecnología e Innovación (COLCIENCIAS)",CO,Colombia,openalex
+10.13039/100007649,École Normale Supérieure,FR,France,openalex
+10.13039/100007655,České Vysoké Učení Technické v Praze,CZ,Czechia,openalex
+10.13039/100007698,University of Florida,US,United States,openalex
+10.13039/100007707,"University of California, Davis",US,United States,openalex
+10.13039/100007747,University of Utah,US,United States,openalex
+10.13039/100007793,Stiftelsen Kristian Gerhard Jebsen,NO,Norway,openalex
+10.13039/100007797,Helsingin Yliopisto,FI,Finland,openalex
+10.13039/100007798,Helsingin Yliopiston Tiedesäätiö,FI,Finland,openalex
+10.13039/100007812,University of Washington,US,United States,openalex
+10.13039/100007857,Intellectual and Developmental Disabilities Research Center,US,United States,openalex
+10.13039/100007859,University of Kansas,US,United States,openalex
+10.13039/100007866,Institute of Child Development,US,United States,openalex
+10.13039/100007904,Texas A and M University,US,United States,openalex
+10.13039/100007911,"University of California, San Diego",US,United States,openalex
+10.13039/100007921,University of Pittsburgh,US,United States,openalex
+10.13039/100007926,University of Oklahoma,US,United States,openalex
+10.13039/100008016,Financial Markets Foundation for Children,AU,Australia,openalex
+10.13039/100008047,Carnegie Mellon University,US,United States,openalex
+10.13039/100008069,"University of California, San Francisco",US,United States,openalex
+10.13039/100008102,University of Cincinnati,US,United States,openalex
+10.13039/100008114,University of Nebraska-Lincoln,US,United States,openalex
+10.13039/100008152,Autism Science Foundation,US,United States,openalex
+10.13039/100008234,Lehigh University,US,United States,openalex
+10.13039/100008240,Fonds de Recherche du Québec-Société et Culture,CA,Canada,openalex
+10.13039/100008241,Alder Hey Children's NHS Foundation Trust,GB,United Kingdom,openalex
+10.13039/100008295,"College of Humanities and Social Sciences, Louisiana State University",US,United States,openalex
+10.13039/100008360,Hamilton Health Sciences,CA,Canada,openalex
+10.13039/100008375,Universität Basel,CH,Switzerland,openalex
+10.13039/100008457,University of Virginia,US,United States,openalex
+10.13039/100008459,University of Calgary,CA,Canada,openalex
+10.13039/100008536,Amazon Web Services,US,United States,openalex
+10.13039/100008545,Georgia State University,US,United States,openalex
+10.13039/100008562,University of Texas at Austin,US,United States,openalex
+10.13039/100008567,Leeds Beckett University,GB,United Kingdom,openalex
+10.13039/100008569,Oklahoma Center for the Advancement of Science and Technology,US,United States,openalex
+10.13039/100008572,University of Ottawa,CA,Canada,openalex
+10.13039/100008582,McGill University,CA,Canada,openalex
+10.13039/100008608,Sumitomo Foundation,JP,Japan,openalex
+10.13039/100008634,University of Texas at San Antonio,US,United States,openalex
+10.13039/100008645,"Centre for Research on Brain, Language and Music",CA,Canada,openalex
+10.13039/100008723,Suomen Lääketieteen Säätiö,FI,Finland,openalex
+10.13039/100008725,Agencia Nacional de Investigación e Innovación,UY,Uruguay,openalex
+10.13039/100008732,Uehara Memorial Foundation,JP,Japan,openalex
+10.13039/100008899,University of South Carolina,US,United States,openalex
+10.13039/100008900,University of South Florida,US,United States,openalex
+10.13039/100008903,Ministry of Health and Welfare,TW,Taiwan,openalex
+10.13039/100008967,Philipps-Universität Marburg,DE,Germany,openalex
+10.13039/100008982,Qatar National Research Fund,QA,Qatar,openalex
+10.13039/100009001,University of York,GB,United Kingdom,openalex
+10.13039/100009131,Direktion für Entwicklung und Zusammenarbeit,CH,Switzerland,openalex
+10.13039/100009153,University of Portsmouth,GB,United Kingdom,openalex
+10.13039/100009155,Otsuka America Pharmaceutical,US,United States,openalex
+10.13039/100009157,"National Institute on Disability, Independent Living, and Rehabilitation Research",US,United States,openalex
+10.13039/100009238,Virginia Commonwealth University,US,United States,openalex
+10.13039/100009253,Boston Area Research Initiative,US,United States,openalex
+10.13039/100009360,King’s College London,GB,United Kingdom,openalex
+10.13039/100009362,South London and Maudsley NHS Foundation Trust,GB,United Kingdom,openalex
+10.13039/100009389,Stiftelsen Promobilia,SE,Sweden,openalex
+10.13039/100009543,Society of Pediatric Psychology,US,United States,openalex
+10.13039/100009549,Society for Personality and Social Psychology,US,United States,openalex
+10.13039/100009567,Budapesti Műszaki és Gazdaságtudományi Egyetem,HU,Hungary,openalex
+10.13039/100009608,Western Washington University,US,United States,openalex
+10.13039/100009619,Japan Agency for Medical Research and Development,JP,Japan,openalex
+10.13039/100009643,"National Academies of Sciences, Engineering, and Medicine",US,United States,openalex
+10.13039/100009646,Gulf Research Program,US,United States,openalex
+10.13039/100009655,Sunovion,US,United States,openalex
+10.13039/100009663,University Health Network,CA,Canada,openalex
+10.13039/100009670,National Alliance for Research on Schizophrenia and Depression,US,United States,openalex
+10.13039/100009776,McMaster University,CA,Canada,openalex
+10.13039/100009847,Fordham University,US,United States,openalex
+10.13039/100009898,Defense Health Agency,US,United States,openalex
+10.13039/100009919,Army Research Institute for the Behavioral and Social Sciences,US,United States,openalex
+10.13039/100009966,Center for Health Administration Studies,US,United States,openalex
+10.13039/100010049,Kingston University,GB,United Kingdom,openalex
+10.13039/100010053,Oxford Brookes University,GB,United Kingdom,openalex
+10.13039/100010058,York St John University,GB,United Kingdom,openalex
+10.13039/100010114,Yrjö Jahnssonin Säätiö,FI,Finland,openalex
+10.13039/100010125,Jalmari ja Rauha Ahokkaan Säätiö,FI,Finland,openalex
+10.13039/100010210,Defense Human Resources Activity,US,United States,openalex
+10.13039/100010231,Banting Research Foundation,CA,Canada,openalex
+10.13039/100010244,Colby College,US,United States,openalex
+10.13039/100010322,Stollery Children’s Hospital Foundation,CA,Canada,openalex
+10.13039/100010336,Hellman Foundation,US,United States,openalex
+10.13039/100010410,"Wharton School, University of Pennsylvania",US,United States,openalex
+10.13039/100010434,“la Caixa” Foundation,ES,Spain,openalex
+10.13039/100010438,Francis Crick Institute,GB,United Kingdom,openalex
+10.13039/100010554,"Clinical and Translational Science Institute, University of Pittsburgh",US,United States,openalex
+10.13039/100010582,National Computational Infrastructure,AU,Australia,openalex
+10.13039/100010602,Society for Industrial and Organizational Psychology,US,United States,openalex
+10.13039/100010629,Fulbright Association,US,United States,openalex
+10.13039/100010733,Børnecancerfonden,DK,Denmark,openalex
+10.13039/100010815,Stiftelsen för Gamla Tjänarinnor,SE,Sweden,openalex
+10.13039/100010842,Temple University,US,United States,openalex
+10.13039/100010897,Newton Fund,GB,United Kingdom,openalex
+10.13039/100010939,Pepperdine University,US,United States,openalex
+10.13039/100010941,University of Vermont,US,United States,openalex
+10.13039/100010977,Cognitive Neuroscience Society,US,United States,openalex
+10.13039/100011094,Public Health Agency of Canada,CA,Canada,openalex
+10.13039/100011102,Seventh Framework Programme,EU,European Union,openalex+eu_override
+10.13039/100011132,"Rutgers, The State University of New Jersey",US,United States,openalex
+10.13039/100011199,FP7 Ideas: European Research Council,NA,NA,openalex
+10.13039/100011310,Rural and Environment Science and Analytical Services Division,GB,United Kingdom,openalex
+10.13039/100011348,University of Oregon,US,United States,openalex
+10.13039/100011485,"North Carolina Translational and Clinical Sciences Institute, University of North Carolina at Chapel Hill",US,United States,openalex
+10.13039/100011500,"Research Institute, Nationwide Children's Hospital",US,United States,openalex
+10.13039/100011697,British Association for Counselling and Psychotherapy,GB,United Kingdom,openalex
+10.13039/100011705,MQ: Transforming Mental Health,GB,United Kingdom,openalex
+10.13039/100011706,Autistica,GB,United Kingdom,openalex
+10.13039/100011849,Bob Woodruff Foundation,US,United States,openalex
+10.13039/100012023,National Cancer Centre of Singapore,SG,Singapore,openalex
+10.13039/100012025,New York University Abu Dhabi,AE,United Arab Emirates,openalex
+10.13039/100012068,Health and Care Research Wales,GB,United Kingdom,openalex
+10.13039/100012086,Experimental Psychology Society,GB,United Kingdom,openalex
+10.13039/100012095,Scottish Government,GB,United Kingdom,openalex
+10.13039/100012107,Waterloo Foundation,GB,United Kingdom,openalex
+10.13039/100012115,Canadian Language and Literacy Research Network,CA,Canada,openalex
+10.13039/100012143,Clifford B. Kinley Trust,US,United States,openalex
+10.13039/100012204,Sinneave Family Foundation,CA,Canada,openalex
+10.13039/100012330,Cognitive Sciences and Technologies Council,IR,Iran,openalex
+10.13039/100012338,Alan Turing Institute,GB,United Kingdom,openalex
+10.13039/100012378,"Kavli Institute for Brain and Mind, University of California, San Diego",US,United States,openalex
+10.13039/100012498,Alzheimer Society Research Program,CA,Canada,openalex
+10.13039/100012505,Royal Perth Hospital Medical Research Foundation,AU,Australia,openalex
+10.13039/100012598,Association for Applied Sport Psychology,US,United States,openalex
+10.13039/100012698,Jack Brockhoff Foundation,AU,Australia,openalex
+10.13039/100012818,Comunidad de Madrid,ES,Spain,openalex
+10.13039/100012825,International Visegrad Fund,SK,Slovakia,openalex
+10.13039/100012940,Universitätsklinikum Tübingen,DE,Germany,openalex
+10.13039/100012978,Huron University College,CA,Canada,openalex
+10.13039/100012996,University of Cyprus,CY,Cyprus,openalex
+10.13039/100012998,Foro Italico University of Rome,IT,Italy,openalex
+10.13039/100013081,Augsburg University,US,United States,openalex
+10.13039/100013192,"Carolina Population Center, University of North Carolina at Chapel Hill",US,United States,openalex
+10.13039/100013228,Réseau québécois de recherche sur le vieillissement,CA,Canada,openalex
+10.13039/100013275,"Joint Programming Initiative More Years, Better Lives",NL,Netherlands,openalex
+10.13039/100013301,Parkinson's Foundation,US,United States,openalex
+10.13039/100013322,European Federation of Pharmaceutical Industries and Associations,BE,Belgium,openalex
+10.13039/100013323,Family Larsson‐Rosenquist Foundation,CH,Switzerland,openalex
+10.13039/100013392,Ministère de la Santé et des Services sociaux,CA,Canada,openalex
+10.13039/100013453,American Speech-Language-Hearing Association,US,United States,openalex
+10.13039/100013524,Cystinosis Research Network,US,United States,openalex
+10.13039/100013828,Academy of Neuroscience for Architecture,US,United States,openalex
+10.13039/100013861,Charles Koch Foundation,US,United States,openalex
+10.13039/100013900,National Academy of Education,US,United States,openalex
+10.13039/100014013,UK Research and Innovation,GB,United Kingdom,openalex
+10.13039/100014037,National Defense Science and Engineering Graduate,US,United States,openalex
+10.13039/100014055,U.S. Army Medical Research Acquisition Activity,US,United States,openalex
+10.13039/100014147,Charles E. Kaufman Foundation,US,United States,openalex
+10.13039/100014155,Heising-Simons Foundation,US,United States,openalex
+10.13039/100014165,Sorenson Legacy Foundation,US,United States,openalex
+10.13039/100014370,Simons Foundation Autism Research Initiative,US,United States,openalex
+10.13039/100014374,Stanford Institute for Research in the Social Sciences,US,United States,openalex
+10.13039/100014440,"Ministerio de Ciencia, Innovación y Universidades",ES,Spain,openalex
+10.13039/100014515,Center for Academic Research and Training in Anthropogeny,US,United States,openalex
+10.13039/100014542,"Sackler Institute for Translational Neurodevelopment, King's College London",GB,United Kingdom,openalex
+10.13039/100014555,Murdoch Children's Research Institute,AU,Australia,openalex
+10.13039/100014605,Sage Therapeutics,US,United States,openalex
+10.13039/100014607,Royal Children's Hospital Foundation,AU,Australia,openalex
+10.13039/100014660,Society for the Study of Addiction,GB,United Kingdom,openalex
+10.13039/100014865,Fondation Maladies Rares,FR,France,openalex
+10.13039/100014989,Chan Zuckerberg Initiative,US,United States,openalex
+10.13039/100015235,Supernus Pharmaceuticals,US,United States,openalex
+10.13039/100015250,NIHR Bristol Biomedical Research Centre,GB,United Kingdom,openalex
+10.13039/100015400,Fonds Erasme,BE,Belgium,openalex
+10.13039/100015442,Global Brain Health Institute,IE,Ireland,openalex
+10.13039/100015521,Stanford Maternal and Child Health Research Institute,US,United States,openalex
+10.13039/100015604,Miami Foundation,US,United States,openalex
+10.13039/100015645,Mayekawa Houonkai Foundation,JP,Japan,openalex
+10.13039/100015656,Sackler Trust,GB,United Kingdom,openalex
+10.13039/100015846,Llywodraeth Cymru,GB,United Kingdom,openalex
+10.13039/100015872,Université de Lille,FR,France,openalex
+10.13039/100015965,US-Italy Fulbright Commission,IT,Italy,openalex
+10.13039/100016220,Georgia Clinical and Translational Science Alliance,US,United States,openalex
+10.13039/100016284,"VISN 4 Mental Illness Research, Education, and Clinical Center",US,United States,openalex
+10.13039/100016308,Bpifrance,FR,France,openalex
+10.13039/100016319,Cohen Veterans Bioscience,US,United States,openalex
+10.13039/100016329,"Ministère de l’Éducation, Gouvernement de l’Ontario",CA,Canada,openalex
+10.13039/100016425,Dickinson College,US,United States,openalex
+10.13039/100016472,American Arachnological Society,US,United States,openalex
+10.13039/100016529,Hassenfeld Child Health Innovation Institute,US,United States,openalex
+10.13039/100016606,Riley Children's Foundation,US,United States,openalex
+10.13039/100016620,Nick Simons Foundation,US,United States,openalex
+10.13039/100016816,Campus Research Board,US,United States,openalex
+10.13039/100016839,Center for Behavioral Brain Sciences,DE,Germany,openalex
+10.13039/100016880,Marguerite-Marie Delacroix foundation,BE,Belgium,openalex
+10.13039/100016906,Fundacja Uniwersytetu im. Adama Mickiewicza,PL,Poland,openalex
+10.13039/100016934,Tromsø Forskningsstiftelse,NO,Norway,openalex
+10.13039/100016974,Food Science Institute Foundation,JP,Japan,openalex
+10.13039/100016991,Universidad de Guadalajara,MX,Mexico,openalex
+10.13039/100016999,Høgskulen på Vestlandet,NO,Norway,openalex
+10.13039/100017325,Engineering Research Centers,US,United States,openalex
+10.13039/100017336,Dipartimenti di Eccellenza,IT,Italy,openalex
+10.13039/100017557,QuakeCoRE,NZ,New Zealand,openalex
+10.13039/100017795,Hague University of Applied Sciences,NL,Netherlands,openalex
+10.13039/100017801,Manton Foundation,US,United States,openalex
+10.13039/100017991,Binder Family Foundation,US,United States,openalex
+10.13039/100018077,"Harvard Data Science Initiative, Harvard University",US,United States,openalex
+10.13039/100018130,"Department of Pediatrics, School of Medicine, University of Virginia",US,United States,openalex
+10.13039/100018237,Asian Office of Aerospace Research and Development,US,United States,openalex
+10.13039/100018243,"Institute for Computational and Data Sciences, Pennsylvania State University",US,United States,openalex
+10.13039/100018346,Foundation for Advancing Alcohol Responsibility,US,United States,openalex
+10.13039/100018562,Steno Diabetes Center Copenhagen,DK,Denmark,openalex
+10.13039/100018693,HORIZON EUROPE Framework Programme,NA,NA,openalex
+10.13039/100018694,HORIZON EUROPE Marie Sklodowska-Curie Actions,NA,NA,openalex
+10.13039/100018784,Foundation of Hope for Research and Treatment of Mental Illness,US,United States,openalex
+10.13039/100018967,Universitat Pompeu Fabra,ES,Spain,openalex
+10.13039/100019530,Jefferson Scholars Foundation,US,United States,openalex
+10.13039/100019550,"Laureate Institute for Brain Research, University of Tulsa",US,United States,openalex
+10.13039/100019647,Kavlifondet,NO,Norway,openalex
+10.13039/100019715,"Centre Azrieli de recherche sur l'autisme, Institut et Hôpital Neurologiques de Montréal",CA,Canada,openalex
+10.13039/100019776,Universidad Europea de Madrid,ES,Spain,openalex
+10.13039/100020157,"Wisconsin Center for Education Research, School of Education, University of Wisconsin-Madison",US,United States,openalex
+10.13039/100020342,"Lee Kum Sheung Center for Health and Happiness, Harvard T.H. Chan School of Public Health",US,United States,openalex
+10.13039/100020353,Josiah Charles Trent Memorial Foundation,US,United States,openalex
+10.13039/100020432,"Intellectual and Developmental Disabilities Research Center, Washington University School of Medicine in St. Louis",US,United States,openalex
+10.13039/100020645,"T. Denny Sanford School of Social and Family Dynamics, Arizona State University",US,United States,openalex
+10.13039/100020891,Professional Staff Congress and City University of New York,US,United States,openalex
+10.13039/100021045,Massachusetts Department of Public Health,US,United States,openalex
+10.13039/100023001,"Merkin Institute for Translational Research, California Institute of Technology",US,United States,openalex
+10.13039/100030845,IRCCS Fondazione Stella Maris,IT,Italy,openalex
+10.13039/100032421,Thai Red Cross Society,TH,Thailand,openalex
+10.13039/501100000029,Institute of Gender and Health,CA,Canada,openalex
+10.13039/501100000031,"Institute of Human Development, Child and Youth Health",CA,Canada,openalex
+10.13039/501100000036,Institute of Population and Public Health,CA,Canada,openalex
+10.13039/501100000144,"Alberta Gambling Research Institute, University of Calgary",CA,Canada,openalex
+10.13039/501100000156,Fonds de Recherche du Québec - Santé,CA,Canada,openalex
+10.13039/501100000188,Royal Society of Canada,CA,Canada,openalex
+10.13039/501100000190,University of Alberta,CA,Canada,openalex
+10.13039/501100000194,Nova Scotia Health Research Foundation,CA,Canada,openalex
+10.13039/501100000268,Biotechnology and Biological Sciences Research Council,GB,United Kingdom,openalex
+10.13039/501100000276,Department of Health and Social Care,GB,United Kingdom,openalex
+10.13039/501100000278,"Department for International Development, UK Government",GB,United Kingdom,openalex
+10.13039/501100000279,Nuffield Foundation,GB,United Kingdom,openalex
+10.13039/501100000282,Sir Jules Thorn Charitable Trust,GB,United Kingdom,openalex
+10.13039/501100000286,British Academy,GB,United Kingdom,openalex
+10.13039/501100000288,Royal Society,GB,United Kingdom,openalex
+10.13039/501100000289,Cancer Research UK,GB,United Kingdom,openalex
+10.13039/501100000308,British Council,GB,United Kingdom,openalex
+10.13039/501100000364,Stroke Association,GB,United Kingdom,openalex
+10.13039/501100000591,"Corpus Christi College, University of Cambridge",GB,United Kingdom,openalex
+10.13039/501100000592,US-UK Fulbright Commission,GB,United Kingdom,openalex
+10.13039/501100000609,"Emmanuel College, University of Cambridge",GB,United Kingdom,openalex
+10.13039/501100000629,Age UK,GB,United Kingdom,openalex
+10.13039/501100000654,Marie Curie,GB,United Kingdom,openalex
+10.13039/501100000659,Research Trainees Coordinating Centre,GB,United Kingdom,openalex
+10.13039/501100000664,Health Technology Assessment Programme,GB,United Kingdom,openalex
+10.13039/501100000690,Research Councils UK,GB,United Kingdom,openalex
+10.13039/501100000691,Academy of Medical Sciences,GB,United Kingdom,openalex
+10.13039/501100000735,University of Cambridge,GB,United Kingdom,openalex
+10.13039/501100000738,University of Leicester,GB,United Kingdom,openalex
+10.13039/501100000764,King's College London,GB,United Kingdom,openalex
+10.13039/501100000765,University College London,GB,United Kingdom,openalex
+10.13039/501100000769,University of Oxford,GB,United Kingdom,openalex
+10.13039/501100000770,University of Manchester,GB,United Kingdom,openalex
+10.13039/501100000777,University of Leeds,GB,United Kingdom,openalex
+10.13039/501100000782,European Science Foundation,FR,France,openalex
+10.13039/501100000833,Rosetrees Trust,GB,United Kingdom,openalex
+10.13039/501100000838,University of Sussex,GB,United Kingdom,openalex
+10.13039/501100000854,Human Frontier Science Program,FR,France,openalex
+10.13039/501100000858,University of Sheffield,GB,United Kingdom,openalex
+10.13039/501100000866,Cardiff University,GB,United Kingdom,openalex
+10.13039/501100000934,"Department of Industry, Innovation, Science, Research and Tertiary Education, Australian Government",AU,Australia,openalex
+10.13039/501100000995,Australian National University,AU,Australia,openalex
+10.13039/501100001027,"Department of Health and Ageing, Australian Government",AU,Australia,openalex
+10.13039/501100001029,"Department of Defence, Australian Government",AU,Australia,openalex
+10.13039/501100001036,Australian Rotary Health,AU,Australia,openalex
+10.13039/501100001215,La Trobe University,AU,Australia,openalex
+10.13039/501100001232,Royal Australasian College of Physicians,AU,Australia,openalex
+10.13039/501100001249,University of Tasmania,AU,Australia,openalex
+10.13039/501100001283,"Institute of Education, University of London",GB,United Kingdom,openalex
+10.13039/501100001317,Swansea University,GB,United Kingdom,openalex
+10.13039/501100001320,Wolfson Foundation,GB,United Kingdom,openalex
+10.13039/501100001321,National Research Foundation,ZA,South Africa,openalex
+10.13039/501100001349,National Medical Research Council,SG,Singapore,openalex
+10.13039/501100001352,National University of Singapore,SG,Singapore,openalex
+10.13039/501100001381,National Research Foundation Singapore,SG,Singapore,openalex
+10.13039/501100001409,"Department of Science and Technology, Ministry of Science and Technology, India",IN,India,openalex
+10.13039/501100001459,Ministry of Education - Singapore,SG,Singapore,openalex
+10.13039/501100001505,Health Research Council of New Zealand,NZ,New Zealand,openalex
+10.13039/501100001509,Royal Society Te Apārangi,NZ,New Zealand,openalex
+10.13039/501100001517,New Zealand Law Foundation,NZ,New Zealand,openalex
+10.13039/501100001554,Massey University,NZ,New Zealand,openalex
+10.13039/501100001589,Environmental Protection Agency,IE,Ireland,openalex
+10.13039/501100001598,Mental Health Commission,IE,Ireland,openalex
+10.13039/501100001633,"National University of Ireland, Maynooth",IE,Ireland,openalex
+10.13039/501100001652,Friedrich-Alexander-Universität Erlangen-Nürnberg,DE,Germany,openalex
+10.13039/501100001655,Deutscher Akademischer Austauschdienst,DE,Germany,openalex
+10.13039/501100001658,Minerva Foundation,DE,Germany,openalex
+10.13039/501100001661,Universität Heidelberg,DE,Germany,openalex
+10.13039/501100001663,Volkswagen Foundation,DE,Germany,openalex
+10.13039/501100001664,Leibniz-Gemeinschaft,DE,Germany,openalex
+10.13039/501100001677,Institut National de la Santé et de la Recherche Médicale,FR,France,openalex
+10.13039/501100001710,Branco Weiss Fellowship – Society in Science,CH,Switzerland,openalex
+10.13039/501100001721,Rijksuniversiteit Groningen,NL,Netherlands,openalex
+10.13039/501100001722,Koninklijke Nederlandse Akademie van Wetenschappen,NL,Netherlands,openalex
+10.13039/501100001742,United States-Israel Binational Science Foundation,IL,Israel,openalex
+10.13039/501100001771,University of Newcastle Australia,AU,Australia,openalex
+10.13039/501100001774,University of Sydney,AU,Australia,openalex
+10.13039/501100001777,University of Wollongong,AU,Australia,openalex
+10.13039/501100001778,Deakin University,AU,Australia,openalex
+10.13039/501100001779,Monash University,AU,Australia,openalex
+10.13039/501100001782,University of Melbourne,AU,Australia,openalex
+10.13039/501100001785,Flinders University,AU,Australia,openalex
+10.13039/501100001793,Queensland University of Technology,AU,Australia,openalex
+10.13039/501100001794,University of Queensland,AU,Australia,openalex
+10.13039/501100001801,University of Western Australia,AU,Australia,openalex
+10.13039/501100001807,Fundação de Amparo à Pesquisa do Estado de São Paulo,BR,Brazil,openalex
+10.13039/501100001821,Vienna Science and Technology Fund,AT,Austria,openalex
+10.13039/501100001827,Universiteit van Amsterdam,NL,Netherlands,openalex
+10.13039/501100001828,Erasmus Universiteit Rotterdam,NL,Netherlands,openalex
+10.13039/501100001832,Radboud Universiteit,NL,Netherlands,openalex
+10.13039/501100001839,University Grants Committee,HK,Hong Kong SAR China,openalex
+10.13039/501100001843,Science and Engineering Research Board,IN,India,openalex
+10.13039/501100001861,Forskningsrådet för Arbetsliv och Socialvetenskap,SE,Sweden,openalex
+10.13039/501100001870,Fundacja na rzecz Nauki Polskiej,PL,Poland,openalex
+10.13039/501100001922,Efficacy and Mechanism Evaluation Programme,GB,United Kingdom,openalex
+10.13039/501100001961,AXA Research Fund,FR,France,openalex
+10.13039/501100002241,Japan Science and Technology Agency,JP,Japan,openalex
+10.13039/501100002261,Russian Foundation for Basic Research,RU,Russia,openalex
+10.13039/501100002324,"Department of Education and Early Childhood Development, State Government of Victoria",AU,Australia,openalex
+10.13039/501100002327,Kela,FI,Finland,openalex
+10.13039/501100002332,Semmelweis Egyetem,HU,Hungary,openalex
+10.13039/501100002338,Ministry of Education of the People's Republic of China,CN,China,openalex
+10.13039/501100002341,Academy of Finland,FI,Finland,openalex
+10.13039/501100002345,Eberhard Karls Universität Tübingen,DE,Germany,openalex
+10.13039/501100002367,Chinese Academy of Sciences,CN,China,openalex
+10.13039/501100002428,Austrian Science Fund,AT,Austria,openalex
+10.13039/501100002643,Kwangwoon University,KR,South Korea,openalex
+10.13039/501100002661,Fonds De La Recherche Scientifique - FNRS,BE,Belgium,openalex
+10.13039/501100002701,Ministry of Education,KR,South Korea,openalex
+10.13039/501100002706,AFA Försäkring,SE,Sweden,openalex
+10.13039/501100002739,Aarhus Universitets Forskningsfond,DK,Denmark,openalex
+10.13039/501100002790,"Canadian Network for Research and Innovation in Machining Technology, Natural Sciences and Engineering Research Council of Canada",CA,Canada,openalex
+10.13039/501100002808,Carlsbergfondet,DK,Denmark,openalex
+10.13039/501100002809,Generalitat de Catalunya,ES,Spain,openalex
+10.13039/501100002839,Charité – Universitätsmedizin Berlin,DE,Germany,openalex
+10.13039/501100002850,Fondo Nacional de Desarrollo Científico y Tecnológico,CL,Chile,openalex
+10.13039/501100002855,Ministry of Science and Technology of the People's Republic of China,CN,China,openalex
+10.13039/501100002858,China Postdoctoral Science Foundation,CN,China,openalex
+10.13039/501100002910,Fédération Wallonie-Bruxelles,BE,Belgium,openalex
+10.13039/501100002911,Universidad Complutense de Madrid,ES,Spain,openalex
+10.13039/501100002914,Concordia University,CA,Canada,openalex
+10.13039/501100002915,Fondation pour la Recherche Médicale,FR,France,openalex
+10.13039/501100002917,"Primate Research Institute, Kyoto University",JP,Japan,openalex
+10.13039/501100002920,"Research Grants Council, University Grants Committee",HK,Hong Kong SAR China,openalex
+10.13039/501100002923,Consejo Nacional de Investigaciones Científicas y Técnicas,AR,Argentina,openalex
+10.13039/501100002924,Federación Española de Enfermedades Raras,ES,Spain,openalex
+10.13039/501100002954,Università degli Studi di Milano-Bicocca,IT,Italy,openalex
+10.13039/501100002957,Technische Universität Dresden,DE,Germany,openalex
+10.13039/501100002992,Department for International Development,GB,United Kingdom,openalex
+10.13039/501100002999,"Ministerie van Volksgezondheid, Welzijn en Sport",NL,Netherlands,openalex
+10.13039/501100003030,Agència de Gestió d'Ajuts Universitaris i de Recerca,ES,Spain,openalex
+10.13039/501100003032,Association Nationale de la Recherche et de la Technologie,FR,France,openalex
+10.13039/501100003061,Erasmus Medisch Centrum,NL,Netherlands,openalex
+10.13039/501100003065,Universität Wien,AT,Austria,openalex
+10.13039/501100003086,Eusko Jaurlaritza,ES,Spain,openalex
+10.13039/501100003125,Suomen Kulttuurirahasto,FI,Finland,openalex
+10.13039/501100003126,Opetus- ja Kulttuuriministeriö,FI,Finland,openalex
+10.13039/501100003128,Työsuojelurahasto,FI,Finland,openalex
+10.13039/501100003151,Fonds de recherche du Québec – Nature et technologies,CA,Canada,openalex
+10.13039/501100003170,Stiftelsen för Kunskaps- och Kompetensutveckling,SE,Sweden,openalex
+10.13039/501100003176,"Ministerio de Educación, Cultura y Deporte",ES,Spain,openalex
+10.13039/501100003191,Conseil Régional de Haute Normandie,FR,France,openalex
+10.13039/501100003196,Ministero della Salute,IT,Italy,openalex
+10.13039/501100003243,Ministerstvo Zdravotnictví Ceské Republiky,CZ,Czechia,openalex
+10.13039/501100003290,Stiftung Suzanne und Hans Biäsch zur Förderung der Angewandten Psychologie,CH,Switzerland,openalex
+10.13039/501100003382,Core Research for Evolutional Science and Technology,JP,Japan,openalex
+10.13039/501100003399,Science and Technology Commission of Shanghai Municipality,CN,China,openalex
+10.13039/501100003407,"Ministero dell’Istruzione, dell’Università e della Ricerca",IT,Italy,openalex
+10.13039/501100003443,Ministry of Education and Science of the Russian Federation,RU,Russia,openalex
+10.13039/501100003451,Euskal Herriko Unibertsitatea,ES,Spain,openalex
+10.13039/501100003453,Natural Science Foundation of Guangdong Province,CN,China,openalex
+10.13039/501100003478,"Ministry of Health, Labour and Welfare",JP,Japan,openalex
+10.13039/501100003483,Hebrew University of Jerusalem,IL,Israel,openalex
+10.13039/501100003484,Heinrich-Heine-Universität Düsseldorf,DE,Germany,openalex
+10.13039/501100003495,Hessisches Ministerium für Wissenschaft und Kunst,DE,Germany,openalex
+10.13039/501100003500,Università degli Studi di Padova,IT,Italy,openalex
+10.13039/501100003513,University of Surrey,GB,United Kingdom,openalex
+10.13039/501100003542,"Ministerium für Wissenschaft, Forschung und Kunst Baden-Württemberg",DE,Germany,openalex
+10.13039/501100003545,"Ministério da Ciência, Tecnologia e Inovação",BR,Brazil,openalex
+10.13039/501100003710,Korea Health Industry Development Institute,KR,South Korea,openalex
+10.13039/501100003725,National Research Foundation of Korea,KR,South Korea,openalex
+10.13039/501100003748,Svenska Sällskapet för Medicinsk Forskning,SE,Sweden,openalex
+10.13039/501100003792,Hjärnfonden,SE,Sweden,openalex
+10.13039/501100003803,University of Hong Kong,HK,Hong Kong SAR China,openalex
+10.13039/501100003842,Ilhan Food Allergy Foundation,AU,Australia,openalex
+10.13039/501100003921,"Department of Health and Aged Care, Australian Government",AU,Australia,openalex
+10.13039/501100003945,Linköpings Universitet,SE,Sweden,openalex
+10.13039/501100003948,Rothschild Caesarea Foundation,IL,Israel,openalex
+10.13039/501100004012,Jane ja Aatos Erkon Säätiö,FI,Finland,openalex
+10.13039/501100004022,Jenny ja Antti Wihurin Rahasto,FI,Finland,openalex
+10.13039/501100004037,Juho Vainion Säätiö,FI,Finland,openalex
+10.13039/501100004040,KU Leuven,BE,Belgium,openalex
+10.13039/501100004047,Karolinska Institutet,SE,Sweden,openalex
+10.13039/501100004061,Oesterreichische Nationalbank,AT,Austria,openalex
+10.13039/501100004074,Medical Engineering Centre King’s College London,GB,United Kingdom,openalex
+10.13039/501100004096,Kyushu University,JP,Japan,openalex
+10.13039/501100004117,A.G. Leventis Foundation,CY,Cyprus,openalex
+10.13039/501100004172,Mersin Üniversitesi,TR,Turkey,openalex
+10.13039/501100004212,Päivikki ja Sakari Sohlbergin Säätiö,FI,Finland,openalex
+10.13039/501100004240,Akademie Věd České Republiky,CZ,Czechia,openalex
+10.13039/501100004257,Helse Vest,NO,Norway,openalex
+10.13039/501100004263,Fundação de Amparo à Pesquisa do Estado do Rio Grande do Sul,BR,Brazil,openalex
+10.13039/501100004271,Sapienza Università di Roma,IT,Italy,openalex
+10.13039/501100004285,Saint Petersburg State University,RU,Russia,openalex
+10.13039/501100004325,Signe ja Ane Gyllenbergin Säätiö,FI,Finland,openalex
+10.13039/501100004326,Simon Fraser University,CA,Canada,openalex
+10.13039/501100004350,Studienstiftung des Deutschen Volkes,DE,Germany,openalex
+10.13039/501100004371,Tampereen Yliopisto,FI,Finland,openalex
+10.13039/501100004375,Tel Aviv University,IL,Israel,openalex
+10.13039/501100004381,Western University,CA,Canada,openalex
+10.13039/501100004385,Universiteit Gent,BE,Belgium,openalex
+10.13039/501100004418,Vrije Universiteit Brussel,BE,Belgium,openalex
+10.13039/501100004431,Fondation de France,FR,France,openalex
+10.13039/501100004435,Universidad de Navarra,ES,Spain,openalex
+10.13039/501100004442,Narodowym Centrum Nauki,PL,Poland,openalex
+10.13039/501100004472,Riksbankens Jubileumsfond,SE,Sweden,openalex
+10.13039/501100004479,Natural Science Foundation of Jiangxi Province,CN,China,openalex
+10.13039/501100004489,Mitacs,CA,Canada,openalex
+10.13039/501100004513,Harry Crossley Foundation,ZA,South Africa,openalex
+10.13039/501100004527,Energimyndigheten,SE,Sweden,openalex
+10.13039/501100004543,China Scholarship Council,CN,China,openalex
+10.13039/501100004564,"Ministarstvo Prosvete, Nauke i Tehnološkog Razvoja",RS,Serbia,openalex
+10.13039/501100004587,Instituto de Salud Carlos III,ES,Spain,openalex
+10.13039/501100004593,Universidad Autónoma de Madrid,ES,Spain,openalex
+10.13039/501100004608,Natural Science Foundation of Jiangsu Province,CN,China,openalex
+10.13039/501100004622,KWF Kankerbestrijding,NL,Netherlands,openalex
+10.13039/501100004663,"Ministry of Science and Technology, Taiwan",TW,Taiwan,openalex
+10.13039/501100004731,Natural Science Foundation of Zhejiang Province,CN,China,openalex
+10.13039/501100004733,Universidade de Macau,MO,Macao SAR China,openalex
+10.13039/501100004735,Natural Science Foundation of Hunan Province,CN,China,openalex
+10.13039/501100004744,Innoviris,BE,Belgium,openalex
+10.13039/501100004747,Katolicki Uniwersytet Lubelski Jana Pawla II,PL,Poland,openalex
+10.13039/501100004752,State Government of Victoria,AU,Australia,openalex
+10.13039/501100004756,Emil Aaltosen Säätiö,FI,Finland,openalex
+10.13039/501100004794,Centre National de la Recherche Scientifique,FR,France,openalex
+10.13039/501100004795,Institut Universitaire de France,FR,France,openalex
+10.13039/501100004800,"Department for Business, Innovation and Skills",GB,United Kingdom,openalex
+10.13039/501100004828,Grand Challenges Canada,CA,Canada,openalex
+10.13039/501100004837,Ministerio de Ciencia e Innovación,ES,Spain,openalex
+10.13039/501100004869,Westfälische Wilhelms-Universität Münster,DE,Germany,openalex
+10.13039/501100004895,European Social Fund,NA,NA,openalex
+10.13039/501100004901,Fundação de Amparo à Pesquisa do Estado de Minas Gerais,BR,Brazil,openalex
+10.13039/501100004904,"Direction Générale de la Compétitivité, de l’Industrie et des Services",FR,France,openalex
+10.13039/501100004937,Bundesministerium für Forschung und Technologie,DE,Germany,openalex
+10.13039/501100004963,Seventh Framework Programme,NA,NA,openalex
+10.13039/501100005032,Fundação Bial,PT,Portugal,openalex
+10.13039/501100005150,Chinese Academy of Medical Sciences,CN,China,openalex
+10.13039/501100005155,Azrieli Foundation,CA,Canada,openalex
+10.13039/501100005222,Jyväskylän Yliopisto,FI,Finland,openalex
+10.13039/501100005230,Natural Science Foundation of Chongqing,CN,China,openalex
+10.13039/501100005234,Central China Normal University,CN,China,openalex
+10.13039/501100005302,Alexander S. Onassis Public Benefit Foundation,LI,Liechtenstein,openalex
+10.13039/501100005370,Gates Cambridge Trust,GB,United Kingdom,openalex
+10.13039/501100005626,Universität Regensburg,DE,Germany,openalex
+10.13039/501100005627,Université de Liège,BE,Belgium,openalex
+10.13039/501100005633,Sydäntutkimussäätiö,FI,Finland,openalex
+10.13039/501100005683,Kyoto University,JP,Japan,openalex
+10.13039/501100005711,Universität Hamburg,DE,Germany,openalex
+10.13039/501100005717,University of Haifa,IL,Israel,openalex
+10.13039/501100005721,Universität Bielefeld,DE,Germany,openalex
+10.13039/501100005722,Ludwig-Maximilians-Universität München,DE,Germany,openalex
+10.13039/501100005743,Università Cattolica del Sacro Cuore,IT,Italy,openalex
+10.13039/501100005744,Lastentautien Tutkimussäätiö,FI,Finland,openalex
+10.13039/501100005762,National Taiwan University Hospital,TW,Taiwan,openalex
+10.13039/501100005781,Koneen Säätiö,FI,Finland,openalex
+10.13039/501100005790,Thammasat University,TH,Thailand,openalex
+10.13039/501100005851,Shahid Beheshti University of Medical Sciences,IR,Iran,openalex
+10.13039/501100005860,Helsefonden,DK,Denmark,openalex
+10.13039/501100005927,Daiichi Sankyo Foundation of Life Science,JP,Japan,openalex
+10.13039/501100005941,Dietmar Hopp Stiftung,DE,Germany,openalex
+10.13039/501100005969,Università di Bologna,IT,Italy,openalex
+10.13039/501100005972,Deutsche Krebshilfe,DE,Germany,openalex
+10.13039/501100005981,Direktorat Jenderal Pendidikan Tinggi,ID,Indonesia,openalex
+10.13039/501100006004,Tohoku University,JP,Japan,openalex
+10.13039/501100006049,Comisión Sectorial de Investigación Científica,UY,Uruguay,openalex
+10.13039/501100006095,Helse Sør-Øst RHF,NO,Norway,openalex
+10.13039/501100006188,Einstein Stiftung Berlin,DE,Germany,openalex
+10.13039/501100006209,Radboud Universitair Medisch Centrum,NL,Netherlands,openalex
+10.13039/501100006211,Humboldt-Universität zu Berlin,DE,Germany,openalex
+10.13039/501100006254,Ruhr-Universität Bochum,DE,Germany,openalex
+10.13039/501100006306,Sigrid Juséliuksen Säätiö,FI,Finland,openalex
+10.13039/501100006310,Medicinska Forskningsrådet,SE,Sweden,openalex
+10.13039/501100006389,Université de Genève,CH,Switzerland,openalex
+10.13039/501100006447,Universität Zürich,CH,Switzerland,openalex
+10.13039/501100006469,Fundo para o Desenvolvimento das Ciências e da Tecnologia,MO,Macao SAR China,openalex
+10.13039/501100006489,Commissariat à l'Énergie Atomique et aux Énergies Alternatives,FR,France,openalex
+10.13039/501100006606,Natural Science Foundation of Tianjin City,CN,China,openalex
+10.13039/501100006636,"Forskningsrådet om Hälsa, Arbetsliv och Välfärd",SE,Sweden,openalex
+10.13039/501100006706,Tampereen Tuberkuloosisäätiö,FI,Finland,openalex
+10.13039/501100006709,Karl und Veronica Carstens-Stiftung,DE,Germany,openalex
+10.13039/501100006769,Russian Science Foundation,RU,Russia,openalex
+10.13039/501100007052,Università degli Studi di Verona,IT,Italy,openalex
+10.13039/501100007083,Orionin Tutkimussäätiö,FI,Finland,openalex
+10.13039/501100007105,Universität Mannheim,DE,Germany,openalex
+10.13039/501100007155,Medical Research Council Canada,CA,Canada,openalex
+10.13039/501100007210,RWTH Aachen University,DE,Germany,openalex
+10.13039/501100007224,Connaught Fund,CA,Canada,openalex
+10.13039/501100007241,Université Paris-Saclay,FR,France,openalex
+10.13039/501100007334,Ministry of Health and Family Welfare,IN,India,openalex
+10.13039/501100007440,Hans Böckler Stiftung,DE,Germany,openalex
+10.13039/501100007492,Fondation Bettencourt Schueller,FR,France,openalex
+10.13039/501100007502,Stichting tot Steun Vereniging tot Christelijke Verzorging van Geestes- en Zenuwzieken,NL,Netherlands,openalex
+10.13039/501100007511,Universidad Rey Juan Carlos,ES,Spain,openalex
+10.13039/501100007512,Universitat Rovira i Virgili,ES,Spain,openalex
+10.13039/501100007537,Freie Universität Berlin,DE,Germany,openalex
+10.13039/501100007553,Gambling Research Exchange Ontario,CA,Canada,openalex
+10.13039/501100007561,Directorate-General for Health and Food Safety,NA,NA,openalex
+10.13039/501100007653,Universitätsklinikum Jena,DE,Germany,openalex
+10.13039/501100007805,Fondation du Collège de France,FR,France,openalex
+10.13039/501100007820,Hangzhou Normal University,CN,China,openalex
+10.13039/501100007837,Universität Bremen,DE,Germany,openalex
+10.13039/501100007961,Melbourne School of Psychological Sciences,AU,Australia,openalex
+10.13039/501100008001,Universität zu Köln,DE,Germany,openalex
+10.13039/501100008161,Autistica,GB,United Kingdom,openalex
+10.13039/501100008236,Fondation Roger de Spoelberch,CH,Switzerland,openalex
+10.13039/501100008320,Suomen Aivosäätiö,FI,Finland,openalex
+10.13039/501100008358,Hersenstichting,NL,Netherlands,openalex
+10.13039/501100008391,UBS Optimus Foundation,CH,Switzerland,openalex
+10.13039/501100008415,Diabetesliitto,FI,Finland,openalex
+10.13039/501100008483,NOMIS Stiftung,CH,Switzerland,openalex
+10.13039/501100008484,Paavo Nurmen Säätiö,FI,Finland,openalex
+10.13039/501100008568,Norske Kvinners Sanitetsforening,NO,Norway,openalex
+10.13039/501100008586,Stiftelsen Professor Bror Gadelius Minnesfond,SE,Sweden,openalex
+10.13039/501100008667,SENSHIN Medical Research Foundation,JP,Japan,openalex
+10.13039/501100008678,Universität Leipzig,DE,Germany,openalex
+10.13039/501100008724,"Kirke-, Utdannings- og Forskningsdepartementet",NO,Norway,openalex
+10.13039/501100008905,Alpen-Adria-Universität Klagenfurt,AT,Austria,openalex
+10.13039/501100008977,Universität Ulm,DE,Germany,openalex
+10.13039/501100009053,The Wellcome Trust DBT India Alliance,IN,India,openalex
+10.13039/501100009057,Karl-Franzens-Universität Graz,AT,Austria,openalex
+10.13039/501100009088,Veterinärmedizinische Universität Wien,AT,Austria,openalex
+10.13039/501100009187,Medical Research Foundation,GB,United Kingdom,openalex
+10.13039/501100009287,NSW Health,AU,Australia,openalex
+10.13039/501100009438,National Center of Neurology and Psychiatry,JP,Japan,openalex
+10.13039/501100009480,Stichting Vrienden van het Sophia,NL,Netherlands,openalex
+10.13039/501100009531,Istituto Italiano di Tecnologia,IT,Italy,openalex
+10.13039/501100009559,Universidad Nacional de Quilmes,AR,Argentina,openalex
+10.13039/501100009592,Beijing Municipal Science and Technology Commission,CN,China,openalex
+10.13039/501100009629,Fondazione Cassa Di Risparmio Di Trento E Rovereto,IT,Italy,openalex
+10.13039/501100009708,Novo Nordisk Fonden,DK,Denmark,openalex
+10.13039/501100009732,Alli Paasikiven Säätiö,FI,Finland,openalex
+10.13039/501100009802,Stiftelsen Söderström Königska Sjukhemmet,SE,Sweden,openalex
+10.13039/501100009888,Regione Toscana,IT,Italy,openalex
+10.13039/501100009902,Egmont Fonden,DK,Denmark,openalex
+10.13039/501100009977,ELMA Foundation,ZA,South Africa,openalex
+10.13039/501100010071,Nationaal Regieorgaan Onderwijsonderzoek,NL,Netherlands,openalex
+10.13039/501100010076,Conseil Régional Provence-Alpes-Côte d'Azur,FR,France,openalex
+10.13039/501100010198,"Ministerio de Asuntos Económicos y Transformación Digital, Gobierno de España",ES,Spain,openalex
+10.13039/501100010224,Philosophy and Social Science Foundation of Hunan Province,CN,China,openalex
+10.13039/501100010292,"Fundación Miguel Alemán, A.C.",MX,Mexico,openalex
+10.13039/501100010410,Education University of Hong Kong,HK,Hong Kong SAR China,openalex
+10.13039/501100010428,Innovation and Technology Fund,HK,Hong Kong SAR China,openalex
+10.13039/501100010586,Haukeland Universitetssjukehus,NO,Norway,openalex
+10.13039/501100010600,Tays,FI,Finland,openalex
+10.13039/501100010653,Masarykova Univerzita,CZ,Czechia,openalex
+10.13039/501100010713,Indian Institute of Science Education and Research Bhopal,IN,India,openalex
+10.13039/501100010767,Innovative Medicines Initiative,BE,Belgium,openalex
+10.13039/501100010785,Canada First Research Excellence Fund,CA,Canada,openalex
+10.13039/501100010790,Erasmus+,NA,NA,openalex
+10.13039/501100010801,Xunta de Galicia,ES,Spain,openalex
+10.13039/501100010803,"Department of Biotechnology, Government of West Bengal",IN,India,openalex
+10.13039/501100010838,Guangdong Office of Philosophy and Social Science,CN,China,openalex
+10.13039/501100010892,"Department of Science and Technology, Republic of the Philippines",PH,Philippines,openalex
+10.13039/501100010969,Alzheimer Nederland,NL,Netherlands,openalex
+10.13039/501100011011,Junta de Andalucía,ES,Spain,openalex
+10.13039/501100011019,Nemzeti Kutatási Fejlesztési és Innovációs Hivatal,HU,Hungary,openalex
+10.13039/501100011033,Agencia Estatal de Investigación,ES,Spain,openalex
+10.13039/501100011104,Universitat Autònoma de Barcelona,ES,Spain,openalex
+10.13039/501100011318,Fondation Botnar,CH,Switzerland,openalex
+10.13039/501100011605,"Natural Resources, Energy and Science Authority of Sri Lanka",LK,Sri Lanka,openalex
+10.13039/501100011730,Templeton World Charity Foundation,BS,Bahamas,openalex
+10.13039/501100011878,Vlaamse regering,BE,Belgium,openalex
+10.13039/501100011898,Marcus och Amalia Wallenbergs minnesfond,SE,Sweden,openalex
+10.13039/501100011958,Danmarks Frie Forskningsfond,DK,Denmark,openalex
+10.13039/501100012166,National Key Research and Development Program of China,CN,China,openalex
+10.13039/501100012174,Hunan Office of Philosophy and Social Science,CN,China,openalex
+10.13039/501100012176,Project 211,CN,China,openalex
+10.13039/501100012190,Ministry of Science and Higher Education of the Russian Federation,RU,Russia,openalex
+10.13039/501100012226,Fundamental Research Funds for the Central Universities,CN,China,openalex
+10.13039/501100012229,"Hefei Science Center, Chinese Academy of Sciences",CN,China,openalex
+10.13039/501100012264,Norges Idrettshøgskole,NO,Norway,openalex
+10.13039/501100012359,Promotion and Mutual Aid Corporation for Private Schools of Japan,JP,Japan,openalex
+10.13039/501100012389,National Institute of Information and Communications Technology,JP,Japan,openalex
+10.13039/501100012550,"Nemzeti Kutatási, Fejlesztési és Innovaciós Alap",HU,Hungary,openalex
+10.13039/501100013209,Hellenic Foundation for Research and Innovation,GR,Greece,openalex
+10.13039/501100013342,NIHR Imperial Biomedical Research Centre,GB,United Kingdom,openalex
+10.13039/501100013344,Sabah Biodiversity Centre,MY,Malaysia,openalex
+10.13039/501100013373,NIHR Oxford Biomedical Research Centre,GB,United Kingdom,openalex
+10.13039/501100013374,NIHR School for Primary Care Research,GB,United Kingdom,openalex
+10.13039/501100013437,Templeton Religion Trust,BS,Bahamas,openalex
+10.13039/501100013500,Diabetestutkimussäätiö,FI,Finland,openalex
+10.13039/501100013804,National University's Basic Research Foundation of China,CN,China,openalex
+10.13039/501100013846,Fondation Francqui - Stichting,BE,Belgium,openalex
+10.13039/501100014188,"Ministry of Science and ICT, South Korea",KR,South Korea,openalex
+10.13039/501100014350,Gran Sasso Science Institute,IT,Italy,openalex
+10.13039/501100014434,Narodowa Agencja Wymiany Akademickiej,PL,Poland,openalex
+10.13039/501100014438,Business Finland,FI,Finland,openalex
+10.13039/501100014674,Conseil régional du Grand Est,FR,France,openalex
+10.13039/501100014736,Lingnan University,HK,Hong Kong SAR China,openalex
+10.13039/501100014747,Raision Tutkimussäätiö,FI,Finland,openalex
+10.13039/501100014838,Deutsche Parkinson Vereinigung,DE,Germany,openalex
+10.13039/501100014913,Freistaat Sachsen,DE,Germany,openalex
+10.13039/501100015075,Janggen-Pöhn-Stiftung,CH,Switzerland,openalex
+10.13039/501100015276,Sabancı Üniversitesi,TR,Turkey,openalex
+10.13039/501100015352,Max-Planck-Institut für Bildungsforschung,DE,Germany,openalex
+10.13039/501100015380,Université Cadi Ayyad,MA,Morocco,openalex
+10.13039/501100015650,Fundación Carolina,ES,Spain,openalex
+10.13039/501100015668,Ontario Ministry of Research and Innovation,CA,Canada,openalex
+10.13039/501100015721,Caisse nationale de solidarité pour l'autonomie,FR,France,openalex
+10.13039/501100015741,Kids Brain Health Network,CA,Canada,openalex
+10.13039/501100015754,Stiftung der Deutschen Wirtschaft,DE,Germany,openalex
+10.13039/501100016371,"Bundesministerium für Familie, Senioren, Frauen und Jugend",DE,Germany,openalex
+10.13039/501100016378,Technische Universität Dortmund,DE,Germany,openalex
+10.13039/501100016379,Universität Osnabrück,DE,Germany,openalex
+10.13039/501100016406,Sir Richard Stapley Educational Trust,GB,United Kingdom,openalex
+10.13039/501100017268,Berlin Institute of Health,DE,Germany,openalex
+10.13039/501100017630,"Humanities and Social Sciences Youth Foundation, Ministry of Education of the People's Republic of China",CN,China,openalex
+10.13039/501100018527,"Key Research Program of Frontier Science, Chinese Academy of Sciences",CN,China,openalex
+10.13039/501100018562,Social Science Foundation of Jiangsu Province,CN,China,openalex
+10.13039/501100018696,Région Normandie,FR,France,openalex
+10.13039/501100018818,"National Research, Development and Innovation Office",HU,Hungary,openalex
+10.13039/501100018898,Shepherd Foundation,AU,Australia,openalex
+10.13039/501100018956,NIHR Cambridge Biomedical Research Centre,GB,United Kingdom,openalex
+10.13039/501100019079,Postdoctoral Science Foundation of Jiangxi Province,CN,China,openalex
+10.13039/501100019173,Roland Ernst Stiftung,DE,Germany,openalex
+10.13039/501100019404,Shenzhen-Hong Kong Institute of Brain Science,CN,China,openalex
+10.13039/501100019541,Amsterdam Brain and Cognition,NL,Netherlands,openalex
+10.13039/501100019579,La Rochelle Université,FR,France,openalex
+10.13039/501100019927,Universidad de Deusto,ES,Spain,openalex
+10.13039/501100020052,National Centre for Cell Science,IN,India,openalex
+10.13039/501100020171,"Foreign, Commonwealth and Development Office",GB,United Kingdom,openalex
+10.13039/501100020262,Collier Charitable Fund,AU,Australia,openalex
+10.13039/501100020264,Shane O'Brien Memorial Asthma Foundation,AU,Australia,openalex
+10.13039/501100020391,Christina Barz-Stiftung,DE,Germany,openalex
+10.13039/501100020636,Ministerio de Educación y Formación Profesional,ES,Spain,openalex
+10.13039/501100021154,Prix Inspiration Arctique,CA,Canada,openalex
+10.13039/501100021171,Basic and Applied Basic Research Foundation of Guangdong Province,CN,China,openalex
+10.13039/501100021716,Université de Paris,FR,France,openalex
+10.13039/501100021720,Olav Thon Stiftelsen,NO,Norway,openalex
+10.13039/501100021790,Fondation pour la Recherche sur Alzheimer,FR,France,openalex
+10.13039/501100022221,Sickkids Research Institute,CA,Canada,openalex
+10.13039/501100022431,Medical Research Council Centre for Neurodevelopmental Disorders,GB,United Kingdom,openalex
+10.13039/501100022572,NIHR Sheffield Biomedical Research Centre,GB,United Kingdom,openalex
+10.13039/501100022795,Hamilton Health Sciences Foundation,CA,Canada,openalex
+10.13039/501100022938,Children’s Hospital Foundation,AU,Australia,openalex
+10.13039/501100023430,Bayerische Forschungsverbünde,DE,Germany,openalex

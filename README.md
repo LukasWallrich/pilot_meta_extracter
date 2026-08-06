@@ -8,9 +8,14 @@ Automated extraction of study-level metadata for a meta-analysis / registered re
 # 1. (optional, one-time) download the TOP Factor reference data
 Rscript download_top_factor.R
 
-# 2. run the pipeline on the two pilot samples
+# 2a. run the pipeline on the two pilot samples (validation against manual coding)
 PIPELINE_RUN=1 Rscript run_pipeline.R
 # -> writes data/final_extraction_pilot1-and-pilot2.csv
+
+# 2b. run the pipeline on the FULL pre-keyword empirical sample (the analysis dataset)
+Rscript run_full_sample.R           # ~1.5 h on a cold cache; resumable
+# -> writes data/full_sample_index.csv and
+#           data/final_extraction_full-empirical-sample.csv
 ```
 
 To run on your own DOIs, source the pipeline and call `run_pipeline()` with a data frame of `doi` + `tei_file` (path):
@@ -27,6 +32,7 @@ result <- run_pipeline(data.frame(doi = my_dois, tei_file = my_tei_paths))
 | File | Role |
 |---|---|
 | `run_pipeline.R` | **Main entry point.** Sources the four modules, runs them per DOI, writes `data/final_extraction_*.csv`. Single source of truth for the extraction logic. |
+| `run_full_sample.R` | **Driver for the analysis dataset.** Builds the DOI → TEI index for the whole `full_sample.csv`, keeps the articles classified as empirical, and runs `run_pipeline()` over them — metadata for the sample *before* pilot-keyword screening, so pilot-reporting and non-reporting articles can be compared. |
 | `1_extract_doi_metadata.R` | Module: OpenAlex + Crossref metadata — journal, ISSN, SJR, TOP Factor, author location, structured funders, COI, abstract. |
 | `2_extract_tei_coi_funding.R` | Module: funding + COI extraction from GROBID TEI (regex/XPath over document structure). |
 | `3_extract_prereg.R` | Module: preregistration detection — binary + platform (OSF template–gated, AsPredicted, trial registries). |
@@ -73,6 +79,11 @@ The numbered `N_*.R` files are **function libraries** (sourcing them only define
 | `registration_any` | `prereg_present` OR Registered Report OR trial registry. |
 
 Column-by-column derivation rules and the codebook-validation numbers are in **`README_pipeline.md`**.
+
+`run_full_sample.R` writes the same 20 columns for the analysis sample:
+
+- **`data/final_extraction_full-empirical-sample.csv`** — one row per article with a TEI file that is either classified empirical or manually coded in a pilot round. That is the empirical sample (3,851 of 4,076 `full_sample.csv` articles) **plus** every coded article, including the 16 pilot-1 articles the classifier called non-empirical — they are kept so the whole manually coded set stays available for validating the other metadata fields. Filter on `empirical == "yes"` in the index for the strict empirical sample.
+- **`data/full_sample_index.csv`** — one row per `full_sample.csv` article with `doi`, `tei_file`, `empirical` (LLM classification), `research_area` (LLM classification), `keyword_hit` (whether the article was picked up by the pilot-keyword screen) and `article_status` (`pilot1` / `pilot2` / `pilot1-unsampled` — which manual coding round the article was drawn into). Join on `doi` to split the extraction output by pilot reporting or by coding round.
 
 Other data products:
 
