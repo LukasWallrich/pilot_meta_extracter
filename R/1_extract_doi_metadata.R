@@ -15,7 +15,7 @@ pacman::p_load(
 if (file.exists("top_factor_data.RData")) {
   load("top_factor_data.RData")
 } else {
-  message("TOP Factor data not found. Run download_top_factor.R first")
+  message("TOP Factor data not found. Run setup/download_top_factor.R first")
   top_factor_data <- NULL
 }
 

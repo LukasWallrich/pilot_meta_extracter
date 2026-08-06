@@ -13,10 +13,10 @@ the pipeline and the per-stage pilot reproductions:
 
 | Module | Provides |
 |---|---|
-| `1_extract_doi_metadata.R` | `process_dois()` — OpenAlex + Crossref metadata |
-| `2_extract_tei_coi_funding.R` | TEI funder-name / funding / COI regex extraction (`extract_regex`, …) |
-| `3_extract_prereg.R` | preregistration / registered-report / trial detection (`classify_paper`, `resolve_osf_caches`, …) |
-| `4_link_funders_locations.R` | funder → country resolution (`resolve_funder_ids`, `resolve_funder_names`, `resolve_paper_funders`, …) |
+| `R/1_extract_doi_metadata.R` | `process_dois()` — OpenAlex + Crossref metadata |
+| `R/2_extract_tei_coi_funding.R` | TEI funder-name / funding / COI regex extraction (`extract_regex`, …) |
+| `R/3_extract_prereg.R` | preregistration / registered-report / trial detection (`classify_paper`, `resolve_osf_caches`, …) |
+| `R/4_link_funders_locations.R` | funder → country resolution (`resolve_funder_ids`, `resolve_funder_names`, `resolve_paper_funders`, …) |
 
 `run_pipeline.R` sources all four and consumes their functions. The pilot-1 +
 pilot-2 **batch reproductions and manual/metacheck validation** for stages 2–4
@@ -56,7 +56,7 @@ validation, the three funder edge cases, 12 example rows and the column check.
 - **pilot 1** index: `data/pilot1_doi_tei_map.csv` (explicit DOI → TEI map).
 - **pilot 2** index: DOI-encoded TEI filenames in `../pilot2_pdf_conversion/tei`
   matched to the pilot-2 manual DOIs — the exact filename→DOI derivation from
-  `2_extract_tei_coi_funding.R` (`extract_doi_from_filename`).
+  `R/2_extract_tei_coi_funding.R` (`extract_doi_from_filename`).
 
 Sourcing the file (without `PIPELINE_RUN=1`) only defines the functions; it does
 **not** auto-run the pilot.

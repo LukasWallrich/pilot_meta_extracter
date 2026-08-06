@@ -1,5 +1,5 @@
 # =============================================================================
-# 4_link_funders_locations.R  -- FUNCTION LIBRARY (single source of truth)
+# R/4_link_funders_locations.R  -- FUNCTION LIBRARY (single source of truth)
 # -----------------------------------------------------------------------------
 # Funder -> country resolution. Crossref funder IDs and TEI funder names are
 # passed in as ARGUMENTS (resolve_funder_ids / resolve_funder_names /
@@ -368,7 +368,7 @@ resolve_funder_names <- function(uniq_names, use_api = TRUE, cache_path = FUNDER
            resolved_reg= reg_confidence %in% c("high","medium"))
 }
 
-# ---- Per-paper funder resolution (the 4_link_funders_locations.R loop body) ---
+# ---- Per-paper funder resolution (the R/4_link_funders_locations.R loop body) ---
 # Returns one row: best_funders, best_funder_countries, funding_status.
 resolve_paper_funders <- function(journal, ids, tnames, ftxt, id_lookup, name_info) {
   ids <- ids[grepl("^10\\.13039/", ids)]

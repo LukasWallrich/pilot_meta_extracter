@@ -9,7 +9,7 @@
 # Set use_metacheck <- TRUE before sourcing to also run metacheck for comparison.
 # Run from the project root:  Rscript validation/pilot_extract_tei.R
 # =============================================================================
-source("2_extract_tei_coi_funding.R")   # heading_matches, clean_extracted_text, extract_regex, extract_metacheck
+source("R/2_extract_tei_coi_funding.R")   # heading_matches, clean_extracted_text, extract_regex, extract_metacheck
 
 # ---- Settings ----
 pilot1_map_csv <- "data/pilot1_doi_tei_map.csv"

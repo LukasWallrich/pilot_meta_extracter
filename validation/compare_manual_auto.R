@@ -27,12 +27,12 @@ dois = dois[dois != "test"]
 dois = unique(dois)
 
 # extract automated coding
-source("1_extract_doi_metadata.R")
+source("R/1_extract_doi_metadata.R")
 
 auto_databases <- process_dois(dois, return_location_details = TRUE)
 
 # add meta check-inspired coding using TEIs
-# created using 2_extract_tei_coi_funding.R
+# created using R/2_extract_tei_coi_funding.R
 # fixme add through csv for now, needs TEIs
 # only done for pilot2
 auto_tei = read.csv("data/tei_coi_funding_extracted.csv")

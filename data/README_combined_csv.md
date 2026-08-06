@@ -4,7 +4,7 @@
 
 This file combines manual coding data from both pilot rounds with automatically extracted metadata. Each row represents one coded article. Columns 1–59 contain manual coding form responses (see the coding form for definitions); the columns documented here are the automatically extracted fields appended during processing.
 
-The combined file is produced by `compare_manual_auto.R`, which joins the manual coding sheets with the outputs of `1_extract_doi_metadata.R` (API-based extraction) and `2_extract_tei_coi_funding.R` (TEI-based extraction).
+The combined file is produced by `compare_manual_auto.R`, which joins the manual coding sheets with the outputs of `R/1_extract_doi_metadata.R` (API-based extraction) and `R/2_extract_tei_coi_funding.R` (TEI-based extraction).
 
 ---
 
@@ -18,7 +18,7 @@ The combined file is produced by `compare_manual_auto.R`, which joins the manual
 
 ## Basic bibliographic metadata
 
-Extracted via the [OpenAlex Works API](https://openalex.org/) (`1_extract_doi_metadata.R`).
+Extracted via the [OpenAlex Works API](https://openalex.org/) (`R/1_extract_doi_metadata.R`).
 
 | Column | Description |
 |--------|-------------|
@@ -33,7 +33,7 @@ Extracted via the [OpenAlex Works API](https://openalex.org/) (`1_extract_doi_me
 | Column | How obtained | Description |
 |--------|--------------|-------------|
 | `sjr` | Matched by ISSN and year against the [`sjrdata`](https://github.com/ikashnitsky/sjrdata) R package (Scimago Journal Rankings). Falls back to nearest available year if the exact year is not in the dataset. | Scimago Journal Rank (SJR) score for the journal at the time of publication. Higher values indicate higher prestige/impact. |
-| `top_factor` | Matched by ISSN or journal name against the TOP Factor dataset downloaded by `download_top_factor.R` (stored in `top_factor_data.RData`). | Transparency and Openness Promotion (TOP) Factor score for the journal. Reflects journal-level open science policy requirements. |
+| `top_factor` | Matched by ISSN or journal name against the TOP Factor dataset downloaded by `setup/download_top_factor.R` (stored in `top_factor_data.RData`). | Transparency and Openness Promotion (TOP) Factor score for the journal. Reflects journal-level open science policy requirements. |
 
 ---
 
@@ -127,9 +127,9 @@ Funding data are extracted from two sources; both are included because Crossref 
 
 ## TEI-based funding and COI extraction *(pilot 2 only)*
 
-These columns were extracted from GROBID-generated TEI XML files of the article PDFs using `2_extract_tei_coi_funding.R`. TEI files were only available for the pilot 2 article set; these columns are therefore `NA` for all pilot 1 articles.
+These columns were extracted from GROBID-generated TEI XML files of the article PDFs using `R/2_extract_tei_coi_funding.R`. TEI files were only available for the pilot 2 article set; these columns are therefore `NA` for all pilot 1 articles.
 
-Extraction uses cascading XPath and regex strategies to locate funding acknowledgements and COI statements within the parsed PDF structure. See `README_tei_extraction.md` for a full description of the approach and validation results.
+Extraction uses cascading XPath and regex strategies to locate funding acknowledgements and COI statements within the parsed PDF structure. See `docs/README_tei_extraction.md` for a full description of the approach and validation results.
 
 | Column | Description |
 |--------|-------------|

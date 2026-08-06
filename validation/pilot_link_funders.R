@@ -9,7 +9,7 @@
 #   data/funder_locations_long.csv                     (one row per paper x funder)
 # Run from the project root:  Rscript validation/pilot_link_funders.R
 # =============================================================================
-source("4_link_funders_locations.R")   # resolve_funder_ids/_names, cluster_funders, name_sim, ...
+source("R/4_link_funders_locations.R")   # resolve_funder_ids/_names, cluster_funders, name_sim, ...
 
 norm_doi <- function(d) str_trim(str_to_lower(str_replace(d, "https?://(dx\\.)?doi\\.org/", "")))
 

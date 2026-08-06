@@ -8,7 +8,7 @@
 #   data/prereg_extracted_pilot1-and-pilot2.csv
 # Run from the project root:  Rscript validation/pilot_extract_prereg.R
 # =============================================================================
-source("3_extract_prereg.R")   # parse_tei, classify_paper, resolve_osf_caches, keyword_scan, ...
+source("R/3_extract_prereg.R")   # parse_tei, classify_paper, resolve_osf_caches, keyword_scan, ...
 
 # ---- Settings ----------------------------------------------------------------
 pilot1_map_csv <- "data/pilot1_doi_tei_map.csv"

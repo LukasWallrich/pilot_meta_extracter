@@ -1,5 +1,5 @@
 # =============================================================================
-# 3_extract_prereg.R  -- FUNCTION LIBRARY (single source of truth)
+# R/3_extract_prereg.R  -- FUNCTION LIBRARY (single source of truth)
 # -----------------------------------------------------------------------------
 # Preregistration / registered-report / trial-registry detection from GROBID
 # TEI full text, with OSF GUID-type and registration-template resolution
@@ -201,7 +201,7 @@ classify_paper <- function(p, osf_type_of, osf_template_of) {
   )
 }
 
-# --- OSF cache resolution (copied from 3_extract_prereg.R) ---------------------
+# --- OSF cache resolution (copied from R/3_extract_prereg.R) ---------------------
 osf_query_one <- function(code) {
   url <- sprintf("https://api.osf.io/v2/guids/%s/", code)
   res <- tryCatch({

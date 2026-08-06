@@ -1,5 +1,5 @@
 # =============================================================================
-# 2_extract_tei_coi_funding.R  -- FUNCTION LIBRARY (single source of truth)
+# R/2_extract_tei_coi_funding.R  -- FUNCTION LIBRARY (single source of truth)
 # -----------------------------------------------------------------------------
 # TEI funder-name / funding-statement / COI-statement regex extraction from
 # GROBID TEI XML. Sourcing this file ONLY defines functions and regex constants

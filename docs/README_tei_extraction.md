@@ -2,7 +2,7 @@
 
 Extracts conflict of interest (COI) and funding statements from GROBID TEI XML files. By default uses direct XML/regex parsing, which outperforms metacheck on all metrics (see below). Optionally also runs [scienceverse/metacheck](https://github.com/scienceverse/metacheck) for comparison.
 
-> **Module vs. driver.** `2_extract_tei_coi_funding.R` is now a **function library** (sourcing it only defines `heading_matches`, `clean_extracted_text`, `extract_regex`, `extract_metacheck` and the regex constants — no side effects). It is the single source of truth used by `run_pipeline.R`. The pilot-1 + pilot-2 batch run that writes `data/tei_coi_funding_extracted_pilot1-and-pilot2.csv` (and the pilot2-only `data/tei_coi_funding_extracted.csv`) plus the metacheck comparison lives in `validation/pilot_extract_tei.R` (run from the repo root; `use_metacheck` defaults to `TRUE` there so the stage CSV keeps its `mc_*` columns).
+> **Module vs. driver.** `R/2_extract_tei_coi_funding.R` is now a **function library** (sourcing it only defines `heading_matches`, `clean_extracted_text`, `extract_regex`, `extract_metacheck` and the regex constants — no side effects). It is the single source of truth used by `run_pipeline.R`. The pilot-1 + pilot-2 batch run that writes `data/tei_coi_funding_extracted_pilot1-and-pilot2.csv` (and the pilot2-only `data/tei_coi_funding_extracted.csv`) plus the metacheck comparison lives in `validation/pilot_extract_tei.R` (run from the repo root; `use_metacheck` defaults to `TRUE` there so the stage CSV keeps its `mc_*` columns).
 
 ## Approach
 
@@ -64,7 +64,7 @@ The 3 funding FPs are: OA-fee-only acknowledgments (2 cases) and a CRediT author
 
 | File | Description |
 |---|---|
-| `2_extract_tei_coi_funding.R` | Production extraction script (metacheck + regex) |
+| `R/2_extract_tei_coi_funding.R` | Production extraction script (metacheck + regex) |
 | `scratch_dev_extract.R` | Development/validation script with comparison metrics |
 | `data/tei_coi_funding_extracted.csv` | Extraction results (output of production script) |
 | `data/extraction_mismatches.csv` | 7 DOIs with mismatches (among articles with manual ground truth), assessed as true FPs or TEI misses |
@@ -82,7 +82,7 @@ metacheck  # remotes::install_github("scienceverse/metacheck")
 ## Usage
 
 ```r
-source("2_extract_tei_coi_funding.R")
+source("R/2_extract_tei_coi_funding.R")
 # Reads pilot2 DOIs, matches to TEI files in ../pilot2_pdf_conversion/tei/,
 # extracts using regex/XPath, saves to data/tei_coi_funding_extracted.csv
 

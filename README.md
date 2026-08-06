@@ -6,7 +6,7 @@ Automated extraction of study-level metadata for a meta-analysis / registered re
 
 ```r
 # 1. (optional, one-time) download the TOP Factor reference data
-Rscript download_top_factor.R
+Rscript setup/download_top_factor.R
 
 # 2a. run the pipeline on the two pilot samples (validation against manual coding)
 PIPELINE_RUN=1 Rscript run_pipeline.R
@@ -27,31 +27,50 @@ result <- run_pipeline(data.frame(doi = my_dois, tei_file = my_tei_paths))
 
 ## Repository structure
 
-**Root — the pipeline (numbered in run order) + docs**
+Only the two entry points sit at the root; everything else is filed by role.
+
+```
+README.md
+run_pipeline.R          main entry point — DOIs + TEIs -> the 20 columns
+run_full_sample.R       driver for the analysis dataset
+R/                      the extraction modules (function libraries)
+setup/                  one-time reference-data setup
+docs/                   method + validation write-ups
+data/                   inputs, outputs, API caches
+validation/             reproduction + scoring against the manual coding
+exploration/            side experiments, not part of the pipeline
+archive/                superseded outputs and dev scripts, kept for provenance
+```
+
+**Entry points**
 
 | File | Role |
 |---|---|
 | `run_pipeline.R` | **Main entry point.** Sources the four modules, runs them per DOI, writes `data/final_extraction_*.csv`. Single source of truth for the extraction logic. |
-| `run_full_sample.R` | **Driver for the analysis dataset.** Builds the DOI → TEI index for the whole `full_sample.csv`, keeps the articles classified as empirical, and runs `run_pipeline()` over them — metadata for the sample *before* pilot-keyword screening, so pilot-reporting and non-reporting articles can be compared. |
-| `1_extract_doi_metadata.R` | Module: OpenAlex + Crossref metadata — journal, ISSN, SJR, TOP Factor, author location, structured funders, COI, abstract. |
-| `2_extract_tei_coi_funding.R` | Module: funding + COI extraction from GROBID TEI (regex/XPath over document structure). |
-| `3_extract_prereg.R` | Module: preregistration detection — binary + platform (OSF template–gated, AsPredicted, trial registries). |
-| `4_link_funders_locations.R` | Module: funder → country resolution (Crossref Funder Registry → OpenAlex/ROR, with a TEI-name fallback). |
-| `openalex_utils.R`, `download_top_factor.R`, `top_factor_manual_setup.R` | Shared helpers / one-time setup. |
-| `write-up-for-reg-rep.Rmd` | Descriptive write-up for the registered report. |
-| `README_pipeline.md` | Full column spec + codebook validation for `run_pipeline.R`. |
-| `README_tei_extraction.md`, `README_prereg_extraction.md`, `README_funders.md` | Per-module method + validation docs. |
+| `run_full_sample.R` | **Driver for the analysis dataset.** Builds the DOI → TEI index over `full_sample.csv` plus the pilot-2 frame, and runs `run_pipeline()` over the empirical and manually coded articles — metadata for the sample *before* pilot-keyword screening, so pilot-reporting and non-reporting articles can be compared. |
 
-The numbered `N_*.R` files are **function libraries** (sourcing them only defines functions). `run_pipeline.R` works on any DOIs + TEIs, querying OpenAlex / Crossref / OSF only for inputs not already in the on-disk caches under `data/` (and storing new results there), so repeat runs make no network calls.
+**`R/` — the modules, numbered in run order**
 
-**Folders**
-
-| Folder | Contents |
+| File | Role |
 |---|---|
-| `data/` | Coding forms, pipeline outputs (see below), and API caches (reruns make no network calls). |
+| `R/1_extract_doi_metadata.R` | OpenAlex + Crossref metadata — journal, ISSN, SJR, TOP Factor, author location, structured funders, COI, abstract. |
+| `R/2_extract_tei_coi_funding.R` | Funding + COI extraction from GROBID TEI (regex/XPath over document structure). |
+| `R/3_extract_prereg.R` | Preregistration detection — binary + platform (OSF template–gated, AsPredicted, trial registries). |
+| `R/4_link_funders_locations.R` | Funder → country resolution (Crossref Funder Registry → OpenAlex/ROR, with a TEI-name fallback). |
+| `R/openalex_utils.R` | Shared OpenAlex helpers. |
+
+These are **function libraries**: sourcing one only defines functions. `run_pipeline.R` works on any DOIs + TEIs, querying OpenAlex / Crossref / OSF only for inputs not already in the on-disk caches under `data/` (and storing new results there), so repeat runs make no network calls.
+
+**Everything else**
+
+| Path | Contents |
+|---|---|
+| `setup/` | One-time reference-data setup: `download_top_factor.R`, `top_factor_manual_setup.R`. |
+| `docs/` | `README_pipeline.md` (full column spec + codebook validation), the three per-module method docs, and `write-up-for-reg-rep.Rmd`. |
+| `data/` | Coding forms, pipeline outputs (see below), and API caches. |
 | `validation/` | Reproduction + validation: rx-vs-metacheck comparison, manual↔auto comparison, the pilot-1 DOI→TEI matcher, and the pilot **driver** scripts (`pilot_*.R`) that regenerate the per-stage outputs and score them against the manual coding. |
-| `exploration/` | Side experiments not part of the pipeline: OpenAlex topic classification, OpenAlex-field probes, and an open-ended-registration labelling experiment (`oer/`). |
-| `archive/` | Superseded combined datasets and older outputs, kept for provenance. |
+| `exploration/` | Side experiments not part of the pipeline: article classification (empirical / subfield), OpenAlex-field probes, and an open-ended-registration labelling experiment (`oer/`). |
+| `archive/` | Superseded combined datasets, older outputs, and retired dev scripts, kept for provenance. |
 
 ## Resulting data
 
@@ -78,7 +97,7 @@ The numbered `N_*.R` files are **function libraries** (sourcing them only define
 | `is_trial_registry` | Trial/health-registry entry. |
 | `registration_any` | `prereg_present` OR Registered Report OR trial registry. |
 
-Column-by-column derivation rules and the codebook-validation numbers are in **`README_pipeline.md`**.
+Column-by-column derivation rules and the codebook-validation numbers are in **`docs/README_pipeline.md`**.
 
 `run_full_sample.R` writes the same 20 columns for the analysis sample:
 
@@ -95,9 +114,9 @@ Other data products:
 
 Against the manual coding (papers with a usable code):
 
-- **Funding / COI extraction** beats `metacheck` on both pilots (funding F1 0.95 vs 0.90; COI 0.91 vs 0.88 pooled) — see `README_tei_extraction.md`.
-- **Preregistration** detection: F1 0.91 (`prereg_found`), 0.93 (`registration_any`) — see `README_prereg_extraction.md`.
-- **Funder → country**: 100% country resolution for structured Crossref funder IDs — see `README_funders.md`.
+- **Funding / COI extraction** beats `metacheck` on both pilots (funding F1 0.95 vs 0.90; COI 0.91 vs 0.88 pooled) — see `docs/README_tei_extraction.md`.
+- **Preregistration** detection: F1 0.91 (`prereg_found`), 0.93 (`registration_any`) — see `docs/README_prereg_extraction.md`.
+- **Funder → country**: 100% country resolution for structured Crossref funder IDs — see `docs/README_funders.md`.
 
 ## Data sources
 

@@ -3,14 +3,14 @@
 # -----------------------------------------------------------------------------
 # ONE consolidated, documented extraction pipeline. Given a set of DOIs and
 # their GROBID TEI files, returns EXACTLY the 20-column narrow field set
-# (one row per DOI) documented in README_pipeline.md.
+# (one row per DOI) documented in docs/README_pipeline.md.
 #
 # It SOURCES four function libraries (single source of truth -- each function is
 # defined once, in its numbered module; sourcing them has no side effects):
-#   - 1_extract_doi_metadata.R     -> process_dois() (OpenAlex + Crossref metadata)
-#   - 2_extract_tei_coi_funding.R  -> TEI funder/COI/funding regex extraction
-#   - 3_extract_prereg.R           -> preregistration / registered-report / trial
-#   - 4_link_funders_locations.R   -> funder -> country resolution
+#   - R/1_extract_doi_metadata.R     -> process_dois() (OpenAlex + Crossref metadata)
+#   - R/2_extract_tei_coi_funding.R  -> TEI funder/COI/funding regex extraction
+#   - R/3_extract_prereg.R           -> preregistration / registered-report / trial
+#   - R/4_link_funders_locations.R   -> funder -> country resolution
 #
 # The pilot-1 + pilot-2 batch reproductions and manual-coding validation for
 # stages 2-4 live in validation/pilot_*.R. On-disk caches are reused so a rerun
@@ -43,18 +43,18 @@ suppressMessages({
 })
 
 # Source the function-based metadata script (safe: no side effects at top level)
-source("1_extract_doi_metadata.R")
+source("R/1_extract_doi_metadata.R")
 
 # Source the extraction function libraries (single source of truth). These files
 # define ONLY functions + constants (no side effects), so sourcing is safe. Their
 # canonical definitions are the generalized versions the pipeline uses; the pilot
 # batch reproductions live in validation/pilot_*.R.
-source("2_extract_tei_coi_funding.R")   # heading_matches, clean_extracted_text, extract_regex, extract_metacheck
-source("3_extract_prereg.R")            # parse_tei, osf_bare_code, classify_paper, resolve_osf_caches, ...
-source("4_link_funders_locations.R")    # resolve_funder_ids/_names, cluster_funders, resolve_paper_funders, ...
+source("R/2_extract_tei_coi_funding.R")   # heading_matches, clean_extracted_text, extract_regex, extract_metacheck
+source("R/3_extract_prereg.R")            # parse_tei, osf_bare_code, classify_paper, resolve_osf_caches, ...
+source("R/4_link_funders_locations.R")    # resolve_funder_ids/_names, cluster_funders, resolve_paper_funders, ...
 
 # --- NA-aware null-coalesce (used by the prereg + funder code). Defined AFTER
-#     sourcing 1_extract_doi_metadata.R so a single, consistent operator is in
+#     sourcing R/1_extract_doi_metadata.R so a single, consistent operator is in
 #     scope. For the list/scalar fields the metadata functions coalesce, the
 #     NA-aware guard yields identical results (verified by the regression check
 #     against the existing output CSVs at the bottom of this file).

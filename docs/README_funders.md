@@ -1,10 +1,10 @@
-# Funder → Country pipeline (`4_link_funders_locations.R`)
+# Funder → Country pipeline (`R/4_link_funders_locations.R`)
 
 This pipeline produces, for each article in the pilot1+pilot2 corpus, a clean
 list of **funders** each linked to a **country**, by reconciling two
 complementary sources of funder identity.
 
-> **Module vs. driver.** `4_link_funders_locations.R` is now a **function
+> **Module vs. driver.** `R/4_link_funders_locations.R` is now a **function
 > library** (sourcing it only defines `resolve_funder_ids`,
 > `resolve_funder_names`, `resolve_paper_funders`, `cluster_funders`, … and
 > constants — no side effects, and it never reads the combined CSV). The

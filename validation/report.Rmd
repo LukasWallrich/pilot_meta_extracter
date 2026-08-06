@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 
 library(httr)
 library(jsonlite)
-source("openalex_utils.R")
+source("R/openalex_utils.R")
 ```
 
 ```{r datatable-resources, echo=FALSE, results='asis'}

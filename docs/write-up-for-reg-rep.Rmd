@@ -63,12 +63,12 @@ dois =
 ```{r extract-data-auto, eval=FALSE}
 # extract automated coding
 # only run if you want to be able to run the automated extraction code below, otherwise you can just load the data from the .csv files (done below)
-source("1_extract_doi_metadata.R")
+source("R/1_extract_doi_metadata.R")
 
 auto_databases <- process_dois(dois, return_location_details = TRUE)
 
 # add meta check-inspired coding using TEIs
-# created using 2_extract_tei_coi_funding.R
+# created using R/2_extract_tei_coi_funding.R
 # fixme add through csv for now, needs TEIs
 # only done for pilot2
 auto_tei = read.csv("data/tei_coi_funding_extracted.csv")
@@ -408,7 +408,7 @@ To supplement the API-based extraction described above, we additionally processe
 We applied two complementary extraction approaches to these files. First, we used the `metacheck` R package (FIXME cite), which is designed to parse GROBID-generated TEI files and run structured compliance checks, including binary detection of funding acknowledgements and COI disclosures. Second, we developed a custom XPath- and regex-based extraction pipeline that directly queries the structured back-matter and body sections of the TEI XML, using heading-pattern matching (e.g., matching section headings containing phrases such as "conflict of interest", "funding", "acknowledgements").
 
 ```{r}
-# fixme add code? now info taken from README_tei_extraction.md
+# fixme add code? now info taken from docs/README_tei_extraction.md
 tei_pilot2_funding_accuracy = 0.963
 tei_pilot2_coi_accuracy = 0.926
 
