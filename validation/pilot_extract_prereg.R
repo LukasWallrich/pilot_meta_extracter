@@ -44,13 +44,11 @@ pilot2_dois <- manual2[["X1.2..Article.DOI"]] |> norm_doi() |> unique()
 pilot2_dois <- pilot2_dois[pilot2_dois != "" & pilot2_dois != "test"]
 
 all_tei <- list.files(tei_dir2, pattern = "\\.tei\\.xml$", full.names = TRUE)
-extract_doi_from_filename <- function(fname) {
-  base <- basename(fname)
-  doi_part <- sub("_-_.*", "", base)
-  sub("^(10\\.[0-9]{4,})-", "\\1/", doi_part)
-}
-tei_dois <- tolower(sapply(all_tei, extract_doi_from_filename, USE.NAMES = FALSE))
-midx <- match(pilot2_dois, tei_dois)
+# TEI filenames flatten every "/" in the DOI to "-"; a DOI suffix can contain
+# "-" too, so match on a key that treats the two alike.
+doi_key <- function(x) tolower(gsub("/", "-", x))
+tei_doi_key <- function(fname) doi_key(sub("_-_.*", "", basename(fname)))
+midx <- match(doi_key(pilot2_dois), tei_doi_key(all_tei))
 p2_files <- data.frame(doi = pilot2_dois[!is.na(midx)],
                        tei_file = all_tei[midx[!is.na(midx)]],
                        pilot = "pilot2", stringsAsFactors = FALSE)

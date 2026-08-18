@@ -56,18 +56,16 @@ message(length(pilot2_dois), " unique pilot2 DOIs loaded")
 
 all_tei <- list.files(pilot2_tei_dir, pattern = "\\.tei\\.xml$", full.names = TRUE)
 
-# TEI filenames encode DOIs: / -> -, then _-_ separates from author info
-# e.g. 10.1080-03069885.2023.2214307 -> 10.1080/03069885.2023.2214307
-extract_doi_from_filename <- function(fname) {
-  base <- basename(fname)
-  doi_part <- sub("_-_.*", "", base)
-  sub("^(10\\.[0-9]{4,})-", "\\1/", doi_part)
-}
+# TEI filenames encode DOIs with every "/" flattened to "-", then "_-_" before
+# the author info. A DOI suffix can contain "-" as well, so match on a key that
+# treats the two alike: 10.1093/abm/kaac079 -> 10.1093-abm-kaac079
+doi_key <- function(x) tolower(gsub("/", "-", x))
+tei_doi_key <- function(fname) doi_key(sub("_-_.*", "", basename(fname)))
 
-tei_dois <- sapply(all_tei, extract_doi_from_filename, USE.NAMES = FALSE)
+tei_dois <- tei_doi_key(all_tei)
 names(all_tei) <- tei_dois
 
-matched_idx    <- match(tolower(pilot2_dois), tolower(tei_dois))
+matched_idx    <- match(doi_key(pilot2_dois), tei_dois)
 matched_dois   <- pilot2_dois[!is.na(matched_idx)]
 matched_files  <- all_tei[matched_idx[!is.na(matched_idx)]]
 unmatched_dois <- pilot2_dois[is.na(matched_idx)]

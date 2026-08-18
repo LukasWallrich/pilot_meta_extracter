@@ -90,13 +90,14 @@ norm_doi <- function(x) {
     tolower()
 }
 
-# TEI filenames encode DOIs: / -> -, then _-_ separates author info
-# e.g. 10.1080-03069885.2023.2214307 -> 10.1080/03069885.2023.2214307
-extract_doi_from_filename <- function(fname) {
-  base <- basename(fname)
-  doi_part <- sub("_-_.*", "", base)
-  sub("^(10\\.[0-9]{4,})-", "\\1/", doi_part)
-}
+# TEI filenames encode DOIs with every "/" flattened to "-", then "_-_" before
+# the author info: 10.1093/abm/kaac079 -> 10.1093-abm-kaac079_-_A._Author_...
+# A DOI suffix may itself contain "-", so the slashes cannot be restored by
+# position. Match DOIs on a key that treats "/" and "-" alike instead.
+doi_key <- function(x) tolower(gsub("/", "-", x))
+
+# The DOI part of a GROBID TEI filename, as a doi_key().
+tei_doi_key <- function(fname) doi_key(sub("_-_.*", "", basename(fname)))
 
 splitpp <- function(x) {                       # split a '||'-joined string
   if (is.na(x) || x == "") return(character(0))
@@ -313,8 +314,7 @@ build_pilot_index <- function(
   p2dois <- unique(norm_doi(manual2[["X1.2..Article.DOI"]]))
   p2dois <- p2dois[p2dois != "" & p2dois != "test"]
   all_tei <- list.files(pilot2_tei_dir, pattern = "\\.tei\\.xml$", full.names = TRUE)
-  tei_dois <- tolower(sapply(all_tei, extract_doi_from_filename, USE.NAMES = FALSE))
-  midx <- match(p2dois, tei_dois)
+  midx <- match(doi_key(p2dois), tei_doi_key(all_tei))
   p2 <- tibble(doi = p2dois[!is.na(midx)], tei_file = all_tei[midx[!is.na(midx)]], pilot = "pilot2")
 
   idx <- bind_rows(p1, p2) |> distinct(doi, .keep_all = TRUE)

@@ -12,10 +12,15 @@ Rscript setup/download_top_factor.R
 PIPELINE_RUN=1 Rscript run_pipeline.R
 # -> writes data/final_extraction_pilot1-and-pilot2.csv
 
-# 2b. run the pipeline on the FULL pre-keyword empirical sample (the analysis dataset)
+# 2b. run the pipeline on the FULL pre-keyword empirical sample (pilot-1 frame)
 Rscript run_full_sample.R           # ~1.5 h on a cold cache; resumable
 # -> writes data/full_sample_index.csv and
 #           data/final_extraction_full-empirical-sample.csv
+
+# 2c. run the pipeline on the FULL pilot-2 frame
+Rscript run_pilot2_sample.R         # resumable
+# -> writes data/pilot2_sample_index.csv and
+#           data/final_extraction_pilot2-sample.csv
 ```
 
 To run on your own DOIs, source the pipeline and call `run_pipeline()` with a data frame of `doi` + `tei_file` (path):
@@ -27,12 +32,13 @@ result <- run_pipeline(data.frame(doi = my_dois, tei_file = my_tei_paths))
 
 ## Repository structure
 
-Only the two entry points sit at the root; everything else is filed by role.
+Only the entry points sit at the root; everything else is filed by role.
 
 ```
 README.md
 run_pipeline.R          main entry point — DOIs + TEIs -> the 20 columns
-run_full_sample.R       driver for the analysis dataset
+run_full_sample.R       driver for the pilot-1 frame
+run_pilot2_sample.R     driver for the pilot-2 frame
 R/                      the extraction modules (function libraries)
 setup/                  one-time reference-data setup
 docs/                   method + validation write-ups
@@ -47,7 +53,8 @@ archive/                superseded outputs and dev scripts, kept for provenance
 | File | Role |
 |---|---|
 | `run_pipeline.R` | **Main entry point.** Sources the four modules, runs them per DOI, writes `data/final_extraction_*.csv`. Single source of truth for the extraction logic. |
-| `run_full_sample.R` | **Driver for the analysis dataset.** Builds the DOI → TEI index over `full_sample.csv` plus the pilot-2 frame, and runs `run_pipeline()` over the empirical and manually coded articles — metadata for the sample *before* pilot-keyword screening, so pilot-reporting and non-reporting articles can be compared. |
+| `run_full_sample.R` | **Driver for the pilot-1 frame.** Builds the DOI → TEI index over `full_sample.csv` plus the manually coded pilot-2 articles, and runs `run_pipeline()` over the empirical and manually coded articles — metadata for the sample *before* pilot-keyword screening, so pilot-reporting and non-reporting articles can be compared. |
+| `run_pilot2_sample.R` | **Driver for the pilot-2 frame.** Builds the DOI → TEI index over `pilot2_sample.csv` (the 4,635-article 2023 frame that pilot 2 was drawn from) and runs `run_pipeline()` over every article with a TEI, coded or not. |
 
 **`R/` — the modules, numbered in run order**
 
@@ -103,6 +110,13 @@ Column-by-column derivation rules and the codebook-validation numbers are in **`
 
 - **`data/final_extraction_full-empirical-sample.csv`** — one row per article with a TEI file that is either classified empirical or manually coded in a pilot round. That is the empirical sample (3,851 of 4,076 `full_sample.csv` articles) **plus** every coded article, including the 16 pilot-1 articles the classifier called non-empirical — they are kept so the whole manually coded set stays available for validating the other metadata fields. Filter on `empirical == "yes"` in the index for the strict empirical sample.
 - **`data/full_sample_index.csv`** — one row per `full_sample.csv` article with `doi`, `tei_file`, `empirical` (LLM classification), `research_area` (LLM classification), `keyword_hit` (whether the article was picked up by the pilot-keyword screen) and `article_status` (`pilot1` / `pilot2` / `pilot1-unsampled` — which manual coding round the article was drawn into). Join on `doi` to split the extraction output by pilot reporting or by coding round.
+
+`run_pilot2_sample.R` writes the same 20 columns for the pilot-2 frame:
+
+- **`data/final_extraction_pilot2-sample.csv`** — one row per pilot-2 frame article with a TEI file. The frame is extracted unfiltered: the empirical / research-area classifier has run over the pilot-1 frame only, so no `empirical` column exists here.
+- **`data/pilot2_sample_index.csv`** — one row per `pilot2_sample.csv` article with `doi`, `tei_file`, `keyword_hit` (pilot-keyword screen; `NA` where the article has no TEI to screen) and `article_status` (`pilot2-coded` for the 184 manually coded articles, `pilot2-unsampled` otherwise).
+
+The pilot-1 and pilot-2 frames are disjoint (they overlap in a single article), so the two extraction outputs stack into one dataset. Both frames' PDFs are converted by the GROBID GitHub Action in the `pilot2_pdf_conversion` repository, which reads them from a Google Drive folder; `pilot2_sample.csv` and `full_sample.csv` are large Zotero exports and are gitignored.
 
 Other data products:
 

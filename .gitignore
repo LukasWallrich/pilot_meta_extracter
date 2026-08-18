@@ -28,6 +28,7 @@ my_doi_results.csv
 # Local tooling / large source data
 .claude/
 full_sample.csv
+pilot2_sample.csv
 
 # Secrets. API keys belong in ~/.claude/api_keys.env (outside the repo) and are
 # read via Sys.getenv() -- never hard-coded. These rules are a backstop against
