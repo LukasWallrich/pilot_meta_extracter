@@ -55,8 +55,9 @@ validation, the three funder edge cases, 12 example rows and the column check.
 
 - **pilot 1** index: `data/inputs/pilot1_doi_tei_map.csv` (explicit DOI → TEI map).
 - **pilot 2** index: DOI-encoded TEI filenames in `../pilot2_pdf_conversion/tei`
-  matched to the pilot-2 manual DOIs — the exact filename→DOI derivation from
-  `R/2_extract_tei_coi_funding.R` (`extract_doi_from_filename`).
+  matched to the pilot-2 manual DOIs. TEI filenames flatten every `/` in the DOI
+  to `-`, and a DOI suffix may contain `-` too, so both sides are compared as
+  `doi_key()` — lower case with `/` rewritten to `-`.
 
 Sourcing the file (without `PIPELINE_RUN=1`) only defines the functions; it does
 **not** auto-run the pilot.
@@ -130,7 +131,7 @@ template, which the dedicated-preregistration template regex does not catch).
 | `data/cache/funder_name_country.csv` | TEI funder name → registry resolution | funder logic |
 
 The metadata step is the only slow/networked one: `process_dois` queries OpenAlex
-+ Crossref (+ first/last author profiles), ~4 calls/DOI. Over the ~342 pilot DOIs
++ Crossref (+ first/last author profiles), ~4 calls/DOI. Over the ~345 pilot DOIs
 that is ~1,400 calls (all free). It is cached to `pipeline_metadata_cache.csv`
 after every 25-DOI batch, so a rerun fetches nothing. With all five caches warm,
 `run_pipeline(..., use_api = FALSE)` completes fully offline.
@@ -138,8 +139,8 @@ after every 25-DOI batch, so a rerun fetches nothing. With all five caches warm,
 ## Behaviour fidelity
 
 The copied functions reproduce the source scripts exactly. Verified by an
-all-342-paper regression against the scripts' existing on-disk outputs — every
-reused field matched **342/342**:
+all-342-paper regression against the scripts' existing on-disk outputs, which
+cover the 342 papers in `data/stages/` — every reused field matched **342/342**:
 
 | field(s) | vs | match |
 |----------|----|-------|
@@ -157,35 +158,37 @@ Agreement measured on papers with a manual answer. `funding_category` vs `X8.1`,
 `X8.1` uses fixed options (matched case-insensitively: leading `No` → no
 statement; else `no funding` → no funding; else `Yes`/provides → funded).
 Pilot-1 `X8.1` is free text (no-funding phrase → no funding; non-blank → funded;
-**blank → no statement**, per the coding spec).
+**blank → uncoded**, excluded from the comparison — see below).
 
-Pilot run (342 papers; index 161 pilot1 + 181 pilot2), accuracy = agreement/coded:
+Pilot run (345 papers; index 161 pilot1 + 184 pilot2), accuracy = agreement/coded:
 
 | category | pilot 1 | pilot 2 | pooled |
 |----------|---------|---------|--------|
-| `funding_category` | 0.391 (63/161) | **0.900 (72/80)** | 0.560 (135/241) |
-| `coi_category`     | 0.750 (48/64)  | 0.852 (69/81)   | 0.807 (117/145) |
-| `prereg_present`   | 0.938 (60/64)  | 0.951 (77/81)   | 0.945 (137/145) |
+| `funding_category` | 0.904 (47/52)  | 0.902 (74/82)   | 0.903 (121/134) |
+| `coi_category`     | 0.750 (48/64)  | 0.855 (71/83)   | 0.810 (119/147) |
+| `prereg_present`   | 0.938 (60/64)  | 0.952 (79/83)   | 0.946 (139/147) |
 
 Pooled confusion matrices (rows = auto, cols = manual):
 
 ```
 funding_category            coi_category                                        prereg_present
               funded noF noS               conflict noConf noStmt                      F   T
-funded            97   4  93   conflict          5      1      2            FALSE    101   4
-no funding         2  12   3   no conflict       9     81      4            TRUE       4  36
-no statement       3   1  26   no statement      2     10     31
+funded            99   4   3   conflict          5      1      2            FALSE    103   4
+no funding         2  12   0   no conflict       9     82      4            TRUE       4  36
+no statement       3   1  10   no statement      2     10     32
 ```
 
-**Read the funding numbers via pilot 2 (0.900).** Pilot-2 `X8.1` is a
-purpose-built categorical field and is the trustworthy signal. The pilot-1 and
-pooled funding numbers are **depressed by incomplete manual transcription, not
-pipeline error**: pilot-1 `X8.1` is free text that coders filled in only when
-funding existed. Of the 109 pilot-1 papers with a blank `X8.1` (→ manual "no
-statement"), the pipeline finds funding for 87, and **57 of those carry a
-publisher-deposited Crossref funder ID** — definitive proof of funding the coder
-did not transcribe. So the 93 auto-funded / manual-"no statement" cell is
-overwhelmingly a coding-form gap, not a false positive.
+**A blank pilot-1 `X8.1` is uncoded, not "no funding statement".** Pilot-1
+coders filled the free-text field in when funding existed and left it empty
+otherwise, so only 52 of the 161 coded pilot-1 papers carry an answer. A blank
+therefore cannot separate "the article has no funding statement" from "the coder
+did not transcribe one", and the 109 blanks are excluded from the funding
+comparison. The evidence that they are transcription gaps: the pipeline finds
+funding for 90 of the 109, 84 of those have a funding statement in the TEI, and
+**57 carry a publisher-deposited Crossref funder ID** — the publisher's own
+structured record of the funding. Exactly 1 of the 90 has neither. Pilot-2
+`X8.1` is a purpose-built categorical field with forced options, so its blanks
+are genuinely uncoded rows and every answered row counts.
 
 **COI disagreements.** Of the 12 pooled cases where auto and manual both record a
 statement but disagree, 7 are manual coding errors (statements that plainly

@@ -336,10 +336,15 @@ manual_funding_category <- function(x, pilot) {
     if (grepl("no funding", x, ignore.case = TRUE)) return("no funding")
     if (grepl("provides funding|^Yes", x, ignore.case = TRUE)) return("funded")
     return(NA_character_)               # stray CRediT-type answers
-  } else {                              # pilot 1: free text (blank => no statement)
+  } else {                              # pilot 1: free text
     if (grepl(no_funding_re, x) && !grepl(positive_funding_re, x)) return("no funding")
     if (nzchar(x)) return("funded")
-    return("no statement")             # blank funding-statement field
+    # Blank counts as uncoded, not as "no funding statement". Coders filled the
+    # field in when funding existed and left it empty otherwise, so a blank does
+    # not distinguish "the article has no funding statement" from "the coder did
+    # not transcribe one": of the 109 blanks, 84 articles have a funding
+    # statement in the TEI and 57 a publisher-deposited Crossref funder ID.
+    return(NA_character_)
   }
 }
 manual_coi_category <- function(x) {
