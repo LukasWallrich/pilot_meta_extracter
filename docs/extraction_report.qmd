@@ -1,5 +1,5 @@
 ---
-title: "Automated metadata extraction for the pilot-study meta-analysis"
+title: "Automated metadata extraction for the pilot-study assessment"
 subtitle: "Method, validation and coverage across the pilot-1 and pilot-2 samples"
 date: today
 format:
@@ -60,8 +60,8 @@ n_ex2    <- nrow(ex2)
 
 ## What this is
 
-The meta-analysis asks how psychology articles report **pilot studies**, and
-whether articles that report one differ from those that do not on transparency
+This meta-scientific assessment asks how psychology articles report **pilot
+studies**, and whether articles that report one differ from those that do not on transparency
 and governance markers — journal transparency policy, funding, conflicts of
 interest and preregistration. Answering that needs those markers for every
 article in the sampling frame, not only for the articles a human coded.
@@ -395,6 +395,151 @@ conf_gt("prereg_present", "man_prereg", "prereg_present")
 ```
 
 :::
+
+### A known blind spot in conflict-of-interest capture
+
+`coi_category == "no statement"` should be read with care for some publishers.
+Across both frames, 62.6% of articles carry a COI statement, but the rate by
+publisher runs from **13.4% for APA (`10.1037`, n = 1,036)** to **95.7% for
+MDPI**, with SAGE, Springer and Taylor & Francis all between 88% and 96%. That
+spread is too wide to be reporting culture alone.
+
+Checking the source confirms it is a parsing limit. In the validation set,
+detection sensitivity is **92.9% outside APA and Cambridge but 50.0% within**
+(n = 27). Taking one verified case,
+[10.1037/xap0000495](https://doi.org/10.1037/xap0000495): the PDF's author note
+reads "The authors have no conflicts of interest to disclose", and the 87,342-character
+GROBID TEI contains no match for conflict, competing interest, disclose or
+disclosure at all. APA places disclosures in the page-1 author note, and GROBID
+does not carry that note into the TEI. In a sample of 400 articles marked
+`no statement`, only 10.2% contain any COI wording in their TEI — so the
+absence is genuine for most, but not for the affected publishers.
+
+Funding is not affected in the same way, because Crossref supplies structured
+funder IDs for 58.8% of APA articles and the pipeline uses them. There is no
+equivalent deposit for COI: a Crossref COI field exists for 7–9% of articles
+overall and rescued none.
+
+**Implication.** For APA, Cambridge and `10.1192` — about 1,840 articles, 21% of
+the pooled dataset — `no statement` conflates "the article has none" with "we
+could not see it", and treating it as an affirmative absence will produce a
+spurious publisher effect.
+
+**What is being done.** This is
+[metacheck issue #325](https://github.com/scienceverse/metacheck/issues/325).
+The maintainers expect it to be resolved by the forthcoming **bibr** import —
+bibr is the PDF-to-JSON extraction service replacing GROBID inside metacheck,
+and its author reports that it "has a section classification module that detects
+ethics/funding/coi sections very well". We are seeking access to test that
+claim against this set, which is a good benchmark for it: 8,711 PDFs, 345
+manually coded articles, publisher-level sensitivity measured, and 12 confirmed
+misses to check. bibr is not yet publicly released — there is no public
+repository, image or self-hosting documentation — so the test waits on either an
+API key or the server image. Until then the COI column stands as described, and
+the affected publishers should be handled explicitly in any analysis.
+
+### Every disagreement, article by article
+
+The matrices above say how many cells disagree, not who was right. The table
+below lists **every** disagreeing article so that each one can be adjudicated
+against the source: what the pipeline said, what the coder said, the coder's
+raw answer, and the evidence the pipeline acted on. Follow the DOI to check.
+
+```{r disagreements}
+ev_trunc <- function(x, n = 160) {
+  x <- gsub("\\s+", " ", x)
+  ifelse(is.na(x) | !nzchar(x), "(nothing extracted)",
+         ifelse(nchar(x) > n, paste0(substr(x, 1, n), "…"), x))
+}
+
+disagree <- bind_rows(
+  val |> filter(!is.na(man_fund), funding_category != man_fund) |>
+    transmute(Field = "funding_category", doi, Round = pilot,
+              Pipeline = funding_category, Coder = man_fund,
+              `Coder's raw answer` = ev_trunc(mfund),
+              `Pipeline evidence` = ev_trunc(coalesce(funding_statement, funders))),
+  val |> filter(!is.na(man_coi), coi_category != man_coi) |>
+    transmute(Field = "coi_category", doi, Round = pilot,
+              Pipeline = coi_category, Coder = man_coi,
+              `Coder's raw answer` = ev_trunc(mcoi),
+              `Pipeline evidence` = ev_trunc(coi_statement)),
+  val |> filter(!is.na(man_prereg), prereg_present != man_prereg) |>
+    transmute(Field = "prereg_present", doi, Round = pilot,
+              Pipeline = as.character(prereg_present), Coder = as.character(man_prereg),
+              `Coder's raw answer` = ev_trunc(mprereg),
+              `Pipeline evidence` = ev_trunc(paste0(
+                coalesce(prereg_platform, "no platform"), " — ",
+                coalesce(prereg_url, "no URL"),
+                ifelse(is_trial_registry, " [trial registry]", ""),
+                ifelse(registration_any, " [registration_any = TRUE]", ""))))
+) |> arrange(Field, Pipeline, Coder)
+
+dis_tbl <- function(f) {
+  disagree |>
+    filter(Field == f) |>
+    mutate(DOI = sprintf("[%s](https://doi.org/%s)", doi, doi)) |>
+    select(DOI, Round, Pipeline, Coder, `Coder's raw answer`, `Pipeline evidence`) |>
+    gt() |>
+    fmt_markdown(columns = DOI) |>
+    tab_header(title = paste(f, "— every disagreeing article"),
+               subtitle = sprintf("%d of %d coded articles",
+                                  sum(disagree$Field == f),
+                                  sum(!is.na(val[[c(funding_category = "man_fund",
+                                                    coi_category = "man_coi",
+                                                    prereg_present = "man_prereg")[[f]]]])))) |>
+    cols_width(DOI ~ px(230), Round ~ px(70), Pipeline ~ px(120), Coder ~ px(120),
+               `Coder's raw answer` ~ px(240), `Pipeline evidence` ~ px(360)) |>
+    tab_options(table.width = pct(100), table.font.size = px(13)) |>
+    tab_style(style = cell_text(size = px(12)),
+              locations = cells_body(columns = c(`Coder's raw answer`, `Pipeline evidence`))) |>
+    tab_style(style = cell_text(whitespace = "nowrap"),
+              locations = cells_body(columns = c(DOI, Round, Pipeline, Coder))) |>
+    cols_align("left", columns = everything())
+}
+```
+
+:::: {.column-page}
+
+::: {.panel-tabset}
+
+## Funding (`r sum(disagree$Field == "funding_category")`)
+
+```{r dis-funding}
+dis_tbl("funding_category")
+```
+
+## Conflict of interest (`r sum(disagree$Field == "coi_category")`)
+
+```{r dis-coi}
+dis_tbl("coi_category")
+```
+
+## Preregistration (`r sum(disagree$Field == "prereg_present")`)
+
+```{r dis-prereg}
+dis_tbl("prereg_present")
+```
+
+:::
+
+::::
+
+```{r dis-download}
+#| results: asis
+csv <- paste(capture.output(write.csv(disagree, row.names = FALSE)), collapse = "\n")
+cat(sprintf(
+  '<p><a download="pipeline_coder_disagreements.csv" href="data:text/csv;base64,%s">Download all %d disagreements as CSV</a> — for adjudicating offline and recording a verdict per row.</p>',
+  base64enc::base64encode(charToRaw(csv)), nrow(disagree)))
+```
+
+**One pattern to check first.** Several preregistration disagreements look
+definitional rather than factual: the pipeline separates a *preregistration*
+from a *trial-registry* entry, so an article registered on ClinicalTrials.gov
+gets `prereg_present = FALSE` but `registration_any = TRUE`, while a coder
+asked "were the studies preregistered?" may reasonably answer yes. Where the
+evidence column shows `[trial registry]`, the two are answering different
+questions, and `registration_any` is the column that matches the coder's
+intent.
 
 ## Results
 
