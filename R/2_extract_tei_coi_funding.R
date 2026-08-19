@@ -40,13 +40,52 @@ no_funding_re <- regex(paste0(
   "no funding (was )?received|",
   "(study|research|work|project|paper|article|comment\\w*|commentary) (was|were) not funded|",
   "(was|were) not funded by any|",
-  "there (was|were|is|are) no (external )?funding"
+  "there (was|were|is|are) no (external )?funding|",
+  "no funding to (declare|report|disclose)|",
+  "no funding (was )?(provided|obtained|available|used)|",
+  "no sources? of funding|",
+  "(report|declare)[a-z]* no funding"
+), ignore_case = TRUE)
+
+# An ethics committee is never a funder. GROBID tags these bodies as
+# organisations in the same back-matter that carries funder names, and one of
+# them is enough to turn an explicit "no funding" statement into "funded".
+ethics_body_re <- regex(paste0(
+  "institutional review board|\\bIRB\\b|review board|",
+  "ethics (committee|board|commission|panel)|ethical (review|committee|board)|",
+  "research ethics"
+), ignore_case = TRUE)
+
+# Publisher boilerplate that names a funding programme without the article
+# being funded by it.
+oa_boilerplate_re <- regex(
+  "open access funding (enabled and organi[sz]ed by|provided by)[^.;]*[.;]?",
+  ignore_case = TRUE)
+
+# Cue required before an acknowledgements or author-note section counts as a
+# funding statement. Plain "support" is far too loose — acknowledgements thank
+# colleagues for their support constantly.
+ack_funding_re <- regex(paste0(
+  "grant|fellowship|scholarship|sponsor|financ|funded|donation|",
+  "funding (from|by|for|was|is|to)|",
+  "funds? (was|were) (provided|granted)|",
+  "(was|were|is|are) supported by|support (from|by) the|",
+  "support (provided|received) (by|from)|made possible by"
 ), ignore_case = TRUE)
 positive_funding_re <- regex(paste0(
   "funded by|grant (no|number|#|:)|under grant|fellowship from|",
   "financial support (from|by)|support(ed)? (from|by) the|",
   "awarded (by|to|from)|received (funding|a grant|support) (from|by)"
 ), ignore_case = TRUE)
+
+# "was not funded by any" contains "funded by", so a positive cue matches inside
+# a negation and cancels it. Test the positive cues on what is left once the
+# negation phrases are removed.
+declares_no_funding <- function(txt) {
+  if (length(txt) != 1 || is.na(txt) || !nzchar(txt)) return(FALSE)
+  str_detect(txt, no_funding_re) &&
+    !str_detect(str_remove_all(txt, no_funding_re), positive_funding_re)
+}
 
 trailing_section_re <- regex(
   paste0(
@@ -105,9 +144,16 @@ extract_regex <- function(tei_file, doi) {
       node_text("//rs[@type='funder']"),
       node_text("//listOrg[@type='funding']//orgName[not(@type='grant-name') and not(@type='grant-number')]")
     )
-    funder_names <- unique(funder_names[nchar(funder_names) > 0])
+    funder_names <- funder_names[!is.na(funder_names) & nchar(funder_names) > 0]
+    funder_names <- unique(funder_names[!str_detect(funder_names, ethics_body_re)])
 
     funding_parts <- character(0)
+    # Parts that came from a funding-proper section, i.e. not from
+    # acknowledgements. Whether the article declares no funding is judged on
+    # these alone: acknowledgements routinely thank other people's funders, and
+    # once the two are concatenated a negation and a positive cue sit in the
+    # same string and cancel out.
+    funding_parts_strict <- character(0)
     funding_content_re <- regex("fund|grant|support|financ|award|fellowship|scholarship|sponsor", ignore_case = TRUE)
 
     funding_parent_divs <- xml_find_all(doc, "//back//div[@type='funding']")
@@ -116,11 +162,14 @@ extract_regex <- function(tei_file, doi) {
       if (length(children) > 0) {
         for (child in children) {
           child_text <- xml_text(child) |> trimws()
-          if (nchar(child_text) > 0 && str_detect(child_text, funding_content_re))
+          if (nchar(child_text) > 0 && str_detect(child_text, funding_content_re)) {
             funding_parts <- c(funding_parts, clean_extracted_text(child_text))
+            funding_parts_strict <- c(funding_parts_strict, clean_extracted_text(child_text))
+          }
         }
       } else {
         funding_parts <- c(funding_parts, clean_extracted_text(xml_text(fp_node) |> trimws()))
+        funding_parts_strict <- c(funding_parts_strict, clean_extracted_text(xml_text(fp_node) |> trimws()))
       }
     }
 
@@ -137,8 +186,15 @@ extract_regex <- function(tei_file, doi) {
         is_ack_heading <- !is.na(heading_raw) &&
           (str_detect(heading_raw, regex("acknowledg|author.{0,3}note", ignore_case = TRUE)) ||
            str_detect(gsub("\\s+", "", heading_raw), regex("ACKNOWLEDG|AUTHORNOTE", ignore_case = TRUE)))
-        if (!is_ack_heading || str_detect(body_text, funding_content_re))
+        # Open-access boilerplate names a funding programme in almost every
+        # Wiley acknowledgements block, so strip it before deciding whether the
+        # section says anything about funding.
+        ack_probe <- str_remove_all(body_text, oa_boilerplate_re)
+        if (!is_ack_heading || str_detect(ack_probe, ack_funding_re)) {
           funding_parts <- c(funding_parts, cleaned_body)
+          if (!is_ack_heading)
+            funding_parts_strict <- c(funding_parts_strict, cleaned_body)
+        }
       }
     }
 
@@ -155,11 +211,20 @@ extract_regex <- function(tei_file, doi) {
     if (length(funding_parts) > 0)
       rx_funding_text <- paste(funding_parts, collapse = " || ")
 
-    if (length(funder_names) > 0) {
+    # Does the funding-proper section declare that there was no funding?
+    strict_txt <- if (length(funding_parts_strict) > 0)
+      paste(unique(funding_parts_strict), collapse = " || ") else NA_character_
+    no_funding_declared <- declares_no_funding(strict_txt)
+
+    # The "no funding" sentinel travels alongside any names that were found, not
+    # instead of them: a declared absence outranks a name harvested from the
+    # TEI, but a publisher-deposited funder ID is still allowed to contradict it
+    # downstream.
+    if (no_funding_declared) {
+      rx_funder_names <- paste(c("no funding", funder_names), collapse = " || ")
+    } else if (length(funder_names) > 0) {
       rx_funder_names <- paste(funder_names, collapse = " || ")
-    } else if (!is.na(rx_funding_text) &&
-               str_detect(rx_funding_text, no_funding_re) &&
-               !str_detect(rx_funding_text, positive_funding_re)) {
+    } else if (declares_no_funding(rx_funding_text)) {
       rx_funder_names <- "no funding"
     }
 

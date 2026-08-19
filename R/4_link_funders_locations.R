@@ -372,8 +372,8 @@ resolve_funder_names <- function(uniq_names, use_api = TRUE, cache_path = FUNDER
 # Returns one row: best_funders, best_funder_countries, funding_status.
 resolve_paper_funders <- function(journal, ids, tnames, ftxt, id_lookup, name_info) {
   ids <- ids[grepl("^10\\.13039/", ids)]
-  raw_tnames <- tnames
-  is_no_funding <- any(tolower(raw_tnames) == "no funding")
+  raw_tnames <- tnames[!is.na(tnames)]
+  is_no_funding <- isTRUE(any(tolower(raw_tnames) == "no funding"))
   tnames <- raw_tnames[tolower(raw_tnames) != "no funding"]
 
   name_get <- function(nm) {
@@ -458,7 +458,16 @@ resolve_paper_funders <- function(journal, ids, tnames, ftxt, id_lookup, name_in
     for (a in cr_set$funder_name) for (b in te_set$name)
       if (name_sim(norm_name_one(a), norm_name_one(b)) >= 0.80) { matched <- TRUE; break }
   }
-  recon <- if (is_no_funding && !has_cr && !has_te) "no_funding"
+  # An explicit "no funding" statement outranks a funder name harvested from the
+  # TEI, which is often an organisation mentioned in adjacent back matter rather
+  # than a funder. It does not outrank a publisher-deposited Crossref funder ID:
+  # that is strong evidence, and the disagreement is real rather than noise.
+  recon <- if (is_no_funding && !has_cr) "no_funding"
+           # The article says it was not funded, but the publisher deposited a
+           # funder ID. Crossref wins, because a deposited ID is a positive
+           # record rather than an inference -- but the disagreement is real and
+           # is labelled so it can be audited rather than silently resolved.
+           else if (is_no_funding && has_cr) "conflict_no_funding_vs_crossref"
            else if (!has_cr && !has_te) "none"
            else if (matched) "both"
            else if (has_cr && !has_te) "crossref_only"

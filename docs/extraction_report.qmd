@@ -46,11 +46,14 @@ idx2      <- read_out("data/pilot2_sample_index.csv")
 ex2       <- read_out("data/final_extraction_pilot2-sample.csv")
 
 # The 20 extraction columns are identical across the two frames, so the samples
-# stack once each row is labelled with the frame it came from.
+# stack once each row is labelled with the frame it came from. The pilot-1
+# driver also extracts the manually coded pilot-2 articles, so those appear in
+# both outputs and are deduplicated here; the pilot-1 row is kept.
 combined <- bind_rows(
   ex1 |> mutate(frame = "pilot-1 frame"),
   ex2 |> mutate(frame = "pilot-2 frame")
-)
+) |>
+  distinct(doi, .keep_all = TRUE)
 
 n_frame1 <- nrow(idx1 |> filter(article_status != "pilot2"))
 n_frame2 <- nrow(idx2)
@@ -399,9 +402,9 @@ conf_gt("prereg_present", "man_prereg", "prereg_present")
 ### A known blind spot in conflict-of-interest capture
 
 `coi_category == "no statement"` should be read with care for some publishers.
-Across both frames, 62.6% of articles carry a COI statement, but the rate by
-publisher runs from **13.4% for APA (`10.1037`, n = 1,036)** to **95.7% for
-MDPI**, with SAGE, Springer and Taylor & Francis all between 88% and 96%. That
+Across both frames, 62.4% of articles carry a COI statement, but the rate by
+publisher runs from **13.0% for APA (`10.1037`, n = 1,021)** to **95.9% for
+MDPI**, with SAGE, Springer and Taylor & Francis all between 88% and 93%. That
 spread is too wide to be reporting culture alone.
 
 Checking the source confirms it is a parsing limit. In the validation set,
@@ -416,11 +419,11 @@ does not carry that note into the TEI. In a sample of 400 articles marked
 absence is genuine for most, but not for the affected publishers.
 
 Funding is not affected in the same way, because Crossref supplies structured
-funder IDs for 58.8% of APA articles and the pipeline uses them. There is no
+funder IDs for 58.6% of APA articles and the pipeline uses them. There is no
 equivalent deposit for COI: a Crossref COI field exists for 7–9% of articles
 overall and rescued none.
 
-**Implication.** For APA, Cambridge and `10.1192` — about 1,840 articles, 21% of
+**Implication.** For APA, Cambridge and `10.1192` — 1,808 articles, 21% of
 the pooled dataset — `no statement` conflates "the article has none" with "we
 could not see it", and treating it as an affirmative absence will produce a
 spurious publisher effect.
