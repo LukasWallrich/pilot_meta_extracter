@@ -1,0 +1,661 @@
+---
+title: "Automated metadata extraction for the pilot-study meta-analysis"
+subtitle: "Method, validation and coverage across the pilot-1 and pilot-2 samples"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    code-fold: true
+    embed-resources: true
+    theme: cosmo
+    fig-width: 8
+    fig-height: 4.5
+execute:
+  warning: false
+  message: false
+  echo: true
+---
+
+```{r setup}
+# run_pipeline.R sources its modules by relative path, so chunks run from the
+# project root rather than from docs/.
+knitr::opts_knit$set(root.dir = here::here())
+
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(gt)
+library(here)
+library(scales)
+
+theme_set(theme_minimal(base_size = 12) +
+            theme(panel.grid.minor = element_blank(),
+                  plot.title.position = "plot"))
+
+PAL <- c("#3B6EA5", "#C1666B", "#7FB069", "#E5A34B", "#8A7090", "#9AA5B1")
+
+read_out <- function(f) read_csv(here(f), show_col_types = FALSE)
+
+pilot_val <- read_out("data/final_extraction_pilot1-and-pilot2.csv")
+idx1      <- read_out("data/full_sample_index.csv")
+ex1       <- read_out("data/final_extraction_full-empirical-sample.csv")
+idx2      <- read_out("data/pilot2_sample_index.csv")
+ex2       <- read_out("data/final_extraction_pilot2-sample.csv")
+
+# The 20 extraction columns are identical across the two frames, so the samples
+# stack once each row is labelled with the frame it came from.
+combined <- bind_rows(
+  ex1 |> mutate(frame = "pilot-1 frame"),
+  ex2 |> mutate(frame = "pilot-2 frame")
+)
+
+n_frame1 <- nrow(idx1 |> filter(article_status != "pilot2"))
+n_frame2 <- nrow(idx2)
+n_ex1    <- nrow(ex1)
+n_ex2    <- nrow(ex2)
+```
+
+## What this is
+
+The meta-analysis asks how psychology articles report **pilot studies**, and
+whether articles that report one differ from those that do not on transparency
+and governance markers — journal transparency policy, funding, conflicts of
+interest and preregistration. Answering that needs those markers for every
+article in the sampling frame, not only for the articles a human coded.
+
+This report documents the automated pipeline that produces them: what each
+column means, how accurate it is against manual coding, and what the two samples
+now contain.
+
+The unit of analysis is the **article**, identified by DOI. Every article
+contributes at most one row.
+
+## The two samples
+
+The project drew two sampling frames, one for each pilot round. They are
+independent draws from different search strategies and overlap in a single
+article, so their extraction outputs stack into one dataset.
+
+```{r tbl-samples}
+#| label: tbl-samples
+#| tbl-cap: "The two sampling frames and what has been extracted from each."
+
+tibble(
+  Frame = c("Pilot-1 frame", "Pilot-2 frame"),
+  `Source file` = c("full_sample.csv", "pilot2_sample.csv"),
+  `Articles in frame` = c(n_frame1, n_frame2),
+  `Manually coded` = c(
+    sum(idx1$article_status == "pilot1"),
+    sum(idx2$article_status == "pilot2-coded")),
+  `Extraction rows` = c(n_ex1, n_ex2)
+) |>
+  gt() |>
+  tab_header(title = "Sampling frames and extraction coverage") |>
+  fmt_integer(columns = where(is.numeric)) |>
+  cols_align("left", columns = c(Frame, `Source file`))
+```
+
+The two frames are filtered differently, and this matters for any analysis that
+pools them:
+
+- **Pilot-1 frame** — extraction is restricted to articles an LLM classifier
+  marked as *empirical*, plus every manually coded article regardless of that
+  classification. Articles classified non-empirical are in the index but carry
+  no extraction row.
+- **Pilot-2 frame** — extracted **unfiltered**. The classifier has run over the
+  pilot-1 frame only, so no `empirical` column exists for pilot 2.
+
+To pool the frames on comparable terms, filter the pilot-1 rows on
+`empirical == "yes"` in `data/full_sample_index.csv` and accept that the
+pilot-2 rows are unrestricted, or run the classifier over the pilot-2 abstracts
+first.
+
+### Coverage within each frame
+
+```{r tbl-coverage}
+#| label: tbl-coverage
+#| tbl-cap: "Why frame articles have no extraction row."
+
+cov1 <- idx1 |>
+  filter(article_status != "pilot2") |>
+  mutate(state = case_when(
+    doi %in% ex1$doi                  ~ "extracted",
+    is.na(tei_file)                   ~ "no TEI (PDF not converted)",
+    TRUE                              ~ "excluded: not classified empirical")) |>
+  count(state, name = "Pilot-1 frame")
+
+cov2 <- idx2 |>
+  mutate(state = case_when(
+    doi %in% ex2$doi ~ "extracted",
+    is.na(tei_file)  ~ "no TEI (PDF not converted)",
+    TRUE             ~ "TEI present but no extraction row")) |>
+  count(state, name = "Pilot-2 frame")
+
+full_join(cov1, cov2, by = "state") |>
+  arrange(desc(coalesce(`Pilot-1 frame`, 0L) + coalesce(`Pilot-2 frame`, 0L))) |>
+  rename(Status = state) |>
+  gt() |>
+  tab_header(title = "Article status within each sampling frame") |>
+  fmt_integer(columns = where(is.numeric)) |>
+  sub_missing(missing_text = "—")
+```
+
+## Method
+
+### Inputs
+
+Each article enters the pipeline as a **DOI** plus a path to a **GROBID TEI**
+file — a structured XML rendering of the article PDF, with headings, sections
+and back-matter marked up. TEI gives the extractors document structure, so a
+funding statement can be located by its heading rather than by scanning prose.
+
+PDF → TEI conversion runs as a GitHub Action in the companion
+`pilot2_pdf_conversion` repository: the PDFs live in a Google Drive folder, a
+fleet of parallel runners each convert a share of them through GROBID
+0.8.2.1-full, and one job commits the result.
+
+DOI → TEI matching is deterministic. TEI filenames carry the DOI with every
+`/` flattened to `-`, and a DOI suffix can itself contain `-`, so the slashes
+cannot be restored by position. Both sides are therefore compared on a key that
+lower-cases the DOI and rewrites `/` as `-`.
+
+### The four extraction modules
+
+```{r tbl-modules}
+#| label: tbl-modules
+#| tbl-cap: "The extraction modules, in run order."
+
+tibble(
+  Module = c("1. DOI metadata", "2. TEI funding & COI",
+             "3. Preregistration", "4. Funder → country"),
+  Source = c("OpenAlex + Crossref APIs", "GROBID TEI",
+             "GROBID TEI + OSF API", "Crossref Funder Registry + OpenAlex/ROR"),
+  Produces = c(
+    "Journal, ISSN, SJR, TOP Factor, first-author affiliation, structured funder IDs, Crossref COI text, abstract",
+    "Funding statement and conflict-of-interest statement text, located by document structure",
+    "Preregistration present, platform, URL; registered-report and trial-registry flags",
+    "Country for every named or ID-matched funder")
+) |>
+  gt() |>
+  tab_header(title = "Pipeline modules") |>
+  cols_width(Produces ~ px(420)) |>
+  cols_align("left", columns = everything())
+```
+
+Two design choices are worth stating explicitly.
+
+**Preregistration is gated on the registration template, not on the word.** An
+OSF link alone does not count: the pipeline resolves the OSF GUID through the
+OSF API and asks whether the object is a *registration* and, if so, under which
+template. An OSF *project* link is recorded as such and does not set
+`prereg_present`. Trial registries (ClinicalTrials.gov and equivalents) and
+AsPredicted are detected separately, and `registration_any` is the union of
+preregistration, registered report and trial registry.
+
+**Conflict of interest is classified by negation, not by presence.** A COI
+statement is first located (TEI, falling back to the Crossref deposit); a
+case-insensitive negation regex then decides whether it declares *no* conflict.
+No statement at all is a third, distinct category — the absence of a declaration
+is a finding, not a missing value.
+
+### Caching
+
+Every networked lookup — OpenAlex and Crossref metadata, OSF GUIDs and
+registration templates, funder ID and funder name resolution — is cached to
+disk. A rerun over the same DOIs makes no network calls, and
+`run_pipeline(..., use_api = FALSE)` errors rather than silently reaching the
+network, which is what makes the outputs reproducible offline.
+
+### The 20 output columns
+
+```{r tbl-columns}
+#| label: tbl-columns
+#| tbl-cap: "The extraction schema. Every row of both outputs has these columns."
+
+tibble::tribble(
+  ~Column, ~Meaning,
+  "doi", "Article DOI, normalised to lower case (join key)",
+  "journal, issn", "Venue name and primary ISSN",
+  "top_factor, sjr", "Journal transparency (TOP Factor) and Scimago (SJR) scores",
+  "first_author_country", "First author's country, preferring the article-level affiliation over the author's OpenAlex profile",
+  "first_author_location_full", "Institution, city, region, country for the same",
+  "first_author_location_source", "Which of the two supplied the location",
+  "funding_category", "funded / no funding / no statement",
+  "funding_statement", "The extracted funding text (audit trail)",
+  "funders", "Named funders, ||-separated",
+  "funding_country", "Distinct funder countries, ||-separated",
+  "coi_statement", "The extracted conflict-of-interest text (audit trail)",
+  "coi_category", "conflict declared / no conflict declared / no statement",
+  "prereg_present", "Whether the article reports a study preregistration",
+  "prereg_platform", "OSF registration, AsPredicted, ClinicalTrials.gov, …",
+  "prereg_url", "Registration link(s)",
+  "is_registered_report", "Registered Report",
+  "is_trial_registry", "Trial or health-registry entry",
+  "registration_any", "Any of the three above"
+) |>
+  gt() |>
+  tab_header(title = "Output schema") |>
+  cols_width(Column ~ px(220), Meaning ~ px(480)) |>
+  cols_align("left", columns = everything())
+```
+
+## Validation against manual coding
+
+Two rounds of manual coding provide the ground truth: `r sum(idx1$article_status == "pilot1")`
+articles in pilot 1 and `r sum(idx2$article_status == "pilot2-coded")` in pilot 2.
+Three pipeline outputs have a manual counterpart in the coding form —
+`funding_category`, `coi_category` and `prereg_present`. Agreement is measured
+only on articles where a coder gave an answer.
+
+```{r validation-setup}
+source(here("run_pipeline.R"))
+
+m1 <- read.csv(here("data/inputs/2025-12-09_Codingform_PilotingAssessment_pilot.csv"),
+               check.names = TRUE, stringsAsFactors = FALSE)
+m2 <- read.csv(here("data/inputs/2026-04-03_Codingform_PilotingAssessment_pilot2.csv"),
+               check.names = TRUE, stringsAsFactors = FALSE)
+
+man <- bind_rows(
+  tibble(doi = norm_doi(m1[["X1.2..Article.DOI"]]), pilot = "pilot 1",
+         mfund   = m1[["X8.1..Does.the.article.include.a.funding.statement."]],
+         mcoi    = m1[["X8.2..Does.the.article.include.a.statement.indicating.whether.there.were.any.conflicts.of.interest."]],
+         mprereg = m1[["X2.2...Does.the.article.state.whether.or.not.reported.study.studies.were.preregistered."]]),
+  tibble(doi = norm_doi(m2[["X1.2..Article.DOI"]]), pilot = "pilot 2",
+         mfund   = m2[["X8.1..Does.the.article.include.a.funding.statement."]],
+         mcoi    = m2[["X8.2..Does.the.article.include.a.statement.indicating.whether.there.were.any.conflicts.of.interest..COI.."]],
+         mprereg = m2[["X2.2...According.to.what.is.stated.in.the.article..were.the.reported.study.ies..preregistered.."]])
+) |>
+  filter(doi != "", doi != "test") |>
+  distinct(doi, .keep_all = TRUE) |>
+  mutate(
+    man_fund   = mapply(manual_funding_category, mfund, ifelse(pilot == "pilot 1", "pilot1", "pilot2")),
+    man_coi    = vapply(mcoi, manual_coi_category, character(1)),
+    man_prereg = vapply(mprereg, manual_prereg, logical(1)))
+
+val <- pilot_val |> inner_join(man, by = "doi")
+
+acc <- function(d, auto, manual) {
+  keep <- !is.na(d[[manual]]) & !is.na(d[[auto]])
+  tibble(n = sum(keep), agree = sum(d[[auto]][keep] == d[[manual]][keep])) |>
+    mutate(accuracy = agree / n)
+}
+
+metrics <- bind_rows(
+  lapply(c("pilot 1", "pilot 2"), function(p) {
+    d <- val |> filter(pilot == p)
+    bind_rows(
+      acc(d, "funding_category", "man_fund")   |> mutate(Field = "funding_category"),
+      acc(d, "coi_category",     "man_coi")    |> mutate(Field = "coi_category"),
+      acc(d, "prereg_present",   "man_prereg") |> mutate(Field = "prereg_present")
+    ) |> mutate(Round = p)
+  }),
+  {
+    d <- val
+    bind_rows(
+      acc(d, "funding_category", "man_fund")   |> mutate(Field = "funding_category"),
+      acc(d, "coi_category",     "man_coi")    |> mutate(Field = "coi_category"),
+      acc(d, "prereg_present",   "man_prereg") |> mutate(Field = "prereg_present")
+    ) |> mutate(Round = "pooled")
+  })
+```
+
+```{r tbl-accuracy}
+#| label: tbl-accuracy
+#| tbl-cap: "Agreement with manual coding, on articles a coder answered."
+
+metrics |>
+  mutate(cell = sprintf("%.3f (%d/%d)", accuracy, agree, n)) |>
+  select(Field, Round, cell) |>
+  pivot_wider(names_from = Round, values_from = cell) |>
+  gt() |>
+  tab_header(title = "Accuracy against manual coding") |>
+  cols_align("left", columns = Field)
+```
+
+### What a blank funding field means
+
+The pilot-1 coding form asked for the funding statement as **free text**. Coders
+filled it in when funding existed and left it empty otherwise, so a blank cannot
+separate *the article has no funding statement* from *the coder did not
+transcribe one*. Blanks are therefore treated as uncoded and excluded from the
+funding comparison.
+
+```{r blank-evidence}
+mc <- read_out("data/cache/pipeline_metadata_cache.csv") |>
+  mutate(doi = norm_doi(doi)) |>
+  select(doi, funding_funder_ids_crossref)
+
+blank1 <- val |>
+  filter(pilot == "pilot 1", is.na(mfund) | trimws(mfund) == "") |>
+  left_join(mc, by = "doi")
+
+n_blank      <- nrow(blank1)
+n_blank_fund <- sum(blank1$funding_category == "funded", na.rm = TRUE)
+bf <- blank1 |> filter(funding_category == "funded")
+n_blank_tei  <- sum(!is.na(bf$funding_statement) & nzchar(bf$funding_statement))
+n_blank_xref <- sum(!is.na(bf$funding_funder_ids_crossref) &
+                      nzchar(bf$funding_funder_ids_crossref))
+n_blank_none <- sum((is.na(bf$funding_statement) | !nzchar(bf$funding_statement)) &
+                      (is.na(bf$funding_funder_ids_crossref) |
+                         !nzchar(bf$funding_funder_ids_crossref)))
+n_answered1  <- sum(val$pilot == "pilot 1" & !is.na(val$mfund) & trimws(val$mfund) != "")
+```
+
+Of the **`r n_blank`** pilot-1 articles with a blank funding field, the pipeline
+finds funding for **`r n_blank_fund`**. Of those, **`r n_blank_tei`** have a
+funding statement in the article's own TEI and **`r n_blank_xref`** carry a
+publisher-deposited Crossref funder ID — the publisher's structured record of
+who paid for the work. Exactly **`r n_blank_none`** have neither. Only
+**`r n_answered1`** pilot-1 articles carry an answer in the field.
+
+Pilot 2 replaced the free-text box with a categorical question with forced
+options, so its blanks are genuinely unanswered rows and every answered row
+counts.
+
+### Where the pipeline and the coders disagree
+
+```{r tbl-confusion}
+#| label: tbl-confusion
+#| tbl-cap: "Pooled confusion matrices. Rows are the pipeline, columns the coder."
+#| results: asis
+
+conf_gt <- function(auto, manual, title) {
+  d <- val |> filter(!is.na(.data[[manual]]), !is.na(.data[[auto]]))
+  table(pipeline = d[[auto]], coder = d[[manual]]) |>
+    as.data.frame.matrix() |>
+    tibble::rownames_to_column("Pipeline") |>
+    gt() |>
+    tab_header(title = title) |>
+    tab_spanner(label = "Manual coding", columns = -Pipeline) |>
+    cols_align("left", columns = Pipeline)
+}
+```
+
+::: {.panel-tabset}
+
+## Funding
+
+```{r conf-funding}
+conf_gt("funding_category", "man_fund", "funding_category")
+```
+
+## Conflict of interest
+
+```{r conf-coi}
+conf_gt("coi_category", "man_coi", "coi_category")
+```
+
+## Preregistration
+
+```{r conf-prereg}
+conf_gt("prereg_present", "man_prereg", "prereg_present")
+```
+
+:::
+
+## Results
+
+All figures below come from the two extraction outputs as they stand:
+`r comma(n_ex1)` articles from the pilot-1 frame and `r comma(n_ex2)` from the
+pilot-2 frame. Read differences *between* frames with care — the pilot-1 rows
+are restricted to articles classified empirical, the pilot-2 rows are not, and
+the two frames were drawn by different search strategies. The comparison the
+study is designed to make is *within* the pilot-2 frame, between keyword hits
+and non-hits.
+
+```{r results-setup}
+share <- function(d, col) {
+  d |> count(frame, value = .data[[col]]) |>
+    group_by(frame) |> mutate(pct = n / sum(n)) |> ungroup()
+}
+
+fund_share   <- share(combined, "funding_category")
+coi_share    <- share(combined, "coi_category")
+reg_share    <- combined |>
+  count(frame, value = registration_any) |>
+  group_by(frame) |> mutate(pct = n / sum(n)) |> ungroup() |>
+  mutate(value = ifelse(value, "registered", "not registered"))
+
+pct <- function(d, v, f) {
+  x <- d |> filter(frame == f, value == v)
+  if (nrow(x) == 0) return("0%")
+  sprintf("%.0f%%", 100 * x$pct)
+}
+```
+
+### Funding, conflicts of interest and registration
+
+```{r fig-categories}
+#| label: fig-categories
+#| fig-cap: "Distribution of the three headline categories across the two frames."
+#| fig-height: 6
+
+bind_rows(
+  fund_share |> mutate(field = "Funding"),
+  coi_share  |> mutate(field = "Conflict of interest"),
+  reg_share  |> mutate(field = "Any registration")
+) |>
+  mutate(field = factor(field, c("Funding", "Conflict of interest", "Any registration"))) |>
+  ggplot(aes(pct, value, fill = frame)) +
+  geom_col(position = position_dodge(width = 0.75), width = 0.65) +
+  facet_wrap(~field, ncol = 1, scales = "free_y") +
+  scale_x_continuous(labels = percent_format(accuracy = 1),
+                     expand = expansion(mult = c(0, 0.08))) +
+  scale_fill_manual(values = PAL[1:2]) +
+  labs(x = "Share of extracted articles", y = NULL, fill = NULL)
+```
+
+```{r tbl-headline}
+#| label: tbl-headline
+#| tbl-cap: "Headline shares by frame."
+
+bind_rows(
+  fund_share |> mutate(Field = "funding_category"),
+  coi_share  |> mutate(Field = "coi_category"),
+  reg_share  |> mutate(Field = "registration_any")
+) |>
+  mutate(cell = sprintf("%s (%.0f%%)", comma(n), 100 * pct)) |>
+  select(Field, Category = value, frame, cell) |>
+  pivot_wider(names_from = frame, values_from = cell) |>
+  gt(groupname_col = "Field") |>
+  tab_header(title = "Funding, COI and registration by frame") |>
+  sub_missing(missing_text = "—") |>
+  cols_align("left", columns = Category)
+```
+
+Three things stand out.
+
+**Funding statements are far more common in the pilot-1 frame** —
+`r pct(fund_share, "funded", "pilot-1 frame")` of its articles are recorded as
+funded against `r pct(fund_share, "funded", "pilot-2 frame")` in the pilot-2
+frame — and the gap runs the other way for articles with no funding statement at
+all. The frames' journal mixes differ enough to explain this without any
+pipeline difference: the TOP Factor is missing for
+`r comma(sum(is.na(ex2$top_factor)))` pilot-2 articles against
+`r comma(sum(is.na(ex1$top_factor)))` in pilot 1, meaning the pilot-2 frame
+reaches further outside the set of journals with a recorded transparency policy.
+
+**Conflict-of-interest reporting goes the other way.** A COI statement of some
+kind is present for `r sprintf('%.1f%%', 100 * mean(ex2$coi_category != "no statement"))`
+of pilot-2 articles against `r sprintf('%.1f%%', 100 * mean(ex1$coi_category != "no statement"))`
+of pilot-1 articles. Declared conflicts remain rare in both
+(`r pct(coi_share, "conflict declared", "pilot-1 frame")` and
+`r pct(coi_share, "conflict declared", "pilot-2 frame")`); the common case by
+far is an explicit statement that there is no conflict.
+
+**Registration is a minority practice in both frames** —
+`r pct(reg_share, "registered", "pilot-1 frame")` and
+`r pct(reg_share, "registered", "pilot-2 frame")` of articles report any
+registration at all.
+
+### Preregistration platforms
+
+```{r fig-platforms}
+#| label: fig-platforms
+#| fig-cap: "Where articles that report a registration register it."
+
+combined |>
+  filter(!is.na(prereg_platform)) |>
+  tidyr::separate_rows(prereg_platform, sep = "\\|\\|") |>
+  mutate(prereg_platform = trimws(prereg_platform)) |>
+  count(frame, prereg_platform) |>
+  group_by(prereg_platform) |> filter(sum(n) >= 5) |> ungroup() |>
+  mutate(prereg_platform = reorder(prereg_platform, n, sum)) |>
+  ggplot(aes(n, prereg_platform, fill = frame)) +
+  geom_col(position = position_dodge(width = 0.75), width = 0.65) +
+  scale_fill_manual(values = PAL[1:2]) +
+  scale_x_continuous(expand = expansion(mult = c(0, 0.08))) +
+  labs(x = "Articles", y = NULL, fill = NULL)
+```
+
+### Journal transparency and first-author geography
+
+```{r fig-context}
+#| label: fig-context
+#| fig-cap: "TOP Factor distribution and the ten most common first-author countries."
+#| fig-height: 5
+
+p_top <- combined |>
+  filter(!is.na(top_factor)) |>
+  ggplot(aes(top_factor, fill = frame)) +
+  geom_histogram(binwidth = 1, position = "identity", alpha = 0.65) +
+  scale_fill_manual(values = PAL[1:2]) +
+  labs(x = "TOP Factor", y = "Articles", fill = NULL)
+
+p_geo <- combined |>
+  filter(!is.na(first_author_country)) |>
+  count(frame, first_author_country) |>
+  group_by(first_author_country) |> mutate(tot = sum(n)) |> ungroup() |>
+  slice_max(tot, n = 20, with_ties = FALSE) |>
+  mutate(first_author_country = reorder(first_author_country, tot)) |>
+  ggplot(aes(n, first_author_country, fill = frame)) +
+  geom_col(width = 0.7) +
+  scale_fill_manual(values = PAL[1:2]) +
+  scale_x_continuous(expand = expansion(mult = c(0, 0.08))) +
+  labs(x = "Articles", y = NULL, fill = NULL)
+
+p_top
+p_geo
+```
+
+### Pilot-keyword screening
+
+The pilot-2 index records whether the pilot-keyword screen (`pilot`,
+`preliminary study`, `feasibility study`) matched anywhere outside the reference
+list. This is the contrast the study is built around, and it only became
+available once the whole frame was converted: the PDFs converted first were
+themselves a keyword-selected subset, so the non-hit group did not exist as
+machine-readable text until now.
+
+A keyword hit is a **screen, not a coding decision** — an article that mentions a
+pilot study someone else ran counts as a hit. Treat the contrast below as an
+upper bound on how cleanly the groups separate.
+
+```{r kw-setup}
+kw <- ex2 |>
+  left_join(idx2 |> select(doi, keyword_hit), by = "doi") |>
+  filter(!is.na(keyword_hit))
+
+kw_test <- function(flag, label) {
+  d <- kw |> mutate(y = flag)
+  t <- table(d$keyword_hit, d$y)
+  p <- prop.test(t[, "TRUE"], rowSums(t))
+  tibble(
+    Marker    = label,
+    `No hit`  = p$estimate[[1]],
+    `Hit`     = p$estimate[[2]],
+    `Difference (pp)` = 100 * (p$estimate[[2]] - p$estimate[[1]]),
+    `95% CI`  = sprintf("%.1f to %.1f", -100 * p$conf.int[2], -100 * p$conf.int[1]),
+    p.value   = p$p.value)
+}
+
+kw_tbl <- bind_rows(
+  kw_test(kw$funding_category == "funded",  "Funded"),
+  kw_test(kw$coi_category != "no statement", "COI statement present"),
+  kw_test(kw$prereg_present,                "Preregistration reported"),
+  kw_test(kw$registration_any,              "Any registration"))
+```
+
+```{r tbl-keyword}
+#| label: tbl-keyword
+#| tbl-cap: "Transparency markers by pilot-keyword screen, pilot-2 frame."
+
+kw_tbl |>
+  gt() |>
+  tab_header(
+    title = "Pilot-keyword hits vs non-hits",
+    subtitle = sprintf("%s hits, %s non-hits",
+                       comma(sum(kw$keyword_hit)), comma(sum(!kw$keyword_hit)))) |>
+  fmt_percent(columns = c(`No hit`, Hit), decimals = 1) |>
+  fmt_number(columns = `Difference (pp)`, decimals = 1) |>
+  fmt_scientific(columns = p.value, decimals = 1) |>
+  cols_align("left", columns = Marker)
+```
+
+```{r kw-vals}
+#| echo: false
+kwv <- function(m, col) kw_tbl[[col]][kw_tbl$Marker == m]
+kwp <- function(m, col) sprintf("%.1f%%", 100 * kwv(m, col))
+kwd <- function(m) sprintf("%.1f pp (95%% CI %s)", kwv(m, "Difference (pp)"), kwv(m, "95% CI"))
+```
+
+Articles the screen flags are markedly more likely to report a registration.
+Any registration rises from `r kwp("Any registration", "No hit")` among non-hits
+to `r kwp("Any registration", "Hit")` among hits — a difference of
+`r kwd("Any registration")` — and preregistration specifically from
+`r kwp("Preregistration reported", "No hit")` to
+`r kwp("Preregistration reported", "Hit")`,
+`r kwd("Preregistration reported")`. Funding follows the same direction more
+weakly, `r kwd("Funded")`.
+
+Conflict-of-interest reporting does not separate the groups: the difference is
+`r kwd("COI statement present")`, an interval that includes zero.
+
+Whether this reflects something about pilot studies or about the kind of
+research that mentions them is not something the screen can settle — it is a
+description of the frame, not a causal claim, and the manual coding is what will
+distinguish articles that *report* a pilot study from those that merely mention
+one.
+
+```{r fig-keyword}
+#| label: fig-keyword
+#| fig-cap: "Transparency markers among pilot-keyword hits and non-hits."
+
+kw_tbl |>
+  select(Marker, `No hit`, Hit) |>
+  pivot_longer(-Marker, names_to = "group", values_to = "p") |>
+  mutate(Marker = factor(Marker, rev(kw_tbl$Marker))) |>
+  ggplot(aes(p, Marker, fill = group)) +
+  geom_col(position = position_dodge(width = 0.7), width = 0.6) +
+  scale_x_continuous(labels = percent_format(accuracy = 1),
+                     expand = expansion(mult = c(0, 0.08))) +
+  scale_fill_manual(values = c(`No hit` = PAL[6], Hit = PAL[1])) +
+  labs(x = "Share of articles", y = NULL, fill = "Keyword screen")
+```
+
+## Reproducing this
+
+```{r reproduce}
+#| echo: false
+#| results: asis
+cat("```\n",
+    "# pilot-1 frame\n",
+    "Rscript run_full_sample.R\n\n",
+    "# pilot-2 frame\n",
+    "Rscript run_pilot2_sample.R\n\n",
+    "# validation against the manual coding\n",
+    "PIPELINE_RUN=1 Rscript run_pipeline.R\n",
+    "```\n", sep = "")
+```
+
+All three read from the on-disk caches under `data/cache/`, so a rerun makes no
+network calls. Column-by-column derivation rules are in
+`docs/README_pipeline.md`.
+
+```{r session}
+#| code-fold: true
+sessionInfo()
+```
