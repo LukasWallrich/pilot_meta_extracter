@@ -441,6 +441,38 @@ repository, image or self-hosting documentation — so the test waits on either 
 API key or the server image. Until then the COI column stands as described, and
 the affected publishers should be handled explicitly in any analysis.
 
+::: {.callout-important}
+## Open question for the team: does open-access funding count as funding?
+
+**A decision is needed, and it changes the data.** Many articles carry a line
+such as "Open Access funding enabled and organized by Projekt DEAL" or "Open
+access funding provided by Alma Mater Studiorum Università di Bologna". This is
+a library consortium or institution paying the article-processing charge, not a
+body that funded the research.
+
+**The pipeline currently excludes it.** Open-access boilerplate is stripped
+before a section is judged to be a funding statement, so an article whose only
+funding-like text is an APC arrangement is recorded as `no statement`.
+
+**Coders have counted it as funding.** Two of the funding disagreements listed
+below are exactly this, not extraction errors:
+[10.3758/s13428-022-01974-6](https://doi.org/10.3758/s13428-022-01974-6), where
+the coder recorded "Open access funding provided by Alma Mater Studiorum
+Università di Bologna", and
+[10.1111/apps.12466](https://doi.org/10.1111/apps.12466), whose only
+funding-related text in the whole article is the Projekt DEAL line.
+
+**Why it matters beyond those two.** The convention decides how a whole class of
+European open-access articles is classified, and it interacts with the funder
+country column: an APC payer would otherwise be recorded as a funder, and its
+country as a funding country.
+
+**What we need from you:** confirm the exclusion, or ask for it to be reversed —
+in which case APC payers become funders and the codebook should say so
+explicitly, so manual and automated coding agree. Either way the rule should be
+stated in the codebook rather than left implicit.
+:::
+
 ### Every disagreement, article by article
 
 The matrices above say how many cells disagree, not who was right. The table
