@@ -74,6 +74,11 @@ auto_databases <- process_dois(dois, return_location_details = TRUE)
 auto_tei = read.csv("data/stages/tei_coi_funding_extracted_pilot1-and-pilot2.csv") |>
   dplyr::filter(coding == "pilot2")
 
+# fixme check
+#auto_tei = 
+#  read.csv("data/tei_coi_funding_extracted.csv") %>%
+# select(-"coding") #remove because already in manual coding file
+
 # combine files 
 comb = 
   manual %>%
@@ -112,17 +117,25 @@ comb =
   # indicator of whether funding info was extracted
   mutate(
     funding_auto_extracted = if_any(starts_with("funding"), ~ 
-                              !is.na(.) & str_trim(.) != "" & !str_to_lower(.) %in% c("na", "n/a")
+                              !is.na(.) & str_trim(.) != "" & !str_to_lower(.) %in% c("na", "n/a")|
+                              !(rx_funding_found == FALSE | is.na(rx_funding_found))
     ),
-    funding_manual_extracted = !is.na(.data[["X8.1..Does.the.article.include.a.funding.statement."]]) &
+    # different coding for pilot 1 and pilot 2
+    funding_manual_extracted = 
+      ifelse(coding == "pilot1", 
+      !is.na(.data[["X8.1..Does.the.article.include.a.funding.statement."]]) &
       str_trim(.data[["X8.1..Does.the.article.include.a.funding.statement."]]) != "" &
-      !str_to_lower(.data[["X8.1..Does.the.article.include.a.funding.statement."]]) %in% c("na", "n/a")
+      !str_to_lower(.data[["X8.1..Does.the.article.include.a.funding.statement."]]) %in% c("na", "n/a"),
+    # for pilot 2 split into two questions
+      !is.na(.data[["X8.1.1.If.the.article.include.a.funding.statement..what.is.the.statement."]]) &
+      str_trim(.data[["X8.1.1.If.the.article.include.a.funding.statement..what.is.the.statement."]]) != "" &
+      !str_to_lower(.data[["X8.1.1.If.the.article.include.a.funding.statement..what.is.the.statement."]]) %in% c("na", "n/a"))
   ) %>%
   # indicator of whether COI info was extracted
   mutate(
     coi_auto_extracted = if_any(starts_with("coi"), ~ 
                               !is.na(.) & str_trim(.) != "" & !str_to_lower(.) %in% c("na", "n/a")|
-                              if_any(starts_with("rx_coi"), ~ !is.na(.))
+                              !(rx_coi_found == FALSE | is.na(rx_coi_found))
     ),
     coi_manual_extracted_content_available = !is.na(.data[["X8.2.1..If.there.is.a.conflict.of.interest.statement..what.is.the.statement."]]) &
       str_trim(.data[["X8.2.1..If.there.is.a.conflict.of.interest.statement..what.is.the.statement."]]) != "" &
@@ -140,14 +153,14 @@ comb =
 
 ```{r pilot1-sample}
 pilot1_sample_papers = 
-  data %>%
+  comb %>%
   filter(coding == "pilot1") %>%
   distinct(doi, .keep_all = TRUE) %>%
   group_by(includes_pilot) %>%
   summarise(n_papers = n())
 
 pilot1_sample_coders = 
-  data %>%
+  comb %>%
   filter(coding == "pilot1") %>%
   distinct(doi, X1.1..Coder.Initials) %>%
   group_by(X1.1..Coder.Initials) %>%
@@ -156,6 +169,9 @@ pilot1_sample_coders =
 ```
 
 `r sum(pilot1_sample_papers$n_papers)` papers were inspected by `r nrow(pilot1_sample_coders)` coders in the first pilot study. Out of these `r sum(pilot1_sample_papers$n_papers)` papers, `r pilot1_sample_papers$n_papers[pilot1_sample_papers$includes_pilot == "yes"]` (`r round(pilot1_sample_papers$n_papers[pilot1_sample_papers$includes_pilot == "yes"] / sum(pilot1_sample_papers$n_papers) * 100, 1)`%) papers included a statement that a pilot study was conducted, while `r pilot1_sample_papers$n_papers[pilot1_sample_papers$includes_pilot != "yes"]` (`r round(pilot1_sample_papers$n_papers[pilot1_sample_papers$includes_pilot != "yes"] / sum(pilot1_sample_papers$n_papers) * 100, 1)`%) papers did not include such a statement.
+
+
+
 
 ## Pilot data extraction
 
@@ -240,13 +256,13 @@ Crossref was used to extract funding information (funder names, funder IDs, and 
 
 ```{r auto-pilot1-funding-coi-overlap}
 # Funding: overlap between auto and manual extraction
-fund_tbl <- auto_pilot1 |>
+fund_tbl_pilot1 <- auto_pilot1 |>
   count(funding_auto_extracted, funding_manual_extracted)
 
-auto1_fund_auto_and_manual <- fund_tbl |> filter(funding_auto_extracted,  funding_manual_extracted) |> pull(n)
-auto1_fund_auto_only       <- fund_tbl |> filter(funding_auto_extracted, !funding_manual_extracted) |> pull(n)
-auto1_fund_manual_only     <- fund_tbl |> filter(!funding_auto_extracted, funding_manual_extracted) |> pull(n)
-auto1_fund_neither         <- fund_tbl |> filter(!funding_auto_extracted,!funding_manual_extracted) |> pull(n)
+auto1_fund_auto_and_manual <- fund_tbl_pilot1 |> filter(funding_auto_extracted,  funding_manual_extracted) |> pull(n)
+auto1_fund_auto_only       <- fund_tbl_pilot1 |> filter(funding_auto_extracted, !funding_manual_extracted) |> pull(n)
+auto1_fund_manual_only     <- fund_tbl_pilot1 |> filter(!funding_auto_extracted, funding_manual_extracted) |> pull(n)
+auto1_fund_neither         <- fund_tbl_pilot1 |> filter(!funding_auto_extracted,!funding_manual_extracted) |> pull(n)
 
 auto1_fund_auto_total      <- auto1_fund_auto_and_manual + auto1_fund_auto_only
 auto1_fund_not_auto_total  <- auto1_fund_manual_only + auto1_fund_neither
@@ -255,14 +271,14 @@ auto1_fund_pct_substitute  <- round(auto1_fund_manual_only / auto1_fund_not_auto
 
 # COI: overlap between auto and manual extraction
 # any "Yes" manual answer = manual COI statement available
-coi_tbl <- auto_pilot1 |>
+coi_tbl_pilot1 <- auto_pilot1 |>
   mutate(coi_manual_has_stmt = str_starts(manual_does_include_coi, "Yes")) |>
   count(coi_auto_extracted, coi_manual_has_stmt)
 
-auto1_coi_auto_and_manual <- coi_tbl |> filter(coi_auto_extracted,  coi_manual_has_stmt) |> pull(n) |> sum()
-auto1_coi_auto_only       <- coi_tbl |> filter(coi_auto_extracted, !coi_manual_has_stmt) |> pull(n) |> sum()
-auto1_coi_manual_only     <- coi_tbl |> filter(!coi_auto_extracted, coi_manual_has_stmt) |> pull(n) |> sum()
-auto1_coi_neither         <- coi_tbl |> filter(!coi_auto_extracted,!coi_manual_has_stmt) |> pull(n) |> sum()
+auto1_coi_auto_and_manual <- coi_tbl_pilot1 |> filter(coi_auto_extracted,  coi_manual_has_stmt) |> pull(n) |> sum()
+auto1_coi_auto_only       <- coi_tbl_pilot1 |> filter(coi_auto_extracted, !coi_manual_has_stmt) |> pull(n) |> sum()
+auto1_coi_manual_only     <- coi_tbl_pilot1 |> filter(!coi_auto_extracted, coi_manual_has_stmt) |> pull(n) |> sum()
+auto1_coi_neither         <- coi_tbl_pilot1 |> filter(!coi_auto_extracted,!coi_manual_has_stmt) |> pull(n) |> sum()
 
 auto1_coi_auto_total      <- auto1_coi_auto_and_manual + auto1_coi_auto_only
 auto1_coi_not_auto_total  <- auto1_coi_manual_only + auto1_coi_neither
@@ -286,6 +302,48 @@ Funding information was manually extracted for `r auto1_fund_manual_total` paper
 
 <!-- For the funding information, of the `r auto1_fund_auto_total` papers where it was automatically extracted, it was also manually coded for `r auto1_fund_auto_and_manual` papers (`r auto1_fund_pct_also_manual`%). For the `r auto1_fund_not_auto_total` papers where funding information was absent from the automated extraction, manual coding could supplement this for `r auto1_fund_manual_only` papers (`r auto1_fund_pct_substitute`%). For COI statements, all `r auto1_coi_auto_and_manual` papers where a COI statement was automatically extracted also had a COI statement recorded by manual coders (`r auto1_coi_pct_also_manual`%). Of the `r auto1_coi_not_auto_total` papers where automated extraction did not yield a COI statement, manual coders recorded a COI statement for `r auto1_coi_manual_only` papers (`r auto1_coi_pct_substitute`%). -->
 
+Frequency tables of number of papers for which funding was automatically and manually extracted, and for which COI statements were automatically and manually extracted, are shown below.
+
+```{r auto-pilot1-frequency-tables, echo=FALSE}
+# Funding frequency table
+fund_tbl_pilot1 %>%
+  mutate(
+    funding_auto_extracted = if_else(funding_auto_extracted, "Yes", "No"),
+    funding_manual_extracted = if_else(funding_manual_extracted, "Yes", "No")
+  ) %>%
+  tidyr::pivot_wider(
+    names_from = funding_manual_extracted,
+    values_from = n,
+    values_fill = 0
+  ) %>%
+  rename(`Automatically extracted` = funding_auto_extracted) %>%
+  select(`Automatically extracted`, Yes, No) %>%
+  arrange(desc(`Automatically extracted`)) %>%
+  knitr::kable(
+    caption = "Frequency of automatically and manually extracted funding information.",
+    col.names = c("Automatically extracted", "Manually extracted: Yes", "Manually extracted: No")
+  )
+
+# COI frequency table
+coi_tbl_pilot1 %>%
+  mutate(
+    coi_auto_extracted = if_else(coi_auto_extracted, "Yes", "No"),
+    coi_manual_has_stmt = if_else(coi_manual_has_stmt, "Yes", "No")
+  ) %>%
+  tidyr::pivot_wider(
+    names_from = coi_manual_has_stmt,
+    values_from = n,
+    values_fill = 0
+  ) %>%
+  rename(`Automatically extracted` = coi_auto_extracted) %>%
+  select(`Automatically extracted`, Yes, No) %>%
+  arrange(desc(`Automatically extracted`)) %>%
+  knitr::kable(
+    caption = "Frequency of automatically and manually extracted COI statements.",
+    col.names = c("Automatically extracted", "Manually extracted: Yes", "Manually extracted: No")
+  )
+```
+
 Qualitative inspection of the automated extraction showed that the metadata extracted from OpenAlex for the primary topic classification did not match the topics sufficiently.
 
 
@@ -303,14 +361,14 @@ Based on the first pilot study, we adjusted the coding form to include FIXME.
 
 ```{r pilot2-sample}
 pilot2_sample_papers = 
-  data %>%
+  comb %>%
   filter(coding == "pilot2") %>%
   distinct(doi, .keep_all = TRUE) %>%
   group_by(includes_pilot) %>%
   summarise(n_papers = n())
 
 pilot2_sample_coders = 
-  data %>%
+  comb %>%
   filter(coding == "pilot2") %>%
   distinct(doi, X1.1..Coder.Initials) %>%
   group_by(X1.1..Coder.Initials) %>%
@@ -421,93 +479,98 @@ tei_pilot2_coi_recall = 0.924
 
 tei_pilot2_funding_f1 = 0.978
 tei_pilot2_coi_f1 = 0.953
+```
 
-# Helper: reconstruct approximate confusion-matrix counts from rounded metrics
-metrics_to_counts <- function(n, accuracy, precision, recall) {
-  possible <- expand.grid(
-    tp = 0:n,
-    fp = 0:n,
-    fn = 0:n,
-    tn = 0:n
-  ) |>
-    dplyr::filter(tp + fp + fn + tn == n) |>
-    dplyr::mutate(
-      accuracy_calc  = (tp + tn) / n,
-      precision_calc = dplyr::if_else(tp + fp == 0, NA_real_, tp / (tp + fp)),
-      recall_calc    = dplyr::if_else(tp + fn == 0, NA_real_, tp / (tp + fn)),
-      error = abs(accuracy_calc - accuracy) +
-        abs(precision_calc - precision) +
-        abs(recall_calc - recall)
-    ) |>
-    dplyr::arrange(error)
+```{r auto-pilot2-funding-coi-overlap}
+# Funding: overlap between auto and manual extraction
+fund_tbl_pilot2 <- auto_pilot2 |>
+  # filter(!is.na(auto_pilot2$rx_funding_found) | !is.na(auto_pilot2$rx_coi_found)) |> # whether to count files without TEI
+  count(funding_auto_extracted, funding_manual_extracted)
 
-  possible[1, c("tp", "fp", "fn", "tn")]
-}
+auto2_fund_auto_and_manual <- fund_tbl_pilot2 |> filter(funding_auto_extracted, funding_manual_extracted) |> pull(n)
+auto2_fund_auto_only       <- fund_tbl_pilot2 |> filter(funding_auto_extracted, !funding_manual_extracted) |> pull(n)
+auto2_fund_manual_only     <- fund_tbl_pilot2 |> filter(!funding_auto_extracted, funding_manual_extracted) |> pull(n)
+auto2_fund_neither         <- fund_tbl_pilot2 |> filter(!funding_auto_extracted, !funding_manual_extracted) |> pull(n)
 
-auto2_funding_counts <- metrics_to_counts(
-  n = auto2_n_tei,
-  accuracy = tei_pilot2_funding_accuracy,
-  precision = tei_pilot2_funding_precision,
-  recall = tei_pilot2_funding_recall
-)
+auto2_fund_auto_total      <- auto2_fund_auto_and_manual + auto2_fund_auto_only
+auto2_fund_not_auto_total  <- auto2_fund_manual_only + auto2_fund_neither
+auto2_fund_pct_also_manual <- round(auto2_fund_auto_and_manual / auto2_fund_auto_total * 100, 1)
+auto2_fund_pct_substitute  <- round(auto2_fund_manual_only / auto2_fund_not_auto_total * 100, 1)
 
-auto2_coi_counts <- metrics_to_counts(
-  n = auto2_n_tei,
-  accuracy = tei_pilot2_coi_accuracy,
-  precision = tei_pilot2_coi_precision,
-  recall = tei_pilot2_coi_recall
-)
+# COI: overlap between auto and manual extraction
+coi_tbl_pilot2 <- auto_pilot2 |>
+  mutate(coi_manual_has_stmt = str_starts(manual_does_include_coi, "Yes")) |>
+  count(coi_auto_extracted, coi_manual_has_stmt)
 
-# Funding
-auto2_funding_auto_and_manual <- auto2_funding_counts$tp
-auto2_funding_auto_only       <- auto2_funding_counts$fp
-auto2_funding_manual_only     <- auto2_funding_counts$fn
-auto2_funding_neither         <- auto2_funding_counts$tn
-
-auto2_funding_auto_total      <- auto2_funding_auto_and_manual + auto2_funding_auto_only
-auto2_funding_not_auto_total  <- auto2_funding_manual_only + auto2_funding_neither
-
-auto2_funding_pct_also_manual <- round(
-  auto2_funding_auto_and_manual / auto2_funding_auto_total * 100, 1
-)
-
-auto2_funding_pct_substitute <- round(
-  auto2_funding_manual_only / auto2_funding_not_auto_total * 100, 1
-)
-
-# COI
-auto2_coi_auto_and_manual <- auto2_coi_counts$tp
-auto2_coi_auto_only       <- auto2_coi_counts$fp
-auto2_coi_manual_only     <- auto2_coi_counts$fn
-auto2_coi_neither         <- auto2_coi_counts$tn
+auto2_coi_auto_and_manual <- coi_tbl_pilot2 |> filter(coi_auto_extracted, coi_manual_has_stmt) |> pull(n) |> sum()
+auto2_coi_auto_only       <- coi_tbl_pilot2 |> filter(coi_auto_extracted, !coi_manual_has_stmt) |> pull(n) |> sum()
+auto2_coi_manual_only     <- coi_tbl_pilot2 |> filter(!coi_auto_extracted, coi_manual_has_stmt) |> pull(n) |> sum()
+auto2_coi_neither         <- coi_tbl_pilot2 |> filter(!coi_auto_extracted, !coi_manual_has_stmt) |> pull(n) |> sum()
 
 auto2_coi_auto_total      <- auto2_coi_auto_and_manual + auto2_coi_auto_only
 auto2_coi_not_auto_total  <- auto2_coi_manual_only + auto2_coi_neither
+auto2_coi_pct_also_manual <- round(auto2_coi_auto_and_manual / auto2_coi_auto_total * 100, 1)
+auto2_coi_pct_substitute  <- round(auto2_coi_manual_only / auto2_coi_not_auto_total * 100, 1)
 
-auto2_coi_pct_also_manual <- round(
-  auto2_coi_auto_and_manual / auto2_coi_auto_total * 100, 1
-)
+# Manual-perspective totals (for prose starting from "manually extracted for X papers")
+auto2_fund_manual_total       <- auto2_fund_auto_and_manual + auto2_fund_manual_only
+auto2_fund_pct_auto_of_manual <- round(auto2_fund_auto_and_manual / auto2_fund_manual_total * 100, 1)
+auto2_fund_no_manual_total    <- auto2_fund_auto_only + auto2_fund_neither
+auto2_fund_pct_sub_no_manual  <- round(auto2_fund_auto_only / auto2_fund_no_manual_total * 100, 1)
 
-auto2_coi_pct_substitute <- round(
-  auto2_coi_manual_only / auto2_coi_not_auto_total * 100, 1
-)
-
-# Manual-perspective totals
-auto2_funding_manual_total       <- auto2_funding_auto_and_manual + auto2_funding_manual_only
-auto2_funding_pct_auto_of_manual <- round(auto2_funding_auto_and_manual / auto2_funding_manual_total * 100, 1)
-auto2_funding_no_manual_total    <- auto2_funding_auto_only + auto2_funding_neither
-auto2_funding_pct_sub_no_manual  <- round(auto2_funding_auto_only / auto2_funding_no_manual_total * 100, 1)
-
-auto2_coi_manual_total           <- auto2_coi_auto_and_manual + auto2_coi_manual_only
-auto2_coi_pct_auto_of_manual     <- round(auto2_coi_auto_and_manual / auto2_coi_manual_total * 100, 1)
-auto2_coi_no_manual_total        <- auto2_coi_auto_only + auto2_coi_neither
-auto2_coi_pct_sub_no_manual      <- round(auto2_coi_auto_only / auto2_coi_no_manual_total * 100, 1)
+auto2_coi_manual_total        <- auto2_coi_auto_and_manual + auto2_coi_manual_only
+auto2_coi_pct_auto_of_manual  <- round(auto2_coi_auto_and_manual / auto2_coi_manual_total * 100, 1)
+auto2_coi_no_manual_total     <- auto2_coi_auto_only + auto2_coi_neither
+auto2_coi_pct_sub_no_manual   <- round(auto2_coi_auto_only / auto2_coi_no_manual_total * 100, 1)
 
 ```
 
 Based on the custom approach, which outperformed metacheck (version fixme), we were able to match the manual coding for funding and COI statements with high accuracy.
 
-Funding information was manually extracted for `r auto2_funding_manual_total` papers, of which `r auto2_funding_auto_and_manual` papers also had this information automatically extracted (`r auto2_funding_pct_auto_of_manual`%). For the `r auto2_funding_no_manual_total` papers for which manual funding information was absent, `r auto2_funding_auto_only` papers could be supplemented with automated extraction (`r auto2_funding_pct_sub_no_manual`%). For COI statements, manual coders recorded a COI statement for `r auto2_coi_manual_total` papers, of which `r auto2_coi_auto_and_manual` papers also had a COI statement automatically extracted (`r auto2_coi_pct_auto_of_manual`%). For the `r auto2_coi_no_manual_total` papers without a manually coded COI statement, `r auto2_coi_auto_only` papers had a COI statement available from automated extraction (`r auto2_coi_pct_sub_no_manual`%).
+Funding information was manually extracted for `r auto2_fund_manual_total` papers, of which `r auto2_fund_auto_and_manual` papers also had this information automatically extracted (`r auto2_fund_pct_auto_of_manual`%). For the `r auto2_fund_no_manual_total` papers for which manual funding information was absent, `r auto2_fund_auto_only` papers could be supplemented with automated extraction (`r auto2_fund_pct_sub_no_manual`%). For COI statements, manual coders recorded a COI statement for `r auto2_coi_manual_total` papers, of which `r auto2_coi_auto_and_manual` papers also had a COI statement automatically extracted (`r auto2_coi_pct_auto_of_manual`%). For the `r auto2_coi_no_manual_total` papers without a manually coded COI statement, `r auto2_coi_auto_only` papers had a COI statement available from automated extraction (`r auto2_coi_pct_sub_no_manual`%).
+
+
+Frequency tables of number of papers for which funding was automatically and manually extracted, and for which COI statements were automatically and manually extracted, are shown below.
+
+```{r auto-pilot2-frequency-tables, echo=FALSE}
+# Funding frequency table
+fund_tbl_pilot2 %>%
+  mutate(
+    funding_auto_extracted = if_else(funding_auto_extracted, "Yes", "No"),
+    funding_manual_extracted = if_else(funding_manual_extracted, "Yes", "No")
+  ) %>%
+  tidyr::pivot_wider(
+    names_from = funding_manual_extracted,
+    values_from = n,
+    values_fill = 0
+  ) %>%
+  rename(`Automatically extracted` = funding_auto_extracted) %>%
+  select(`Automatically extracted`, Yes, No) %>%
+  arrange(desc(`Automatically extracted`)) %>%
+  knitr::kable(
+    caption = "Frequency of automatically and manually extracted funding information.",
+    col.names = c("Automatically extracted", "Manually extracted: Yes", "Manually extracted: No")
+  )
+
+# COI frequency table
+coi_tbl_pilot2 %>%
+  mutate(
+    coi_auto_extracted = if_else(coi_auto_extracted, "Yes", "No"),
+    coi_manual_has_stmt = if_else(coi_manual_has_stmt, "Yes", "No")
+  ) %>%
+  tidyr::pivot_wider(
+    names_from = coi_manual_has_stmt,
+    values_from = n,
+    values_fill = 0
+  ) %>%
+  rename(`Automatically extracted` = coi_auto_extracted) %>%
+  select(`Automatically extracted`, Yes, No) %>%
+  arrange(desc(`Automatically extracted`)) %>%
+  knitr::kable(
+    caption = "Frequency of automatically and manually extracted COI statements.",
+    col.names = c("Automatically extracted", "Manually extracted: Yes", "Manually extracted: No")
+  )
+```
 
 
 Qualitative inspection FIXMe. 
