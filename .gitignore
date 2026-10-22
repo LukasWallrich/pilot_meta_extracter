@@ -46,3 +46,4 @@ api_keys*
 
 # Scratch / throwaway files
 scratch*
+.posit/
