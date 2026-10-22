@@ -18,6 +18,10 @@ doi_metadata_final_results.csv
 my_results.csv
 my_doi_results.csv
 
+# Generated R Markdown output
+write-up-for-reg-rep.html
+write-up-for-reg-rep_files/
+
 # Temporary files
 .DS_Store
 *~
