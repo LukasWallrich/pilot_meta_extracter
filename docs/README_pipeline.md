@@ -164,7 +164,7 @@ Pilot run (345 papers; index 161 pilot1 + 184 pilot2), accuracy = agreement/code
 
 | category | pilot 1 | pilot 2 | pooled |
 |----------|---------|---------|--------|
-| `funding_category` | 0.904 (47/52)  | 0.902 (74/82)   | 0.903 (121/134) |
+| `funding_category` | 0.904 (47/52)  | 0.939 (77/82)   | 0.925 (124/134) |
 | `coi_category`     | 0.750 (48/64)  | 0.855 (71/83)   | 0.810 (119/147) |
 | `prereg_present`   | 0.938 (60/64)  | 0.952 (79/83)   | 0.946 (139/147) |
 
@@ -173,9 +173,9 @@ Pooled confusion matrices (rows = auto, cols = manual):
 ```
 funding_category            coi_category                                        prereg_present
               funded noF noS               conflict noConf noStmt                      F   T
-funded            99   4   3   conflict          5      1      2            FALSE    103   4
-no funding         2  12   0   no conflict       9     82      4            TRUE       4  36
-no statement       3   1  10   no statement      2     10     32
+funded            98   0   3   conflict          5      1      2            FALSE    103   4
+no funding         2  16   0   no conflict       9     82      4            TRUE       4  36
+no statement       4   1  10   no statement      2     10     32
 ```
 
 **A blank pilot-1 `X8.1` is uncoded, not "no funding statement".** Pilot-1
@@ -202,5 +202,5 @@ negation regex cannot resolve. The remaining `no statement` disagreements are TE
 extraction recall gaps (a statement exists but GROBID did not surface it),
 inherited unchanged from the reused extractor.
 
-**prereg** is the strongest signal (0.945 pooled): 4 false positives, 4 false
-negatives out of 145 coded papers.
+**prereg** is the strongest signal (0.946 pooled): 4 false positives, 4 false
+negatives out of 147 coded papers.

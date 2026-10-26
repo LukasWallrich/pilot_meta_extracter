@@ -139,6 +139,7 @@ Against the manual coding of the two pilot rounds (papers with a usable manual c
 
 - Funding and COI: `data/rx_vs_metacheck_metrics.csv` (per pilot and pooled), method in `docs/README_tei_extraction.md`. The extractor was tuned on pilot-2 misses, so pilot 1 is the cleaner out-of-sample test (funding F1 0.93 vs 0.89 for `metacheck`; COI 0.85 vs 0.81).
 - Preregistration: `docs/README_prereg_extraction.md`.
+- End to end (the final output categories against the coders' categories, as reported in the manuscript's pilot results): funding 92.5% (124/134), COI 81.0% (119/147), preregistration 94.6% (139/147). COI is lowest mainly because GROBID often drops COI statements printed in first-page author notes. See `docs/README_pipeline.md`.
 - Pilot-2 coverage as reported in the manuscript (84 articles reporting a pilot; automated = Crossref metadata or TEI extraction): a funding statement was found automatically for 66 of the 67 articles where coders recorded one, and for 7 of the 17 where they did not; a COI statement for 63 of 68 and 3 of 16. `validation/pilot2_auto_vs_manual.R` → `data/pilot2_auto_vs_manual_counts.csv`.
 - Funder → country: every structured Crossref funder ID resolves to a country; of the 227 papers with at least one named funder, 200 (88%) get at least one funder country (`docs/README_funders.md`).
 
