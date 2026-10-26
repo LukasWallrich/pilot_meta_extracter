@@ -1,0 +1,212 @@
+name: Parallel GROBID Conversion
+
+# Sharded counterpart of convert_pdfs.yml: the same Drive folder is split across
+# SHARDS runners that convert in parallel, and a single collect job commits the
+# result. Work already done is skipped by target filename, so this and the
+# serial workflow produce the same tei/ tree.
+
+on:
+  workflow_dispatch:
+    inputs:
+      shards:
+        description: "Number of parallel conversion jobs (personal accounts allow 20 concurrent)"
+        default: "16"
+
+permissions:
+  contents: write
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      shards: ${{ steps.plan.outputs.shards }}
+      matrix: ${{ steps.plan.outputs.matrix }}
+      todo: ${{ steps.plan.outputs.todo }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: eddelbuettel/github-actions/r2u-setup@master
+      # The r2u mirror times out intermittently and takes the whole shard with it.
+      - name: Install R packages
+        run: |
+          for i in 1 2 3; do
+            sudo apt-get update && \
+            Rscript -e 'install.packages(c("googledrive", "jsonlite"))' && \
+            Rscript -e 'library(googledrive); library(jsonlite)' && exit 0
+            echo "install attempt $i failed; retrying in 30s"; sleep 30
+          done
+          exit 1
+
+      - run: echo '${{ secrets.GDRIVE_SA_JSON }}' > service_account.json
+
+      - id: plan
+        shell: Rscript {0}
+        run: |
+          library(googledrive); library(jsonlite); library(tools)
+          FOLDER_ID <- "18vChmJn4Q2biMmTbRWWgwkQd8KE002JR"
+          shards <- as.integer("${{ github.event.inputs.shards }}")
+
+          drive_auth(path = "service_account.json")
+          all_files <- drive_ls(as_id(FOLDER_ID), pattern = "\\.pdf$")
+          all_files <- all_files[order(all_files$id), ]
+
+          # Same target name the serial workflow writes, so finished work is skipped.
+          target <- paste0("tei/",
+                           gsub("[^[:alnum:]\\.-]", "_", file_path_sans_ext(all_files$name)),
+                           ".tei.xml")
+          todo <- all_files[!file.exists(target), c("id", "name")]
+          message("Drive: ", nrow(all_files), " PDFs | already converted: ",
+                  nrow(all_files) - nrow(todo), " | to do: ", nrow(todo))
+
+          if (nrow(todo) == 0) shards <- 0
+          write_json(todo, "todo.json")
+
+          out <- Sys.getenv("GITHUB_OUTPUT")
+          cat(sprintf("shards=%d\n", shards), file = out, append = TRUE)
+          cat(sprintf("todo=%d\n", nrow(todo)), file = out, append = TRUE)
+          cat(sprintf("matrix=%s\n",
+                      if (shards > 0) toJSON(seq_len(shards) - 1L) else "[]"),
+              file = out, append = TRUE)
+
+      - uses: actions/upload-artifact@v4
+        if: steps.plan.outputs.shards != '0'
+        with:
+          name: todo-list
+          path: todo.json
+          retention-days: 1
+
+      - run: rm -f service_account.json
+        if: always()
+
+  convert:
+    needs: plan
+    if: needs.plan.outputs.shards != '0'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc \
+                      /opt/hostedtoolcache/CodeQL /usr/local/share/boost \
+                      "$AGENT_TOOLSDIRECTORY"
+          docker rmi $(docker images -aq) 2>/dev/null || true
+
+      - name: Start GROBID
+        run: |
+          docker run -d --name grobid -p 8070:8070 grobid/grobid:0.8.2.1-full
+          timeout 600s bash -c '
+            until curl -s localhost:8070/api/isalive > /dev/null; do
+              echo "Waiting for GROBID..."
+              sleep 5
+            done'
+
+      - uses: actions/checkout@v4
+      - uses: eddelbuettel/github-actions/r2u-setup@master
+      - name: Install R packages
+        run: |
+          for i in 1 2 3; do
+            sudo apt-get update && \
+            Rscript -e 'install.packages(c("googledrive", "jsonlite", "httr"))' && \
+            Rscript -e 'library(googledrive); library(jsonlite); library(httr)' && exit 0
+            echo "install attempt $i failed; retrying in 30s"; sleep 30
+          done
+          exit 1
+
+      - run: echo '${{ secrets.GDRIVE_SA_JSON }}' > service_account.json
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: todo-list
+
+      - name: Convert this shard
+        shell: Rscript {0}
+        run: |
+          library(googledrive); library(jsonlite); library(httr); library(tools)
+          GROBID_URL  <- "http://localhost:8070/api/processFulltextDocument"
+          MAX_RETRIES <- 3
+          shard  <- as.integer("${{ matrix.shard }}")
+          shards <- as.integer("${{ needs.plan.outputs.shards }}")
+
+          drive_auth(path = "service_account.json")
+          todo <- fromJSON("todo.json")
+          mine <- todo[(seq_len(nrow(todo)) - 1L) %% shards == shard, ]
+          message("Shard ", shard, "/", shards, ": ", nrow(mine), " PDFs")
+
+          dir.create("out", showWarnings = FALSE)
+          done <- 0L
+          for (i in seq_len(nrow(mine))) {
+            f_id <- mine$id[i]; f_name <- mine$name[i]
+            local_pdf <- "input.pdf"
+            target <- file.path("out", paste0(
+              gsub("[^[:alnum:]\\.-]", "_", file_path_sans_ext(f_name)), ".tei.xml"))
+
+            ok <- FALSE
+            for (attempt in seq_len(MAX_RETRIES)) {
+              if (file.exists(local_pdf)) file.remove(local_pdf)
+              tryCatch({
+                drive_download(as_id(f_id), path = local_pdf, overwrite = TRUE, verbose = FALSE)
+                if (file.exists(local_pdf) && file.info(local_pdf)$size > 0) ok <- TRUE
+              }, error = function(e) NULL)
+              if (ok) break
+              Sys.sleep(2 * attempt)
+            }
+            if (!ok) { message("Download fail: ", f_name); next }
+
+            tryCatch({
+              resp <- POST(GROBID_URL, body = list(input = upload_file(local_pdf)),
+                           encode = "multipart")
+              if (status_code(resp) == 200) {
+                xml_content <- content(resp, "text", encoding = "UTF-8")
+                if (nchar(xml_content) > 100) {
+                  writeLines(xml_content, target); done <- done + 1L; cat(".")
+                } else message("\nEmpty result: ", f_name)
+              } else message("\nGROBID fail: ", f_name)
+            }, error = function(e) message("\nError: ", f_name))
+
+            if (file.exists(local_pdf)) file.remove(local_pdf)
+          }
+          message("\nShard ", shard, " converted ", done, " of ", nrow(mine))
+
+      - run: tar czf shard.tar.gz -C out .
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tei-shard-${{ matrix.shard }}
+          path: shard.tar.gz
+          retention-days: 1
+
+      - run: rm -f service_account.json
+        if: always()
+
+  collect:
+    needs: [plan, convert]
+    # always(): commit whatever shards did finish, rather than losing the run to
+    # one bad shard. The next dispatch picks up what is still missing.
+    if: ${{ always() && needs.plan.result == 'success' && needs.plan.outputs.shards != '0' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: tei-shard-*
+          path: shards
+
+      - name: Unpack into tei/
+        run: |
+          mkdir -p tei
+          for f in shards/*/shard.tar.gz; do tar xzf "$f" -C tei; done
+          ls tei | wc -l
+
+      - name: Commit
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add tei/
+          git diff --cached --quiet && { echo "nothing new"; exit 0; }
+          git commit -m "Parallel conversion: $(git diff --cached --name-only | wc -l) TEI files"
+          git pull --rebase
+          git push

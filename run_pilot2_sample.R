@@ -40,7 +40,7 @@ source("run_pipeline.R")   # sourcing only defines functions (driver is env-guar
 
 FRAME_CSV      <- "pilot2_sample.csv"
 TEI_DIR        <- "../pilot2_pdf_conversion/tei"
-KEYWORD_CSV    <- "../pilot2_pdf_conversion/pilot_keyword_screening.csv"
+KEYWORD_CSV    <- "screening/pilot2_keyword_screening.csv"
 PILOT2_CODING  <- "data/inputs/2026-04-03_Codingform_PilotingAssessment_pilot2.csv"
 INDEX_OUT      <- "data/pilot2_sample_index.csv"
 EXTRACTION_OUT <- "data/final_extraction_pilot2-sample.csv"
