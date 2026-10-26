@@ -1,0 +1,9 @@
+"outcome","manual","auto","n"
+"funding",FALSE,FALSE,10
+"funding",FALSE,TRUE,7
+"funding",TRUE,FALSE,1
+"funding",TRUE,TRUE,66
+"coi",FALSE,FALSE,13
+"coi",FALSE,TRUE,3
+"coi",TRUE,FALSE,5
+"coi",TRUE,TRUE,63
