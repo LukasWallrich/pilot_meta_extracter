@@ -144,21 +144,23 @@ registry lookups, all free OpenAlex/Crossref calls, cached thereafter.
 ## Coverage (current run)
 
 * 347 papers; 164 unique Crossref funder IDs, **100%** geocoded.
-* 529 unique TEI name strings → 182 registry-resolved, 261 kept via funder token,
-  6 bare-country (dropped), 79 misparses (dropped).
+* TEI name strings → 182 registry-resolved, 259 kept via funder token,
+  5 bare-country (dropped), 84 misparses (dropped).
 * **Junk fix:** of the 67 names the old code wrongly country-junked, **62 are now
   retained** as real funders. The 5 still dropped are 3 genuine bare countries
   (Switzerland / Taiwan / UK), 1 misparse ("Ngogo chimpanzees…Uganda"), and 1
   borderline body lacking any funder token ("State of Rhineland-Palatinate,
   Germany").
-* Long table: **576 kept** funder rows across 229 papers (71% carry a country)
-  plus **141 junk audit rows** (50 junk-term, 84 misparse, 5 bare-country, 2
+* Long table: **573 kept** funder rows across 227 papers (72% carry a country)
+  plus **142 junk audit rows** (51 junk-term, 84 misparse, 5 bare-country, 2
   journal). Kept `country_source`: 257 `crossref_id`, 98 `tei_registry`, 54
-  `tei_contained`, 1 `tei_override_crossref`, 166 none. Kept `confidence`: 336
-  high / 74 medium / 166 low.
-* `funding_status`: 260 funded / 30 no funding / 57 unknown.
-* Reconciliation: 109 both, 73 tei_only, 27 crossref_only, 88 none, 30
-  no_funding, 20 conflict.
+  `tei_contained`, 1 `tei_override_crossref`, 163 none. Kept `confidence`: 336
+  high / 74 medium / 163 low.
+* Paper level: of the 227 papers with at least one named funder, **200 (88%)**
+  have at least one funder country.
+* `funding_status`: 249 funded / 33 no funding / 65 unknown.
+* Reconciliation: 110 both, 71 tei_only, 25 crossref_only, 87 none, 33
+  no_funding, 21 conflict.
 
 ## Validation against manual coding
 

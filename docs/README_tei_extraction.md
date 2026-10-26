@@ -32,20 +32,20 @@ Directly parses the TEI XML with targeted XPath queries and regex heading/body m
 
 ## Validation
 
-Validated against manual coding from `data/inputs/2026-04-03_Codingform_PilotingAssessment_pilot2.csv` (181 DOIs matched to TEI files out of 185). Of the 185 coded articles, only 84 had manual funding/COI ground truth — the remaining 101 were determined by coders to not contain a relevant pilot study, so the funding/COI questions were skipped.
+Validated against manual coding from `data/inputs/2026-04-03_Codingform_PilotingAssessment_pilot2.csv` (183 DOIs matched to TEI files out of 185). Of the 185 coded articles, only 84 had manual funding/COI ground truth — the remaining 101 were determined by coders to not contain a relevant pilot study, so the funding/COI questions were skipped.
 
-### Detection performance (against 81 articles with manual ground truth)
+### Detection performance (against 83 articles with manual ground truth and a TEI file)
 
 |  | Accuracy | Precision | Recall | F1 |
 |---|---|---|---|---|
-| **Funding — Regex** | 0.963 | 0.957 | 1.000 | 0.978 |
-| **COI — Regex** | 0.926 | 0.984 | 0.924 | 0.953 |
+| **Funding — Regex** | 0.964 | 0.958 | 1.000 | 0.979 |
+| **COI — Regex** | 0.928 | 0.984 | 0.925 | 0.954 |
 
 ### Error breakdown
 
 | | True FPs | TEI misses (GROBID failures) |
 |---|---|---|
-| **Funding** | 3 (3.7%) | 0 |
+| **Funding** | 3 (3.6%) | 0 |
 | **COI** | 1 (1.2%) | 5 |
 
 The 3 funding FPs are: OA-fee-only acknowledgments (2 cases) and a CRediT author contributions section containing the word "funding" (1 case). The 1 COI FP is a paper where GROBID extracted the COI heading but lost the statement text. The 5 COI TEI misses are papers where GROBID failed to extract the COI statement from the PDF entirely.

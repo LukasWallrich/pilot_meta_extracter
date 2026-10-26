@@ -365,6 +365,7 @@ doi,coding,funder_name,crossref_funder_id,country_code,country,source,country_so
 10.1177/13591053221141131,pilot2,American Occupational Therapy Foundation,10.13039/100003587,US,United States,both,crossref_id,high,FALSE
 10.1080/10447318.2023.2261731,pilot2,College of Communication Arts and Sciences at Michigan State University,NA,NA,NA,tei_name,NA,low,FALSE
 10.1093/scan/nsad070,pilot2,Deutsche Forschungsgemeinschaft,10.13039/501100001659,DE,Germany,crossref_id,crossref_id,high,FALSE
+10.1093/scan/nsad070,pilot2,German Research Foundation (DFG),NA,NA,NA,tei_name,NA,low,FALSE
 10.1002/icd.2419,pilot2,Research Grants Council of Hong Kong,NA,HK,Hong Kong SAR China,tei_name,tei_contained,medium,FALSE
 10.1002/icd.2419,pilot2,Electrochemical Society,10.13039/100009707,US,United States,tei_name,tei_registry,high,FALSE
 10.1002/icd.2419,pilot2,Education University of Hong Kong,10.13039/501100010410,HK,Hong Kong SAR China,tei_name,tei_registry,high,FALSE
@@ -462,7 +463,6 @@ doi,coding,funder_name,crossref_funder_id,country_code,country,source,country_so
 10.1016/j.cogpsych.2023.101591,pilot2,German Research Council (DFG),NA,NA,NA,tei_name,NA,low,FALSE
 10.1002/capr.12721,pilot2,North Wales Society of the Blind (NWSB) and Health and Care Economics Cymru (HCEC),NA,NA,NA,tei_name,NA,low,FALSE
 10.1002/capr.12721,pilot2,Welsh government through Health and Care Research Wales,NA,NA,NA,tei_name,NA,low,FALSE
-10.1002/capr.12721,pilot2,Bangor University Medical and Health Sciences Academic Ethics Committee,NA,NA,NA,tei_name,NA,low,FALSE
 10.1111/bjhp.12677,pilot2,Research Foundation,NA,NA,NA,tei_name,NA,low,FALSE
 10.1111/bjhp.12677,pilot2,Medibank Better Health Foundation,10.13039/501100020646,AU,Australia,tei_name,tei_registry,high,FALSE
 10.1111/bjhp.12677,pilot2,Australian and New Zealand College of Anaesthetists (ANZCA),NA,NA,NA,tei_name,NA,low,FALSE
@@ -483,7 +483,6 @@ doi,coding,funder_name,crossref_funder_id,country_code,country,source,country_so
 10.1007/s12671-023-02079-7,pilot2,Evangelisches Studienwerk Villigst,10.13039/501100003088,DE,Germany,crossref_id,crossref_id,high,FALSE
 10.1007/s12671-023-02079-7,pilot2,University of Wuppertal,NA,NA,NA,tei_name,NA,low,FALSE
 10.3390/bs13020166,pilot2,Scientific Foundations of Education Research Program of the Hungarian Academy of Sciences,NA,NA,NA,tei_name,NA,low,FALSE
-10.3390/bs13020166,pilot2,"Institutional Review Board of Doctoral School of Education, University of Szeged",NA,NA,NA,tei_name,NA,low,FALSE
 10.3390/bs13020166,pilot2,"ICT and Societal Challenges Competence Centre of the Humanities and Social Sciences Cluster of the Centre of Excellence for Interdisciplinary Re-search, Development and Innovation of the University of Szeged",NA,NA,NA,tei_name,NA,low,FALSE
 10.1177/00220426231151372,pilot2,European Treatment Centers For Drug Addiction (euro-TC),NA,NA,NA,tei_name,NA,low,FALSE
 10.1177/00220426231151372,pilot2,European Commission and Rebirth Charity Society,NA,EU,European Union,tei_name,tei_contained,medium,FALSE
@@ -528,7 +527,6 @@ doi,coding,funder_name,crossref_funder_id,country_code,country,source,country_so
 10.1080/13691058.2023.2201356,pilot2,Ministry for Pacific Peoples,NA,NA,NA,tei_name,NA,low,FALSE
 10.1111/jar.13073,pilot2,Health Research Board,10.13039/100010414,IE,Ireland,both,crossref_id,high,FALSE
 10.1080/02699931.2023.2206999,pilot2,National Social Science Fund of China,10.13039/501100012456,CN,China,tei_name,tei_registry,high,FALSE
-10.3390/psych5040080,pilot2,Institutional Review Board of An Najah National University,NA,NA,NA,tei_name,NA,low,FALSE
 10.1037/xge0001381,pilot2,National Science Foundation,10.13039/100000001,US,United States,tei_name,tei_registry,high,FALSE
 10.1177/20438087231151502,pilot2,Deutsche Forschungsgemeinschaft,10.13039/501100001659,DE,Germany,crossref_id,crossref_id,high,FALSE
 10.1111/bjop.12681,pilot2,Engineering and Physical Sciences Research Council (EPSRC),10.13039/501100000266,GB,United Kingdom,both,crossref_id,high,FALSE
@@ -563,13 +561,12 @@ doi,coding,funder_name,crossref_funder_id,country_code,country,source,country_so
 10.1016/j.cognition.2023.105606,pilot2,European Research Council (ERC),NA,EU,European Union,tei_name,tei_contained,medium,FALSE
 10.1016/j.cognition.2023.105606,pilot2,European Union,10.13039/501100000780,EU,European Union,tei_name,tei_contained,medium,FALSE
 10.1016/j.cognition.2023.105606,pilot2,Running Strong for American Indian Youth,10.13039/100026709,US,United States,tei_name,tei_registry,medium,FALSE
-10.1093/abm/kaac079,pilot2,University of Colorado Denver,10.13039/100010346,US,United States,crossref_id,crossref_id,high,FALSE
+10.1093/abm/kaac079,pilot2,University of Colorado Denver Office of Research Services,10.13039/100010346,US,United States,both,crossref_id,high,FALSE
 10.1177/17470218231191442,pilot2,Leverhulme Trust,10.13039/501100000275,GB,United Kingdom,tei_name,tei_registry,high,FALSE
 10.1177/17470218231191442,pilot2,PhD training programme,NA,NA,NA,tei_name,NA,low,FALSE
 10.1111/cdev.13933,pilot2,Leverhulme Trust,10.13039/501100000275,GB,United Kingdom,crossref_id,crossref_id,high,FALSE
 10.1111/cdev.13933,pilot2,Royal Society,10.13039/501100000288,GB,United Kingdom,tei_name,tei_registry,high,FALSE
 10.1111/fare.12905,pilot2,"Humanities and Social Sciences Youth Foundation, Ministry of Education of the People's Republic of China",10.13039/501100017630,CN,China,tei_name,tei_registry,high,FALSE
-10.1080/00224545.2023.2224546,pilot2,Hofstra University IRB,NA,NA,NA,tei_name,NA,low,FALSE
 10.1037/emo0001199,pilot2,National Institute of Nursing Research,10.13039/100000056,US,United States,crossref_id,crossref_id,high,FALSE
 10.1037/emo0001199,pilot2,National Institute of General Medical Sciences,10.13039/100000057,US,United States,both,crossref_id,high,FALSE
 10.1111/psyp.14316,pilot2,Narodowe Centrum Nauki,10.13039/501100004281,PL,Poland,crossref_id,crossref_id,high,FALSE
@@ -657,6 +654,7 @@ doi,coding,funder_name,crossref_funder_id,country_code,country,source,country_so
 10.32872/cpe.9341,pilot2,Challenges in social adaptation and interactions amongst international medical,NA,NA,NA,tei_name,misparse,junk,TRUE
 10.1037/fam0001134,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
 10.1177/13591053221141131,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
+10.1093/scan/nsad070,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
 10.1080/00140139.2023.2176551,pilot2,CARRS-Q,NA,NA,NA,tei_name,misparse,junk,TRUE
 10.1037/fam0001090,pilot2,unknown,NA,NA,NA,tei_name,junk_term,junk,TRUE
 10.1037/fam0001090,pilot2,ALSPAC,NA,NA,NA,tei_name,misparse,junk,TRUE

@@ -1,6 +1,6 @@
 # Pilot Meta-Extractor
 
-Automated extraction of study-level metadata for a meta-analysis / registered report on the reporting of **pilot studies** in psychology. Given a set of article DOIs and their GROBID **TEI** files, the pipeline returns one clean row per article covering bibliographic metadata, first-author location, funding, conflict-of-interest, and preregistration — validated against manual coding across two pilot rounds.
+Automated extraction of article-level metadata for a meta-scientific assessment (Registered Report) of how **pilot studies** are reported in psychology. Given a set of article DOIs and their GROBID **TEI** files, the pipeline returns one clean row per article covering bibliographic metadata, first-author location, funding, conflict-of-interest, and preregistration — validated against manual coding across two pilot rounds.
 
 ## Quick start
 
@@ -44,6 +44,7 @@ setup/                  one-time reference-data setup
 docs/                   method + validation write-ups
 data/                   inputs, outputs, API caches
 validation/             reproduction + scoring against the manual coding
+screening/              PDF→TEI conversion workflow and pilot-keyword screen (copies)
 exploration/            side experiments, not part of the pipeline
 archive/                superseded outputs and dev scripts, kept for provenance
 ```
@@ -116,7 +117,7 @@ Column-by-column derivation rules and the codebook-validation numbers are in **`
 - **`data/final_extraction_pilot2-sample.csv`** — one row per pilot-2 frame article with a TEI file. The frame is extracted unfiltered: the empirical / research-area classifier has run over the pilot-1 frame only, so no `empirical` column exists here.
 - **`data/pilot2_sample_index.csv`** — one row per `pilot2_sample.csv` article with `doi`, `tei_file`, `keyword_hit` (pilot-keyword screen; `NA` where the article has no TEI to screen) and `article_status` (`pilot2-coded` for the 184 manually coded articles, `pilot2-unsampled` otherwise).
 
-The pilot-1 and pilot-2 frames are disjoint (they overlap in a single article), so the two extraction outputs stack into one dataset. Both frames' PDFs are converted by the GROBID GitHub Action in the `pilot2_pdf_conversion` repository, which reads them from a Google Drive folder; `pilot2_sample.csv` and `full_sample.csv` are large Zotero exports and are gitignored.
+The pilot-1 and pilot-2 frames are disjoint (they overlap in a single article), so the two extraction outputs stack into one dataset. Both frames' PDFs are converted by the GROBID GitHub Action in the private `pilot2_pdf_conversion` repository, which reads them from a Google Drive folder (the workflow and the keyword-screening script are copied into `screening/`; the converted full texts are not redistributed); `pilot2_sample.csv` and `full_sample.csv` are large Zotero exports and are gitignored.
 
 Other data products:
 
@@ -127,12 +128,29 @@ Other data products:
 
 ## Validation summary
 
-Against the manual coding (papers with a usable code):
+Against the manual coding of the two pilot rounds (papers with a usable manual code; pilot 1 2022, pilot 2 2023):
 
-- **Funding / COI extraction** beats `metacheck` on both pilots (funding F1 0.95 vs 0.90; COI 0.91 vs 0.88 pooled) — see `docs/README_tei_extraction.md`.
-- **Preregistration** detection: F1 0.91 (`prereg_found`), 0.93 (`registration_any`) — see `docs/README_prereg_extraction.md`.
-- **Funder → country**: 100% country resolution for structured Crossref funder IDs — see `docs/README_funders.md`.
+| Variable | n | Accuracy | F1 | Comparison |
+|---|---|---|---|---|
+| Funding statement present | 147 | 0.925 | 0.955 | `metacheck`: accuracy 0.837, F1 0.897 |
+| COI statement present | 147 | 0.878 | 0.913 | `metacheck`: accuracy 0.830, F1 0.877 |
+| Preregistration (`prereg_found`) | 142 | 0.951 | 0.911 | — |
+| Any registration (`registration_any`) | 147 | 0.952 | 0.925 | — |
+
+- Funding and COI: `data/rx_vs_metacheck_metrics.csv` (per pilot and pooled), method in `docs/README_tei_extraction.md`. The extractor was tuned on pilot-2 misses, so pilot 1 is the cleaner out-of-sample test (funding F1 0.93 vs 0.89 for `metacheck`; COI 0.85 vs 0.81).
+- Preregistration: `docs/README_prereg_extraction.md`.
+- Funder → country: every structured Crossref funder ID resolves to a country; of the 227 papers with at least one named funder, 200 (88%) get at least one funder country (`docs/README_funders.md`).
+
+Validation outputs were regenerated on 26 October 2026 with R 4.6.1 and `metacheck` 0.1.0 (`validation/pilot_extract_tei.R`, `validation/validate_rx_vs_metacheck.R`, `validation/pilot_extract_prereg.R`, `validation/pilot_link_funders.R`). Other packages: dplyr 1.2.1, stringr 1.6.0, tidyr 1.3.2, purrr 1.2.2, readr 2.2.0, xml2 1.6.0, httr 1.4.8, httr2 1.2.3, jsonlite 2.0.0, stringdist 0.9.17, countrycode 1.8.0, sjrdata 1.0.25. PDFs were converted with GROBID 0.8.2 (pilot 1) and 0.8.2.1 (pilot 2; see `screening/`). The validation drivers expect the pilot-1 TEI files in `../pilot_pilot_teis/tei` and the pilot-2 TEI files in `../pilot2_pdf_conversion/tei`.
+
+## Main study (2025 sample)
+
+The main study uses the same pipeline. Its input is the 2025 article database built by the project's database workflow: one row per sampled empirical article with its DOI, plus the GROBID TEI file for each retrieved PDF. Call `run_pipeline()` on that `doi` + `tei_file` data frame (see Quick start); metadata are extracted for every article before the pilot-keyword screen, so pilot-reporting and other articles can be compared. Journal-to-field grouping is done by the analysis team and is not part of this pipeline.
 
 ## Data sources
 
 OpenAlex · Crossref · Scimago Journal Rank (`sjrdata`) · TOP Factor (COS) · OSF & AsPredicted APIs · GROBID (TEI). Please cite the sources you rely on.
+
+## Licence
+
+CC BY 4.0 — see `LICENSE`.

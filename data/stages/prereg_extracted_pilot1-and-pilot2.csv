@@ -188,6 +188,7 @@
 "10.1080/10447318.2023.2261731","pilot2",NA,FALSE,FALSE,FALSE,NA,NA,NA,NA,FALSE,FALSE,"","",NA,NA,FALSE
 "10.1002/ijop.12937","pilot2","negative",FALSE,FALSE,FALSE,NA,NA,NA,NA,FALSE,FALSE,"No","No, there is no statement about preregistration",FALSE,FALSE,FALSE
 "10.1080/00224545.2023.2216880","pilot2","negative",FALSE,FALSE,FALSE,"OSF registration (unconfirmed)","Open-Ended Registration","https://osf.io/pgz2c",NA,FALSE,FALSE,"No","No, there is no statement about preregistration",FALSE,FALSE,FALSE
+"10.1093/scan/nsad070","pilot2","negative",FALSE,FALSE,FALSE,NA,NA,"https://osf.io/bx9qe/ || https://osf.io/bx9qe/.3",NA,FALSE,FALSE,"No","No, there is no statement about preregistration",FALSE,FALSE,FALSE
 "10.1002/icd.2419","pilot2","negative",FALSE,FALSE,FALSE,NA,NA,NA,NA,FALSE,FALSE,"No","No, there is no statement about preregistration",FALSE,FALSE,FALSE
 "10.1080/00273171.2023.2254541","pilot2",NA,FALSE,FALSE,FALSE,NA,NA,NA,NA,FALSE,FALSE,"","",NA,NA,FALSE
 "10.1080/00140139.2023.2176551","pilot2",NA,FALSE,FALSE,FALSE,NA,NA,NA,NA,FALSE,FALSE,"","",NA,NA,FALSE
@@ -295,6 +296,7 @@
 "10.1080/20008066.2023.2282904","pilot2",NA,FALSE,FALSE,FALSE,NA,NA,NA,NA,FALSE,FALSE,"","",NA,NA,FALSE
 "10.1080/13691058.2023.2201356","pilot2",NA,FALSE,FALSE,FALSE,NA,NA,NA,NA,FALSE,FALSE,"","",NA,NA,FALSE
 "10.1111/jar.13073","pilot2",NA,FALSE,FALSE,FALSE,NA,NA,NA,NA,FALSE,FALSE,"","",NA,NA,FALSE
+"10.1027/1618-3169/a000582","pilot2","negative",FALSE,FALSE,FALSE,NA,NA,NA,NA,FALSE,FALSE,"No","No, there is no statement about preregistration",FALSE,FALSE,FALSE
 "10.1080/02699931.2023.2206999","pilot2","negative",FALSE,FALSE,FALSE,NA,NA,NA,NA,FALSE,FALSE,"No","No, the article states that there is no preregistration",FALSE,FALSE,FALSE
 "10.3390/psych5040080","pilot2","negative",FALSE,FALSE,FALSE,NA,NA,NA,NA,FALSE,FALSE,"No","No, there is no statement about preregistration",FALSE,FALSE,FALSE
 "10.1037/xge0001381","pilot2","positive",TRUE,TRUE,FALSE,"OSF registration","OSF Preregistration","https://osf.io/d2rne/ || https://osf.io/ud5j8/ || https://osf.io/6y325/ || https://osf.io/fpqrj/ || https://osf.io/43hsg/ || https://osf.io/wme9r/ || https://osf.io/d2rne/.Participants || osf.io/43hsg/ || https://osf.io/d2rne/.Received || https://osf.io/d2rne/.Bertram","Four preregistered experiments (n = 2,423) examined (a) truth sensitivity and partisan bias in veracity judgments and decisions to share information and (b) determinants and correlates of truth sensitivity and partisan bias in responses to misinformation.",FALSE,TRUE,"No","Yes, the article states that there is a preregistration",TRUE,TRUE,FALSE
@@ -327,6 +329,7 @@
 "10.1080/10447318.2023.2271240","pilot2","negative",FALSE,FALSE,FALSE,NA,NA,NA,NA,FALSE,FALSE,"No","No, there is no statement about preregistration",FALSE,FALSE,FALSE
 "10.1111/bjso.12715","pilot2",NA,TRUE,TRUE,FALSE,"OSF registration","OSF Preregistration","https://osf.io/efk2z/?view_only=b7f50eb8853b42589c34f708a92b9ec7 || https://osf.io/b74dk/?view_only=779b22d5619c4dc4bc4e6c6e44a7e654","Experimental Study 4 (N = 150, preregistered, Muslims-Christians in the UK) indicated that increasing outgroup threat led to higher legitimization of toleration, which, in turn, related to lower support of minority rights.",FALSE,FALSE,"","",NA,NA,FALSE
 "10.1016/j.cognition.2023.105606","pilot2",NA,TRUE,TRUE,FALSE,"OSF project",NA,"https://osf.io/8cjrm","In four preregistered word→picture categorisation studies, we examined whether novel measures of sensorimotor and linguistic distance contribute to the basic level-advantage in categorical decision-making.",FALSE,TRUE,"","",NA,NA,FALSE
+"10.1093/abm/kaac079","pilot2",NA,FALSE,FALSE,FALSE,"OSF project",NA,"https://osf.io/643ya/","The analysis plan was not formally pre-registered.",FALSE,TRUE,"","",NA,NA,FALSE
 "10.1177/00302228231212649","pilot2",NA,FALSE,FALSE,FALSE,NA,NA,NA,NA,FALSE,FALSE,"","",NA,NA,FALSE
 "10.1002/joec.12203","pilot2",NA,FALSE,FALSE,FALSE,NA,NA,NA,NA,FALSE,FALSE,"","",NA,NA,FALSE
 "10.1080/10447318.2023.2181125","pilot2",NA,FALSE,FALSE,FALSE,NA,NA,NA,NA,FALSE,FALSE,"","",NA,NA,FALSE
