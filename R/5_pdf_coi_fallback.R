@@ -75,6 +75,40 @@ pdf_coi_text <- function(txt) {
   if (length(out)) paste(out, collapse = " || ") else NA_character_
 }
 
+# --- JCPP-style pointer: "Conflict of interest statement: See Acknowledgements
+# for full disclosures." The disclosures sit at the end of the article. The
+# pointer alone fixes the category (see COI_PARTIAL_RE); the followed text is
+# appended to coi_statement as an audit trail.
+COI_POINTER_RE <- stringr::regex("See Acknowledge?ments for full disclosures\\.?", ignore_case = TRUE)
+COI_DISC_SENT_RE <- stringr::regex(paste0(
+  "\\b(has|have|had) (received|served|acted|consulted|been)|\\breceives?\\b|royalt|honorari|consult|",
+  "advisory board|speakers?.? (bureau|fees)|\\bequity\\b|\\bshares?(holder)?\\b|\\bemployee\\b|patent|disclos"),
+  ignore_case = TRUE)
+
+pdf_full_text <- function(pdf) {
+  if (is.na(pdf) || !file.exists(pdf)) return(NA_character_)
+  t <- system2("pdftotext", c("-enc", "UTF-8", shQuote(path.expand(pdf)), "-"), stdout = TRUE, stderr = FALSE)
+  t <- stringi::stri_trans_nfkc(paste(t, collapse = "\n"))
+  gsub("\\s+", " ", gsub("(\\w)-\\n(\\w)", "\\1\\2", t))
+}
+
+# Disclosure text the pointer refers to: the last COI sentence after the pointer
+# (e.g. "The remaining authors have declared ... no ... conflicts of interest")
+# plus disclosure-style sentences among the six before it. NA if not found.
+follow_coi_pointer <- function(txt) {
+  if (is.na(txt)) return(NA_character_)
+  p <- stringr::str_locate(txt, COI_POINTER_RE)[1, "end"]
+  if (is.na(p)) return(NA_character_)
+  s <- unlist(strsplit(substr(txt, p + 1, nchar(txt)), "(?<=[.!?])\\s+(?=[A-Z])", perl = TRUE))
+  anchor <- utils::tail(which(stringr::str_detect(s, COI_TERM_RE) &
+                              stringr::str_detect(s, COI_DISCLOSE_RE) & nchar(s) < 400), 1)
+  if (!length(anchor)) return(NA_character_)
+  w <- max(1, anchor - 6):(anchor - 1)
+  w <- w[w < anchor]
+  d <- s[w][stringr::str_detect(s[w], COI_DISC_SENT_RE) & nchar(s[w]) < 600]
+  paste(c(d, s[anchor]), collapse = " ")
+}
+
 # Fill coi_statement from the PDF where it is missing (or the TEI placeholder),
 # re-classify, and set coi_source to "pdf_front". `out` needs doi, coi_statement,
 # coi_source; `pdf_files` is aligned with out$doi (NA where no PDF).
@@ -94,6 +128,15 @@ apply_pdf_coi_fallback <- function(out, pdf_files, cache_dir = PDF_TEXT_CACHE) {
       out$coi_source[i]    <- "pdf_front"
     }
   }
+  # Follow JCPP-style pointers; rebuilding from the pointer keeps reruns idempotent.
+  ptr <- which(!is.na(out$coi_statement) & stringr::str_detect(out$coi_statement, COI_POINTER_RE))
+  for (i in ptr) {
+    base <- sub("(?i)(See Acknowledge?ments for full disclosures\\.?).*$", "\\1", out$coi_statement[i], perl = TRUE)
+    disc <- follow_coi_pointer(pdf_full_text(pdf_files[i]))
+    out$coi_statement[i] <- if (is.na(disc)) base else paste(base, disc, sep = " || ")
+  }
+  message(sprintf("PDF COI fallback: %d disclosure pointers, %d followed",
+                  length(ptr), sum(stringr::str_detect(out$coi_statement[ptr], stringr::fixed(" || ")))))
   out$coi_category <- factor(vapply(out$coi_statement, classify_coi, character(1)),
                              levels = c("conflict declared", "no conflict declared", "no statement"))
   message(sprintf("PDF COI fallback: statements recovered for %d rows",

@@ -110,12 +110,17 @@ statement; otherwise a case-insensitive negation regex (`COI_NEG_RE`) classifies
 the statement. It matches phrases such as *no conflict / no competing interest /
 nothing to disclose / declare(s) no / the authors declare none / no financial …
 interest / report no conflict*. A match → `no conflict declared`; a statement that
-does not match → `conflict declared`. Example calls:
+does not match → `conflict declared`. Two exceptions keep a negation from reading
+as "no conflict": a statement about only some authors ("The remaining/other
+authors declare none", `COI_PARTIAL_RE`), and JCPP's pointer "See Acknowledgements
+for full disclosures", which that journal uses only when someone discloses. Both
+are `conflict declared`. Example calls:
 
 ```
 "The authors declare no conflict of interest."     -> no conflict declared
 "No potential conflict of interest was reported."   -> no conflict declared
 "Dr X received consulting fees from Pfizer."        -> conflict declared
+"X receives royalties. The remaining authors declare no conflicts." -> conflict declared
 NA                                                  -> no statement
 ```
 
@@ -133,7 +138,9 @@ disclose, report, none, have no, there are no*, or a `Conflict of interest:`
 heading), so body text such as "there was no conflict between conditions" cannot
 fire. Statements are classified by the same `COI_NEG_RE`. A run-on header such as
 "Conflicts of Interest: None Abstract …" is cut to "Conflicts of Interest: None."
-first. `coi_source = "pdf_front"` marks these rows. Run it on finished outputs
+first. `coi_source = "pdf_front"` marks these rows. For JCPP pointer statements (from
+TEI or PDF), the step also reads the full PDF and appends the disclosures it points
+to (`|| …`) to `coi_statement` as an audit trail. It found them for 27 of 29. Run it on finished outputs
 with `Rscript run_coi_pdf_fallback.R` (updates the three `data/final_extraction_*`
 files in place), or pass `pdf_coi_fallback = TRUE` plus a `pdf_file` column to
 `run_pipeline()`. PDFs are read from the synced Google Drive folder
@@ -186,22 +193,22 @@ Pilot-1 `X8.1` is free text (no-funding phrase → no funding; non-blank → fun
 **blank → uncoded**, excluded from the comparison — see below).
 
 Pilot run (345 papers; index 161 pilot1 + 184 pilot2), accuracy = agreement/coded.
-`coi_category` includes the PDF COI fallback; the TEI + Crossref figure without it
-is in brackets:
+`coi_category` includes the PDF COI fallback and the partial-negation rule. The
+earlier TEI + Crossref figure, without either, is in brackets:
 
 | category | pilot 1 | pilot 2 | pooled |
 |----------|---------|---------|--------|
 | `funding_category` | 0.904 (47/52)  | 0.939 (77/82)   | 0.925 (124/134) |
-| `coi_category`     | 0.828 (53/64) [0.750, 48/64] | 0.892 (74/83) [0.855, 71/83] | 0.864 (127/147) [0.810, 119/147] |
+| `coi_category`     | 0.828 (53/64) [0.750, 48/64] | 0.904 (75/83) [0.855, 71/83] | 0.871 (128/147) [0.810, 119/147] |
 | `prereg_present`   | 0.938 (60/64)  | 0.952 (79/83)   | 0.946 (139/147) |
 
 Pooled confusion matrices (rows = auto, cols = manual):
 
 ```
-funding_category            coi_category (with PDF fallback)                    prereg_present
+funding_category            coi_category (current)                              prereg_present
               funded noF noS               conflict noConf noStmt                      F   T
-funded            98   0   3   conflict          5      1      2            FALSE    103   4
-no funding         2  16   0   no conflict      10     90      4            TRUE       4  36
+funded            98   0   3   conflict          6      1      2            FALSE    103   4
+no funding         2  16   0   no conflict       9     90      4            TRUE       4  36
 no statement       4   1  10   no statement      1      2     32
 ```
 
@@ -238,9 +245,10 @@ declare no conflict, e.g. "the authors declare no competing interests", coded as
 "conflict declared"). The negation regex was tuned on the remainder, gaining the
 phrasings "in the absence of any commercial/financial relationships", a bare
 "None." closing the statement (incl. GROBID's concatenated `STATEMENTNone.`), and
-"do not have any conflicts". One residual auto error is a genuinely mixed
-statement (one author discloses royalties while the others declare none), which a
-negation regex cannot resolve. The `no statement` disagreements were TEI
+"do not have any conflicts". A genuinely mixed statement (one author discloses
+royalties while the others declare none, 10.1111/jopy.12890) is now resolved by
+the partial-negation rule, which reclassifies 60 such statements across the two
+frames. The `no statement` disagreements were TEI
 extraction recall gaps (a statement exists but GROBID did not surface it); the
 PDF COI fallback closes 9 of these 12, and the other 3 lack a statement in the
 PDF copy we hold (see above).
