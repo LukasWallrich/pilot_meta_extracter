@@ -21,6 +21,11 @@ Rscript run_full_sample.R           # ~1.5 h on a cold cache; resumable
 Rscript run_pilot2_sample.R         # resumable
 # -> writes data/pilot2_sample_index.csv and
 #           data/final_extraction_pilot2-sample.csv
+
+# 3. (optional) COI fallback from PDF pages 1-3 for articles whose TEI and
+#    Crossref give no COI statement (APA page-1 author notes etc.). Needs the
+#    synced Google Drive PDF folder and poppler's pdftotext.
+Rscript run_coi_pdf_fallback.R      # updates the three final_extraction_*.csv in place
 ```
 
 To run on your own DOIs, source the pipeline and call `run_pipeline()` with a data frame of `doi` + `tei_file` (path):
@@ -36,7 +41,8 @@ Only the entry points sit at the root; everything else is filed by role.
 
 ```
 README.md
-run_pipeline.R          main entry point — DOIs + TEIs -> the 20 columns
+run_pipeline.R          main entry point — DOIs + TEIs -> the 21 columns
+run_coi_pdf_fallback.R  optional step: PDF front-page COI fallback on the outputs
 run_full_sample.R       driver for the pilot-1 frame
 run_pilot2_sample.R     driver for the pilot-2 frame
 R/                      the extraction modules (function libraries)
@@ -53,7 +59,7 @@ archive/                superseded outputs and dev scripts, kept for provenance
 
 | File | Role |
 |---|---|
-| `run_pipeline.R` | **Main entry point.** Sources the four modules, runs them per DOI, writes `data/final_extraction_*.csv`. Single source of truth for the extraction logic. |
+| `run_pipeline.R` | **Main entry point.** Sources the five modules, runs them per DOI, writes `data/final_extraction_*.csv`. Single source of truth for the extraction logic. |
 | `run_full_sample.R` | **Driver for the pilot-1 frame.** Builds the DOI → TEI index over `full_sample.csv` plus the manually coded pilot-2 articles, and runs `run_pipeline()` over the empirical and manually coded articles — metadata for the sample *before* pilot-keyword screening, so pilot-reporting and non-reporting articles can be compared. |
 | `run_pilot2_sample.R` | **Driver for the pilot-2 frame.** Builds the DOI → TEI index over `pilot2_sample.csv` (the 4,635-article 2023 frame that pilot 2 was drawn from) and runs `run_pipeline()` over every article with a TEI, coded or not. |
 

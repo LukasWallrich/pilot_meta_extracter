@@ -20,7 +20,7 @@
 #                                            keyword_hit, article_status
 #                                            (join key for the analysis)
 #   data/final_extraction_full-empirical-sample.csv
-#                                            the 20-column pipeline output, one row
+#                                            the 21-column pipeline output, one row
 #                                            per empirical article with a TEI file
 #
 # DOI -> TEI matching is deterministic: full_sample.csv carries the Zotero PDF

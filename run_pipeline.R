@@ -2,7 +2,7 @@
 # run_pipeline.R
 # -----------------------------------------------------------------------------
 # ONE consolidated, documented extraction pipeline. Given a set of DOIs and
-# their GROBID TEI files, returns EXACTLY the 20-column narrow field set
+# their GROBID TEI files, returns EXACTLY the 21-column narrow field set
 # (one row per DOI) documented in docs/README_pipeline.md.
 #
 # It SOURCES four function libraries (single source of truth -- each function is
@@ -11,6 +11,7 @@
 #   - R/2_extract_tei_coi_funding.R  -> TEI funder/COI/funding regex extraction
 #   - R/3_extract_prereg.R           -> preregistration / registered-report / trial
 #   - R/4_link_funders_locations.R   -> funder -> country resolution
+#   - R/5_pdf_coi_fallback.R         -> optional COI fallback from PDF front pages
 #
 # The pilot-1 + pilot-2 batch reproductions and manual-coding validation for
 # stages 2-4 live in validation/pilot_*.R. On-disk caches are reused so a rerun
@@ -23,6 +24,7 @@
 #
 # Public interface:
 #   run_pipeline(doi_tei_df, ...)   doi_tei_df: columns `doi`, `tei_file`
+#                                   (+ optional `pdf_file` for pdf_coi_fallback = TRUE)
 #
 # API volume for the pilot run: process_dois queries OpenAlex + Crossref
 # (+ first/last author profiles) ~4 calls/DOI over ~340 DOIs = ~1,400 calls,
@@ -52,6 +54,7 @@ source("R/1_extract_doi_metadata.R")
 source("R/2_extract_tei_coi_funding.R")   # heading_matches, clean_extracted_text, extract_regex, extract_metacheck
 source("R/3_extract_prereg.R")            # parse_tei, osf_bare_code, classify_paper, resolve_osf_caches, ...
 source("R/4_link_funders_locations.R")    # resolve_funder_ids/_names, cluster_funders, resolve_paper_funders, ...
+source("R/5_pdf_coi_fallback.R")          # pdf_front_text, pdf_coi_text, apply_pdf_coi_fallback
 
 # --- NA-aware null-coalesce (used by the prereg + funder code). Defined AFTER
 #     sourcing R/1_extract_doi_metadata.R so a single, consistent operator is in
@@ -179,17 +182,18 @@ classify_coi <- function(stmt) {
 }
 
 # =============================================================================
-# 6. run_pipeline: orchestrates everything -> exactly 20 columns per DOI
+# 6. run_pipeline: orchestrates everything -> exactly 21 columns per DOI
 # =============================================================================
 OUT_COLS <- c("doi","journal","issn","top_factor","sjr",
               "first_author_country","first_author_location_full","first_author_location_source",
               "funding_category","funding_statement","funders","funding_country",
-              "coi_statement","coi_category",
+              "coi_statement","coi_category","coi_source",
               "prereg_present","prereg_platform","prereg_url",
               "is_registered_report","is_trial_registry","registration_any")
 
 run_pipeline <- function(doi_tei_df, use_api = TRUE,
-                         metadata_cache = META_CACHE_DEFAULT) {
+                         metadata_cache = META_CACHE_DEFAULT,
+                         pdf_coi_fallback = FALSE) {
   stopifnot(all(c("doi","tei_file") %in% names(doi_tei_df)))
   df <- doi_tei_df |>
     mutate(doi = norm_doi(doi)) |>
@@ -248,7 +252,7 @@ run_pipeline <- function(doi_tei_df, use_api = TRUE,
   fund_df <- bind_rows(fund_rows)
   fund_df$doi <- df$doi
 
-  # -- (e) Assemble the 20-column output --
+  # -- (e) Assemble the 21-column output --
   out <- df |> select(doi) |>
     left_join(meta, by = "doi") |>
     left_join(rx_df, by = "doi") |>
@@ -280,8 +284,15 @@ run_pipeline <- function(doi_tei_df, use_api = TRUE,
 
   # COI
   out$coi_statement <- dplyr::coalesce(na_blank(out$rx_coi_text), na_blank(out$coi_crossref))
+  out$coi_source <- dplyr::case_when(!is.na(na_blank(out$rx_coi_text))  ~ "tei",
+                                     !is.na(na_blank(out$coi_crossref)) ~ "crossref",
+                                     TRUE ~ NA_character_)
   out$coi_category <- factor(vapply(out$coi_statement, classify_coi, character(1)),
                              levels = c("conflict declared","no conflict declared","no statement"))
+  if (pdf_coi_fallback) {
+    pdfs <- if ("pdf_file" %in% names(df)) df$pdf_file[match(out$doi, df$doi)] else rep(NA_character_, nrow(out))
+    out <- apply_pdf_coi_fallback(out, pdfs)
+  }
 
   # prereg
   out$prereg_present       <- out$prereg_found

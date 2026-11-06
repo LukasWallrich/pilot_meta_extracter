@@ -1,12 +1,12 @@
 # `run_pipeline.R` — consolidated extraction pipeline
 
 One clean, documented pipeline that takes a set of DOIs + their GROBID TEI files
-and returns a narrow, 20-column field set (one row per DOI). It `source()`s four
+and returns a narrow, 21-column field set (one row per DOI). It `source()`s five
 numbered function modules and orchestrates them, reusing their on-disk caches.
 
 ## Module layout (single source of truth)
 
-The extraction logic lives in four numbered **function libraries** at the repo
+The extraction logic lives in five numbered **function libraries** at the repo
 root. Sourcing any of them only defines functions + constants — no side effects,
 no I/O, no API calls — so each function is defined exactly once and shared by both
 the pipeline and the per-stage pilot reproductions:
@@ -17,8 +17,9 @@ the pipeline and the per-stage pilot reproductions:
 | `R/2_extract_tei_coi_funding.R` | TEI funder-name / funding / COI regex extraction (`extract_regex`, …) |
 | `R/3_extract_prereg.R` | preregistration / registered-report / trial detection (`classify_paper`, `resolve_osf_caches`, …) |
 | `R/4_link_funders_locations.R` | funder → country resolution (`resolve_funder_ids`, `resolve_funder_names`, `resolve_paper_funders`, …) |
+| `R/5_pdf_coi_fallback.R` | optional COI fallback from the PDF's front pages (`pdf_front_text`, `pdf_coi_text`, `apply_pdf_coi_fallback`, `map_pdf_files`) |
 
-`run_pipeline.R` sources all four and consumes their functions. The pilot-1 +
+`run_pipeline.R` sources all five and consumes their functions. The pilot-1 +
 pilot-2 **batch reproductions and manual/metacheck validation** for stages 2–4
 live in `validation/pilot_extract_tei.R`, `validation/pilot_extract_prereg.R`, and
 `validation/pilot_link_funders.R` (run from the repo root). Those pilot drivers
@@ -34,11 +35,13 @@ source("run_pipeline.R")
 # doi_tei_df: a data frame / tibble with columns
 #   doi       chr   the article DOI (any case; normalised internally)
 #   tei_file  chr   path to the GROBID TEI XML (may be NA if no TEI available)
+#   pdf_file  chr   optional: source PDF, used only when pdf_coi_fallback = TRUE
 result <- run_pipeline(doi_tei_df, use_api = TRUE,
-                       metadata_cache = "data/cache/pipeline_metadata_cache.csv")
+                       metadata_cache = "data/cache/pipeline_metadata_cache.csv",
+                       pdf_coi_fallback = FALSE)
 ```
 
-Returns a tibble with **exactly** the 20 columns below, in this order, one row per
+Returns a tibble with **exactly** the 21 columns below, in this order, one row per
 input DOI (deduplicated on normalised DOI; input order preserved). Rows with a
 missing/NA `tei_file` still get metadata; their TEI-derived fields are NA/FALSE.
 
@@ -78,14 +81,15 @@ Sourcing the file (without `PIPELINE_RUN=1`) only defines the functions; it does
 | 10 | `funding_statement` | TEI | AUDIT: cleaned `rx_funding_text` (funding prose). NA if none |
 | 11 | `funders` | funder pipeline | AUDIT: `best_funders`, `||`-separated (literal `"no funding"` allowed). NA if none |
 | 12 | `funding_country` | funder pipeline | ALL distinct funder countries (`best_funder_countries`), `||`-separated. NA if no funding / unknown |
-| 13 | `coi_statement` | TEI + Crossref | `coalesce(cleaned rx_coi_text, coi_crossref)`. NA if none |
+| 13 | `coi_statement` | TEI + Crossref (+ PDF) | `coalesce(cleaned rx_coi_text, coi_crossref)`; with the PDF fallback, rows that are still NA (or hold only the TEI placeholder `[COI heading found, statement text missing in TEI]`) take disclosure sentences from PDF pages 1–3. NA if none |
 | 14 | `coi_category` | derived | factor `conflict declared` / `no conflict declared` / `no statement`. NA statement → `no statement`; else negation regex (below) → `no conflict declared`; otherwise `conflict declared` |
-| 15 | `prereg_present` | prereg logic | logical (`prereg_found`) |
-| 16 | `prereg_platform` | prereg logic | chr, `||`-separated (OSF registration / AsPredicted / OSF project / preprint / trial registry / `statement (no URL)` …) |
-| 17 | `prereg_url` | prereg logic | chr, matched registration URL(s), `||`-separated |
-| 18 | `is_registered_report` | prereg logic | logical. Automated: "registered report" keyword in text OR an OSF "Registered Report Protocol" registration template |
-| 19 | `is_trial_registry` | prereg logic | logical (a clinical-trial registry URL or plain-text registry ID) |
-| 20 | `registration_any` | derived | logical, `prereg_present OR is_registered_report OR is_trial_registry` |
+| 15 | `coi_source` | derived | `tei` / `crossref` / `pdf_front` — where `coi_statement` came from. NA if no statement |
+| 16 | `prereg_present` | prereg logic | logical (`prereg_found`) |
+| 17 | `prereg_platform` | prereg logic | chr, `||`-separated (OSF registration / AsPredicted / OSF project / preprint / trial registry / `statement (no URL)` …) |
+| 18 | `prereg_url` | prereg logic | chr, matched registration URL(s), `||`-separated |
+| 19 | `is_registered_report` | prereg logic | logical. Automated: "registered report" keyword in text OR an OSF "Registered Report Protocol" registration template |
+| 20 | `is_trial_registry` | prereg logic | logical (a clinical-trial registry URL or plain-text registry ID) |
+| 21 | `registration_any` | derived | logical, `prereg_present OR is_registered_report OR is_trial_registry` |
 
 ## Key derivation rules
 
@@ -115,7 +119,28 @@ does not match → `conflict declared`. Example calls:
 NA                                                  -> no statement
 ```
 
-**`is_registered_report` (col 18).** Exposes the prereg logic's registered-report
+**PDF COI fallback (cols 13–15; optional).** GROBID drops the page-1 author
+note in which APA (`10.1037`), Cambridge (`10.1017`) and `10.1192` print COI
+disclosures, and repository copies with a cover sheet push a disclosure to page
+2–3. `R/5_pdf_coi_fallback.R` therefore reads pages 1–3 of the PDF (`pdftotext`)
+for every article whose TEI and Crossref give no statement, or whose TEI only
+holds the `[COI heading found, statement text missing in TEI]` placeholder. It
+applies to all publishers, because the validation misses it recovered also came
+from Elsevier, Wiley and MIT Press. A sentence counts as a statement only if it names an *interest*
+(`conflict(s) of interest`, `competing interest(s)`, `declaration(s) of
+interest`, or `financial disclosure`) and reads as a disclosure (*declare,
+disclose, report, none, have no, there are no*, or a `Conflict of interest:`
+heading), so body text such as "there was no conflict between conditions" cannot
+fire. Statements are classified by the same `COI_NEG_RE`. A run-on header such as
+"Conflicts of Interest: None Abstract …" is cut to "Conflicts of Interest: None."
+first. `coi_source = "pdf_front"` marks these rows. Run it on finished outputs
+with `Rscript run_coi_pdf_fallback.R` (updates the three `data/final_extraction_*`
+files in place), or pass `pdf_coi_fallback = TRUE` plus a `pdf_file` column to
+`run_pipeline()`. PDFs are read from the synced Google Drive folder
+(`PILOT_PDF_ROOT` overrides it), and their text is cached per DOI in the gitignored
+`data/cache/pdf_front_text/`.
+
+**`is_registered_report` (col 19).** Exposes the prereg logic's registered-report
 keyword hit (`has_rr_kw`) and additionally flags OSF registrations whose template
 matches "Registered Report" (the `Registered Report Protocol Preregistration`
 template, which the dedicated-preregistration template regex does not catch).
@@ -160,23 +185,40 @@ statement; else `no funding` → no funding; else `Yes`/provides → funded).
 Pilot-1 `X8.1` is free text (no-funding phrase → no funding; non-blank → funded;
 **blank → uncoded**, excluded from the comparison — see below).
 
-Pilot run (345 papers; index 161 pilot1 + 184 pilot2), accuracy = agreement/coded:
+Pilot run (345 papers; index 161 pilot1 + 184 pilot2), accuracy = agreement/coded.
+`coi_category` includes the PDF COI fallback; the TEI + Crossref figure without it
+is in brackets:
 
 | category | pilot 1 | pilot 2 | pooled |
 |----------|---------|---------|--------|
 | `funding_category` | 0.904 (47/52)  | 0.939 (77/82)   | 0.925 (124/134) |
-| `coi_category`     | 0.750 (48/64)  | 0.855 (71/83)   | 0.810 (119/147) |
+| `coi_category`     | 0.828 (53/64) [0.750, 48/64] | 0.892 (74/83) [0.855, 71/83] | 0.864 (127/147) [0.810, 119/147] |
 | `prereg_present`   | 0.938 (60/64)  | 0.952 (79/83)   | 0.946 (139/147) |
 
 Pooled confusion matrices (rows = auto, cols = manual):
 
 ```
-funding_category            coi_category                                        prereg_present
+funding_category            coi_category (with PDF fallback)                    prereg_present
               funded noF noS               conflict noConf noStmt                      F   T
 funded            98   0   3   conflict          5      1      2            FALSE    103   4
-no funding         2  16   0   no conflict       9     82      4            TRUE       4  36
-no statement       4   1  10   no statement      2     10     32
+no funding         2  16   0   no conflict      10     90      4            TRUE       4  36
+no statement       4   1  10   no statement      1      2     32
 ```
+
+Without the fallback, the COI matrix was conflict 5/1/2, no conflict 9/82/4 and
+no statement 2/10/32.
+
+**COI detection by publisher group** (manual statement present = denominator).
+For APA, Cambridge and `10.1192` (27 coded articles, 10 with a statement),
+sensitivity rises from 50.0% (5/10) to 90.0% (9/10). For all other publishers
+(99 with a statement), it rises from 92.9% (92/99) to 98.0% (97/99). The fallback
+recovers 9 of the 12 statements that TEI and Crossref missed and adds none to the
+32 articles coded as having no statement. One recovered statement ("Declarations
+of interest: none", 10.1016/j.brat.2022.104152) disagrees with the coder's
+"conflict declared", which looks like a coder error. The 3 remaining
+misses are PDF-version limits, not parsing limits. Our copies of
+10.1016/j.obhdp.2022.104181 (a repository version), 10.1002/eat.23867 and
+10.1037/xge0001439 (a preprint-style version) contain no COI wording anywhere.
 
 **A blank pilot-1 `X8.1` is uncoded, not "no funding statement".** Pilot-1
 coders filled the free-text field in when funding existed and left it empty
@@ -198,9 +240,10 @@ phrasings "in the absence of any commercial/financial relationships", a bare
 "None." closing the statement (incl. GROBID's concatenated `STATEMENTNone.`), and
 "do not have any conflicts". One residual auto error is a genuinely mixed
 statement (one author discloses royalties while the others declare none), which a
-negation regex cannot resolve. The remaining `no statement` disagreements are TEI
-extraction recall gaps (a statement exists but GROBID did not surface it),
-inherited unchanged from the reused extractor.
+negation regex cannot resolve. The `no statement` disagreements were TEI
+extraction recall gaps (a statement exists but GROBID did not surface it); the
+PDF COI fallback closes 9 of these 12, and the other 3 lack a statement in the
+PDF copy we hold (see above).
 
 **prereg** is the strongest signal (0.946 pooled): 4 false positives, 4 false
 negatives out of 147 coded papers.
