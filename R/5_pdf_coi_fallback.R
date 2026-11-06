@@ -79,6 +79,11 @@ pdf_coi_text <- function(txt) {
 # re-classify, and set coi_source to "pdf_front". `out` needs doi, coi_statement,
 # coi_source; `pdf_files` is aligned with out$doi (NA where no PDF).
 apply_pdf_coi_fallback <- function(out, pdf_files, cache_dir = PDF_TEXT_CACHE) {
+  # Re-derive earlier PDF-sourced rows so changed rules propagate on a rerun.
+  # (A replaced TEI placeholder becomes NA here and is retried like any other gap.)
+  prev <- which(out$coi_source %in% "pdf_front")
+  out$coi_statement[prev] <- NA_character_
+  out$coi_source[prev]    <- NA_character_
   need <- which(is.na(out$coi_statement) | out$coi_statement == COI_PLACEHOLDER)
   message(sprintf("PDF COI fallback: %d rows without a usable statement, %d with a PDF",
                   length(need), sum(!is.na(pdf_files[need]))))

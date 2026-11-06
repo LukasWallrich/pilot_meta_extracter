@@ -444,10 +444,12 @@ disclosures and one was body text.
 - **The fallback does not reach statements printed in back matter.** Some
   Cambridge articles print "Conflicts of interest. None." at the end, and GROBID
   occasionally drops that too.
-- **Classification limits are shared with TEI statements.** The negation regex
-  misses some no-conflict phrasings, such as "None of the authors…" and "No
-  authors reported…". JCPP's "See Acknowledgements for full disclosures" is a
-  pointer, not a statement, and is classified as "conflict declared".
+- **Classification limits are shared with TEI statements.** Of the 36 recovered
+  statements classified "conflict declared", about 23 are right. These include 16
+  JCPP pointers ("See Acknowledgements for full disclosures"), which that journal
+  uses only when an author has something to disclose. About 12 are no-conflict
+  phrasings the negation regex misses, such as "None of the authors…" and "No
+  authors reported…". One is body text. The same gaps affect TEI statements.
 
 The upstream fix remains
 [metacheck issue #325](https://github.com/scienceverse/metacheck/issues/325) and
