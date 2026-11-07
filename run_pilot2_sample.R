@@ -20,7 +20,7 @@
 #   data/pilot2_sample_index.csv               one row per frame article:
 #                                              doi, tei_file, keyword_hit,
 #                                              article_status (join key)
-#   data/final_extraction_pilot2-sample.csv    the 20-column pipeline output, one
+#   data/final_extraction_pilot2-sample.csv    the 21-column pipeline output, one
 #                                              row per frame article with a TEI
 #
 # No empirical / research-area classification is attached: the LLM classifier

@@ -45,7 +45,7 @@ ex1       <- read_out("data/final_extraction_full-empirical-sample.csv")
 idx2      <- read_out("data/pilot2_sample_index.csv")
 ex2       <- read_out("data/final_extraction_pilot2-sample.csv")
 
-# The 20 extraction columns are identical across the two frames, so the samples
+# The 21 extraction columns are identical across the two frames, so the samples
 # stack once each row is labelled with the frame it came from. The pilot-1
 # driver also extracts the manually coded pilot-2 articles, so those appear in
 # both outputs and are deduplicated here; the pilot-1 row is kept.
@@ -165,7 +165,7 @@ DOI → TEI matching is deterministic. TEI filenames carry the DOI with every
 cannot be restored by position. Both sides are therefore compared on a key that
 lower-cases the DOI and rewrites `/` as `-`.
 
-### The four extraction modules
+### The five extraction modules
 
 ```{r tbl-modules}
 #| label: tbl-modules
@@ -173,14 +173,16 @@ lower-cases the DOI and rewrites `/` as `-`.
 
 tibble(
   Module = c("1. DOI metadata", "2. TEI funding & COI",
-             "3. Preregistration", "4. Funder → country"),
+             "3. Preregistration", "4. Funder → country", "5. PDF COI fallback"),
   Source = c("OpenAlex + Crossref APIs", "GROBID TEI",
-             "GROBID TEI + OSF API", "Crossref Funder Registry + OpenAlex/ROR"),
+             "GROBID TEI + OSF API", "Crossref Funder Registry + OpenAlex/ROR",
+             "PDF pages 1–3 (pdftotext)"),
   Produces = c(
     "Journal, ISSN, SJR, TOP Factor, first-author affiliation, structured funder IDs, Crossref COI text, abstract",
     "Funding statement and conflict-of-interest statement text, located by document structure",
     "Preregistration present, platform, URL; registered-report and trial-registry flags",
-    "Country for every named or ID-matched funder")
+    "Country for every named or ID-matched funder",
+    "COI statement where TEI and Crossref have none (e.g. APA page-1 author notes)")
 ) |>
   gt() |>
   tab_header(title = "Pipeline modules") |>
@@ -199,8 +201,12 @@ AsPredicted are detected separately, and `registration_any` is the union of
 preregistration, registered report and trial registry.
 
 **Conflict of interest is classified by negation, not by presence.** A COI
-statement is first located (TEI, falling back to the Crossref deposit); a
-case-insensitive negation regex then decides whether it declares *no* conflict.
+statement is first located (TEI, then the Crossref deposit, then the PDF's first
+three pages); a case-insensitive negation regex then decides whether it declares
+*no* conflict. A negation that covers only some authors ("the remaining authors
+declare none") still counts as a declared conflict, as does a statement that
+pairs a denial with an explicit disclosure ("…declare no conflict. X receives
+royalties…").
 No statement at all is a third, distinct category — the absence of a declaration
 is a finding, not a missing value.
 
@@ -212,7 +218,7 @@ disk. A rerun over the same DOIs makes no network calls, and
 `run_pipeline(..., use_api = FALSE)` errors rather than silently reaching the
 network, which is what makes the outputs reproducible offline.
 
-### The 20 output columns
+### The 21 output columns
 
 ```{r tbl-columns}
 #| label: tbl-columns
@@ -232,6 +238,7 @@ tibble::tribble(
   "funding_country", "Distinct funder countries, ||-separated",
   "coi_statement", "The extracted conflict-of-interest text (audit trail)",
   "coi_category", "conflict declared / no conflict declared / no statement",
+  "coi_source", "Where the COI statement came from: tei / crossref / pdf_front",
   "prereg_present", "Whether the article reports a study preregistration",
   "prereg_platform", "OSF registration, AsPredicted, ClinicalTrials.gov, …",
   "prereg_url", "Registration link(s)",
@@ -307,7 +314,7 @@ metrics <- bind_rows(
 
 ```{r tbl-accuracy}
 #| label: tbl-accuracy
-#| tbl-cap: "Agreement with manual coding, on articles a coder answered."
+#| tbl-cap: "Agreement with manual coding, on articles a coder answered. This is the development sample: rules were refined after inspecting these articles, so the figures are optimistic for unseen papers."
 
 metrics |>
   mutate(cell = sprintf("%.3f (%d/%d)", accuracy, agree, n)) |>
@@ -399,47 +406,66 @@ conf_gt("prereg_present", "man_prereg", "prereg_present")
 
 :::
 
-### A known blind spot in conflict-of-interest capture
+### Conflict-of-interest capture and the PDF fallback
 
-`coi_category == "no statement"` should be read with care for some publishers.
-Across both frames, 62.4% of articles carry a COI statement, but the rate by
-publisher runs from **13.0% for APA (`10.1037`, n = 1,021)** to **95.9% for
-MDPI**, with SAGE, Springer and Taylor & Francis all between 88% and 93%. That
-spread is too wide to be reporting culture alone.
+GROBID drops the page-1 author note in which APA (`10.1037`) prints COI
+disclosures. Take [10.1037/xap0000495](https://doi.org/10.1037/xap0000495): the
+PDF reads "The authors have no conflicts of interest to disclose", but the TEI
+contains no COI wording at all. Without a fix, only **13.0% of APA articles
+(n = 1,021)** carried a COI statement, against 88–96% for SAGE, Springer, Taylor &
+Francis and MDPI. Crossref deposits no COI field that would fill the gap.
 
-Checking the source confirms it is a parsing limit. In the validation set,
-detection sensitivity is **92.9% outside APA and Cambridge but 50.0% within**
-(n = 27). Taking one verified case,
-[10.1037/xap0000495](https://doi.org/10.1037/xap0000495): the PDF's author note
-reads "The authors have no conflicts of interest to disclose", and the 87,342-character
-GROBID TEI contains no match for conflict, competing interest, disclose or
-disclosure at all. APA places disclosures in the page-1 author note, and GROBID
-does not carry that note into the TEI. In a sample of 400 articles marked
-`no statement`, only 10.2% contain any COI wording in their TEI — so the
-absence is genuine for most, but not for the affected publishers.
+**The pipeline therefore reads the PDF's first three pages** whenever the TEI and
+Crossref give no statement (`R/5_pdf_coi_fallback.R`; `coi_source = "pdf_front"`).
+It looks only for disclosure-style sentences that name an *interest*, so body
+text about other kinds of conflict does not count, and it classifies them with
+the same negation regex. Three pages, not one, because repository copies with a
+cover sheet push the author note to page 2 or 3.
 
-Funding is not affected in the same way, because Crossref supplies structured
-funder IDs for 58.6% of APA articles and the pipeline uses them. There is no
-equivalent deposit for COI: a Crossref COI field exists for 7–9% of articles
-overall and rescued none.
+In the validation set, the fallback recovers 9 of the 12 statements that TEI and
+Crossref missed. Of the 38 articles coded as having no statement, it adds one to
+none of the 32 that TEI and Crossref correctly left empty. These are agreement
+figures on the development sample: the rules were refined after inspecting these
+articles, so they overstate accuracy on unseen papers.
+For APA, Cambridge and `10.1192`, sensitivity rises from 50.0% to 90.0% (9/10);
+for other publishers it rises from 92.9% to 98.0% (97/99). The three remaining
+misses are copies that contain no COI wording anywhere: a repository version, a
+preprint-style version and one Wiley PDF.
 
-**Implication.** For APA, Cambridge and `10.1192` — 1,808 articles, 21% of
-the pooled dataset — `no statement` conflates "the article has none" with "we
-could not see it", and treating it as an affirmative absence will produce a
-spurious publisher effect.
+Across both frames the COI-statement rate rises from 62.4% to 67.3%, and for APA
+from 13.0% to 33.1%. In a sample of 40 recovered statements, 39 were genuine
+disclosures and one was body text.
 
-**What is being done.** This is
-[metacheck issue #325](https://github.com/scienceverse/metacheck/issues/325).
-The maintainers expect it to be resolved by the forthcoming **bibr** import —
-bibr is the PDF-to-JSON extraction service replacing GROBID inside metacheck,
-and its author reports that it "has a section classification module that detects
-ethics/funding/coi sections very well". We are seeking access to test that
-claim against this set, which is a good benchmark for it: 8,711 PDFs, 345
-manually coded articles, publisher-level sensitivity measured, and 12 confirmed
-misses to check. bibr is not yet publicly released — there is no public
-repository, image or self-hosting documentation — so the test waits on either an
-API key or the server image. Until then the COI column stands as described, and
-the affected publishers should be handled explicitly in any analysis.
+**Remaining limits.**
+
+- **Most remaining APA gaps look genuine.** In 12 sampled APA PDFs that still
+  had no statement, the full text contained no COI wording anywhere.
+- **Most of the Cambridge and BJPsych Open gap is conference abstracts, not
+  parsing.** Of the articles still without a statement, 241 at `10.1017` and 79
+  at `10.1192` are meeting or congress abstracts. These come mainly from the
+  INS meeting supplement in the *Journal of the International
+  Neuropsychological Society*, the IPA congress abstracts in *International
+  Psychogeriatrics* and the RCPsych meeting abstracts in *BJPsych Open*, almost
+  all in the pilot-2 frame. With those excluded, 58.1% of `10.1017` and 86.7%
+  of `10.1192` items carry a statement.
+- **The fallback does not reach statements printed in back matter.** Some
+  Cambridge articles print "Conflicts of interest. None." at the end, and GROBID
+  occasionally drops that too.
+- **Classification limits are shared with TEI statements.** The negation regex
+  misses some no-conflict phrasings, such as "None of the authors…" and "No
+  authors reported…" (about 12 of the 36 recovered statements classified
+  "conflict declared", plus one body-text hit). Three rules keep a negation from
+  reading as "no conflict". A statement covering only some authors ("The
+  remaining authors declare none") is "conflict declared"; this moved 60
+  statements across the frames. So is a denial paired with an explicit
+  disclosure ("…declare no conflict. X is a consultant to…"); this moved 10
+  statements, none in the validation set. So is JCPP's "See Acknowledgements for full
+  disclosures", which that journal uses only when an author discloses. For those
+  29 articles, the disclosures are appended from the PDF as an audit trail.
+
+The upstream fix remains
+[metacheck issue #325](https://github.com/scienceverse/metacheck/issues/325) and
+the forthcoming bibr import.
 
 ::: {.callout-important}
 ## Open question for the team: does open-access funding count as funding?

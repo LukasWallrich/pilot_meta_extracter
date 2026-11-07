@@ -21,6 +21,11 @@ Rscript run_full_sample.R           # ~1.5 h on a cold cache; resumable
 Rscript run_pilot2_sample.R         # resumable
 # -> writes data/pilot2_sample_index.csv and
 #           data/final_extraction_pilot2-sample.csv
+
+# 3. (optional) COI fallback from PDF pages 1-3 for articles whose TEI and
+#    Crossref give no COI statement (APA page-1 author notes etc.). Needs the
+#    synced Google Drive PDF folder and poppler's pdftotext.
+Rscript run_coi_pdf_fallback.R      # updates the three final_extraction_*.csv in place
 ```
 
 To run on your own DOIs, source the pipeline and call `run_pipeline()` with a data frame of `doi` + `tei_file` (path):
@@ -36,7 +41,8 @@ Only the entry points sit at the root; everything else is filed by role.
 
 ```
 README.md
-run_pipeline.R          main entry point — DOIs + TEIs -> the 20 columns
+run_pipeline.R          main entry point — DOIs + TEIs -> the 21 columns
+run_coi_pdf_fallback.R  optional step: PDF front-page COI fallback on the outputs
 run_full_sample.R       driver for the pilot-1 frame
 run_pilot2_sample.R     driver for the pilot-2 frame
 R/                      the extraction modules (function libraries)
@@ -53,7 +59,7 @@ archive/                superseded outputs and dev scripts, kept for provenance
 
 | File | Role |
 |---|---|
-| `run_pipeline.R` | **Main entry point.** Sources the four modules, runs them per DOI, writes `data/final_extraction_*.csv`. Single source of truth for the extraction logic. |
+| `run_pipeline.R` | **Main entry point.** Sources the five modules, runs them per DOI, writes `data/final_extraction_*.csv`. Single source of truth for the extraction logic. |
 | `run_full_sample.R` | **Driver for the pilot-1 frame.** Builds the DOI → TEI index over `full_sample.csv` plus the manually coded pilot-2 articles, and runs `run_pipeline()` over the empirical and manually coded articles — metadata for the sample *before* pilot-keyword screening, so pilot-reporting and non-reporting articles can be compared. |
 | `run_pilot2_sample.R` | **Driver for the pilot-2 frame.** Builds the DOI → TEI index over `pilot2_sample.csv` (the 4,635-article 2023 frame that pilot 2 was drawn from) and runs `run_pipeline()` over every article with a TEI, coded or not. |
 
@@ -139,7 +145,7 @@ Against the manual coding of the two pilot rounds (papers with a usable manual c
 
 - Funding and COI: `data/rx_vs_metacheck_metrics.csv` (per pilot and pooled), method in `docs/README_tei_extraction.md`. The extractor was tuned on pilot-2 misses, so pilot 1 is the cleaner out-of-sample test (funding F1 0.93 vs 0.89 for `metacheck`; COI 0.85 vs 0.81).
 - Preregistration: `docs/README_prereg_extraction.md`.
-- End to end (the final output categories against the coders' categories, as reported in the manuscript's pilot results): funding 92.5% (124/134), COI 81.0% (119/147), preregistration 94.6% (139/147). COI is lowest mainly because GROBID often drops COI statements printed in first-page author notes. See `docs/README_pipeline.md`.
+- End to end (the final output categories against the coders' categories, as reported in the manuscript's pilot results): funding 92.5% (124/134), COI 87.1% (128/147) with the optional PDF COI fallback (81.0%, 119/147, from TEI and Crossref alone), preregistration 94.6% (139/147). These are agreement figures on the development sample: the rules were refined after inspecting these articles. Without the fallback COI is lowest because GROBID often drops COI statements printed in first-page author notes. See `docs/README_pipeline.md`.
 - Pilot-2 coverage as reported in the manuscript (84 articles reporting a pilot; automated = Crossref metadata or TEI extraction): a funding statement was found automatically for 66 of the 67 articles where coders recorded one, and for 7 of the 17 where they did not; a COI statement for 63 of 68 and 3 of 16. `validation/pilot2_auto_vs_manual.R` → `data/pilot2_auto_vs_manual_counts.csv`.
 - Manuscript figure of coder vs automated agreement for both pilots (Pilot 1 Crossref-only counts entered in the script; Pilot 2 read from the counts file): `Rscript validation/plot_pilot_confusion.R` → `docs/figures/pilot_extraction_confusion.{png,pdf}`.
 - Funder → country: every structured Crossref funder ID resolves to a country; of the 227 papers with at least one named funder, 200 (88%) get at least one funder country (`docs/README_funders.md`).
