@@ -183,9 +183,21 @@ COI_PARTIAL_RE <- regex(paste0(
   "\\b(remaining|other) (co-?)?authors?\\b|\\ball other authors?\\b|",
   "see acknowledge?ments for (full )?disclosures"), ignore_case = TRUE)
 
+# An explicit disclosure outweighs a denial elsewhere in the same statement
+# ("The authors report no conflicts. OAA is a consultant to HealthLytix.").
+COI_POS_RE <- regex(paste0(
+  "\\b(wish(es)?|would like) to (declare|disclose) (a |the following )?(potential |possible )?(conflicts?|competing)|",
+  "\\bdeclares? (a |the following )?(potential |possible )?(conflicts?|competing)|",
+  "\\b(has|have|had) (received|receives?) (royalt|honorari|consult|speaker|personal fees|fees|grants?|research (funding|support))|",
+  "\\breceives? (royalt|honorari|consult|personal fees)|",
+  "\\b(is|are|was) (a |an )?(paid )?(consultant|employee|shareholder|co-?founder|stockholder)|",
+  "\\bserved? (on|as) (an? |the )?(advisory|speakers?|scientific advisory|consultant)|",
+  "\\b(holds?|own) (stock|shares|equity|a patent)"), ignore_case = TRUE)
+
 classify_coi <- function(stmt) {
   if (is.na(stmt) || !nzchar(str_trim(stmt))) return("no statement")
-  if (str_detect(stmt, COI_NEG_RE) && !str_detect(stmt, COI_PARTIAL_RE)) "no conflict declared"
+  if (str_detect(stmt, COI_NEG_RE) && !str_detect(stmt, COI_PARTIAL_RE) &&
+      !str_detect(stmt, COI_POS_RE)) "no conflict declared"
   else "conflict declared"
 }
 

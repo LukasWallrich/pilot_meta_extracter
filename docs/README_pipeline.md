@@ -110,17 +110,21 @@ statement; otherwise a case-insensitive negation regex (`COI_NEG_RE`) classifies
 the statement. It matches phrases such as *no conflict / no competing interest /
 nothing to disclose / declare(s) no / the authors declare none / no financial …
 interest / report no conflict*. A match → `no conflict declared`; a statement that
-does not match → `conflict declared`. Two exceptions keep a negation from reading
-as "no conflict": a statement about only some authors ("The remaining/other
-authors declare none", `COI_PARTIAL_RE`), and JCPP's pointer "See Acknowledgements
-for full disclosures", which that journal uses only when someone discloses. Both
-are `conflict declared`. Example calls:
+does not match → `conflict declared`. Three exceptions keep a negation from
+reading as "no conflict": a statement about only some authors ("The remaining/other
+authors declare none", `COI_PARTIAL_RE`); JCPP's pointer "See Acknowledgements
+for full disclosures", which that journal uses only when someone discloses; and an
+explicit disclosure elsewhere in the statement (`COI_POS_RE`: *wish to declare a
+conflict*, *has received royalties/honoraria/fees/grants*, *is a consultant/
+employee/shareholder*, *served on an advisory board*, *holds stock/a patent*).
+All three are `conflict declared`. Example calls:
 
 ```
 "The authors declare no conflict of interest."     -> no conflict declared
 "No potential conflict of interest was reported."   -> no conflict declared
 "Dr X received consulting fees from Pfizer."        -> conflict declared
 "X receives royalties. The remaining authors declare no conflicts." -> conflict declared
+"The authors report no conflicts. OAA is a consultant to Y." -> conflict declared
 NA                                                  -> no statement
 ```
 
@@ -193,8 +197,12 @@ Pilot-1 `X8.1` is free text (no-funding phrase → no funding; non-blank → fun
 **blank → uncoded**, excluded from the comparison — see below).
 
 Pilot run (345 papers; index 161 pilot1 + 184 pilot2), accuracy = agreement/coded.
-`coi_category` includes the PDF COI fallback and the partial-negation rule. The
-earlier TEI + Crossref figure, without either, is in brackets:
+These are **agreement figures on the development sample**: the extraction and
+classification rules were refined after inspecting these coded articles and their
+disagreements, so they are optimistic as estimates for unseen articles.
+`coi_category` includes the PDF COI fallback and the partial-negation and
+explicit-disclosure rules. The earlier TEI + Crossref figure, without these, is in
+brackets:
 
 | category | pilot 1 | pilot 2 | pooled |
 |----------|---------|---------|--------|
@@ -219,8 +227,9 @@ no statement 2/10/32.
 For APA, Cambridge and `10.1192` (27 coded articles, 10 with a statement),
 sensitivity rises from 50.0% (5/10) to 90.0% (9/10). For all other publishers
 (99 with a statement), it rises from 92.9% (92/99) to 98.0% (97/99). The fallback
-recovers 9 of the 12 statements that TEI and Crossref missed and adds none to the
-32 articles coded as having no statement. One recovered statement ("Declarations
+recovers 9 of the 12 statements that TEI and Crossref missed. Of the 38 articles
+coded as having no statement, it adds a statement to none of the 32 that TEI and
+Crossref correctly left empty (the other 6 already had an automated statement). One recovered statement ("Declarations
 of interest: none", 10.1016/j.brat.2022.104152) disagrees with the coder's
 "conflict declared", which looks like a coder error. The 3 remaining
 misses are PDF-version limits, not parsing limits. Our copies of
@@ -248,7 +257,9 @@ phrasings "in the absence of any commercial/financial relationships", a bare
 "do not have any conflicts". A genuinely mixed statement (one author discloses
 royalties while the others declare none, 10.1111/jopy.12890) is now resolved by
 the partial-negation rule, which reclassifies 60 such statements across the two
-frames. The `no statement` disagreements were TEI
+frames. The explicit-disclosure rule reclassifies a further 10 frame statements
+(none in the validation set) that pair a general denial with a named disclosure,
+e.g. "The authors declare no conflict of interest. X receives royalties…". The `no statement` disagreements were TEI
 extraction recall gaps (a statement exists but GROBID did not surface it); the
 PDF COI fallback closes 9 of these 12, and the other 3 lack a statement in the
 PDF copy we hold (see above).

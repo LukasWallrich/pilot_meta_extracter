@@ -204,7 +204,9 @@ preregistration, registered report and trial registry.
 statement is first located (TEI, then the Crossref deposit, then the PDF's first
 three pages); a case-insensitive negation regex then decides whether it declares
 *no* conflict. A negation that covers only some authors ("the remaining authors
-declare none") still counts as a declared conflict.
+declare none") still counts as a declared conflict, as does a statement that
+pairs a denial with an explicit disclosure ("…declare no conflict. X receives
+royalties…").
 No statement at all is a third, distinct category — the absence of a declaration
 is a finding, not a missing value.
 
@@ -312,7 +314,7 @@ metrics <- bind_rows(
 
 ```{r tbl-accuracy}
 #| label: tbl-accuracy
-#| tbl-cap: "Agreement with manual coding, on articles a coder answered."
+#| tbl-cap: "Agreement with manual coding, on articles a coder answered. This is the development sample: rules were refined after inspecting these articles, so the figures are optimistic for unseen papers."
 
 metrics |>
   mutate(cell = sprintf("%.3f (%d/%d)", accuracy, agree, n)) |>
@@ -421,7 +423,10 @@ the same negation regex. Three pages, not one, because repository copies with a
 cover sheet push the author note to page 2 or 3.
 
 In the validation set, the fallback recovers 9 of the 12 statements that TEI and
-Crossref missed. It adds no statement to the 32 articles coded as having none.
+Crossref missed. Of the 38 articles coded as having no statement, it adds one to
+none of the 32 that TEI and Crossref correctly left empty. These are agreement
+figures on the development sample: the rules were refined after inspecting these
+articles, so they overstate accuracy on unseen papers.
 For APA, Cambridge and `10.1192`, sensitivity rises from 50.0% to 90.0% (9/10);
 for other publishers it rises from 92.9% to 98.0% (97/99). The three remaining
 misses are copies that contain no COI wording anywhere: a repository version, a
@@ -449,10 +454,12 @@ disclosures and one was body text.
 - **Classification limits are shared with TEI statements.** The negation regex
   misses some no-conflict phrasings, such as "None of the authors…" and "No
   authors reported…" (about 12 of the 36 recovered statements classified
-  "conflict declared", plus one body-text hit). Two rules keep a negation from
+  "conflict declared", plus one body-text hit). Three rules keep a negation from
   reading as "no conflict". A statement covering only some authors ("The
   remaining authors declare none") is "conflict declared"; this moved 60
-  statements across the frames. So is JCPP's "See Acknowledgements for full
+  statements across the frames. So is a denial paired with an explicit
+  disclosure ("…declare no conflict. X is a consultant to…"); this moved 10
+  statements, none in the validation set. So is JCPP's "See Acknowledgements for full
   disclosures", which that journal uses only when an author discloses. For those
   29 articles, the disclosures are appended from the PDF as an audit trail.
 
