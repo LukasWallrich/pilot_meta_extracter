@@ -573,9 +573,210 @@ coi_tbl_pilot2 %>%
 ```
 
 
-Qualitative inspection FIXMe. 
 
-See section fixme below for details. 
+# Agreement figure over both pilots
+
+```{r funding-coi-agreement-plot, echo=FALSE, message=FALSE, warning=FALSE}
+
+# Prepare data for plotting
+make_plot_input <- function(dat, pilot, source) {
+
+  pilot_label <- paste0(
+    pilot, " (n = ", nrow(dat), ")\n", source
+  )
+
+  bind_rows(
+
+    # Funding statement
+    dat %>%
+      transmute(
+        pilot_lab = pilot_label,
+        statement = "Funding statement",
+        coder_found = funding_manual_extracted,
+        automated_found = funding_auto_extracted
+      ),
+
+    # COI statement
+    dat %>%
+      transmute(
+        pilot_lab = pilot_label,
+        statement = "COI statement",
+        coder_found = str_starts(manual_does_include_coi, "Yes"),
+        automated_found = coi_auto_extracted
+      )
+  )
+}
+
+
+# Combine both pilots
+plot_input <- bind_rows(
+  make_plot_input(auto_pilot1, "Pilot 1", "Crossref only"),
+  make_plot_input(auto_pilot2, "Pilot 2", "Crossref + full text")
+) %>%
+  filter(!is.na(coder_found), !is.na(automated_found)) %>%
+  mutate(
+    statement = factor(
+      statement,
+      levels = c("COI statement", "Funding statement")
+    ),
+    pilot_lab = factor(pilot_lab, levels = unique(pilot_lab)),
+    agreement_cell = coder_found == automated_found,
+
+    # Coordinates: Yes on top/left, No on bottom/right
+    x = if_else(automated_found, 1, 2),
+    y = if_else(coder_found, 2, 1)
+  )
+
+
+# Count observations in each cell
+plot_counts <- plot_input %>%
+  count(pilot_lab, statement, x, y, name = "n") %>%
+  complete(
+    pilot_lab,
+    statement,
+    x = 1:2,
+    y = 1:2,
+    fill = list(n = 0)
+  ) %>%
+  mutate(
+    agreement_cell = (x == 1 & y == 2) | (x == 2 & y == 1)
+  ) %>%
+  mutate(
+    statement = factor(
+      statement,
+      levels = c("Funding statement", "COI statement"))
+  )
+
+
+# Calculate percentage agreement for each panel
+plot_agreement <- plot_input %>%
+  group_by(pilot_lab, statement) %>%
+  summarise(
+    agreement = mean(agreement_cell) * 100,
+    .groups = "drop"
+  )
+
+
+# Create figure
+agreement_plot = 
+  ggplot(plot_counts, aes(x = x, y = y, fill = agreement_cell)) +
+
+  # Heatmap cells
+  geom_tile(
+  width = 0.96,
+  height = 0.96,
+  color = NA
+) +
+
+  # Numbers inside cells
+  geom_text(
+    aes(label = n, color = agreement_cell),
+    size = 5
+  ) +
+
+  # Agreement percentages above each panel
+  geom_text(
+    data = plot_agreement,
+    aes(
+      x = 1.5,
+      y = 2.7,
+      label = paste0(round(agreement), "% agreement")
+    ),
+    inherit.aes = FALSE,
+    fontface = "bold",
+    size = 3.5
+  ) +
+
+  # Arrange panels
+  facet_grid(
+    rows = vars(statement),
+    cols = vars(pilot_lab),
+    switch = "y",
+    labeller = labeller(
+    statement = c(
+      "Funding statement" = "Funding\nstatement",
+      "COI statement" = "COI\nstatement"
+    ))
+  ) +
+
+  # Axis labels
+  scale_x_continuous(
+    breaks = c(1, 2),
+    labels = c("Yes", "No"),
+    limits = c(0.5, 2.5),
+    expand = c(0, 0)
+  ) +
+
+  scale_y_continuous(
+    breaks = c(1, 2),
+    labels = c("No", "Yes"),
+    limits = c(0.5, 2.95),
+    expand = c(0, 0)
+  ) +
+
+  # Colours
+  scale_fill_manual(
+    values = c(
+      "TRUE" = "#2D6DB5",
+      "FALSE" = "#E8EDF2"
+    ),
+    guide = "none"
+  ) +
+
+  scale_color_manual(
+    values = c(
+      "TRUE" = "white",
+      "FALSE" = "#333333"
+    ),
+    guide = "none"
+  ) +
+
+  labs(
+    x = "Automated: statement found",
+    y = "Coders: statement found"
+  ) +
+
+  coord_fixed() +
+
+  theme_minimal(base_size = 11) +
+
+  theme(
+    panel.grid = element_blank(),
+
+    strip.background = element_blank(),
+    strip.placement = "outside",
+
+    strip.text.x = element_text(
+      face = "bold",
+      size = 10
+    ),
+
+    strip.text.y.left = element_text(
+      angle = 0,
+      face = "bold",
+      hjust = 0.5,
+      vjust = 0.4
+    ),
+
+    axis.title = element_text(size = 10),
+    axis.text = element_text(size = 9),
+
+    plot.margin = margin(5, 5, 5, 5),
+    panel.spacing.x = grid::unit(0.6, "lines")
+  )
+
+agreement_plot
+
+ggsave(
+  "figures/pilots_agreement.png",
+  plot = agreement_plot,
+  width = 5,
+  dpi = 300
+)
+
+```
+
+
 
 # Main study
 
