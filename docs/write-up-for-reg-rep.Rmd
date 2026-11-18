@@ -795,6 +795,17 @@ ggsave(
 
 
 
+
+## Three-category alternative
+
+Pilot 1 categories below are reconstructed from its original Crossref metadata only; Pilot 2 uses the final pipeline. Blank Pilot 1 funding answers remain uncoded. The binary comparison above is retained separately.
+
+```{r funding-coi-category-plot, echo=FALSE, message=FALSE, warning=FALSE}
+source("validation/plot_pilot_categories.R", local = TRUE)
+p
+```
+
+
 # Main study
 
 ## Data extraction
