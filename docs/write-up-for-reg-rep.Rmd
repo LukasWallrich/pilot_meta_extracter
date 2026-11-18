@@ -806,6 +806,58 @@ p
 ```
 
 
+## Mixed binary/categorical alternative
+
+This version preserves Pilot 1's original binary analysis and uses the final three-category pipeline for Pilot 2. The agreement percentages refer to different classification tasks and should not be interpreted as a direct estimate of improvement.
+
+```{r funding-coi-mixed-plot, echo=FALSE, message=FALSE, warning=FALSE}
+pilot1_binary_panel <- function(variable) {
+  statement_label <- if (variable == "funding") "Funding statement" else "COI statement"
+  d <- plot_counts |>
+    filter(startsWith(as.character(pilot_lab), "Pilot 1"),
+           as.character(statement) == statement_label)
+  stopifnot(sum(d$n) == 65)
+  agreement <- sum(d$n[d$agreement_cell]) / sum(d$n)
+  ggplot(d, aes(x, y, fill = agreement_cell)) +
+    geom_tile(width = 0.96, height = 0.96) +
+    geom_text(aes(label = n, colour = agreement_cell), size = 5) +
+    scale_fill_manual(values = c(`TRUE` = "#2D6DB5", `FALSE` = "#E8EDF2"), guide = "none") +
+    scale_colour_manual(values = c(`TRUE` = "white", `FALSE` = "#333333"), guide = "none") +
+    scale_x_continuous(breaks = 1:2, labels = c("Yes", "No"),
+                       limits = c(0.5, 2.5), expand = c(0, 0)) +
+    scale_y_continuous(breaks = 1:2, labels = c("No", "Yes"),
+                       limits = c(0.5, 2.5), expand = c(0, 0)) +
+    coord_fixed() +
+    labs(title = paste("Pilot 1", if (variable == "funding") "funding" else "COI", "(presence)"),
+         subtitle = sprintf("Crossref only; n = 65; %.1f%% agreement", 100 * agreement),
+         x = "Automated: statement found", y = "Original manual: statement found") +
+    theme_minimal(base_size = 11) +
+    theme(panel.grid = element_blank(), axis.text = element_text(size = 9),
+          axis.title = element_text(size = 10),
+          plot.title = element_text(face = "bold", size = 12),
+          plot.subtitle = element_text(size = 10),
+          plot.margin = margin(8, 8, 8, 8))
+}
+
+mixed_plot <- patchwork::wrap_plots(list(
+  pilot1_binary_panel("funding"),
+  category_panel("Pilot 2", "funding") + labs(title = "Pilot 2 funding (categories)"),
+  pilot1_binary_panel("coi"),
+  category_panel("Pilot 2", "coi") + labs(title = "Pilot 2 COI (categories)")
+), ncol = 2) + patchwork::plot_annotation(
+  caption = paste(
+    "Pilot 1: original binary comparison. Pilot 2: final three-category pipeline. Original manual codes.",
+    "Agreement percentages describe different tasks and are not directly comparable across pilots.",
+    sep = "\n"
+  ), theme = theme(plot.caption = element_text(size = 9, hjust = 0))
+)
+mixed_plot
+
+ggsave("docs/figures/pilot_extraction_mixed.png", mixed_plot, width = 8, height = 7.3, dpi = 300)
+ggsave("docs/figures/pilot_extraction_mixed.pdf", mixed_plot, width = 8, height = 7.3)
+```
+
+
 # Main study
 
 ## Data extraction
