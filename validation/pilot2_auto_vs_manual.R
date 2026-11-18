@@ -1,53 +1,45 @@
-# =============================================================================
-# validation/pilot2_auto_vs_manual.R
-# -----------------------------------------------------------------------------
-# Pilot-2 coverage of funding and COI statements, as reported in the Stage 1
-# manuscript: for the 84 articles coded as reporting a pilot, cross-tabulates
-# whether coders recorded a statement against whether automated extraction
-# found one. "Automated" = any Crossref funding/COI field (from the combined
-# file built in docs/write-up-for-reg-rep.Rmd) OR the TEI extractor
-# (data/stages/tei_coi_funding_extracted_pilot1-and-pilot2.csv, current run).
-# Same definitions as the write-up; only the TEI results are refreshed.
-# Run from the project root:  Rscript validation/pilot2_auto_vs_manual.R
-# Writes data/pilot2_auto_vs_manual_counts.csv
-# =============================================================================
-suppressPackageStartupMessages({
-  library(dplyr)
-  library(readr)
-  library(stringr)
-})
+# Pilot 2 statement presence: final metadata/XML/PDF pipeline vs original codes.
+# Sourcing defines the read-only comparison; running writes its counts and audit.
+# Run from the repo root: Rscript validation/pilot2_auto_vs_manual.R
 
-combined_csv <- "data/inputs/2026-06-11_auto-and-manual-combined_pilot1-and-pilot2.csv"
-tei_csv      <- "data/stages/tei_coi_funding_extracted_pilot1-and-pilot2.csv"
-out_csv      <- "data/pilot2_auto_vs_manual_counts.csv"
-
-nonblank <- function(x) {
-  x <- as.character(x)
-  !is.na(x) & str_trim(x) != "" & !str_to_lower(str_trim(x)) %in% c("na", "n/a")
+pilot2_final_statement_comparison <- function() {
+  # Reuse original-code mappings without executing the guarded extraction batch.
+  source("run_pipeline.R", local = TRUE)
+  m <- read.csv("data/inputs/2026-04-03_Codingform_PilotingAssessment_pilot2.csv",
+                check.names = TRUE, stringsAsFactors = FALSE)
+  manual <- tibble::tibble(
+    doi = norm_doi(m[["X1.2..Article.DOI"]]),
+    funding_manual = vapply(m[["X8.1..Does.the.article.include.a.funding.statement."]],
+                            manual_funding_category, character(1), pilot = "pilot2"),
+    coi_manual = vapply(m[["X8.2..Does.the.article.include.a.statement.indicating.whether.there.were.any.conflicts.of.interest..COI.."]],
+                        manual_coi_category, character(1))
+  ) |>
+    dplyr::filter(!is.na(doi), doi != "", doi != "test") |>
+    dplyr::distinct(doi, .keep_all = TRUE)
+  final <- readr::read_csv("data/final_extraction_pilot1-and-pilot2.csv",
+                           show_col_types = FALSE) |>
+    dplyr::mutate(doi = norm_doi(doi))
+  stopifnot(!anyDuplicated(final$doi))
+  d <- dplyr::inner_join(manual, final, by = "doi")
+  dplyr::bind_rows(lapply(c("funding", "coi"), function(outcome) {
+    manual_category <- d[[paste0(outcome, "_manual")]]
+    automated_category <- d[[paste0(outcome, "_category")]]
+    tibble::tibble(doi = d$doi, outcome = outcome,
+                   manual_category = manual_category,
+                   automated_category = automated_category,
+                   manual = manual_category != "no statement",
+                   auto = automated_category != "no statement")
+  })) |>
+    dplyr::filter(!is.na(manual), !is.na(auto))
 }
 
-tei <- read.csv(tei_csv, stringsAsFactors = FALSE) |>
-  filter(coding == "pilot2") |>
-  select(doi, rx_funding_found, rx_coi_found)
-
-d <- read_csv(combined_csv, show_col_types = FALSE) |>
-  filter(doi != "test", coding == "pilot2") |>
-  filter(str_detect(X1.3..Is.there.a.statement.in.the.article.that.there.was.a.pilot.study.conducted., "Yes")) |>
-  select(-any_of(c("rx_funding_found", "rx_coi_found"))) |>
-  left_join(tei, by = "doi") |>
-  mutate(
-    funding_auto   = if_any(starts_with("funding"), nonblank) | rx_funding_found %in% TRUE,
-    funding_manual = nonblank(X8.1.1.If.the.article.include.a.funding.statement..what.is.the.statement.),
-    coi_auto       = if_any(starts_with("coi"), nonblank) | rx_coi_found %in% TRUE,
-    coi_manual     = str_starts(X8.2..Does.the.article.include.a.statement.indicating.whether.there.were.any.conflicts.of.interest..COI.., "Yes") %in% TRUE
-  )
-
-counts <- bind_rows(
-  count(d, manual = funding_manual, auto = funding_auto) |> mutate(outcome = "funding"),
-  count(d, manual = coi_manual, auto = coi_auto) |> mutate(outcome = "coi")
-) |>
-  select(outcome, manual, auto, n)
-
-write.csv(counts, out_csv, row.names = FALSE)
-message("Articles: ", nrow(d))
-print(counts)
+if (sys.nframe() == 0) {
+  comparison <- pilot2_final_statement_comparison()
+  counts <- comparison |>
+    dplyr::count(outcome, manual, auto) |>
+    tidyr::complete(outcome, manual = c(FALSE, TRUE), auto = c(FALSE, TRUE),
+                    fill = list(n = 0))
+  readr::write_csv(counts, "data/pilot2_auto_vs_manual_counts.csv")
+  readr::write_csv(comparison, "data/pilot2_final_statement_comparison.csv")
+  print(counts)
+}

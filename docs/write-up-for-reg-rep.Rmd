@@ -482,10 +482,13 @@ tei_pilot2_coi_f1 = 0.953
 ```
 
 ```{r auto-pilot2-funding-coi-overlap}
-# Funding: overlap between auto and manual extraction
-fund_tbl_pilot2 <- auto_pilot2 |>
-  # filter(!is.na(auto_pilot2$rx_funding_found) | !is.na(auto_pilot2$rx_coi_found)) |> # whether to count files without TEI
-  count(funding_auto_extracted, funding_manual_extracted)
+# Final outputs include the PDF COI fallback. Original manual-code mappings are
+# the same as the pooled benchmark; adjudicated reference labels are not used.
+source("validation/pilot2_auto_vs_manual.R")
+pilot2_comparison <- pilot2_final_statement_comparison()
+fund_tbl_pilot2 <- pilot2_comparison |>
+  filter(outcome == "funding") |>
+  count(funding_auto_extracted = auto, funding_manual_extracted = manual)
 
 auto2_fund_auto_and_manual <- fund_tbl_pilot2 |> filter(funding_auto_extracted, funding_manual_extracted) |> pull(n)
 auto2_fund_auto_only       <- fund_tbl_pilot2 |> filter(funding_auto_extracted, !funding_manual_extracted) |> pull(n)
@@ -498,9 +501,9 @@ auto2_fund_pct_also_manual <- round(auto2_fund_auto_and_manual / auto2_fund_auto
 auto2_fund_pct_substitute  <- round(auto2_fund_manual_only / auto2_fund_not_auto_total * 100, 1)
 
 # COI: overlap between auto and manual extraction
-coi_tbl_pilot2 <- auto_pilot2 |>
-  mutate(coi_manual_has_stmt = str_starts(manual_does_include_coi, "Yes")) |>
-  count(coi_auto_extracted, coi_manual_has_stmt)
+coi_tbl_pilot2 <- pilot2_comparison |>
+  filter(outcome == "coi") |>
+  count(coi_auto_extracted = auto, coi_manual_has_stmt = manual)
 
 auto2_coi_auto_and_manual <- coi_tbl_pilot2 |> filter(coi_auto_extracted, coi_manual_has_stmt) |> pull(n) |> sum()
 auto2_coi_auto_only       <- coi_tbl_pilot2 |> filter(coi_auto_extracted, !coi_manual_has_stmt) |> pull(n) |> sum()
@@ -525,7 +528,7 @@ auto2_coi_pct_sub_no_manual   <- round(auto2_coi_auto_only / auto2_coi_no_manual
 
 ```
 
-Based on the custom approach, which outperformed metacheck (version fixme), we were able to match the manual coding for funding and COI statements with high accuracy.
+The final pipeline combines metadata, XML extraction and the PDF COI fallback. The following statement-presence comparisons use original manual codes and exclude missing outputs and unusable manual answers separately for funding and COI.
 
 Funding information was manually extracted for `r auto2_fund_manual_total` papers, of which `r auto2_fund_auto_and_manual` papers also had this information automatically extracted (`r auto2_fund_pct_auto_of_manual`%). For the `r auto2_fund_no_manual_total` papers for which manual funding information was absent, `r auto2_fund_auto_only` papers could be supplemented with automated extraction (`r auto2_fund_pct_sub_no_manual`%). For COI statements, manual coders recorded a COI statement for `r auto2_coi_manual_total` papers, of which `r auto2_coi_auto_and_manual` papers also had a COI statement automatically extracted (`r auto2_coi_pct_auto_of_manual`%). For the `r auto2_coi_no_manual_total` papers without a manually coded COI statement, `r auto2_coi_auto_only` papers had a COI statement available from automated extraction (`r auto2_coi_pct_sub_no_manual`%).
 
@@ -611,7 +614,13 @@ make_plot_input <- function(dat, pilot, source) {
 # Combine both pilots
 plot_input <- bind_rows(
   make_plot_input(auto_pilot1, "Pilot 1", "Crossref only"),
-  make_plot_input(auto_pilot2, "Pilot 2", "Crossref + full text")
+  pilot2_comparison %>%
+    transmute(
+      pilot_lab = "Pilot 2\nFinal pipeline",
+      statement = if_else(outcome == "funding", "Funding statement", "COI statement"),
+      coder_found = manual,
+      automated_found = auto
+    )
 ) %>%
   filter(!is.na(coder_found), !is.na(automated_found)) %>%
   mutate(
@@ -653,6 +662,7 @@ plot_agreement <- plot_input %>%
   group_by(pilot_lab, statement) %>%
   summarise(
     agreement = mean(agreement_cell) * 100,
+    N = n(),
     .groups = "drop"
   )
 
@@ -680,7 +690,7 @@ agreement_plot =
     aes(
       x = 1.5,
       y = 2.7,
-      label = paste0(round(agreement), "% agreement")
+      label = paste0(round(agreement), "% agreement\n(n = ", N, ")")
     ),
     inherit.aes = FALSE,
     fontface = "bold",
@@ -768,10 +778,17 @@ agreement_plot =
 agreement_plot
 
 ggsave(
-  "figures/pilots_agreement.png",
+  "docs/figures/pilot_extraction_confusion.png",
   plot = agreement_plot,
-  width = 5,
+  width = 7,
+  height = 6.2,
   dpi = 300
+)
+ggsave(
+  "docs/figures/pilot_extraction_confusion.pdf",
+  plot = agreement_plot,
+  width = 7,
+  height = 6.2
 )
 
 ```
