@@ -27,7 +27,8 @@ Historical and experimental material stays in the repository's `archive/` folder
 
 **Not included:** article PDFs and GROBID TEI full texts (copyrighted; obtain them
 separately), the gitignored Zotero frame exports, the classifier's article-level
-input table with abstracts, credentials, and everything under the repository's
+table with titles and abstracts (its `empirical` and `research_area` results are in
+`data/full_sample_index.csv`), credentials, and everything under the repository's
 `archive/`.
 
 **Coder initials are pseudonymised.** In the three tables below, the `Coder Initials`

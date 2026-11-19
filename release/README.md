@@ -87,3 +87,26 @@ See `archive/README.md` for the full index. Summary:
   n = 147, before the recovered Pilot 2 article).
 - `data/manual-and-auto-combined_2026-07-01.csv` → `archive/data/` (stale output of
   `combine_with_manual.R` from 2 July 2026).
+
+## Replacing the unpublished Zenodo draft
+
+The reserved draft (DOI 10.5281/zenodo.24262974) still holds the 15 November 2026
+package: `pilot-meta-extractor-45fb68d.zip` (all 89 tracked files of commit
+`45fb68d`), `DEPOSIT_README.md` and `manifest.json`. Once the creator and policy
+decisions below are settled and the bundle has been rebuilt from the merged commit:
+
+1. Delete all three draft files (`manifest.json` is replaced by `SHA256SUMS.txt`).
+2. Upload `pilot-meta-extractor-<version>.zip`, `DEPOSIT_README.md` and
+   `SHA256SUMS.txt` from `release/dist/`.
+3. Update the draft metadata: version and publication date; a description of a
+   current-only, pseudonymised subset with the agreement figures from the release
+   README (the old text cites 128/147, 124/134, 139/147 and "89 tracked files");
+   the related identifier as `isDerivedFrom` the GitHub tree of the built commit
+   (not `isIdenticalTo`); creators as confirmed.
+4. Keep the draft and its reserved DOI; do not create a new deposit.
+
+Open decisions: creators and their order (Wallrich, Pit is provisional, from the
+old draft); keeping CC BY 4.0 for code; whether the coding forms' free-text
+columns (coder feedback, "Any other details") belong in the deposit; shipping the
+draft write-up Rmd as the figure source; and the contact address in the API
+requests.
