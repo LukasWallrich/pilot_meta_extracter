@@ -51,7 +51,7 @@ These run offline from the committed files, from the repository root:
 | `Rscript validation/plot_pilot_confusion.R` | `docs/figures/pilot_extraction_{mixed,confusion,categories}.{png,pdf}` and `data/pilot_category_comparison.csv` (renders the figure chunks of `docs/write-up-for-reg-rep.Rmd`) |
 | `Rscript validation/plot_pilot_categories.R` | The three-category figure and table alone |
 | `Rscript validation/validate_rx_vs_metacheck.R` | `data/rx_vs_metacheck_metrics.csv` |
-| `Rscript validation/pilot_link_funders.R` | `data/stages/funder*` (from the TEI stage table and caches) |
+| `Rscript validation/pilot_link_funders.R` | `data/stages/funder*` (from the TEI stage table and caches). A rerun now differs in one cell: the recovered Pilot 2 article's `funding_status` becomes `funded`; 200/227 is unchanged. |
 
 Re-running extraction itself needs the source full texts, which are not
 redistributed:

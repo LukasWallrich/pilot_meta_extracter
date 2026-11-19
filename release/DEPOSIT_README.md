@@ -48,8 +48,8 @@ Rscript validation/plot_pilot_confusion.R     # all three figure versions
 Rscript validation/validate_rx_vs_metacheck.R # XML-only benchmark
 ```
 
-These reproduce the committed tables byte for byte from the included files, without
-network access. Re-running extraction (`PIPELINE_RUN=1 Rscript run_pipeline.R`, the
+Run from a fresh copy, these reproduce the committed tables and PNG figures byte
+for byte without network access (the PDF figures differ only in embedded dates). Re-running extraction (`PIPELINE_RUN=1 Rscript run_pipeline.R`, the
 frame drivers, the TEI/preregistration stages and the PDF fallback) needs the TEI
 and PDF full texts; `README.md` lists the expected locations. With those files and
 the included caches, `run_pipeline(..., use_api = FALSE)` makes no network calls.
@@ -82,7 +82,14 @@ funder country.
   `data/full_sample_index.csv` counts 184 Pilot 2 articles) predate the recovery.
   Regenerating them needs the full texts and frame exports.
 - The funder stage tables come from the 26 October 2026 run and have not been
-  re-audited.
+  re-audited. Re-running `validation/pilot_link_funders.R` now changes one cell: the
+  recovered article's `funding_status` becomes `funded` (as in the final table). The
+  200/227 result is unchanged.
+- With the source TEIs and PDFs, a cache-only `run_pipeline(..., use_api = FALSE,
+  pdf_coi_fallback = TRUE)` reproduces all 185 coded Pilot 2 rows of the final table.
+  Automatic PDF lookup by file name (`map_pdf_files()`) misses the PDF of
+  `10.1037/pspi0000433`, whose TEI is named `….pdf.tei.xml`; pass its `pdf_file`
+  explicitly. The Pilot 1 TEIs were not available for this check.
 - `docs/README_prereg_extraction.md` reports module-level preregistration figures
   from that earlier stage run (147 papers, stricter filter).
 - Final tables include short funding and COI statements quoted from the articles.
