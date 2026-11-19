@@ -138,8 +138,8 @@ Against the manual coding of the two pilot rounds (papers with a usable manual c
 
 | Variable | n | Accuracy | F1 | Comparison |
 |---|---|---|---|---|
-| Funding statement present | 147 | 0.925 | 0.955 | `metacheck`: accuracy 0.837, F1 0.897 |
-| COI statement present | 147 | 0.878 | 0.913 | `metacheck`: accuracy 0.830, F1 0.877 |
+| Funding statement present | 148 | 0.926 | 0.956 | `metacheck`: accuracy 0.838, F1 0.898 |
+| COI statement present | 148 | 0.878 | 0.914 | `metacheck`: accuracy 0.831, F1 0.878 |
 | Preregistration (`prereg_found`) | 142 | 0.951 | 0.911 | — |
 | Any registration (`registration_any`) | 147 | 0.952 | 0.925 | — |
 
@@ -167,3 +167,5 @@ OpenAlex · Crossref · Scimago Journal Rank (`sjrdata`) · TOP Factor (COS) · 
 CC BY 4.0 — see `LICENSE`.
 
 The coded-pilot batch now includes `10.1177/09567976231165271`. Its original manual DOI had a bare `doi.org/` prefix, which `norm_doi()` now strips. The assigned PDF hash matches the original GROBID XML. `validation/recover_missing_pilot2.R` reproduces its output from external source XML/PDF paths using cached metadata and unchanged extraction rules. Provenance is in `data/inputs/recovered_tei/10.1177-09567976231165271.provenance.json`; source full texts are not redistributed.
+
+The XML-only `rx`/`metacheck` benchmark includes all 84 Pilot 2 papers (148 pooled). Its DOI cleaner accepts bare `doi.org/` prefixes, and the recorded funding-acquisition response is retained as a positive manual funding statement. These are binary XML-only metrics, separate from final category agreement.

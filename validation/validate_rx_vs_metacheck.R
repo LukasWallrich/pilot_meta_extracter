@@ -34,10 +34,13 @@ pilot2_csv <- "data/inputs/2026-04-03_Codingform_PilotingAssessment_pilot2.csv"
 # ---- Helpers --------------------------------------------------------
 clean_doi <- function(x) {
   x |>
-    sub("^https?://doi\\.org/", "", x = _) |>
+    trimws() |>
+    sub("(?i)^(?:https?://)?(?:dx\\.)?doi\\.org/", "", x = _, perl = TRUE) |>
     sub("(?i)^doi:\\s*", "", x = _, perl = TRUE) |>
-    trimws()
+    tolower()
 }
+
+`%||%` <- function(x, y) if (is.null(x) || length(x) == 0 || is.na(x[1])) y else x
 
 is_nonblank <- function(x) {
   !is.na(x) & str_trim(x) != "" & !str_to_lower(str_trim(x)) %in% c("na", "n/a")
@@ -95,7 +98,8 @@ build_gt <- function(csv_path, pilot_label) {
 
   # ---- FUNDING ground truth ----
   # pilot2: explicit Yes/No answers -> denominator = non-blank answer;
-  #         positive = contains "Yes".
+  #         positive = contains "Yes", plus the recorded funding-acquisition response
+  #         retained as positive at Lukas’s instruction (19 November 2026).
   # pilot1: the funding question was answered with the free-text funding
   #         statement (no Yes/No), so "contains Yes" is impossible (0 cases).
   #         Denominator = papers where coders reported a pilot study
@@ -118,7 +122,8 @@ build_gt <- function(csv_path, pilot_label) {
       doi         = m$doi[keep],
       pilot       = pilot_label,
       outcome     = "funding",
-      manual_pos  = is_yes(m[[funding_col]][keep]),
+      manual_pos  = is_yes(m[[funding_col]][keep]) |
+        m[[funding_col]][keep] == "Only the ‘Funding acquisition’ role is indicated in the CRediT taxonomy.",
       manual_text = m[[funding_col]][keep]
     )
   }
