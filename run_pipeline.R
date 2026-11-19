@@ -87,7 +87,7 @@ META_COLS <- c("doi", "journal", "issn", "sjr", "top_factor",
 # =============================================================================
 norm_doi <- function(x) {
   x |>
-    sub("^https?://(dx\\.)?doi\\.org/", "", x = _) |>
+    sub("(?i)^(?:https?://)?(?:dx\\.)?doi\\.org/", "", x = _, perl = TRUE) |>
     sub("(?i)^doi:\\s*", "", x = _, perl = TRUE) |>
     trimws() |>
     tolower()

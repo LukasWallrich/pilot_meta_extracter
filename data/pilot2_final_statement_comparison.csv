@@ -42,6 +42,7 @@ doi,outcome,manual_category,automated_category,manual,auto
 10.1111/cdev.13959,funding,funded,funded,TRUE,TRUE
 10.3390/bs13080629,funding,no funding,no funding,TRUE,TRUE
 10.1016/j.jesp.2023.104455,funding,no funding,no funding,TRUE,TRUE
+10.1177/09567976231165271,funding,no statement,funded,FALSE,TRUE
 10.1177/00302228231176307,funding,no funding,no funding,TRUE,TRUE
 10.1080/13506285.2023.2192993,funding,funded,funded,TRUE,TRUE
 10.1192/bjo.2023.550,funding,funded,funded,TRUE,TRUE
@@ -125,6 +126,7 @@ doi,outcome,manual_category,automated_category,manual,auto
 10.1111/cdev.13959,coi,no statement,conflict declared,FALSE,TRUE
 10.3390/bs13080629,coi,no conflict declared,no conflict declared,TRUE,TRUE
 10.1016/j.jesp.2023.104455,coi,no statement,no statement,FALSE,FALSE
+10.1177/09567976231165271,coi,no conflict declared,no conflict declared,TRUE,TRUE
 10.1177/00302228231176307,coi,no conflict declared,no conflict declared,TRUE,TRUE
 10.1080/13506285.2023.2192993,coi,no conflict declared,no conflict declared,TRUE,TRUE
 10.1192/bjo.2023.550,coi,conflict declared,no conflict declared,TRUE,TRUE

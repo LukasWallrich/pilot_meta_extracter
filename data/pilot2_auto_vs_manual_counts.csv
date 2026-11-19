@@ -2,8 +2,8 @@ outcome,manual,auto,n
 coi,FALSE,FALSE,13
 coi,FALSE,TRUE,3
 coi,TRUE,FALSE,1
-coi,TRUE,TRUE,66
+coi,TRUE,TRUE,67
 funding,FALSE,FALSE,10
-funding,FALSE,TRUE,3
+funding,FALSE,TRUE,4
 funding,TRUE,FALSE,2
 funding,TRUE,TRUE,68

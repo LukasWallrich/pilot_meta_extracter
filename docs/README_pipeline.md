@@ -206,17 +206,17 @@ brackets:
 
 | category | pilot 1 | pilot 2 | pooled |
 |----------|---------|---------|--------|
-| `funding_category` | 0.904 (47/52)  | 0.940 (78/83)   | 0.926 (125/135) |
-| `coi_category`     | 0.828 (53/64) [0.750, 48/64] | 0.904 (75/83) [0.855, 71/83] | 0.871 (128/147) [0.810, 119/147] |
-| `prereg_present`   | 0.938 (60/64)  | 0.952 (79/83)   | 0.946 (139/147) |
+| `funding_category` | 0.904 (47/52)  | 0.929 (78/84)   | 0.919 (125/136) |
+| `coi_category`     | 0.828 (53/64) [0.750, 48/64] | 0.905 (76/84) [0.857, 72/84] | 0.872 (129/148) [0.811, 120/148] |
+| `prereg_present`   | 0.938 (60/64)  | 0.940 (79/84)   | 0.939 (139/148) |
 
 Pooled confusion matrices (rows = auto, cols = manual):
 
 ```
 funding_category            coi_category (current)                              prereg_present
               funded noF noS               conflict noConf noStmt                      F   T
-funded            98   0   3   conflict          6      1      2            FALSE    103   4
-no funding         2  16   0   no conflict       9     90      4            TRUE       4  36
+funded            99   0   4   conflict          6      1      2            FALSE    103   4
+no funding         2  16   0   no conflict       9     91      4            TRUE       5  36
 no statement       4   1  10   no statement      1      2     32
 ```
 
