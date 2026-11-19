@@ -1,0 +1,93 @@
+# Release bundle manifest.
+#
+# The include section lists every file copied into the ZIP, one repository path
+# per line. The exclude section lists every other tracked file outside archive/,
+# with the reason. build_release.py fails if a tracked file outside archive/ is in
+# neither list, so a new current file cannot be silently left out or slip in.
+# Paths marked "drop-coder-columns" lose four coding-process columns (form
+# timestamp, coder initials, feedback on the form, coding time); every other
+# field is copied unchanged.
+
+[include]
+README.md
+LICENSE
+CITATION.cff
+
+# Generic pipeline
+run_pipeline.R
+pipeline.conf
+R/0_config.R
+R/1_extract_doi_metadata.R
+R/2_extract_tei_coi_funding.R
+R/3_extract_prereg.R
+R/4_link_funders_locations.R
+R/5_pdf_coi_fallback.R
+setup/download_top_factor.R
+setup/top_factor_manual_setup.R
+
+# API caches (offline reruns)
+data/cache/pipeline_metadata_cache.csv
+data/cache/osf_guid_types.csv
+data/cache/osf_reg_templates.csv
+data/cache/funder_id_country.csv
+data/cache/funder_name_country.csv
+data/cache/pilot1_oa_metadata.csv
+data/cache/pilot1_crossref_metadata.csv
+
+# PDF fallback step and the TEI conversion workflow
+run_coi_pdf_fallback.R
+screening/README.md
+screening/grobid_conversion_workflow.yml
+
+# Validation and reproduction
+validation/final_agreement.R
+validation/pilot2_auto_vs_manual.R
+validation/plot_pilot_confusion.R
+validation/plot_pilot_categories.R
+validation/validate_rx_vs_metacheck.R
+validation/pilot_link_funders.R
+validation/pilot_extract_tei.R
+validation/pilot_extract_prereg.R
+validation/match_pilot1_tei.R
+validation/recover_missing_pilot2.R
+validation/combine_with_manual.R
+
+# Inputs
+data/inputs/2025-12-09_Codingform_PilotingAssessment_pilot.csv  drop-coder-columns
+data/inputs/2026-04-03_Codingform_PilotingAssessment_pilot2.csv  drop-coder-columns
+data/inputs/2026-06-11_auto-and-manual-combined_pilot1-and-pilot2.csv  drop-coder-columns
+data/inputs/pilot1_doi_tei_map.csv
+data/inputs/recovered_tei/10.1177-09567976231165271.provenance.json
+
+# Outputs
+data/final_extraction_pilot1-and-pilot2.csv
+data/pilot2_auto_vs_manual_counts.csv
+data/pilot2_final_statement_comparison.csv
+data/pilot_category_comparison.csv
+data/rx_vs_metacheck_metrics.csv
+data/stages/tei_coi_funding_extracted_pilot1-and-pilot2.csv
+data/stages/prereg_extracted_pilot1-and-pilot2.csv
+data/stages/funders_with_locations_pilot1-and-pilot2.csv
+data/stages/funder_locations_long.csv
+docs/figures/pilot_extraction_mixed.png
+docs/figures/pilot_extraction_mixed.pdf
+docs/figures/pilot_extraction_confusion.png
+docs/figures/pilot_extraction_confusion.pdf
+docs/figures/pilot_extraction_categories.png
+docs/figures/pilot_extraction_categories.pdf
+
+# Documentation
+docs/README_pipeline.md
+docs/README_tei_extraction.md
+docs/README_prereg_extraction.md
+docs/README_funders.md
+docs/README_combined_csv.md
+
+[exclude]
+.gitignore  repository housekeeping
+docs/write-up-for-reg-rep.Rmd  working draft of the pilot write-up; its figure code is in validation/plot_pilot_confusion.R
+release/README.md  release tooling
+release/MANIFEST.txt  release tooling
+release/build_release.py  release tooling
+release/check_bundle.sh  release tooling
+release/DEPOSIT_README.md  added to the ZIP as RELEASE_README.md by the builder

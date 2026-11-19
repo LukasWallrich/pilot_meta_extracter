@@ -8,7 +8,8 @@ numbered function modules and orchestrates them, reusing their on-disk caches.
 
 The extraction logic lives in five numbered **function libraries** at the repo
 root. Sourcing any of them only defines functions + constants — no side effects,
-no I/O, no API calls — so each function is defined exactly once and shared by both
+no API calls, and no I/O apart from modules 1, 3 and 4 reading the API contact
+address from `pipeline.conf` (via `R/0_config.R`) — so each function is defined exactly once and shared by both
 the pipeline and the per-stage pilot reproductions:
 
 | Module | Provides |
@@ -25,7 +26,9 @@ live in `validation/pilot_extract_tei.R`, `validation/pilot_extract_prereg.R`, a
 `validation/pilot_link_funders.R` (run from the repo root). Those pilot drivers
 re-source the same libraries, so there is one implementation of every function.
 `validation/pilot_link_funders.R` is the only file that reads the historical
-`data/2026-06-11_auto-and-manual-combined_*.csv`; the pipeline path never does.
+`data/inputs/2026-06-11_auto-and-manual-combined_pilot1-and-pilot2.csv` among the
+stage drivers (the figure scripts also read it for the original Pilot 1 Crossref
+metadata); the pipeline path never does.
 
 ## Interface
 
@@ -145,10 +148,11 @@ fire. Statements are classified by the same `COI_NEG_RE`. A run-on header such a
 first. `coi_source = "pdf_front"` marks these rows. For JCPP pointer statements (from
 TEI or PDF), the step also reads the full PDF and appends the disclosures it points
 to (`|| …`) to `coi_statement` as an audit trail. It found them for 27 of 29. Run it on finished outputs
-with `Rscript run_coi_pdf_fallback.R` (updates the three `data/final_extraction_*`
-files in place), or pass `pdf_coi_fallback = TRUE` plus a `pdf_file` column to
-`run_pipeline()`. PDFs are read from the synced Google Drive folder
-(`PILOT_PDF_ROOT` overrides it), and their text is cached per DOI in the gitignored
+with `Rscript run_coi_pdf_fallback.R` (updates
+`data/final_extraction_pilot1-and-pilot2.csv` in place), or pass `pdf_coi_fallback = TRUE` plus a `pdf_file` column to
+`run_pipeline()`. `run_coi_pdf_fallback.R` reads PDFs from the folder named by
+the `PILOT_PDF_ROOT` environment variable (subfolders `Zotero_PDFs/` and `pilot2/`)
+and stops if it is not set. Their text is cached per DOI in the gitignored
 `data/cache/pdf_front_text/`.
 
 **`is_registered_report` (col 19).** Exposes the prereg logic's registered-report
@@ -196,7 +200,9 @@ statement; else `no funding` → no funding; else `Yes`/provides → funded).
 Pilot-1 `X8.1` is free text (no-funding phrase → no funding; non-blank → funded;
 **blank → uncoded**, excluded from the comparison — see below).
 
-Pilot run (345 papers; index 161 pilot1 + 184 pilot2), accuracy = agreement/coded.
+Pilot run (346 papers; index 161 pilot1 + 185 pilot2), accuracy = agreement/coded.
+`Rscript validation/final_agreement.R` recomputes this table offline from the
+committed final output and the coding forms.
 These are **agreement figures on the development sample**: the extraction and
 classification rules were refined after inspecting these coded articles and their
 disagreements, so they are optimistic as estimates for unseen articles.
@@ -220,13 +226,13 @@ no funding         2  16   0   no conflict       9     91      4            TRUE
 no statement       4   1  10   no statement      1      2     32
 ```
 
-Without the fallback, the COI matrix was conflict 5/1/2, no conflict 9/82/4 and
+Without the fallback, the COI matrix was conflict 5/1/2, no conflict 9/83/4 and
 no statement 2/10/32.
 
 **COI detection by publisher group** (manual statement present = denominator).
 For APA, Cambridge and `10.1192` (27 coded articles, 10 with a statement),
 sensitivity rises from 50.0% (5/10) to 90.0% (9/10). For all other publishers
-(99 with a statement), it rises from 92.9% (92/99) to 98.0% (97/99). The fallback
+(100 with a statement), it rises from 93.0% (93/100) to 98.0% (98/100). The fallback
 recovers 9 of the 12 statements that TEI and Crossref missed. Of the 38 articles
 coded as having no statement, it adds a statement to none of the 32 that TEI and
 Crossref correctly left empty (the other 6 already had an automated statement). One recovered statement ("Declarations
@@ -248,21 +254,23 @@ structured record of the funding. Exactly 1 of the 90 has neither. Pilot-2
 `X8.1` is a purpose-built categorical field with forced options, so its blanks
 are genuinely uncoded rows and every answered row counts.
 
-**COI disagreements.** Of the 12 pooled cases where auto and manual both record a
-statement but disagree, 7 are manual coding errors (statements that plainly
+**COI disagreements.** When the negation regex was tuned, auto and manual both
+recorded a statement but disagreed in 12 pooled cases (10 in the current output).
+Of those 12, 7 were manual coding errors (statements that plainly
 declare no conflict, e.g. "the authors declare no competing interests", coded as
 "conflict declared"). The negation regex was tuned on the remainder, gaining the
 phrasings "in the absence of any commercial/financial relationships", a bare
 "None." closing the statement (incl. GROBID's concatenated `STATEMENTNone.`), and
 "do not have any conflicts". A genuinely mixed statement (one author discloses
 royalties while the others declare none, 10.1111/jopy.12890) is now resolved by
-the partial-negation rule, which reclassifies 60 such statements across the two
-frames. The explicit-disclosure rule reclassifies a further 10 frame statements
+the partial-negation rule, which reclassified 60 such statements across the two
+sampling frames (frame runs now in `archive/frame_runs/`). The explicit-disclosure
+rule reclassified a further 10 frame statements
 (none in the validation set) that pair a general denial with a named disclosure,
 e.g. "The authors declare no conflict of interest. X receives royalties…". The `no statement` disagreements were TEI
 extraction recall gaps (a statement exists but GROBID did not surface it); the
 PDF COI fallback closes 9 of these 12, and the other 3 lack a statement in the
 PDF copy we hold (see above).
 
-**prereg** is the strongest signal (0.946 pooled): 4 false positives, 4 false
-negatives out of 147 coded papers.
+**prereg** agreement is 0.939 pooled (139/148): 5 false positives and 4 false
+negatives.

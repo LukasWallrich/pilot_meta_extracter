@@ -10,7 +10,7 @@
 #
 # Inputs
 #   full_sample.csv                                   Zotero export: DOI + PDF path
-#   exploration/classification/classified_articles.csv  LLM: empirical yes/no + research_area
+#   screening/classification/classified_articles.csv    LLM: empirical yes/no + research_area
 #   ../pilot_pilot_teis/tei/                          GROBID TEI for the full sample
 #   ../pilot_pilot_teis/pilot_keyword_screening_filenames.csv  keyword-screen hits
 #
@@ -28,7 +28,7 @@
 # truncated). We match on the normalised first 90 characters of the stem.
 #
 # Usage
-#   set -a; source ~/.claude/api_keys.env; set +a     # OpenAlex polite pool
+#   export OPENALEX_API_KEY=...             # optional: OpenAlex polite pool
 #   Rscript run_full_sample.R              # full run
 #   N_MAX=50 Rscript run_full_sample.R     # smoke test on the first 50 articles
 #
@@ -42,7 +42,7 @@
 source("run_pipeline.R")   # sourcing only defines functions (driver is env-guarded)
 
 FULL_SAMPLE_CSV <- "full_sample.csv"
-CLASSIFIED_CSV  <- "exploration/classification/classified_articles.csv"
+CLASSIFIED_CSV  <- "screening/classification/classified_articles.csv"
 TEI_DIR         <- "../pilot_pilot_teis/tei"
 KEYWORD_CSV     <- "../pilot_pilot_teis/pilot_keyword_screening_filenames.csv"
 PILOT1_CODING   <- "data/inputs/2025-12-09_Codingform_PilotingAssessment_pilot.csv"

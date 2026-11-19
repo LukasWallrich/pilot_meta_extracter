@@ -1,10 +1,10 @@
 # Combined Auto- and Manual-Coded Dataset
 
-**File:** `2026-06-11_auto-and-manual-combined_pilot1-and-pilot2.csv`
+**File:** `data/inputs/2026-06-11_auto-and-manual-combined_pilot1-and-pilot2.csv`
 
 This file combines manual coding data from both pilot rounds with automatically extracted metadata. Each row represents one coded article. Columns 1–59 contain manual coding form responses (see the coding form for definitions); the columns documented here are the automatically extracted fields appended during processing.
 
-The combined file is produced by `compare_manual_auto.R`, which joins the manual coding sheets with the outputs of `R/1_extract_doi_metadata.R` (API-based extraction) and `R/2_extract_tei_coi_funding.R` (TEI-based extraction).
+This is a historical input, written on 11 June 2026 by the `extract-data-auto` chunk of `docs/write-up-for-reg-rep.Rmd` (now `eval=FALSE`; an earlier version of that code is `archive/compare_manual_auto.R`). It joins the manual coding sheets with the outputs of `R/1_extract_doi_metadata.R` (API-based extraction) and the Pilot 2 rows of the TEI stage table. It is kept unchanged because it holds the original Crossref metadata behind the Pilot 1 Crossref-only comparison (`validation/plot_pilot_confusion.R`, `validation/plot_pilot_categories.R`) and the Crossref funder fields read by `validation/pilot_link_funders.R`. Do not regenerate it: current API responses can differ from those recorded in June 2026.
 
 ---
 

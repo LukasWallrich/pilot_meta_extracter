@@ -254,7 +254,7 @@ doi,coding,best_funders,best_funder_countries,funding_status,reconciliation,n_fu
 10.1186/s40359-023-01173-8,pilot2,Natural Sciences and Engineering Research Council of Canada || Canada Foundation for Innovation,Canada,funded,both,2,1,2,Natural Sciences and Engineering Research Council of Canada (Canada),Natural Sciences and Engineering Research Council of Canada (Canada) || Canada Foundation for Innovation (Canada)
 10.1080/10400419.2023.2227477,pilot2,"Alzheimer's Association || Geoffrey Beene Gives Back Alzheimer's Initiative, GHR Foundation || Banner Alzheimer's Foundation || National Institutes of Aging || Flinn Foundation",United States,funded,tei_only,5,0,6,NA,"Alzheimer's Association (United States) || Geoffrey Beene Gives Back Alzheimer's Initiative, GHR Foundation (?) || Banner Alzheimer's Foundation (?) || National Institutes of Aging (?) || National Institute on Aging (United States) || Flinn Foundation (United States)"
 10.1017/s1352465823000437,pilot2,NA,NA,unknown,none,0,0,0,NA,NA
-10.1177/09567976231165271,pilot2,NA,NA,unknown,none,0,0,0,NA,NA
+10.1177/09567976231165271,pilot2,NA,NA,funded,none,0,0,0,NA,NA
 10.1017/s1352465822000625,pilot2,NA,NA,unknown,none,0,0,0,NA,NA
 10.1177/00302228231176307,pilot2,no funding,NA,no funding,no_funding,0,0,0,NA,NA
 10.1111/cch.13106,pilot2,University of Missouri Women's & Children's Hospital,NA,funded,tei_only,1,0,1,NA,University of Missouri Women's & Children's Hospital (?)
