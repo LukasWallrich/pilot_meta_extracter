@@ -18,7 +18,8 @@ suppressMessages({
   library(stringdist)
 })
 
-MAILTO   <- "lukas.wallrich@gmail.com"
+source("R/0_config.R")   # CONTACT_EMAIL (pipeline.conf)
+MAILTO   <- CONTACT_EMAIL
 # OpenAlex keys are read from OPENALEX_API_KEYS below (see OA_KEY_POOL).
 DATA     <- "data"
 have_stringi <- requireNamespace("stringi", quietly = TRUE)

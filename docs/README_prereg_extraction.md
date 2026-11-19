@@ -73,18 +73,18 @@ A clinical-trial registry entry (e.g. ClinicalTrials.gov) registers a trial's ex
 
 ## Detection performance
 
-Validated against the manual coding (`X2.2` preregistration item; Registered Reports from `X2.1`), over the papers with a usable manual binary (n = 142 for `prereg_found`, n = 147 for `registration_any`).
+Validated against the manual coding (`X2.2` preregistration item; Registered Reports from `X2.1`), over the papers with a usable manual binary (n = 143 for `prereg_found`, n = 148 for `registration_any`).
 
-> **Scope.** These module-level figures come from `data/stages/prereg_extracted_pilot1-and-pilot2.csv`, last regenerated on 26 October 2026 by `validation/pilot_extract_prereg.R`. That stage run predates the recovery of Pilot 2 article `10.1177/09567976231165271` (147 coded papers) and uses a stricter usable-binary filter. The end-to-end agreement of the final output with the original codes is 139/148 (93.9%); see `docs/README_pipeline.md` and `validation/final_agreement.R`.
+> **Scope.** These module-level figures come from `data/stages/prereg_extracted_pilot1-and-pilot2.csv` (`validation/pilot_extract_prereg.R`, regenerated on 19 November 2026; 346 papers) and use a stricter usable-binary filter than the end-to-end comparison. The end-to-end agreement of the final output with the original codes is 139/148 (93.9%); see `docs/README_pipeline.md` and `validation/final_agreement.R`.
 
 | Metric (pooled) | Accuracy | Precision | Recall | F1 |
 |---|---|---|---|---|
-| `prereg_found` | 0.951 | 0.923 | 0.900 | 0.911 |
-| `registration_any` (incl. RR + trial) | 0.952 | 0.896 | 0.956 | 0.925 |
+| `prereg_found` | 0.944 | 0.900 | 0.900 | 0.900 |
+| `registration_any` (incl. RR + trial) | 0.946 | 0.878 | 0.956 | 0.915 |
 
-`prereg_found` confusion matrix: TP 36, FP 3, FN 4, TN 99. Per pilot: pilot 1 F1 0.917, pilot 2 F1 0.903. The template-gating refinement raised `prereg_found` from F1 0.878 (pre-gating: precision 0.857) by removing the OSF Open-Ended-Registration false positives; text-only trial-ID detection cut `registration_any` false negatives from 6 to 2.
+`prereg_found` confusion matrix: TP 36, FP 4, FN 4, TN 99. Per pilot: pilot 1 F1 0.917, pilot 2 F1 0.875. The template-gating refinement raised `prereg_found` from F1 0.878 (pre-gating: precision 0.857) by removing the OSF Open-Ended-Registration false positives; text-only trial-ID detection cut `registration_any` false negatives from 6 to 2.
 
-Of the residual discrepancies: 3 false positives — one is a manual-coding error (`10.1080/13506285.2023.2192993`, see below), one is a real OSF preregistration of a *supplemental* study coded "no" for the main studies (`10.1111/jopy.12855`, defensible), and one is an aspirational generic sentence (`10.3758/s13428-022-01804-9`). 4 false negatives — two are trial-registration-only papers the coders treated as preregistrations (`10.1002/eat.23864`, `10.1177/21677026231164958`; both captured by `registration_any`), one is a manual-coding error (`10.1111/cdev.13845`), one a GROBID extraction gap (`10.1111/desc.13244`).
+Of the residual discrepancies: 4 false positives — one is a manual-coding error (`10.1080/13506285.2023.2192993`, see below), one is a real OSF preregistration of a *supplemental* study coded "no" for the main studies (`10.1111/jopy.12855`, defensible), one is an aspirational generic sentence (`10.3758/s13428-022-01804-9`), and one is the recovered Pilot 2 article `10.1177/09567976231165271`, coded as stating that there was no preregistration although the pipeline finds OSF registration links (not adjudicated). 4 false negatives — two are trial-registration-only papers the coders treated as preregistrations (`10.1002/eat.23864`, `10.1177/21677026231164958`; both captured by `registration_any`), one is a manual-coding error (`10.1111/cdev.13845`), one a GROBID extraction gap (`10.1111/desc.13244`).
 
 ## Manual-coding issues surfaced
 

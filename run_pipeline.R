@@ -63,7 +63,7 @@ source("R/5_pdf_coi_fallback.R")          # pdf_front_text, pdf_coi_text, apply_
 #     against the existing output CSVs at the bottom of this file).
 `%||%` <- function(a, b) if (is.null(a) || length(a) == 0 || is.na(a[1])) b else a
 
-MAILTO   <- "lukas.wallrich@gmail.com"
+MAILTO   <- CONTACT_EMAIL   # from pipeline.conf, via R/0_config.R
 OA_KEY   <- Sys.getenv("OPENALEX_API_KEY", "")
 DATA     <- "data"
 have_stringi <- requireNamespace("stringi", quietly = TRUE)

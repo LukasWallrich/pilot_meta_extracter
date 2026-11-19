@@ -7,106 +7,79 @@ records which tracked files are current and which are historical.
   the ZIP.
 - `build_release.py` builds the bundle from committed content. It refuses
   untracked paths, anything under `archive/` or `exploration/`, TEI files, source
-  PDFs, and secret-like files.
+  PDFs, absolute home paths and token-like strings.
+- `check_bundle.sh` unzips a built bundle, reruns the offline entry points and
+  compares every file with the unzipped original.
 - `DEPOSIT_README.md` is the release README. It is copied into the ZIP as
   `RELEASE_README.md` and uploaded beside the ZIP.
 
-## Build
+## Build and check
 
 From the repository root, on a clean working tree:
 
 ```sh
 python3 release/build_release.py --out release/dist
+release/check_bundle.sh release/dist/pilot-meta-extractor-<version>.zip
 ```
 
-This writes `release/dist/pilot-meta-extractor-<version>.zip`,
-`release/dist/SHA256SUMS.txt` (every file inside the ZIP, then the ZIP itself) and
+The builder writes `release/dist/pilot-meta-extractor-<version>.zip`,
+`release/dist/SHA256SUMS.txt` (the ZIP and every file inside it) and
 `release/dist/DEPOSIT_README.md`. `release/dist/` is gitignored. The ZIP is
 deterministic: the same commit gives the same ZIP hash.
 
-The builder pseudonymises the `Coder Initials` column in the three coding-derived
-input tables (`C01`, `C02`, …, in order of first appearance across the files).
-Every other byte of those files is unchanged. The mapping is never written; the
-SHA256 of each original Git file is recorded in the release README.
+In the three coding tables, the builder drops four coding-process columns: the form
+timestamp, coder initials, feedback on the coding form, and coding time. No bundled
+script uses them. Every other field is copied unchanged, and the SHA256 of each
+original Git file is recorded in the release README.
 
 ## Inventory (19 November 2026)
 
-### Current reusable pipeline (in the bundle)
-
-| Path | Role |
-|---|---|
-| `run_pipeline.R` | Generic entry point: `run_pipeline()` on any `doi` + `tei_file` (+ optional `pdf_file`) table. |
-| `R/1_extract_doi_metadata.R` … `R/5_pdf_coi_fallback.R` | The five extraction modules (function libraries). |
-| `setup/` | One-time TOP Factor reference-data setup (`top_factor_data.RData`, gitignored). |
-| `data/cache/` | API caches (OpenAlex/Crossref metadata, OSF, funder registry). With them, `run_pipeline(use_api = FALSE)` runs offline for the recorded DOIs. |
-
-### Current study drivers, validation and reproducibility (in the bundle)
+### Current and in the bundle
 
 | Path | Role | Needs external full texts? |
 |---|---|---|
-| `PIPELINE_RUN=1 Rscript run_pipeline.R` | Pilot 1 + Pilot 2 coded batch → `data/final_extraction_pilot1-and-pilot2.csv` | Yes (TEI) |
-| `run_full_sample.R`, `run_pilot2_sample.R` | Frame-level drivers → `data/final_extraction_{full-empirical-sample,pilot2-sample}.csv`, `data/{full_sample,pilot2_sample}_index.csv` | Yes (TEI and gitignored Zotero frame exports) |
-| `run_coi_pdf_fallback.R` | PDF front-page COI fallback over the three final tables | Yes (PDF) |
-| `screening/` | GROBID conversion workflow, pilot-keyword screen and its Pilot 2 output; `screening/classification/` holds the LLM empirical/subfield classifier that feeds `run_full_sample.R` | Yes |
-| `validation/final_agreement.R` | Headline agreement of final outputs with original manual codes | No |
+| `run_pipeline.R`, `R/0_config.R` … `R/5_pdf_coi_fallback.R`, `pipeline.conf` | Generic pipeline: `run_pipeline()` on any `doi` + `tei_file` (+ optional `pdf_file`) table; `PIPELINE_RUN=1` runs the coded-pilot batch | Yes, for new runs |
+| `setup/` | One-time TOP Factor reference-data setup | No |
+| `data/cache/` | API caches; with them, `run_pipeline(use_api = FALSE)` runs offline for the recorded DOIs | — |
+| `run_coi_pdf_fallback.R` | PDF front-page COI fallback over the coded-pilot table | Yes (PDFs) |
+| `screening/grobid_conversion_workflow.yml` | How the TEIs were produced | Yes |
+| `validation/final_agreement.R` | Headline agreement of the final output with the original manual codes | No |
 | `validation/pilot2_auto_vs_manual.R` | Pilot 2 statement presence | No |
-| `validation/plot_pilot_confusion.R` + `docs/write-up-for-reg-rep.Rmd` | Binary and mixed manuscript figures (renders the Rmd's figure chunks) | No |
-| `validation/plot_pilot_categories.R` | Three-category figure and table | No |
-| `validation/validate_rx_vs_metacheck.R` | XML-only `rx` vs `metacheck` benchmark | No (reads the TEI stage table) |
+| `validation/plot_pilot_confusion.R` | Binary, three-category and mixed figures (sources `plot_pilot_categories.R`) | No |
+| `validation/validate_rx_vs_metacheck.R` | XML-only extractor vs `metacheck` | No |
 | `validation/pilot_link_funders.R` | Funder → country stage tables | No (uses caches) |
 | `validation/pilot_extract_tei.R`, `validation/pilot_extract_prereg.R` | TEI and preregistration stage tables | Yes (TEI) |
 | `validation/match_pilot1_tei.R` + `data/cache/pilot1_*` | Provenance of `data/inputs/pilot1_doi_tei_map.csv` | Yes (Pilot 1 TEI) |
-| `validation/recover_missing_pilot2.R` | Reproduces the recovered Pilot 2 article from its external XML and PDF | Yes (one XML, one PDF) |
+| `validation/recover_missing_pilot2.R` | Reproduces the recovered Pilot 2 article | Yes (one XML, one PDF) |
 | `validation/combine_with_manual.R` | Optional join of manual coding and final output (not run for this release) | No |
-| `data/inputs/` | Coding forms (both pilots), the historical 11 June 2026 combined table, the Pilot 1 DOI→TEI map and the recovery provenance record | — |
+| `data/inputs/` | Coding forms, the historical 11 June 2026 combined table, the Pilot 1 DOI→TEI map, the recovery provenance record | — |
 | `data/*.csv`, `data/stages/`, `docs/figures/` | Current outputs | — |
 
 The historical input `data/inputs/2026-06-11_auto-and-manual-combined_pilot1-and-pilot2.csv`
 stays current: it holds the original Pilot 1 Crossref metadata behind the Pilot 1
-Crossref-only comparison (figures, `plot_pilot_categories.R`) and the Crossref funder
-columns read by `pilot_link_funders.R`.
+Crossref-only comparison and the Crossref funder fields read by
+`pilot_link_funders.R`.
 
-### Kept in Git but excluded from the bundle
+### Current but not in the bundle
 
 | Path | Reason |
 |---|---|
-| `screening/classification/classified_articles.csv` | 8.7 MB with article titles and abstracts. Its outputs (`empirical`, `research_area`) are carried by `data/full_sample_index.csv`. |
-| `screening/classification/classification_summary.png` | Not needed to run or interpret the pipeline. |
-| `release/` | Build tooling; the release README is added separately. |
+| `docs/write-up-for-reg-rep.Rmd` | Working draft of the pilot write-up. Its figure code now lives in `validation/plot_pilot_confusion.R`, which the Rmd sources. |
+| `release/`, `.gitignore` | Tooling and housekeeping |
 
-### Historical, experimental or superseded (moved to `archive/`)
+### Archived
 
-See `archive/README.md` for the full index. Summary:
-
-- Earlier combined datasets, a superseded copy of the Pilot 1 coding form, and retired
-  development scripts (already in `archive/`).
-- `exploration/OA fields/`, `exploration/oer/` → `archive/exploration/`.
-- `validation/report.{Rmd,html}` and `R/openalex_utils.R` (OpenAlex subfield review;
-  not used by the pipeline) → `archive/exploration/openalex_subfield_review/`.
-- `docs/extraction_report.{qmd,html}` → `archive/docs/` (7 November 2026 snapshot,
-  n = 147, before the recovered Pilot 2 article).
-- `data/manual-and-auto-combined_2026-07-01.csv` → `archive/data/` (stale output of
-  `combine_with_manual.R` from 2 July 2026).
+See `archive/README.md`. Summary: the sampling-frame runs (drivers, indexes,
+extractions, keyword screen) and the LLM classifier, which the paper does not use;
+the OpenAlex and OER experiments; the 7 November extraction report (n = 147); the
+stale 2 July combined CSV; earlier combined datasets and retired dev scripts.
 
 ## Replacing the unpublished Zenodo draft
 
-The reserved draft (DOI 10.5281/zenodo.24262974) still holds the 15 November 2026
-package: `pilot-meta-extractor-45fb68d.zip` (all 89 tracked files of commit
-`45fb68d`), `DEPOSIT_README.md` and `manifest.json`. Once the creator and policy
-decisions below are settled and the bundle has been rebuilt from the merged commit:
-
-1. Delete all three draft files (`manifest.json` is replaced by `SHA256SUMS.txt`).
-2. Upload `pilot-meta-extractor-<version>.zip`, `DEPOSIT_README.md` and
-   `SHA256SUMS.txt` from `release/dist/`.
-3. Update the draft metadata: version and publication date; a description of a
-   current-only, pseudonymised subset with the agreement figures from the release
-   README (the old text cites 128/147, 124/134, 139/147 and "89 tracked files");
-   the related identifier as `isDerivedFrom` the GitHub tree of the built commit
-   (not `isIdenticalTo`); creators as confirmed.
-4. Keep the draft and its reserved DOI; do not create a new deposit.
-
-Open decisions: creators and their order (Wallrich, Pit is provisional, from the
-old draft); keeping CC BY 4.0 for code; whether the coding forms' free-text
-columns (coder feedback, "Any other details") belong in the deposit; shipping the
-draft write-up Rmd as the figure source; and the contact address in the API
-requests.
+The reserved draft (DOI 10.5281/zenodo.24262974) held the 15 November 2026 package
+(`pilot-meta-extractor-45fb68d.zip`, all 89 tracked files of commit `45fb68d`;
+`DEPOSIT_README.md`; `manifest.json`). To replace it, rebuild from the merged commit,
+run `check_bundle.sh`, then delete the three old files, upload the new ZIP,
+`DEPOSIT_README.md` and `SHA256SUMS.txt`, and update the version, date, description,
+creators and related identifier (`isDerivedFrom` the GitHub tree of the built
+commit). Keep the same draft and DOI.

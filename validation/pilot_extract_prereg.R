@@ -20,7 +20,7 @@ PILOT1_DROP <- "10.1016/j.cognition.2022.105212"  # NA TEI row
 
 norm_doi <- function(x) {
   x |>
-    sub("^https?://doi\\.org/", "", x = _) |>
+    sub("(?i)^(?:https?://)?(?:dx\\.)?doi\\.org/", "", x = _, perl = TRUE) |>
     sub("(?i)^doi:\\s*", "", x = _, perl = TRUE) |>
     trimws() |>
     tolower()

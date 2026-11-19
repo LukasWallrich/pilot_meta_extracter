@@ -5,7 +5,8 @@ Usage (repository root, clean working tree):
     python3 release/build_release.py --out release/dist
 
 Reads release/MANIFEST.txt, copies each [include] path from HEAD (not from the
-working tree), pseudonymises the Coder Initials column where the manifest says so,
+working tree), drops the coding-process columns (timestamp, coder initials, form
+feedback, coding time) where the manifest says so,
 adds release/DEPOSIT_README.md as RELEASE_README.md, and writes a deterministic
 ZIP, SHA256SUMS.txt and DEPOSIT_README.md to --out. Standard library only.
 """
@@ -22,7 +23,15 @@ import zipfile
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 MANIFEST = "release/MANIFEST.txt"
 README_TEMPLATE = "release/DEPOSIT_README.md"
-CODER_COLUMNS = {"1.1. Coder Initials", "X1.1..Coder.Initials"}
+DROP_COLUMNS = {
+    "Timestamp",
+    "1.1. Coder Initials", "X1.1..Coder.Initials",
+    "9.1. Do you have any feedback on the form, instructions or general coding procedure?",
+    "X9.1..Do.you.have.any.feedback.on.the.form..instructions.or.general.coding.procedure.",
+    "9.2. How much time did it take you to code this article?",
+    "X9.2..How.much.time.did.it.take.you.to.code.this.article.",
+}
+N_DROP = 4  # columns removed from each marked table
 ZIP_TIME = (2026, 1, 1, 0, 0, 0)
 
 FORBIDDEN_PATH = [
@@ -59,7 +68,7 @@ def read_manifest(text):
             continue
         path, _, rest = line.partition("  ")
         if section == "[include]":
-            include.append((path, rest.strip() == "pseudonymise"))
+            include.append((path, rest.strip() == "drop-coder-columns"))
         elif section == "[exclude]":
             exclude[path] = rest.strip()
         else:
@@ -111,40 +120,23 @@ def unquote(raw):
     return raw[1:-1].replace('""', '"') if raw.startswith('"') else raw
 
 
-def pseudonymise(data, path, mapping):
+def drop_columns(data, path):
     text = data.decode("utf-8")
     records = list(split_records(text))
-    header = [unquote(f).lstrip("﻿") for f in records[0][0]]
-    cols = [k for k, h in enumerate(header) if h in CODER_COLUMNS]
-    if len(cols) != 1:
-        fail(f"{path}: expected one coder-initials column, found {len(cols)}")
-    col = cols[0]
+    header = [unquote(f).lstrip("\ufeff") for f in records[0][0]]
+    drop = {k for k, h in enumerate(header) if h in DROP_COLUMNS}
+    if len(drop) != N_DROP:
+        fail(f"{path}: expected {N_DROP} coding-process columns, found {len(drop)}")
     out = []
-    for r, (fields, seps) in enumerate(records):
-        if r > 0 and col < len(fields):
-            raw = fields[col]
-            value = unquote(raw)
-            if value.strip() and value != "NA":
-                if value not in mapping:
-                    mapping[value] = f"C{len(mapping) + 1:02d}"
-                code = mapping[value]
-                fields[col] = f'"{code}"' if raw.startswith('"') else code
-        out.append("".join(f + s for f, s in zip(fields, seps)))
+    for fields, seps in records:
+        kept = [f for k, f in enumerate(fields) if k not in drop]
+        out.append(",".join(kept) + seps[-1])
     new = "".join(out).encode("utf-8")
-    # Independent check with the csv module: only the coder column changed,
-    # and it changed one-to-one.
+    # Independent check with the csv module: the remaining fields are unchanged.
     old_rows = list(csv.reader(io.StringIO(text, newline="")))
     new_rows = list(csv.reader(io.StringIO(new.decode("utf-8"), newline="")))
-    if len(old_rows) != len(new_rows):
-        fail(f"{path}: row count changed")
-    pairs = set()
-    for a, b in zip(old_rows, new_rows):
-        if len(a) != len(b) or any(x != y for k, (x, y) in enumerate(zip(a, b)) if k != col):
-            fail(f"{path}: a non-coder field changed")
-        if len(a) > col:
-            pairs.add((a[col], b[col]))
-    if len({a for a, _ in pairs}) != len({b for _, b in pairs}):
-        fail(f"{path}: coder pseudonyms are not one-to-one")
+    if [[f for k, f in enumerate(r) if k not in drop] for r in old_rows] != new_rows:
+        fail(f"{path}: fields other than the dropped columns changed")
     return new
 
 
@@ -176,8 +168,8 @@ def main():
     if set(inc_paths) & set(exclude):
         fail("path both included and excluded")
 
-    files, originals, mapping = {}, {}, {}
-    for path, pseudo in include:
+    files, originals = {}, {}
+    for path, drop_cols in include:
         for rx, why in FORBIDDEN_PATH:
             if rx.search(path):
                 fail(f"{path}: {why}")
@@ -188,9 +180,9 @@ def main():
             for rx, why in FORBIDDEN_TEXT:
                 if rx.search(data):
                     fail(f"{path}: {why}")
-        if pseudo:
+        if drop_cols:
             originals[path] = hashlib.sha256(data).hexdigest()
-            data = pseudonymise(data, path, mapping)
+            data = drop_columns(data, path)
         files[path] = data
 
     readme = git("show", f"HEAD:{README_TEMPLATE}")
@@ -221,7 +213,7 @@ def main():
         f"{zhash}  {zpath.name}\n{rhash}  DEPOSIT_README.md\n\n# Files inside {zpath.name}\n"
         + "".join(f"{hashlib.sha256(d).hexdigest()}  {top}/{p}\n" for p, d in sorted(files.items())))
     print(f"commit   {commit}\nversion  {version}\nfiles    {len(files)}\n"
-          f"coders   {len(mapping)} pseudonymised\nzip      {zpath} ({zpath.stat().st_size} bytes)\n"
+          f"tables   {len(originals)} with coding-process columns dropped\nzip      {zpath} ({zpath.stat().st_size} bytes)\n"
           f"sha256   {zhash}")
 
 

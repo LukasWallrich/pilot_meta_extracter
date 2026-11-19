@@ -8,7 +8,8 @@ numbered function modules and orchestrates them, reusing their on-disk caches.
 
 The extraction logic lives in five numbered **function libraries** at the repo
 root. Sourcing any of them only defines functions + constants — no side effects,
-no I/O, no API calls — so each function is defined exactly once and shared by both
+no API calls, and no I/O apart from modules 1, 3 and 4 reading the API contact
+address from `pipeline.conf` (via `R/0_config.R`) — so each function is defined exactly once and shared by both
 the pipeline and the per-stage pilot reproductions:
 
 | Module | Provides |
@@ -147,8 +148,8 @@ fire. Statements are classified by the same `COI_NEG_RE`. A run-on header such a
 first. `coi_source = "pdf_front"` marks these rows. For JCPP pointer statements (from
 TEI or PDF), the step also reads the full PDF and appends the disclosures it points
 to (`|| …`) to `coi_statement` as an audit trail. It found them for 27 of 29. Run it on finished outputs
-with `Rscript run_coi_pdf_fallback.R` (updates the three `data/final_extraction_*`
-files in place), or pass `pdf_coi_fallback = TRUE` plus a `pdf_file` column to
+with `Rscript run_coi_pdf_fallback.R` (updates
+`data/final_extraction_pilot1-and-pilot2.csv` in place), or pass `pdf_coi_fallback = TRUE` plus a `pdf_file` column to
 `run_pipeline()`. `run_coi_pdf_fallback.R` reads PDFs from the folder named by
 the `PILOT_PDF_ROOT` environment variable (subfolders `Zotero_PDFs/` and `pilot2/`)
 and stops if it is not set. Their text is cached per DOI in the gitignored
@@ -262,8 +263,9 @@ phrasings "in the absence of any commercial/financial relationships", a bare
 "None." closing the statement (incl. GROBID's concatenated `STATEMENTNone.`), and
 "do not have any conflicts". A genuinely mixed statement (one author discloses
 royalties while the others declare none, 10.1111/jopy.12890) is now resolved by
-the partial-negation rule, which reclassifies 60 such statements across the two
-frames. The explicit-disclosure rule reclassifies a further 10 frame statements
+the partial-negation rule, which reclassified 60 such statements across the two
+sampling frames (frame runs now in `archive/frame_runs/`). The explicit-disclosure
+rule reclassified a further 10 frame statements
 (none in the validation set) that pair a general denial with a named disclosure,
 e.g. "The authors declare no conflict of interest. X receives royalties…". The `no statement` disagreements were TEI
 extraction recall gaps (a statement exists but GROBID did not surface it); the

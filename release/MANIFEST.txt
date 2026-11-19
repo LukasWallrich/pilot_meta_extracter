@@ -1,11 +1,12 @@
 # Release bundle manifest.
 #
-# [include] lists every file copied into the ZIP, one repository path per line.
-# [exclude] lists every other tracked file outside archive/, with the reason.
-# build_release.py fails if a tracked file outside archive/ is in neither list,
-# so a new current file cannot be silently left out or slip in.
-# Paths marked "pseudonymise" have their Coder Initials column replaced with
-# stable codes (C01, C02, ...); every other byte is copied unchanged.
+# The include section lists every file copied into the ZIP, one repository path
+# per line. The exclude section lists every other tracked file outside archive/,
+# with the reason. build_release.py fails if a tracked file outside archive/ is in
+# neither list, so a new current file cannot be silently left out or slip in.
+# Paths marked "drop-coder-columns" lose four coding-process columns (form
+# timestamp, coder initials, feedback on the form, coding time); every other
+# field is copied unchanged.
 
 [include]
 README.md
@@ -14,6 +15,8 @@ CITATION.cff
 
 # Generic pipeline
 run_pipeline.R
+pipeline.conf
+R/0_config.R
 R/1_extract_doi_metadata.R
 R/2_extract_tei_coi_funding.R
 R/3_extract_prereg.R
@@ -31,17 +34,10 @@ data/cache/funder_name_country.csv
 data/cache/pilot1_oa_metadata.csv
 data/cache/pilot1_crossref_metadata.csv
 
-# Study drivers and upstream steps
+# PDF fallback step and the TEI conversion workflow
 run_coi_pdf_fallback.R
-run_full_sample.R
-run_pilot2_sample.R
 screening/README.md
 screening/grobid_conversion_workflow.yml
-screening/search_pilot_keywords.R
-screening/pilot2_keyword_screening.csv
-screening/classification/README.md
-screening/classification/classify_articles.R
-screening/classification/schemas/psychology_fields_schema.json
 
 # Validation and reproduction
 validation/final_agreement.R
@@ -55,21 +51,16 @@ validation/pilot_extract_prereg.R
 validation/match_pilot1_tei.R
 validation/recover_missing_pilot2.R
 validation/combine_with_manual.R
-docs/write-up-for-reg-rep.Rmd
 
 # Inputs
-data/inputs/2025-12-09_Codingform_PilotingAssessment_pilot.csv  pseudonymise
-data/inputs/2026-04-03_Codingform_PilotingAssessment_pilot2.csv  pseudonymise
-data/inputs/2026-06-11_auto-and-manual-combined_pilot1-and-pilot2.csv  pseudonymise
+data/inputs/2025-12-09_Codingform_PilotingAssessment_pilot.csv  drop-coder-columns
+data/inputs/2026-04-03_Codingform_PilotingAssessment_pilot2.csv  drop-coder-columns
+data/inputs/2026-06-11_auto-and-manual-combined_pilot1-and-pilot2.csv  drop-coder-columns
 data/inputs/pilot1_doi_tei_map.csv
 data/inputs/recovered_tei/10.1177-09567976231165271.provenance.json
 
 # Outputs
 data/final_extraction_pilot1-and-pilot2.csv
-data/final_extraction_full-empirical-sample.csv
-data/final_extraction_pilot2-sample.csv
-data/full_sample_index.csv
-data/pilot2_sample_index.csv
 data/pilot2_auto_vs_manual_counts.csv
 data/pilot2_final_statement_comparison.csv
 data/pilot_category_comparison.csv
@@ -94,8 +85,7 @@ docs/README_combined_csv.md
 
 [exclude]
 .gitignore  repository housekeeping
-screening/classification/classified_articles.csv  titles and abstracts (8.7 MB); its empirical and research_area columns are carried by data/full_sample_index.csv
-screening/classification/classification_summary.png  not needed to run or interpret the pipeline
+docs/write-up-for-reg-rep.Rmd  working draft of the pilot write-up; its figure code is in validation/plot_pilot_confusion.R
 release/README.md  release tooling
 release/MANIFEST.txt  release tooling
 release/build_release.py  release tooling

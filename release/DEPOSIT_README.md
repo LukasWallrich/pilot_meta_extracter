@@ -2,39 +2,37 @@
 
 Version `@@VERSION@@`, built from commit `@@COMMIT@@` (@@DATE@@) of
 https://github.com/LukasWallrich/pilot_meta_extracter.
-Reserved DOI: 10.5281/zenodo.24262974 (resolves after publication).
+DOI: 10.5281/zenodo.24262974.
 
-This ZIP holds the **current** extraction pipeline for the Piloting Assessment
+This ZIP holds the current metadata-extraction pipeline for the Piloting Assessment
 Registered Report, with the inputs, caches and outputs needed to check its reported
-validation. It is a curated subset of the repository, listed in
-`release/MANIFEST.txt` of that commit. It is not a full copy of the repository.
-Historical and experimental material stays in the repository's `archive/` folder.
+validation against manual coding in two pilot rounds. It is a curated subset of the
+repository, listed in `release/MANIFEST.txt` of that commit. Historical and
+exploratory material, including earlier runs over the full sampling frames, stays in
+the repository's `archive/` folder.
 
 ## Contents (@@N_FILES@@ files)
 
-- **Pipeline:** `run_pipeline.R` (entry point), `R/1_…` to `R/5_…` (modules),
-  `setup/` (TOP Factor data).
-- **Drivers and upstream steps:** `run_full_sample.R`, `run_pilot2_sample.R`,
-  `run_coi_pdf_fallback.R`, `screening/`.
-- **Validation:** `validation/`, plus `docs/write-up-for-reg-rep.Rmd`, whose figure
-  chunks `validation/plot_pilot_confusion.R` renders. The Rmd is a working draft of
-  the pilot write-up, included only as the figure source.
-- **Data:** final outputs (`data/*.csv`), per-stage outputs (`data/stages/`), API
-  caches (`data/cache/`), coding forms and historical inputs (`data/inputs/`),
-  figures (`docs/figures/`).
+- **Pipeline:** `run_pipeline.R` (entry point), `R/0_config.R` to `R/5_…` (modules),
+  `pipeline.conf` (API contact address), `setup/` (TOP Factor data),
+  `run_coi_pdf_fallback.R` (PDF front-page COI fallback),
+  `screening/grobid_conversion_workflow.yml` (PDF → TEI conversion).
+- **Validation:** `validation/` (agreement checks, stage reproductions, figures).
+- **Data:** the final output for the 346 coded articles
+  (`data/final_extraction_pilot1-and-pilot2.csv`), validation tables (`data/*.csv`),
+  per-stage outputs (`data/stages/`), API caches (`data/cache/`), coding forms and
+  historical inputs (`data/inputs/`), figures (`docs/figures/`).
 - **Documentation:** `README.md`, `docs/README_*.md`, `CITATION.cff`, `LICENSE`.
 - `SHA256SUMS.txt`: hash of every file in the ZIP.
 
 **Not included:** article PDFs and GROBID TEI full texts (copyrighted; obtain them
-separately), the gitignored Zotero frame exports, the classifier's article-level
-table with titles and abstracts (its `empirical` and `research_area` results are in
-`data/full_sample_index.csv`), credentials, and everything under the repository's
-`archive/`.
+separately), credentials, the working draft of the pilot write-up, and everything
+under the repository's `archive/`.
 
-**Coder initials are pseudonymised.** In the three tables below, the `Coder Initials`
-column is replaced by stable codes (`C01`, `C02`, …; same coder, same code across
-files). All other bytes are unchanged, so every script gives the same results. SHA256
-of the original files in the Git commit:
+**Coding tables.** The two coding forms and the 11 June 2026 combined table omit four
+coding-process columns: form timestamp, coder initials, feedback on the coding form,
+and time taken to code. No script uses them. All other fields are unchanged. SHA256
+of the full files in the Git commit:
 
 @@ORIGINAL_SHA256@@
 
@@ -47,13 +45,19 @@ Rscript validation/final_agreement.R          # agreement table below (read-only
 Rscript validation/pilot2_auto_vs_manual.R    # Pilot 2 statement presence
 Rscript validation/plot_pilot_confusion.R     # all three figure versions
 Rscript validation/validate_rx_vs_metacheck.R # XML-only benchmark
+Rscript validation/pilot_link_funders.R       # funder -> country stage tables
 ```
 
-Run from a fresh copy, these reproduce the committed tables and PNG figures byte
-for byte without network access (the PDF figures differ only in embedded dates). Re-running extraction (`PIPELINE_RUN=1 Rscript run_pipeline.R`, the
-frame drivers, the TEI/preregistration stages and the PDF fallback) needs the TEI
-and PDF full texts; `README.md` lists the expected locations. With those files and
-the included caches, `run_pipeline(..., use_api = FALSE)` makes no network calls.
+Run from a fresh copy, these reproduce the committed tables and PNG figures byte for
+byte without network access (the PDF figures differ only in embedded dates).
+
+Re-running extraction (`PIPELINE_RUN=1 Rscript run_pipeline.R`, the TEI and
+preregistration stages, and the PDF fallback) needs the TEI and PDF full texts at the
+locations given in `README.md`. With those files and the included caches, a
+cache-only run (`use_api = FALSE`) followed by `run_coi_pdf_fallback.R` reproduces
+every cell of `data/final_extraction_pilot1-and-pilot2.csv` for 345 of the 346
+articles (the recovered article was appended last, so row order differs). The
+remaining article is `10.1037/pspi0000433` (see below).
 
 ## Validation summary
 
@@ -73,31 +77,25 @@ funding F1 0.956 (`metacheck` 0.1.0: 0.898); COI F1 0.914 (`metacheck`: 0.878).
 Funder → country: 200 of 227 papers with a named funder (88%) get at least one
 funder country.
 
-## Known limits
+## Notes and limits
 
-- Pilot 2 article `10.1177/09567976231165271` was recovered on 19 November 2026
-  (a bare `doi.org/` DOI prefix had excluded it). It is in the final tables, the TEI
-  stage table and all comparisons above. The preregistration stage table
-  (`data/stages/prereg_extracted_pilot1-and-pilot2.csv`) and the frame indexes
-  (`data/pilot2_sample_index.csv` lists it as `pilot2-unsampled`;
-  `data/full_sample_index.csv` counts 184 Pilot 2 articles) predate the recovery.
-  Regenerating them needs the full texts and frame exports.
-- The funder stage tables come from the 26 October 2026 run and have not been
-  re-audited. Re-running `validation/pilot_link_funders.R` now changes one cell: the
-  recovered article's `funding_status` becomes `funded` (as in the final table). The
-  200/227 result is unchanged.
-- With the source TEIs and PDFs, a cache-only `run_pipeline(..., use_api = FALSE,
-  pdf_coi_fallback = TRUE)` reproduces all 185 coded Pilot 2 rows of the final table.
-  Automatic PDF lookup by file name (`map_pdf_files()`) misses the PDF of
-  `10.1037/pspi0000433`, whose TEI is named `….pdf.tei.xml`; pass its `pdf_file`
-  explicitly. The Pilot 1 TEIs were not available for this check.
-- `docs/README_prereg_extraction.md` reports module-level preregistration figures
-  from that earlier stage run (147 papers, stricter filter).
-- Final tables include short funding and COI statements quoted from the articles.
+- Pilot 2 article `10.1177/09567976231165271` was recovered on 19 November 2026 (a
+  bare `doi.org/` DOI prefix had excluded it). It is in the final table, all stage
+  tables and all comparisons above. Provenance:
+  `data/inputs/recovered_tei/10.1177-09567976231165271.provenance.json`.
+- The funder → country resolutions have not been re-audited since October 2026.
+- The current Pilot 2 TEI folder holds two TEI files for `10.1037/pspi0000433`.
+  Automatic PDF lookup by file name (`map_pdf_files()`) then misses its PDF, so the
+  PDF fallback does not recover its COI statement ("no conflict declared" in the
+  recorded output). Passing its `pdf_file` explicitly to `run_pipeline()` reproduces
+  the recorded row exactly.
+- The final table includes short funding and COI statements quoted from the articles.
+- Before making new API calls, set your own contact address in `pipeline.conf`.
 
 ## Creators, licence and citation
 
-Creators (provisional, to be confirmed before publication): Lukas Wallrich; Ilse L.
-Pit. Licence: CC BY 4.0, as in the repository's `LICENSE`. Cite via `CITATION.cff` or
-the DOI above, and cite the data sources you rely on (OpenAlex, Crossref, Scimago
-SJR, TOP Factor, OSF, GROBID).
+Lukas Wallrich (Birkbeck, University of London; ORCID 0000-0003-2121-5177) and
+Ilse L. Pit (Max Planck Institute for Human Development; ORCID 0000-0002-4066-8086).
+Licence: CC BY 4.0, as in `LICENSE`. Cite via `CITATION.cff` or the DOI above, and
+cite the data sources you rely on (OpenAlex, Crossref, Scimago SJR, TOP Factor, OSF,
+GROBID).

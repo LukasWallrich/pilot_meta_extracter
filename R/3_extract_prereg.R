@@ -20,6 +20,8 @@ suppressMessages({
   library(httr2)
 })
 
+source("R/0_config.R")   # CONTACT_EMAIL (pipeline.conf), sent to the OSF API
+
 `%||%` <- function(a, b) if (is.null(a) || length(a) == 0 || is.na(a[1])) b else a
 
 # OSF cache paths (defaults for resolve_osf_caches()).
@@ -206,7 +208,7 @@ osf_query_one <- function(code) {
   url <- sprintf("https://api.osf.io/v2/guids/%s/", code)
   res <- tryCatch({
     resp <- request(url) |>
-      req_user_agent("prereg-extractor (research; lukas.wallrich@gmail.com)") |>
+      req_user_agent(paste0("prereg-extractor (research; ", CONTACT_EMAIL, ")")) |>
       req_timeout(30) |>
       req_error(is_error = function(resp) FALSE) |>
       req_perform()
@@ -224,7 +226,7 @@ osf_query_template <- function(code) {
   url <- sprintf("https://api.osf.io/v2/registrations/%s/", code)
   tryCatch({
     resp <- request(url) |>
-      req_user_agent("prereg-extractor (research; lukas.wallrich@gmail.com)") |>
+      req_user_agent(paste0("prereg-extractor (research; ", CONTACT_EMAIL, ")")) |>
       req_timeout(30) |>
       req_error(is_error = function(resp) FALSE) |>
       req_perform()

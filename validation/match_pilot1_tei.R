@@ -29,7 +29,8 @@ tei_dir    <- "../pilot_pilot_teis/tei"
 oa_cache   <- "data/cache/pilot1_oa_metadata.csv"
 cr_cache   <- "data/cache/pilot1_crossref_metadata.csv"
 out_csv    <- "data/inputs/pilot1_doi_tei_map.csv"
-MAILTO     <- "lukas.wallrich@gmail.com"
+source("R/0_config.R")   # CONTACT_EMAIL (pipeline.conf)
+MAILTO     <- CONTACT_EMAIL
 SCORE_MIN  <- 0.85   # minimum title-prefix similarity to accept a match
 
 # ---------------------------------------------------------------------------
