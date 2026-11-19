@@ -361,6 +361,11 @@ manual_funding_category <- function(x, pilot) {
   if (tolower(x) == "test") return(NA_character_)
   if (pilot == "pilot2") {
     if (x == "") return(NA_character_)                 # uncoded
+    # Preserve this recorded Pilot 2 positive response (Lukas, 19 Nov 2026).
+    # This maps the historical manual answer; it does not change automated
+    # extraction or treat CRediT roles as research-funding disclosures.
+    if (x == "Only the ‘Funding acquisition’ role is indicated in the CRediT taxonomy.")
+      return("funded")
     # Order matters: "No, there is no funding statement." contains "no funding",
     # so test the leading "No" (= no statement) FIRST.
     if (grepl("^No\\b", x, ignore.case = TRUE)) return("no statement")
