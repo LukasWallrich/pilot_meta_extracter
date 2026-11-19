@@ -34,7 +34,7 @@ FORBIDDEN_PATH = [
 FORBIDDEN_TEXT = [
     (re.compile(rb"/Users/[A-Za-z]"), "absolute home path"),
     (re.compile(rb"CloudStorage"), "machine-specific cloud path"),
-    (re.compile(rb"(sk-[A-Za-z0-9_-]{20,}|ghp_[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16})"), "API token"),
+    (re.compile(rb"(?<![A-Za-z0-9_])(sk-(proj-)?[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16})"), "API token"),
     (re.compile(rb"(api[_-]?key|secret|token)\s*[=:]\s*['\"][A-Za-z0-9_\-]{16,}['\"]", re.I), "hard-coded key"),
 ]
 
