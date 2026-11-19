@@ -1,8 +1,8 @@
 # Archive
 
 Historical, experimental and superseded material, kept in Git for provenance. Nothing
-here is used by the current pipeline or validation scripts, and none of it is in the
-release bundle (`release/MANIFEST.txt`). Files are kept as they were last used:
+here is used by the current pipeline or validation scripts, and none of it was
+copied to `agboch/pilot-assessment`. Files are kept as they were last used:
 scripts may refer to paths from before they were moved here, and their outputs may
 not match the current pipeline.
 
@@ -58,3 +58,14 @@ articles), and the Pilot 1 frame extraction lacks that article.
 | `exploration/OA fields/` | OpenAlex field/subfield probe for journals (`report.Rmd`, `ASJC_fields.csv`). |
 | `exploration/openalex_subfield_review/` | OpenAlex subfield review of 2024 journal articles (`report.Rmd`, `report.html`) and its helper `openalex_utils.R` (formerly `validation/report.*` and `R/openalex_utils.R`). `report.Rmd` still sources `R/openalex_utils.R`. |
 | `exploration/oer/` | Open-ended registration labelling experiment (LLM predictions and scaffolds). Scripts contain absolute paths from the original machine. |
+
+## Zenodo release tooling (`release/`)
+
+Builder, manifest and checks for a current-only Zenodo package (`build_release.py`,
+`MANIFEST.txt`, `check_bundle.sh`, `README.md`, `DEPOSIT_README.md`). The deposit was
+dropped on 19 November 2026, when the current files moved to
+[agboch/pilot-assessment](https://github.com/agboch/pilot-assessment)
+(`automated_data_extraction/`); the unpublished draft was deleted, so its reserved
+DOI (10.5281/zenodo.24262974) was never registered. `MANIFEST.txt` is the file list
+that was copied there, apart from `CITATION.cff` and `validation/combine_with_manual.R`.
+The scripts use their pre-move paths (`release/…`).

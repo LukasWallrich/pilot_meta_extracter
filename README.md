@@ -1,5 +1,12 @@
 # Pilot Meta-Extractor
 
+> **Moved.** From November 2026, the current pipeline, its validation against the
+> pilot coding and the instructions for Study 1 are maintained in
+> [agboch/pilot-assessment](https://github.com/agboch/pilot-assessment), folder
+> `automated_data_extraction/` (copied from commit `953693b` of this repository;
+> [pull request #32](https://github.com/agboch/pilot-assessment/pull/32)). Make new changes there. This repository keeps
+> the development history and the archive.
+
 Automated extraction of article-level metadata for a meta-scientific Registered
 Report on how **pilot studies** are reported in psychology. Given article DOIs and
 their GROBID **TEI** files (and optionally the PDFs), the pipeline returns one row
@@ -38,7 +45,6 @@ Factor journal data (`top_factor_data.RData`, gitignored). Without it,
 | `validation/` | Stage reproductions, scoring against manual coding, figure scripts. |
 | `data/` | Final outputs (top level), `inputs/` (coding forms, historical inputs, provenance), `cache/` (API caches), `stages/` (per-stage outputs). |
 | `docs/` | Method documentation, `figures/`, and the working draft of the pilot write-up (`write-up-for-reg-rep.Rmd`). |
-| `release/` | Release manifest and builder for the Zenodo bundle. |
 | `archive/` | Historical, experimental and superseded material; see `archive/README.md`. Not used by current code. |
 
 ## Output files

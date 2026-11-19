@@ -51,5 +51,5 @@ scratch*
 # PDF front-page text cache (rebuilt from the synced PDFs by run_coi_pdf_fallback.R)
 data/cache/pdf_front_text/
 
-# Release build output
-release/dist/
+# Release build output (archived Zenodo tooling)
+archive/release/dist/
