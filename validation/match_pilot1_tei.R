@@ -11,8 +11,8 @@
 #
 # Outputs: data/inputs/pilot1_doi_tei_map.csv  and prints a full match-rate report.
 #
-# Run with the OpenAlex polite-pool key available:
-#   set -a; source ~/.claude/api_keys.env; set +a; Rscript match_pilot1_tei.R
+# Run from the repository root (optionally with OPENALEX_API_KEY set):
+#   Rscript validation/match_pilot1_tei.R
 
 suppressMessages({
   library(jsonlite)

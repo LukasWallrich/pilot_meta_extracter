@@ -75,6 +75,8 @@ A clinical-trial registry entry (e.g. ClinicalTrials.gov) registers a trial's ex
 
 Validated against the manual coding (`X2.2` preregistration item; Registered Reports from `X2.1`), over the papers with a usable manual binary (n = 142 for `prereg_found`, n = 147 for `registration_any`).
 
+> **Scope.** These module-level figures come from `data/stages/prereg_extracted_pilot1-and-pilot2.csv`, last regenerated on 26 October 2026 by `validation/pilot_extract_prereg.R`. That stage run predates the recovery of Pilot 2 article `10.1177/09567976231165271` (147 coded papers) and uses a stricter usable-binary filter. The end-to-end agreement of the final output with the original codes is 139/148 (93.9%); see `docs/README_pipeline.md` and `validation/final_agreement.R`.
+
 | Metric (pooled) | Accuracy | Precision | Recall | F1 |
 |---|---|---|---|---|
 | `prereg_found` | 0.951 | 0.923 | 0.900 | 0.911 |

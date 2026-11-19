@@ -5,7 +5,7 @@
 # adding/refreshing `coi_source` (tei / crossref / pdf_front). Use this when the
 # TEI-based run is already done (the pilot-1 TEIs need not be on disk); a fresh
 # run can instead call run_pipeline(..., pdf_coi_fallback = TRUE) with a
-# `pdf_file` column. Needs the synced PDF folder (PDF_ROOT_DEFAULT) and pdftotext.
+# `pdf_file` column. Needs the source PDF folder (set PILOT_PDF_ROOT) and pdftotext.
 # Safe to rerun: rows that already have a statement are left alone, and the
 # per-DOI text cache (data/cache/pdf_front_text/) avoids re-reading PDFs.
 #

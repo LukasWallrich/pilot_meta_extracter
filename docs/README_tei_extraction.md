@@ -2,7 +2,7 @@
 
 Extracts conflict of interest (COI) and funding statements from GROBID TEI XML files. By default uses direct XML/regex parsing, which outperforms metacheck on all metrics (see below). Optionally also runs [scienceverse/metacheck](https://github.com/scienceverse/metacheck) for comparison.
 
-> **Module vs. driver.** `R/2_extract_tei_coi_funding.R` is now a **function library** (sourcing it only defines `heading_matches`, `clean_extracted_text`, `extract_regex`, `extract_metacheck` and the regex constants — no side effects). It is the single source of truth used by `run_pipeline.R`. The pilot-1 + pilot-2 batch run that writes `data/stages/tei_coi_funding_extracted_pilot1-and-pilot2.csv` (and the pilot2-only `data/tei_coi_funding_extracted.csv`) plus the metacheck comparison lives in `validation/pilot_extract_tei.R` (run from the repo root; `use_metacheck` defaults to `TRUE` there so the stage CSV keeps its `mc_*` columns).
+> **Module vs. driver.** `R/2_extract_tei_coi_funding.R` is now a **function library** (sourcing it only defines `heading_matches`, `clean_extracted_text`, `extract_regex`, `extract_metacheck` and the regex constants — no side effects). It is the single source of truth used by `run_pipeline.R`. The pilot-1 + pilot-2 batch run that writes `data/stages/tei_coi_funding_extracted_pilot1-and-pilot2.csv` plus the metacheck comparison lives in `validation/pilot_extract_tei.R` (run from the repo root; `use_metacheck` defaults to `TRUE` there so the stage CSV keeps its `mc_*` columns).
 
 ## Approach
 
@@ -32,14 +32,16 @@ Directly parses the TEI XML with targeted XPath queries and regex heading/body m
 
 ## Validation
 
-Validated against manual coding from `data/inputs/2026-04-03_Codingform_PilotingAssessment_pilot2.csv` (183 DOIs matched to TEI files out of 185). Of the 185 coded articles, only 84 had manual funding/COI ground truth — the remaining 101 were determined by coders to not contain a relevant pilot study, so the funding/COI questions were skipped.
+Validated against manual coding from `data/inputs/2026-04-03_Codingform_PilotingAssessment_pilot2.csv`. Of the 185 coded Pilot 2 articles, 84 have manual funding/COI ground truth; for the other 101, coders found no relevant pilot study and skipped the funding/COI questions. `validation/validate_rx_vs_metacheck.R` scores the extractor and `metacheck` on Pilot 1, Pilot 2 and pooled (148 articles) and writes `data/rx_vs_metacheck_metrics.csv`, which is the authoritative source for these figures. They are XML-only statement-presence metrics, separate from the final category agreement in `docs/README_pipeline.md`.
 
-### Detection performance (against 83 articles with manual ground truth and a TEI file)
+### Pilot 2 detection performance (84 articles with manual ground truth and a TEI file)
 
 |  | Accuracy | Precision | Recall | F1 |
 |---|---|---|---|---|
-| **Funding — Regex** | 0.964 | 0.958 | 1.000 | 0.979 |
-| **COI — Regex** | 0.928 | 0.984 | 0.925 | 0.954 |
+| **Funding — Regex** | 0.964 | 0.959 | 1.000 | 0.979 |
+| **COI — Regex** | 0.929 | 0.984 | 0.926 | 0.955 |
+
+Pooled over both pilots (n = 148), F1 is 0.956 for funding (`metacheck` 0.898) and 0.914 for COI (`metacheck` 0.878).
 
 ### Error breakdown
 
@@ -64,11 +66,12 @@ The 3 funding FPs are: OA-fee-only acknowledgments (2 cases) and a CRediT author
 
 | File | Description |
 |---|---|
-| `R/2_extract_tei_coi_funding.R` | Production extraction script (metacheck + regex) |
-| `scratch_dev_extract.R` | Development/validation script with comparison metrics |
-| `data/tei_coi_funding_extracted.csv` | Extraction results (output of production script) |
-| `data/extraction_mismatches.csv` | 7 DOIs with mismatches (among articles with manual ground truth), assessed as true FPs or TEI misses |
-| `data/scratch_dev_results.csv` | Full results with manual ground truth (output of dev script) |
+| `R/2_extract_tei_coi_funding.R` | Extraction functions (regex/XPath, plus the optional metacheck wrapper) |
+| `validation/pilot_extract_tei.R` | Pilot 1 + Pilot 2 batch run (needs the TEI corpora) |
+| `data/stages/tei_coi_funding_extracted_pilot1-and-pilot2.csv` | Per-paper extraction results for both pilots |
+| `validation/validate_rx_vs_metacheck.R` | Scores `rx` and `metacheck` against the manual coding |
+| `data/rx_vs_metacheck_metrics.csv` | Metrics per pilot and pooled |
+| `archive/extraction_mismatches.csv`, `archive/dev_extract_pilot2_first20.R` | Development-phase mismatch list and dev script (repository archive only) |
 
 ## Requirements
 
@@ -81,17 +84,9 @@ metacheck  # remotes::install_github("scienceverse/metacheck")
 
 ## Usage
 
-```r
-source("R/2_extract_tei_coi_funding.R")
-# Reads pilot2 DOIs, matches to TEI files in ../pilot2_pdf_conversion/tei/,
-# extracts using regex/XPath, saves to data/tei_coi_funding_extracted.csv
+From the repository root:
 
-# To also run metacheck for comparison:
-# Set use_metacheck <- TRUE before sourcing
-```
-
-To re-run validation against manual coding:
-```r
-# Set RUN_MODE env var: "all", "dev20", or "problem5"
-# Rscript scratch_dev_extract.R
+```sh
+Rscript validation/pilot_extract_tei.R        # needs the Pilot 1 and Pilot 2 TEI corpora
+Rscript validation/validate_rx_vs_metacheck.R # offline: scores the stage table
 ```

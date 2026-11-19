@@ -25,7 +25,9 @@ live in `validation/pilot_extract_tei.R`, `validation/pilot_extract_prereg.R`, a
 `validation/pilot_link_funders.R` (run from the repo root). Those pilot drivers
 re-source the same libraries, so there is one implementation of every function.
 `validation/pilot_link_funders.R` is the only file that reads the historical
-`data/2026-06-11_auto-and-manual-combined_*.csv`; the pipeline path never does.
+`data/inputs/2026-06-11_auto-and-manual-combined_pilot1-and-pilot2.csv` among the
+stage drivers (the figure scripts also read it for the original Pilot 1 Crossref
+metadata); the pipeline path never does.
 
 ## Interface
 
@@ -147,8 +149,9 @@ TEI or PDF), the step also reads the full PDF and appends the disclosures it poi
 to (`|| …`) to `coi_statement` as an audit trail. It found them for 27 of 29. Run it on finished outputs
 with `Rscript run_coi_pdf_fallback.R` (updates the three `data/final_extraction_*`
 files in place), or pass `pdf_coi_fallback = TRUE` plus a `pdf_file` column to
-`run_pipeline()`. PDFs are read from the synced Google Drive folder
-(`PILOT_PDF_ROOT` overrides it), and their text is cached per DOI in the gitignored
+`run_pipeline()`. `run_coi_pdf_fallback.R` reads PDFs from the folder named by
+the `PILOT_PDF_ROOT` environment variable (subfolders `Zotero_PDFs/` and `pilot2/`)
+and stops if it is not set. Their text is cached per DOI in the gitignored
 `data/cache/pdf_front_text/`.
 
 **`is_registered_report` (col 19).** Exposes the prereg logic's registered-report
@@ -196,7 +199,9 @@ statement; else `no funding` → no funding; else `Yes`/provides → funded).
 Pilot-1 `X8.1` is free text (no-funding phrase → no funding; non-blank → funded;
 **blank → uncoded**, excluded from the comparison — see below).
 
-Pilot run (345 papers; index 161 pilot1 + 184 pilot2), accuracy = agreement/coded.
+Pilot run (346 papers; index 161 pilot1 + 185 pilot2), accuracy = agreement/coded.
+`Rscript validation/final_agreement.R` recomputes this table offline from the
+committed final output and the coding forms.
 These are **agreement figures on the development sample**: the extraction and
 classification rules were refined after inspecting these coded articles and their
 disagreements, so they are optimistic as estimates for unseen articles.
@@ -264,5 +269,5 @@ extraction recall gaps (a statement exists but GROBID did not surface it); the
 PDF COI fallback closes 9 of these 12, and the other 3 lack a statement in the
 PDF copy we hold (see above).
 
-**prereg** is the strongest signal (0.946 pooled): 4 false positives, 4 false
-negatives out of 147 coded papers.
+**prereg** agreement is 0.939 pooled (139/148): 5 false positives and 4 false
+negatives.

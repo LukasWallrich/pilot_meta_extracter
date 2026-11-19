@@ -146,15 +146,18 @@ apply_pdf_coi_fallback <- function(out, pdf_files, cache_dir = PDF_TEXT_CACHE) {
 
 # Source PDFs: the synced Google Drive folder the GROBID action converts from
 # (pilot2 = Drive folder 18vChmJn4Q2biMmTbRWWgwkQd8KE002JR; pilot 1 = Zotero_PDFs).
-# Override with the PILOT_PDF_ROOT environment variable.
-PDF_ROOT_DEFAULT <- Sys.getenv("PILOT_PDF_ROOT",
-  "~/Library/CloudStorage/GoogleDrive-lukas.wallrich@gmail.com/My Drive/Pilot-coding pilot PDFs")
+# Set its local path with the PILOT_PDF_ROOT environment variable; the folder
+# holds the subfolders Zotero_PDFs/ (pilot 1) and pilot2/.
+PDF_ROOT_DEFAULT <- Sys.getenv("PILOT_PDF_ROOT", "")
 
 # Map TEI file names to their source PDFs. GROBID names a TEI after the PDF with
 # every character outside [alnum . -] replaced by "_"; macOS returns file names
 # in decomposed Unicode, so both sides are NFC-normalised before matching.
 map_pdf_files <- function(tei_files, pdf_root = PDF_ROOT_DEFAULT,
                           subdirs = c("Zotero_PDFs", "pilot2")) {
+  if (is.na(pdf_root) || !nzchar(pdf_root) || !dir.exists(path.expand(pdf_root)))
+    stop("PDF folder not found. Set PILOT_PDF_ROOT to the folder holding ",
+         paste(subdirs, collapse = "/ and "), "/ (or pass pdf_root).", call. = FALSE)
   nfc  <- stringi::stri_trans_nfc
   pdfs <- unlist(lapply(file.path(path.expand(pdf_root), subdirs), list.files,
                         pattern = "\\.pdf$", full.names = TRUE))
