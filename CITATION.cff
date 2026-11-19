@@ -3,7 +3,7 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 type: software
-title: "Pilot Meta-Extractor: metadata extraction for the Piloting Assessment Registered Report"
+title: "Pilot Meta-Extractor: metadata extraction and COI detection for the Piloting Assessment Registered Report"
 authors:
   - family-names: Wallrich
     given-names: Lukas

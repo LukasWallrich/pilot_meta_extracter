@@ -225,13 +225,13 @@ no funding         2  16   0   no conflict       9     91      4            TRUE
 no statement       4   1  10   no statement      1      2     32
 ```
 
-Without the fallback, the COI matrix was conflict 5/1/2, no conflict 9/82/4 and
+Without the fallback, the COI matrix was conflict 5/1/2, no conflict 9/83/4 and
 no statement 2/10/32.
 
 **COI detection by publisher group** (manual statement present = denominator).
 For APA, Cambridge and `10.1192` (27 coded articles, 10 with a statement),
 sensitivity rises from 50.0% (5/10) to 90.0% (9/10). For all other publishers
-(99 with a statement), it rises from 92.9% (92/99) to 98.0% (97/99). The fallback
+(100 with a statement), it rises from 93.0% (93/100) to 98.0% (98/100). The fallback
 recovers 9 of the 12 statements that TEI and Crossref missed. Of the 38 articles
 coded as having no statement, it adds a statement to none of the 32 that TEI and
 Crossref correctly left empty (the other 6 already had an automated statement). One recovered statement ("Declarations
@@ -253,8 +253,9 @@ structured record of the funding. Exactly 1 of the 90 has neither. Pilot-2
 `X8.1` is a purpose-built categorical field with forced options, so its blanks
 are genuinely uncoded rows and every answered row counts.
 
-**COI disagreements.** Of the 12 pooled cases where auto and manual both record a
-statement but disagree, 7 are manual coding errors (statements that plainly
+**COI disagreements.** When the negation regex was tuned, auto and manual both
+recorded a statement but disagreed in 12 pooled cases (10 in the current output).
+Of those 12, 7 were manual coding errors (statements that plainly
 declare no conflict, e.g. "the authors declare no competing interests", coded as
 "conflict declared"). The negation regex was tuned on the remainder, gaining the
 phrasings "in the absence of any commercial/financial relationships", a bare

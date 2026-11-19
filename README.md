@@ -40,6 +40,26 @@ Factor journal data (`top_factor_data.RData`, gitignored). Without it,
 | `release/` | Release manifest and builder for the Zenodo bundle. |
 | `archive/` | Historical, experimental and superseded material; see `archive/README.md`. Not used by current code. |
 
+## Output files
+
+All final tables have the same 21 columns (`docs/README_pipeline.md`), one row per DOI.
+
+| File | Rows |
+|---|---|
+| `data/final_extraction_pilot1-and-pilot2.csv` | The manually coded articles of both pilots (346). |
+| `data/final_extraction_full-empirical-sample.csv` | Pilot 1 frame (`full_sample.csv`): articles with a TEI that the classifier called empirical (3,851 of 4,076), plus every manually coded article, including 16 Pilot 1 articles classified as non-empirical. |
+| `data/final_extraction_pilot2-sample.csv` | Pilot 2 frame (`pilot2_sample.csv`, 4,635 articles from 2023): every article with a TEI, unfiltered (the classifier was not run on this frame). |
+| `data/full_sample_index.csv` | One row per Pilot 1 frame article (4,076) plus the 184 coded Pilot 2 articles: `doi`, `tei_file`, `empirical`, `research_area` (LLM classification), `keyword_hit` (pilot-keyword screen), `article_status` (`pilot1`, `pilot2`, `pilot1-unsampled`). Filter on `empirical == "yes"` for the strict empirical sample. |
+| `data/pilot2_sample_index.csv` | One row per Pilot 2 frame article: `doi`, `tei_file`, `keyword_hit` (`NA` without a TEI), `article_status` (`pilot2-coded` for 184 articles, `pilot2-unsampled` otherwise; see the recovered article below). |
+
+The two frames overlap in a single article, so the frame outputs can be stacked.
+Join on `doi` to split them by pilot reporting or coding round.
+
+**Main study (2025 sample).** Call `run_pipeline()` on the main study's `doi` +
+`tei_file` table from the project's database workflow. Metadata are extracted for
+every article before the pilot-keyword screen, so pilot-reporting and other
+articles can be compared. Journal-to-field grouping is done by the analysis team.
+
 ## Reproducing the reported results
 
 These run offline from the committed files, from the repository root:
