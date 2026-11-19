@@ -482,10 +482,13 @@ tei_pilot2_coi_f1 = 0.953
 ```
 
 ```{r auto-pilot2-funding-coi-overlap}
-# Funding: overlap between auto and manual extraction
-fund_tbl_pilot2 <- auto_pilot2 |>
-  # filter(!is.na(auto_pilot2$rx_funding_found) | !is.na(auto_pilot2$rx_coi_found)) |> # whether to count files without TEI
-  count(funding_auto_extracted, funding_manual_extracted)
+# Final outputs include the PDF COI fallback. Original manual-code mappings are
+# the same as the pooled benchmark; adjudicated reference labels are not used.
+source("validation/pilot2_auto_vs_manual.R")
+pilot2_comparison <- pilot2_final_statement_comparison()
+fund_tbl_pilot2 <- pilot2_comparison |>
+  filter(outcome == "funding") |>
+  count(funding_auto_extracted = auto, funding_manual_extracted = manual)
 
 auto2_fund_auto_and_manual <- fund_tbl_pilot2 |> filter(funding_auto_extracted, funding_manual_extracted) |> pull(n)
 auto2_fund_auto_only       <- fund_tbl_pilot2 |> filter(funding_auto_extracted, !funding_manual_extracted) |> pull(n)
@@ -498,9 +501,9 @@ auto2_fund_pct_also_manual <- round(auto2_fund_auto_and_manual / auto2_fund_auto
 auto2_fund_pct_substitute  <- round(auto2_fund_manual_only / auto2_fund_not_auto_total * 100, 1)
 
 # COI: overlap between auto and manual extraction
-coi_tbl_pilot2 <- auto_pilot2 |>
-  mutate(coi_manual_has_stmt = str_starts(manual_does_include_coi, "Yes")) |>
-  count(coi_auto_extracted, coi_manual_has_stmt)
+coi_tbl_pilot2 <- pilot2_comparison |>
+  filter(outcome == "coi") |>
+  count(coi_auto_extracted = auto, coi_manual_has_stmt = manual)
 
 auto2_coi_auto_and_manual <- coi_tbl_pilot2 |> filter(coi_auto_extracted, coi_manual_has_stmt) |> pull(n) |> sum()
 auto2_coi_auto_only       <- coi_tbl_pilot2 |> filter(coi_auto_extracted, !coi_manual_has_stmt) |> pull(n) |> sum()
@@ -525,7 +528,7 @@ auto2_coi_pct_sub_no_manual   <- round(auto2_coi_auto_only / auto2_coi_no_manual
 
 ```
 
-Based on the custom approach, which outperformed metacheck (version fixme), we were able to match the manual coding for funding and COI statements with high accuracy.
+The final pipeline combines metadata, XML extraction and the PDF COI fallback. The following statement-presence comparisons use original manual codes and exclude missing outputs and unusable manual answers separately for funding and COI.
 
 Funding information was manually extracted for `r auto2_fund_manual_total` papers, of which `r auto2_fund_auto_and_manual` papers also had this information automatically extracted (`r auto2_fund_pct_auto_of_manual`%). For the `r auto2_fund_no_manual_total` papers for which manual funding information was absent, `r auto2_fund_auto_only` papers could be supplemented with automated extraction (`r auto2_fund_pct_sub_no_manual`%). For COI statements, manual coders recorded a COI statement for `r auto2_coi_manual_total` papers, of which `r auto2_coi_auto_and_manual` papers also had a COI statement automatically extracted (`r auto2_coi_pct_auto_of_manual`%). For the `r auto2_coi_no_manual_total` papers without a manually coded COI statement, `r auto2_coi_auto_only` papers had a COI statement available from automated extraction (`r auto2_coi_pct_sub_no_manual`%).
 
@@ -577,205 +580,30 @@ coi_tbl_pilot2 %>%
 # Agreement figure over both pilots
 
 ```{r funding-coi-agreement-plot, echo=FALSE, message=FALSE, warning=FALSE}
-
-# Prepare data for plotting
-make_plot_input <- function(dat, pilot, source) {
-
-  pilot_label <- paste0(
-    pilot, " (n = ", nrow(dat), ")\n", source
-  )
-
-  bind_rows(
-
-    # Funding statement
-    dat %>%
-      transmute(
-        pilot_lab = pilot_label,
-        statement = "Funding statement",
-        coder_found = funding_manual_extracted,
-        automated_found = funding_auto_extracted
-      ),
-
-    # COI statement
-    dat %>%
-      transmute(
-        pilot_lab = pilot_label,
-        statement = "COI statement",
-        coder_found = str_starts(manual_does_include_coi, "Yes"),
-        automated_found = coi_auto_extracted
-      )
-  )
-}
-
-
-# Combine both pilots
-plot_input <- bind_rows(
-  make_plot_input(auto_pilot1, "Pilot 1", "Crossref only"),
-  make_plot_input(auto_pilot2, "Pilot 2", "Crossref + full text")
-) %>%
-  filter(!is.na(coder_found), !is.na(automated_found)) %>%
-  mutate(
-    statement = factor(
-      statement,
-      levels = c("COI statement", "Funding statement")
-    ),
-    pilot_lab = factor(pilot_lab, levels = unique(pilot_lab)),
-    agreement_cell = coder_found == automated_found,
-
-    # Coordinates: Yes on top/left, No on bottom/right
-    x = if_else(automated_found, 1, 2),
-    y = if_else(coder_found, 2, 1)
-  )
-
-
-# Count observations in each cell
-plot_counts <- plot_input %>%
-  count(pilot_lab, statement, x, y, name = "n") %>%
-  complete(
-    pilot_lab,
-    statement,
-    x = 1:2,
-    y = 1:2,
-    fill = list(n = 0)
-  ) %>%
-  mutate(
-    agreement_cell = (x == 1 & y == 2) | (x == 2 & y == 1)
-  ) %>%
-  mutate(
-    statement = factor(
-      statement,
-      levels = c("Funding statement", "COI statement"))
-  )
-
-
-# Calculate percentage agreement for each panel
-plot_agreement <- plot_input %>%
-  group_by(pilot_lab, statement) %>%
-  summarise(
-    agreement = mean(agreement_cell) * 100,
-    .groups = "drop"
-  )
-
-
-# Create figure
-agreement_plot = 
-  ggplot(plot_counts, aes(x = x, y = y, fill = agreement_cell)) +
-
-  # Heatmap cells
-  geom_tile(
-  width = 0.96,
-  height = 0.96,
-  color = NA
-) +
-
-  # Numbers inside cells
-  geom_text(
-    aes(label = n, color = agreement_cell),
-    size = 5
-  ) +
-
-  # Agreement percentages above each panel
-  geom_text(
-    data = plot_agreement,
-    aes(
-      x = 1.5,
-      y = 2.7,
-      label = paste0(round(agreement), "% agreement")
-    ),
-    inherit.aes = FALSE,
-    fontface = "bold",
-    size = 3.5
-  ) +
-
-  # Arrange panels
-  facet_grid(
-    rows = vars(statement),
-    cols = vars(pilot_lab),
-    switch = "y",
-    labeller = labeller(
-    statement = c(
-      "Funding statement" = "Funding\nstatement",
-      "COI statement" = "COI\nstatement"
-    ))
-  ) +
-
-  # Axis labels
-  scale_x_continuous(
-    breaks = c(1, 2),
-    labels = c("Yes", "No"),
-    limits = c(0.5, 2.5),
-    expand = c(0, 0)
-  ) +
-
-  scale_y_continuous(
-    breaks = c(1, 2),
-    labels = c("No", "Yes"),
-    limits = c(0.5, 2.95),
-    expand = c(0, 0)
-  ) +
-
-  # Colours
-  scale_fill_manual(
-    values = c(
-      "TRUE" = "#2D6DB5",
-      "FALSE" = "#E8EDF2"
-    ),
-    guide = "none"
-  ) +
-
-  scale_color_manual(
-    values = c(
-      "TRUE" = "white",
-      "FALSE" = "#333333"
-    ),
-    guide = "none"
-  ) +
-
-  labs(
-    x = "Automated: statement found",
-    y = "Coders: statement found"
-  ) +
-
-  coord_fixed() +
-
-  theme_minimal(base_size = 11) +
-
-  theme(
-    panel.grid = element_blank(),
-
-    strip.background = element_blank(),
-    strip.placement = "outside",
-
-    strip.text.x = element_text(
-      face = "bold",
-      size = 10
-    ),
-
-    strip.text.y.left = element_text(
-      angle = 0,
-      face = "bold",
-      hjust = 0.5,
-      vjust = 0.4
-    ),
-
-    axis.title = element_text(size = 10),
-    axis.text = element_text(size = 9),
-
-    plot.margin = margin(5, 5, 5, 5),
-    panel.spacing.x = grid::unit(0.6, "lines")
-  )
-
+# Figure code: validation/plot_pilot_confusion.R (also writes the figure files).
+source("validation/plot_pilot_confusion.R", local = TRUE)
 agreement_plot
-
-ggsave(
-  "figures/pilots_agreement.png",
-  plot = agreement_plot,
-  width = 5,
-  dpi = 300
-)
-
 ```
 
+
+
+
+## Three-category alternative
+
+Pilot 1 categories below are reconstructed from its original Crossref metadata only; Pilot 2 uses the final pipeline. Blank Pilot 1 funding answers remain uncoded. The binary comparison above is retained separately.
+
+```{r funding-coi-category-plot, echo=FALSE, message=FALSE, warning=FALSE}
+p
+```
+
+
+## Mixed binary/categorical alternative
+
+This version preserves Pilot 1's original binary analysis and uses the final three-category pipeline for Pilot 2. The agreement percentages refer to different classification tasks and should not be interpreted as a direct estimate of improvement.
+
+```{r funding-coi-mixed-plot, echo=FALSE, message=FALSE, warning=FALSE}
+mixed_plot
+```
 
 
 # Main study

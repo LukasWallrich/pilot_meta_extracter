@@ -11,8 +11,8 @@
 #   pilot2_sample.csv                          Zotero export of the frame: DOI +
 #                                              bibliographic metadata (4,635 rows)
 #   ../pilot2_pdf_conversion/tei/              GROBID TEI, filenames encode the DOI
-#   ../pilot2_pdf_conversion/pilot_keyword_screening.csv
-#                                              pilot-keyword screen, by DOI
+#   screening/pilot2_keyword_screening.csv     pilot-keyword screen, by DOI (copy of
+#                                              ../pilot2_pdf_conversion/pilot_keyword_screening.csv)
 #   data/inputs/2026-04-03_Codingform_PilotingAssessment_pilot2.csv
 #                                              which articles were manually coded
 #
@@ -28,7 +28,7 @@
 # NA-filled, and the frame is extracted unfiltered.
 #
 # Usage
-#   set -a; source ~/.claude/api_keys.env; set +a     # OpenAlex polite pool
+#   export OPENALEX_API_KEY=...             # optional: OpenAlex polite pool
 #   Rscript run_pilot2_sample.R            # full run
 #   N_MAX=50 Rscript run_pilot2_sample.R   # smoke test on the first 50 articles
 #

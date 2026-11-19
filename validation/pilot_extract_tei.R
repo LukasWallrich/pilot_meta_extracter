@@ -47,7 +47,7 @@ message(nrow(p1_idx), " pilot1 papers from map")
 ## pilot2: DOIs from manual CSV, matched to DOI-encoded TEI filenames
 manual <- read.csv(pilot2_csv)
 pilot2_dois <- manual[["X1.2..Article.DOI"]] |>
-  sub("^https?://doi\\.org/", "", x = _) |>
+  sub("(?i)^(?:https?://)?(?:dx\\.)?doi\\.org/", "", x = _, perl = TRUE) |>
   sub("(?i)^doi:\\s*", "", x = _, perl = TRUE) |>
   trimws() |>
   unique()

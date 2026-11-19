@@ -20,8 +20,9 @@ if (file.exists("top_factor_data.RData")) {
 }
 
 # Constants -------------------------------------------------------------------
-OA_USER_AGENT <- "mailto:lukas.wallrich@gmail.com"
-OA_MAILTO     <- "lukas.wallrich@gmail.com"
+source("R/0_config.R")                       # CONTACT_EMAIL (pipeline.conf)
+OA_USER_AGENT <- paste0("mailto:", CONTACT_EMAIL)
+OA_MAILTO     <- CONTACT_EMAIL
 # The free polite pool (mailto only) is the default and is what this pipeline
 # needs: it has no dollar budget and comfortably carries a full-sample run.
 # A paid API key is opt-in via OPENALEX_USE_KEY=1 -- keys carry a ~$1/day

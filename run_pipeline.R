@@ -63,7 +63,7 @@ source("R/5_pdf_coi_fallback.R")          # pdf_front_text, pdf_coi_text, apply_
 #     against the existing output CSVs at the bottom of this file).
 `%||%` <- function(a, b) if (is.null(a) || length(a) == 0 || is.na(a[1])) b else a
 
-MAILTO   <- "lukas.wallrich@gmail.com"
+MAILTO   <- CONTACT_EMAIL   # from pipeline.conf, via R/0_config.R
 OA_KEY   <- Sys.getenv("OPENALEX_API_KEY", "")
 DATA     <- "data"
 have_stringi <- requireNamespace("stringi", quietly = TRUE)
@@ -87,7 +87,7 @@ META_COLS <- c("doi", "journal", "issn", "sjr", "top_factor",
 # =============================================================================
 norm_doi <- function(x) {
   x |>
-    sub("^https?://(dx\\.)?doi\\.org/", "", x = _) |>
+    sub("(?i)^(?:https?://)?(?:dx\\.)?doi\\.org/", "", x = _, perl = TRUE) |>
     sub("(?i)^doi:\\s*", "", x = _, perl = TRUE) |>
     trimws() |>
     tolower()
@@ -361,6 +361,11 @@ manual_funding_category <- function(x, pilot) {
   if (tolower(x) == "test") return(NA_character_)
   if (pilot == "pilot2") {
     if (x == "") return(NA_character_)                 # uncoded
+    # Preserve this recorded Pilot 2 positive response (Lukas, 19 Nov 2026).
+    # This maps the historical manual answer; it does not change automated
+    # extraction or treat CRediT roles as research-funding disclosures.
+    if (x == "Only the ‘Funding acquisition’ role is indicated in the CRediT taxonomy.")
+      return("funded")
     # Order matters: "No, there is no funding statement." contains "no funding",
     # so test the leading "No" (= no statement) FIRST.
     if (grepl("^No\\b", x, ignore.case = TRUE)) return("no statement")

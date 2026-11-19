@@ -25,7 +25,7 @@ auto <- read_csv("data/final_extraction_pilot1-and-pilot2.csv", show_col_types =
 
 combined <- manual |> left_join(auto, by = "doi")
 
-out <- "data/manual-and-auto-combined_2026-07-01.csv"
+out <- "data/manual-and-auto-combined.csv"
 write_csv(combined, out)
 message(sprintf("Wrote %s: %d rows (%d matched to auto), %d columns",
                 out, nrow(combined), sum(combined$doi %in% auto$doi), ncol(combined)))

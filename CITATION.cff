@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "Pilot Meta-Extractor: metadata extraction and COI detection for the Piloting Assessment Registered Report"
+authors:
+  - family-names: Wallrich
+    given-names: Lukas
+    affiliation: "Birkbeck, University of London"
+    orcid: "https://orcid.org/0000-0003-2121-5177"
+  - family-names: Pit
+    given-names: Ilse L.
+    affiliation: "Max Planck Institute for Human Development"
+    orcid: "https://orcid.org/0000-0002-4066-8086"
+license: CC-BY-4.0
+repository-code: "https://github.com/LukasWallrich/pilot_meta_extracter"
+doi: 10.5281/zenodo.24262974
+keywords:
+  - pilot studies
+  - meta-research
+  - conflict of interest
+  - funding disclosures
+  - preregistration
+  - metadata extraction
+  - GROBID
